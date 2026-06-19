@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kennzahlen — Investorenbereich · LebensZeit gGmbH</title>
+<meta name="description" content="Investorenbereich der LebensZeit gGmbH — vertraulich. Kennzahlen, Markt, SWOT, Finanzierung. Fiktives Schulungsprojekt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     MASTERTEMPLATE · LebensZeit gGmbH
+     Zentrales Stylesheet — gilt fuer alle Seiten.
+     Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
+     ============================================================ -->
+<style>
+:root {
+  /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
+  --cream:    #F5F0E8;
+  --cream2:   #EDE7D9;
+  --cream3:   #E2D9C8;
+  --parchment:#D6CCBA;
+  --green:    #4A6741;
+  --green2:   #3A5233;
+  --green3:   #2C3D27;
+  --mint:     #A8C9A0;
+  --sage:     #8AAC85;
+  --amber:    #B07A2A;
+  --text:     #2A2820;
+  --text2:    #5A5648;
+  --text3:    #8A8478;
+  --border:   rgba(74,103,65,0.18);
+  --r:        14px;
+  --maxw:     1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--green3); line-height: 1.15; }
+
+a { color: var(--green); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--green2); }
+
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+/* ---- Sichtbarer Fokus (Barrierefreiheit) ---- */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   LOGO — Horizontales Lockup, faerbt sich ueber currentColor.
+   Regel: niemals weiss. Heller HG -> dunkles Logo, dunkler HG -> helles.
+   ============================================================ */
+.logo-lockup { display: inline-flex; align-items: center; gap: 12px; color: var(--green); }
+.logo-lockup .sym { width: 38px; height: 38px; flex-shrink: 0; }
+.logo-lockup .txt { display: flex; flex-direction: column; line-height: 1; }
+.logo-lockup .name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px; letter-spacing: 2px; color: currentColor;
+}
+.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .7; }
+.logo-lockup .tag {
+  font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: currentColor; opacity: .65; margin-top: 4px;
+}
+
+/* ============================================================
+   HEADER / NAVIGATION
+   ============================================================ */
+header.site {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,240,232,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a {
+  font-size: 14px; color: var(--text2); font-weight: 400;
+  letter-spacing: .3px; position: relative; padding: 4px 0;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
+  background: var(--green); transition: width .2s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.nav-cta::after { display: none; }
+.nav-cta {
+  background: var(--green); color: var(--cream) !important;
+  padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap;
+  letter-spacing: .3px; transition: background .15s, transform .15s;
+}
+.nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.nav-cta.secondary { background: transparent; color: var(--green) !important; border: 1px solid var(--green); }
+.nav-cta.secondary:hover { background: var(--green); color: var(--cream) !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--green); padding: 6px; }
+.nav-toggle svg { width: 26px; height: 26px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { position: relative; overflow: hidden; padding: 96px 0 88px; }
+.hero::before {
+  content: ''; position: absolute; right: -120px; top: -80px;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(168,201,160,.28), transparent 68%);
+  pointer-events: none;
+}
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+.eyebrow {
+  font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 18px; font-weight: 500;
+}
+.hero h1 { font-size: clamp(40px, 6vw, 66px); margin-bottom: 22px; }
+.hero h1 em { font-style: italic; color: var(--green); }
+.hero p.lead { font-size: 18px; color: var(--text2); font-weight: 300; max-width: 30em; margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 26px; border-radius: 40px; font-size: 15px;
+  letter-spacing: .3px; transition: all .15s; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--green); color: var(--cream) !important; }
+.btn-primary:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--green) !important; border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--cream2); border-color: var(--green); }
+
+.hero-art { display: flex; justify-content: center; }
+.hero-art svg { width: 100%; max-width: 380px; height: auto; }
+
+/* ---- Vertrauensleiste ---- */
+.trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
+.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-item { display: flex; flex-direction: column; }
+.trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
+.trust-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .5px; }
+
+/* ============================================================
+   SECTION-HELFER
+   ============================================================ */
+section.block { padding: 80px 0; }
+.section-head { max-width: 38em; margin-bottom: 44px; }
+.section-head .eyebrow { margin-bottom: 12px; }
+.section-head h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 12px; }
+.section-head p { color: var(--text2); font-weight: 300; font-size: 16px; }
+
+/* ---- Leistungs-Karten ---- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.card {
+  background: #fff; border: 0.5px solid var(--border); border-radius: var(--r);
+  padding: 28px 24px; transition: transform .18s, box-shadow .18s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(44,61,39,.08); }
+.card .ico { width: 40px; height: 40px; color: var(--green); margin-bottom: 16px; }
+.card h3 { font-size: 23px; margin-bottom: 8px; }
+.card p { font-size: 14px; color: var(--text2); font-weight: 300; }
+
+/* ---- CTA-Band ---- */
+.cta-band { background: var(--green); color: var(--cream); border-radius: var(--r); padding: 52px 48px; text-align: center; }
+.cta-band h2 { color: var(--cream); font-size: 38px; margin-bottom: 12px; }
+.cta-band p { color: rgba(245,240,232,.82); font-weight: 300; margin-bottom: 26px; }
+.cta-band .btn-primary { background: var(--cream); color: var(--green3) !important; }
+.cta-band .btn-primary:hover { background: #fff; }
+
+/* ============================================================
+   FOOTER — dunkelgruen, Logo wird mintgruen
+   ============================================================ */
+footer.site { background: var(--green3); color: rgba(245,240,232,.7); padding: 64px 0 28px; }
+footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+.footer-grid p { font-size: 13px; font-weight: 300; max-width: 24em; }
+.footer-col h4 {
+  font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--sage); margin-bottom: 16px; font-weight: 500;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: rgba(245,240,232,.7); font-size: 14px; font-weight: 300; }
+.footer-col a:hover { color: var(--mint); }
+.footer-bottom {
+  border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size: 12px; color: rgba(245,240,232,.5);
+}
+.footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .hero-art { order: -1; }
+  .hero-art svg { max-width: 280px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links {
+    position: absolute; top: 76px; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start; gap: 0;
+    background: var(--cream); border-bottom: 0.5px solid var(--border);
+    padding: 8px 32px 20px; display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; padding: 12px 0; width: 100%; }
+  .nav-links .nav-cta { margin-top: 8px; text-align: center; }
+  .nav-toggle { display: block; }
+}
+@media (max-width: 520px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .trust-row { gap: 18px; }
+  .trust-item { flex: 1 1 40%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ============================================================
+   INVESTORENBEREICH · gemeinsame Komponenten
+   ============================================================ */
+.conf-bar {
+  background: var(--green3); color: var(--mint);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  text-align: center; padding: 7px 16px;
+}
+
+/* ---- Mock-Login-Gate ---- */
+.gate {
+  position: fixed; inset: 0; z-index: 200;
+  background: linear-gradient(135deg, #2C3D27, #4A6741);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.gate.hidden { display: none; }
+.gate-card {
+  background: var(--cream); border-radius: 18px; padding: 44px 40px;
+  width: 100%; max-width: 420px; box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  text-align: center;
+}
+.gate-card .logo-lockup { color: var(--green); justify-content: center; margin-bottom: 8px; }
+.gate-card h1 { font-size: 30px; margin: 16px 0 6px; }
+.gate-card .gate-sub { font-size: 14px; color: var(--text2); font-weight: 300; margin-bottom: 26px; }
+.gate-field { text-align: left; margin-bottom: 16px; }
+.gate-field label { display: block; font-size: 12px; letter-spacing: .5px; color: var(--text2); margin-bottom: 6px; }
+.gate-field input {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+  background: #fff; font-family: 'Jost', sans-serif; font-size: 15px; color: var(--text);
+}
+.gate-field input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; border-color: var(--green); }
+.gate .btn { width: 100%; justify-content: center; margin-top: 6px; }
+.gate-demo {
+  margin-top: 20px; font-size: 12px; color: var(--text2); font-weight: 300;
+  background: #FBF4E6; border: 1px solid var(--amber); border-radius: 10px; padding: 10px 14px;
+}
+.gate-err { color: #A23; font-size: 13px; min-height: 18px; margin-top: 4px; }
+
+/* ---- Portal-Hero ---- */
+.inv-hero { padding: 64px 0 36px; }
+.inv-hero .eyebrow { margin-bottom: 14px; }
+.inv-hero h1 { font-size: clamp(34px, 5vw, 56px); margin-bottom: 16px; }
+.inv-hero h1 em { font-style: italic; color: var(--green); }
+.inv-hero .lead { font-size: 18px; color: var(--text2); font-weight: 300; max-width: 40em; }
+
+/* ---- KPI-Schnellleiste ---- */
+.kpi-strip { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 28px 0; }
+.kpi-item { display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; }
+.kpi-item .num { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--green); line-height: 1; }
+.kpi-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .4px; }
+
+/* ---- Sektion-Karten ---- */
+.sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.sec-card {
+  display: flex; flex-direction: column; background: #fff; border: 0.5px solid var(--border);
+  border-radius: var(--r); padding: 28px 26px; transition: transform .18s, box-shadow .18s; height: 100%;
+}
+.sec-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(44,61,39,.10); }
+.sec-card .sec-ix { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--sage); }
+.sec-card h3 { font-size: 24px; margin: 6px 0 8px; }
+.sec-card p { font-size: 14px; color: var(--text2); font-weight: 300; flex-grow: 1; margin-bottom: 16px; }
+.sec-card .go { font-size: 14px; color: var(--green); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.sec-card:hover .go { gap: 10px; }
+
+/* ---- KPI-Tabelle / Benchmark (Kennzahlen-Seite) ---- */
+.bench { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.bench th, .bench td { text-align: left; padding: 12px 14px; font-size: 14px; border-bottom: 0.5px solid var(--border); }
+.bench th { font-family: 'Jost', sans-serif; font-weight: 500; color: var(--text2); font-size: 12px; letter-spacing: .5px; text-transform: uppercase; }
+.bench td:first-child { color: var(--text); }
+.bench .val { font-weight: 500; color: var(--green3); }
+.bench .flag-ok { color: var(--green); font-size: 12px; }
+.bench .flag-warn { color: var(--amber); font-size: 12px; }
+.bench tr:hover td { background: var(--cream2); }
+
+/* ---- Umsatzstruktur-Balken ---- */
+.rev { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.rev-row { display: grid; grid-template-columns: 180px 1fr 64px; align-items: center; gap: 14px; }
+.rev-row .rl { font-size: 14px; color: var(--text); }
+.rev-bar { height: 22px; border-radius: 6px; background: var(--green); }
+.rev-row .rv { font-size: 14px; color: var(--text2); text-align: right; font-variant-numeric: tabular-nums; }
+.rev-note { font-size: 13px; color: var(--text2); font-weight: 300; margin-top: 14px; padding: 12px 16px; background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--sage); }
+
+.tbd { display:inline-block; background:#FBF4E6; border:1px dashed var(--amber); color:#6B4A12;
+       font-size:11px; letter-spacing:.3px; padding:1px 8px; border-radius:10px; }
+
+@media (max-width: 1024px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .rev-row { grid-template-columns: 120px 1fr 56px; }
+}
+@media (max-width: 520px) {
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* ============================================================
+   INVESTOREN-THEME · wertiger, dunkler, markenverwandt
+   ============================================================ */
+.inv-theme header.site { background: var(--green3); border-bottom: 1px solid rgba(168,201,160,.18); backdrop-filter: none; }
+.inv-theme header .logo-lockup { color: var(--mint); }
+.inv-theme .nav-links a { color: rgba(245,240,232,.82); }
+.inv-theme .nav-links a:hover { color: var(--mint); }
+.inv-theme .nav-links a::after { background: var(--mint); }
+.inv-theme .nav-links a[aria-current="page"] { color: var(--mint) !important; }
+.inv-theme .nav-cta.secondary { color: var(--mint) !important; border-color: rgba(168,201,160,.5); }
+.inv-theme .nav-cta.secondary:hover { background: var(--mint); color: var(--green3) !important; }
+.inv-theme .nav-toggle { color: var(--mint); }
+
+/* Hero dunkel + Gold-Akzent */
+.inv-theme .inv-hero {
+  background: linear-gradient(135deg, #243120 0%, var(--green) 145%);
+  color: var(--cream); position: relative; overflow: hidden;
+}
+.inv-theme .inv-hero::after {
+  content:''; position:absolute; right:-140px; top:-90px; width:460px; height:460px; border-radius:50%;
+  background: radial-gradient(circle, rgba(168,201,160,.16), transparent 68%); pointer-events:none;
+}
+.inv-theme .inv-hero .eyebrow { color: var(--amber); }
+.inv-theme .inv-hero h1 { color: var(--cream); }
+.inv-theme .inv-hero h1 em { color: var(--mint); }
+.inv-theme .inv-hero .lead { color: rgba(245,240,232,.82); }
+
+/* KPI-Band dunkel — Bruecke unter dem Hero */
+.inv-theme .kpi-strip { background: var(--green3); border-color: rgba(168,201,160,.18); }
+.inv-theme .kpi-item .num { color: var(--mint); }
+.inv-theme .kpi-item .lbl { color: rgba(245,240,232,.62); }
+
+/* Content-Akzent: Amber statt Sage */
+.inv-theme section.block .section-head .eyebrow { color: var(--amber); }
+
+/* Sektion-Karten: feine Gold-Oberkante */
+.inv-theme .sec-card { border-top: 2px solid var(--amber); }
+
+/* CTA-Band dunkler */
+.inv-theme .cta-band { background: var(--green3); }
+
+/* Mobile-Dropdown dunkel */
+@media (max-width: 1024px) {
+  .inv-theme .nav-links { background: var(--green3); border-bottom-color: rgba(168,201,160,.18); }
+}
+
+
+/* Fiktiv-Laufband (oben) */
+.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
+.fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
+@keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+</style>
+</head>
+<body class="inv-theme">
+<!-- FIKTIV-LAUFBAND (ganz oben) -->
+<div class="fiktiv-marquee" role="note" aria-label="Hinweis: Fiktives Unternehmen, nur zu Schulungszwecken">
+  <div class="track"><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span></div>
+</div>
+
+<div class="conf-bar">Vertraulich · Investorenbereich · Fiktives Schulungsprojekt</div>
+
+<!-- ============================================================
+     HEADER — auf allen Seiten identisch
+     ============================================================ -->
+<header class="site">
+  <div class="wrap nav-bar">
+    <a href="investoren.html" class="logo-lockup" aria-label="LebensZeit Investorenbereich">
+      <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
+      <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+        <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="79" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="68" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="32" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="21" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+        <line x1="50" y1="20" x2="79" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="79" y1="41" x2="68" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="68" y1="75" x2="32" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="32" y1="75" x2="21" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="21" y1="41" x2="50" y2="20" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="50" cy="50" r="6" fill="currentColor"/>
+        <path d="M50 38 Q56 31 50 24 Q44 31 50 38Z" fill="currentColor" opacity="0.7"/>
+      </svg>
+      <span class="txt">
+        <span class="name">LebensZeit <sup>gGmbH</sup></span>
+        <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleNav(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="investoren.html">Übersicht</a></li>
+      <li><a href="investoren-kennzahlen.html" aria-current="page" style="color:var(--green);">Kennzahlen</a></li>
+      <li><a href="investoren-markt.html">Markt &amp; Wettbewerb</a></li>
+      <li><a href="investoren-swot.html">SWOT</a></li>
+      <li><a href="investoren-finanzierung.html">Finanzierung</a></li>
+      <li><a href="investoren-kontakt.html">IR-Kontakt</a></li>
+      <li><a href="investoren.html" class="nav-cta secondary" onclick="logout(event)">Abmelden</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN — pro Seite austauschbar. Hier: oeffentliche Startseite.
+     ============================================================ -->
+<!-- ============================================================
+     MAIN — Investoren · Kennzahlen
+     ============================================================ -->
+<main>
+
+  <section class="inv-hero" style="padding-bottom:24px;">
+    <div class="wrap">
+      <p class="eyebrow">Baustein 01 · Kennzahlen</p>
+      <h1>Solide Basis, <em>klarer Hebel</em>.</h1>
+      <p class="lead">Umsatz über Branchenschnitt, Versorgungstiefe ohne Vergleich in der Region — und zwei Kennzahlen, die wir bewusst offen adressieren: Förderabhängigkeit und offene Stellen.</p>
+    </div>
+  </section>
+
+  <!-- KPI-LEISTE -->
+  <div class="kpi-strip">
+    <div class="wrap kpi-row">
+      <div class="kpi-item"><span class="num">2,1 Mio €</span><span class="lbl">Jahresumsatz</span></div>
+      <div class="kpi-item"><span class="num">180</span><span class="lbl">aktiv betreute Pflegefälle</span></div>
+      <div class="kpi-item"><span class="num">~11.700 €</span><span class="lbl">Umsatz je Pflegefall p. a.</span></div>
+      <div class="kpi-item"><span class="num">101</span><span class="lbl">Team inkl. 45 Ehrenamtliche</span></div>
+    </div>
+  </div>
+
+  <!-- BENCHMARK -->
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Benchmark</p>
+        <h2>LebensZeit gegen den Branchenschnitt</h2>
+        <p>Gegenüberstellung der zentralen Kennzahlen mit dem Durchschnitt vergleichbarer ambulanter Pflegedienste.</p>
+      </div>
+
+      <table class="bench">
+        <thead>
+          <tr><th>Kennzahl</th><th>LebensZeit</th><th>Branche Ø</th><th>Bewertung</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jahresumsatz</td><td class="val">2,1 Mio €</td><td>1,5 Mio €</td><td class="flag-ok">über Schnitt</td></tr>
+          <tr><td>Umsatz je Pflegefall p. a.</td><td class="val">~11.700 €</td><td>Normbereich</td><td class="flag-ok">im Rahmen</td></tr>
+          <tr><td>Standorte / Flächendeckung</td><td class="val">5</td><td>1–2</td><td class="flag-ok">Alleinstellung</td></tr>
+          <tr><td>Eigenfinanzierungsquote</td><td class="val">62 %</td><td>75–80 %</td><td class="flag-warn">unter Ziel (70 %)</td></tr>
+          <tr><td>Förderanteil am Umsatz</td><td class="val">38 %</td><td>20–25 %</td><td class="flag-warn">kritisch hoch</td></tr>
+          <tr><td>Marktpenetration</td><td class="val">4,5 %</td><td>—</td><td class="flag-ok">Wachstumsreserve</td></tr>
+          <tr><td>Offene Fachkraftstellen</td><td class="val">8</td><td>—</td><td class="flag-warn">&gt; 6 Monate</td></tr>
+          <tr><td>Fördermitglieder</td><td class="val">520</td><td>—</td><td class="flag-ok">Community-Basis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- UMSATZSTRUKTUR -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Umsatzstruktur</p>
+        <h2>Woraus sich die 2,1 Mio € zusammensetzen</h2>
+        <p>Pflegeumsatz und Fördermittel sind bewusst getrennt ausgewiesen — sie sind nicht vergleichbar und werden in Marktvergleichen nicht vermischt.</p>
+      </div>
+
+      <div class="rev">
+        <div class="rev-row"><span class="rl">Pflegeleistungen (SGB XI/V)</span><span class="rev-bar" style="width:55%;"></span><span class="rv">55 %</span></div>
+        <div class="rev-row"><span class="rl">Fördermittel</span><span class="rev-bar" style="width:38%; background:var(--amber);"></span><span class="rv">38 %</span></div>
+        <div class="rev-row"><span class="rl">Entlastung (§ 45b)</span><span class="rev-bar" style="width:5%; background:var(--sage);"></span><span class="rv">5 %</span></div>
+        <div class="rev-row"><span class="rl">Mitgliedsbeiträge</span><span class="rev-bar" style="width:2%; background:var(--mint);"></span><span class="rv">2 %</span></div>
+      </div>
+      <p class="rev-note"><b>Strategische Lesart:</b> 62 % des Umsatzes sind eigenfinanziert (Pflege, Entlastung, Beiträge). Der Förderanteil von 38 % liegt deutlich über dem Branchenschnitt und ist der zentrale Hebel zur Risikoreduktion — Ziel ist eine Eigenfinanzierung von 70 %.</p>
+    </div>
+  </section>
+
+  <!-- WEITER -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Wie groß ist der Markt darunter?</h2>
+        <p>Adressierbares Volumen, Demografie und Wettbewerb im nächsten Baustein.</p>
+        <a href="investoren-markt.html" class="btn btn-primary">Weiter zu Markt &amp; Wettbewerb</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================================
+     FOOTER — auf allen Seiten identisch
+     ============================================================ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="logo-lockup">
+          <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="79" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="68" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="32" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="21" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+            <line x1="50" y1="20" x2="79" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="79" y1="41" x2="68" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="68" y1="75" x2="32" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="32" y1="75" x2="21" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="21" y1="41" x2="50" y2="20" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <circle cx="50" cy="50" r="6" fill="currentColor"/>
+            <path d="M50 38 Q56 31 50 24 Q44 31 50 38Z" fill="currentColor" opacity="0.7"/>
+          </svg>
+          <span class="txt">
+            <span class="name">LebensZeit <sup>gGmbH</sup></span>
+            <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+          </span>
+        </span>
+        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, im Quartier verwurzelt, digital vernetzt.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pflege</h4>
+        <ul>
+          <li><a href="leistungen.html">Leistungen</a></li>
+          <li><a href="pflegeberatung.html">Pflegeberatung</a></li>
+          <li><a href="preise.html">Preise &amp; Eigenanteil</a></li>
+          <li><a href="einzugsgebiet.html">Einzugsgebiet</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Zugänge</h4>
+        <ul>
+          <li><a href="investoren.html">Investoren</a></li>
+          <li><a href="partner.html">Partner &amp; Zuweiser</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="pflegeberatung.html">Kundenportal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="barrierefreiheit.html">Barrierefreiheit</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
+      <span class="values">nah · vernetzt · nachhaltig</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Mobile-Navigation */
+function toggleNav(btn) {
+  var links = document.getElementById('navLinks');
+  var open = links.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+</script>
+</body>
+</html>
