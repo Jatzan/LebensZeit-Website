@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über uns — LebensZeit gGmbH</title>
+<meta name="description" content="LebensZeit gGmbH — ambulante Pflege, nah, vernetzt und nachhaltig. Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft in NRW.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     MASTERTEMPLATE · LebensZeit gGmbH
+     Zentrales Stylesheet — gilt fuer alle Seiten.
+     Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
+     ============================================================ -->
+<style>
+:root {
+  /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
+  --cream:    #F5F0E8;
+  --cream2:   #EDE7D9;
+  --cream3:   #E2D9C8;
+  --parchment:#D6CCBA;
+  --green:    #4A6741;
+  --green2:   #3A5233;
+  --green3:   #2C3D27;
+  --mint:     #A8C9A0;
+  --sage:     #8AAC85;
+  --amber:    #B07A2A;
+  --text:     #2A2820;
+  --text2:    #5A5648;
+  --text3:    #8A8478;
+  --border:   rgba(74,103,65,0.18);
+  --r:        14px;
+  --maxw:     1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--green3); line-height: 1.15; }
+
+a { color: var(--green); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--green2); }
+
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+/* ---- Sichtbarer Fokus (Barrierefreiheit) ---- */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   LOGO — Horizontales Lockup, faerbt sich ueber currentColor.
+   Regel: niemals weiss. Heller HG -> dunkles Logo, dunkler HG -> helles.
+   ============================================================ */
+.logo-lockup { display: inline-flex; align-items: center; gap: 12px; color: var(--green); }
+.logo-lockup .sym { width: 38px; height: 38px; flex-shrink: 0; }
+.logo-lockup .txt { display: flex; flex-direction: column; line-height: 1; }
+.logo-lockup .name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px; letter-spacing: 2px; color: currentColor;
+}
+.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .7; }
+.logo-lockup .tag {
+  font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: currentColor; opacity: .65; margin-top: 4px;
+}
+
+/* ============================================================
+   HEADER / NAVIGATION
+   ============================================================ */
+header.site {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,240,232,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a {
+  font-size: 14px; color: var(--text2); font-weight: 400;
+  letter-spacing: .3px; position: relative; padding: 4px 0;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
+  background: var(--green); transition: width .2s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: var(--green); color: var(--cream) !important;
+  padding: 10px 20px; border-radius: 40px; font-size: 14px;
+  letter-spacing: .3px; transition: background .15s, transform .15s;
+}
+.nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.nav-cta.secondary { background: transparent; color: var(--green) !important; border: 1px solid var(--green); }
+.nav-cta.secondary:hover { background: var(--green); color: var(--cream) !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--green); padding: 6px; }
+.nav-toggle svg { width: 26px; height: 26px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { position: relative; overflow: hidden; padding: 96px 0 88px; }
+.hero::before {
+  content: ''; position: absolute; right: -120px; top: -80px;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(168,201,160,.28), transparent 68%);
+  pointer-events: none;
+}
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+.eyebrow {
+  font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 18px; font-weight: 500;
+}
+.hero h1 { font-size: clamp(40px, 6vw, 66px); margin-bottom: 22px; }
+.hero h1 em { font-style: italic; color: var(--green); }
+.hero p.lead { font-size: 18px; color: var(--text2); font-weight: 300; max-width: 30em; margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 26px; border-radius: 40px; font-size: 15px;
+  letter-spacing: .3px; transition: all .15s; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--green); color: var(--cream) !important; }
+.btn-primary:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--green) !important; border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--cream2); border-color: var(--green); }
+
+.hero-art { display: flex; justify-content: center; }
+.hero-art svg { width: 100%; max-width: 380px; height: auto; }
+
+/* ---- Vertrauensleiste ---- */
+.trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
+.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-item { display: flex; flex-direction: column; }
+.trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
+.trust-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .5px; }
+
+/* ============================================================
+   SECTION-HELFER
+   ============================================================ */
+section.block { padding: 80px 0; }
+.section-head { max-width: 38em; margin-bottom: 44px; }
+.section-head .eyebrow { margin-bottom: 12px; }
+.section-head h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 12px; }
+.section-head p { color: var(--text2); font-weight: 300; font-size: 16px; }
+
+/* ---- Leistungs-Karten ---- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.card {
+  background: #fff; border: 0.5px solid var(--border); border-radius: var(--r);
+  padding: 28px 24px; transition: transform .18s, box-shadow .18s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(44,61,39,.08); }
+.card .ico { width: 40px; height: 40px; color: var(--green); margin-bottom: 16px; }
+.card h3 { font-size: 23px; margin-bottom: 8px; }
+.card p { font-size: 14px; color: var(--text2); font-weight: 300; }
+
+/* ---- CTA-Band ---- */
+.cta-band { background: var(--green); color: var(--cream); border-radius: var(--r); padding: 52px 48px; text-align: center; }
+.cta-band h2 { color: var(--cream); font-size: 38px; margin-bottom: 12px; }
+.cta-band p { color: rgba(245,240,232,.82); font-weight: 300; margin-bottom: 26px; }
+.cta-band .btn-primary { background: var(--cream); color: var(--green3) !important; }
+.cta-band .btn-primary:hover { background: #fff; }
+
+/* ============================================================
+   FOOTER — dunkelgruen, Logo wird mintgruen
+   ============================================================ */
+footer.site { background: var(--green3); color: rgba(245,240,232,.7); padding: 64px 0 28px; }
+footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+.footer-grid p { font-size: 13px; font-weight: 300; max-width: 24em; }
+.footer-col h4 {
+  font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--sage); margin-bottom: 16px; font-weight: 500;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: rgba(245,240,232,.7); font-size: 14px; font-weight: 300; }
+.footer-col a:hover { color: var(--mint); }
+.footer-bottom {
+  border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size: 12px; color: rgba(245,240,232,.5);
+}
+.footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 880px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .hero-art { order: -1; }
+  .hero-art svg { max-width: 280px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links {
+    position: absolute; top: 76px; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start; gap: 0;
+    background: var(--cream); border-bottom: 0.5px solid var(--border);
+    padding: 8px 32px 20px; display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; padding: 12px 0; width: 100%; }
+  .nav-links .nav-cta { margin-top: 8px; text-align: center; }
+  .nav-toggle { display: block; }
+}
+@media (max-width: 520px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .trust-row { gap: 18px; }
+  .trust-item { flex: 1 1 40%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ============================================================
+   SEITENSPEZIFISCH · oeffentliche Unterseiten (gemeinsam)
+   ============================================================ */
+.page-hero { padding: 64px 0 36px; }
+.page-hero .eyebrow { margin-bottom: 14px; }
+.page-hero h1 { font-size: clamp(34px,5vw,56px); margin-bottom: 16px; }
+.page-hero h1 em { font-style: italic; color: var(--green); }
+.page-hero .lead { font-size: 18px; color: var(--text2); font-weight: 300; max-width: 42em; }
+
+/* Formular */
+.form-grid { display:grid; grid-template-columns: 1.05fr .95fr; gap:32px; align-items:start; }
+.form-card { background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:32px; }
+.form-card h3 { font-size:24px; margin-bottom:18px; }
+.f-field { margin-bottom:16px; }
+.f-field label { display:block; font-size:12px; letter-spacing:.5px; color:var(--text2); margin-bottom:6px; }
+.f-field input, .f-field select, .f-field textarea {
+  width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:10px;
+  background:var(--cream); font-family:'Jost',sans-serif; font-size:15px; color:var(--text); }
+.f-field input:focus-visible, .f-field select:focus-visible, .f-field textarea:focus-visible {
+  outline:2px solid var(--green); outline-offset:1px; border-color:var(--green); }
+.form-card .btn { width:100%; justify-content:center; margin-top:6px; }
+.form-ok { font-size:13px; color:var(--green); font-weight:300; margin-top:12px; min-height:18px; }
+.aside-list { list-style:none; display:flex; flex-direction:column; gap:18px; }
+.aside-list li { display:flex; gap:14px; }
+.aside-list .ix { flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--green); color:var(--cream);
+  display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:16px; }
+.aside-list strong { display:block; font-size:15px; color:var(--green3); }
+.aside-list span { font-size:13.5px; color:var(--text2); font-weight:300; }
+
+/* Tabellen (Preise) */
+.ptab { width:100%; border-collapse:collapse; }
+.ptab th, .ptab td { text-align:left; padding:13px 14px; font-size:14px; border-bottom:0.5px solid var(--border); }
+.ptab th { font-size:12px; letter-spacing:.5px; text-transform:uppercase; color:var(--text2); font-weight:500; }
+.ptab .val { font-weight:500; color:var(--green3); }
+.ptab tr:hover td { background:var(--cream2); }
+
+/* Standorte */
+.loc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+.loc-card { background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:24px; border-left:3px solid var(--green); }
+.loc-card.hq { border-left-color:var(--amber); }
+.loc-card h3 { font-size:22px; margin-bottom:4px; }
+.loc-card .role { font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--sage); font-weight:500; }
+.loc-card p { font-size:13.5px; color:var(--text2); font-weight:300; margin-top:8px; }
+
+/* Werte / Story */
+.values-row { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.value-box { background:var(--cream2); border-radius:var(--r); padding:26px; }
+.value-box h3 { font-size:24px; color:var(--green); margin-bottom:6px; }
+.value-box p { font-size:14px; color:var(--text2); font-weight:300; }
+.story { max-width:46em; }
+.story p { color:var(--text2); font-weight:300; margin-bottom:14px; font-size:16px; }
+
+@media (max-width:880px){ .form-grid{ grid-template-columns:1fr; } .values-row{ grid-template-columns:1fr; } }
+
+
+/* SEITENSPEZIFISCH · Über uns (erweitert) */
+.leitbild { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.lb-card { background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:26px; border-top:3px solid var(--green); }
+.lb-card .k { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--sage); font-weight:500; }
+.lb-card p { font-size:15px; color:var(--text); font-weight:300; margin-top:8px; line-height:1.55; }
+
+.timeline { position:relative; padding-left:30px; margin-top:8px; }
+.timeline::before { content:''; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:var(--border); }
+.tl-item { position:relative; padding-bottom:24px; }
+.tl-item:last-child { padding-bottom:0; }
+.tl-item::before { content:''; position:absolute; left:-30px; top:3px; width:16px; height:16px; border-radius:50%; background:var(--cream); border:3px solid var(--green); }
+.tl-item .yr { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--green); line-height:1; }
+.tl-item h4 { font-size:15px; color:var(--green3); font-weight:500; margin:3px 0 4px; }
+.tl-item p { font-size:14px; color:var(--text2); font-weight:300; }
+
+.lead-card { display:flex; gap:22px; background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:30px; align-items:flex-start; }
+.lead-card .av { width:72px; height:72px; border-radius:50%; background:var(--green); color:var(--cream); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:26px; flex-shrink:0; }
+.lead-card h3 { font-size:24px; margin-bottom:2px; }
+.lead-card .role { font-size:13px; color:var(--sage); font-weight:500; margin-bottom:10px; }
+.lead-card p { font-size:14px; color:var(--text2); font-weight:300; max-width:48em; }
+
+.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:24px; }
+.stat-box { background:var(--cream2); border-radius:var(--r); padding:22px; text-align:left; }
+.stat-box .n { font-family:'Cormorant Garamond',serif; font-size:36px; color:var(--green); line-height:1; }
+.stat-box .l { font-size:12px; color:var(--text3); margin-top:4px; display:block; }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+.two-col h3 { font-size:26px; margin-bottom:10px; }
+.two-col p { color:var(--text2); font-weight:300; font-size:15px; margin-bottom:12px; }
+.two-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.two-col li { position:relative; padding-left:20px; font-size:14px; color:var(--text); }
+.two-col li::before { content:''; position:absolute; left:0; top:8px; width:7px; height:7px; border-radius:50%; background:var(--sage); }
+
+@media (max-width:880px){ .leitbild{grid-template-columns:1fr;} .stat-row{grid-template-columns:1fr 1fr;} .two-col{grid-template-columns:1fr;} .lead-card{flex-direction:column;} }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER — auf allen Seiten identisch
+     ============================================================ -->
+<header class="site">
+  <div class="wrap nav-bar">
+    <a href="index.html" class="logo-lockup" aria-label="LebensZeit gGmbH Startseite">
+      <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
+      <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+        <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="79" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="68" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="32" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+        <circle cx="21" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+        <line x1="50" y1="20" x2="79" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="79" y1="41" x2="68" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="68" y1="75" x2="32" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="32" y1="75" x2="21" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="21" y1="41" x2="50" y2="20" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="50" cy="50" r="6" fill="currentColor"/>
+        <path d="M50 38 Q56 31 50 24 Q44 31 50 38Z" fill="currentColor" opacity="0.7"/>
+      </svg>
+      <span class="txt">
+        <span class="name">LebensZeit <sup>gGmbH</sup></span>
+        <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleNav(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="leistungen.html">Leistungen</a></li>
+      <li><a href="ueber-uns.html" aria-current="page" style="color:var(--green);">Über uns</a></li>
+      <li><a href="einzugsgebiet.html">Einzugsgebiet</a></li>
+      <li><a href="preise.html">Preise</a></li>
+      <li><a href="aktuelles.html">Aktuelles</a></li>
+      <li><a href="mitgliedschaft.html" class="nav-cta secondary">Mitglied werden</a></li>
+      <li><a href="pflegeberatung.html" class="nav-cta">Pflegeberatung anfragen</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN — pro Seite austauschbar. Hier: oeffentliche Startseite.
+     ============================================================ -->
+<!-- MAIN — Über uns (erweitert) -->
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Über uns</p>
+      <h1>Pflege, die eine <em>Gemeinschaft</em> trägt.</h1>
+      <p class="lead">LebensZeit verbindet professionelle ambulante Pflege, ehrenamtliche Nachbarschaftshilfe und eine tragende Mitgliedergemeinschaft — ein Versorgungsnetz, das kein Wettbewerber im Kreis Soest in dieser Tiefe erreicht.</p>
+    </div>
+  </section>
+
+  <!-- LEITBILD -->
+  <section class="block" style="padding-top:24px;">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Unser Leitbild</p><h2>Wofür wir stehen</h2></div>
+      <div class="leitbild">
+        <div class="lb-card"><span class="k">Purpose · Warum</span><p>Damit Menschen im ländlichen Kreis Soest würdevoll und selbstbestimmt im eigenen Zuhause alt werden können — getragen von einer Gemeinschaft statt von anonymer Versorgung.</p></div>
+        <div class="lb-card"><span class="k">Vision · Wohin</span><p>Vom vertrauensbasierten Nischenanbieter zum wirtschaftlich eigenständigen, digital vernetzten Pflege-Ökosystem im ländlichen NRW.</p></div>
+        <div class="lb-card"><span class="k">Mission · Wie</span><p>Wir verbinden Pflege, Ehrenamt und Mitgliedergemeinschaft zu einem engmaschigen Versorgungsnetz, das Nähe mit fachlicher Verlässlichkeit verbindet.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GESCHICHTE + TIMELINE -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Unsere Geschichte</p><h2>Vom Nischenanbieter zum Pflege-Ökosystem</h2></div>
+      <div class="two-col">
+        <div class="story">
+          <p>LebensZeit wurde 2020 mit Hauptsitz in Erwitte gegründet — aus der Überzeugung, dass gute Pflege im ländlichen Raum nur dann gelingt, wenn sie nah, persönlich und gut vernetzt ist.</p>
+          <p>In fünf Jahren ist daraus der einzige flächendeckende ambulante Pflegedienst im Kreis Soest geworden: fünf Standorte, an denen Menschen nicht nur versorgt, sondern gekannt werden. Unter der Leitung von Gründerin und Geschäftsführerin Dr. Maria Holthaus wuchs ein Netz aus 56 Mitarbeitenden, 45 Ehrenamtlichen und 520 Mitgliedern.</p>
+          <p>Dieses gewachsene Vertrauen ist unser wertvollstes Gut — und die Basis für den nächsten Schritt: ein wirtschaftlich eigenständiges, digital vernetztes Versorgungsnetz, das auch in einer alternden Region Bestand hat.</p>
+        </div>
+        <div class="timeline">
+          <div class="tl-item"><span class="yr">2020</span><h4>Gründung in Erwitte</h4><p>Start als gemeinnützige gGmbH mit dem ersten Standort und einem kleinen Pflegeteam.</p></div>
+          <div class="tl-item"><span class="yr">2021–2022</span><h4>Wachstum in die Fläche</h4><p>Aufbau weiterer Standorte und des ehrenamtlichen Nachbarschaftsnetzes.</p></div>
+          <div class="tl-item"><span class="yr">2023</span><h4>Mitgliedschaftsmodell</h4><p>Einführung der Fördermitgliedschaft (Basis / Aktiv / Premium) als tragende Säule.</p></div>
+          <div class="tl-item"><span class="yr">2024–2025</span><h4>Fünf Standorte erreicht</h4><p>Flächendeckung im Kreis Soest mit 520 Mitgliedern und 180 betreuten Pflegefällen.</p></div>
+          <div class="tl-item"><span class="yr">2026 →</span><h4>Digitale Vernetzung</h4><p>Stoßrichtung „Digital als Hebel": Pflegedokumentation, Angehörigen-Plattform, digitales Recruiting.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DREI SÄULEN -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Drei Säulen</p><h2>Worauf LebensZeit ruht</h2></div>
+      <div class="cards">
+        <div class="card"><h3>Ambulante Pflege</h3><p>Fachlich verlässliche Versorgung zu Hause — Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft, abgestimmt auf jeden Pflegegrad.</p></div>
+        <div class="card"><h3>Nachbarschaftshilfe</h3><p>45 Ehrenamtliche bringen Zeit, Gesellschaft und Quartiersnähe — ein Kostenvorteil und ein Alleinstellungsmerkmal zugleich, das kein Wettbewerber kurzfristig kopiert.</p></div>
+        <div class="card"><h3>Mitgliedergemeinschaft</h3><p>520 Mitglieder tragen die Idee mit, schaffen planbare Einnahmen und machen LebensZeit unabhängiger von Fördergeldern.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM & FÜHRUNG -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Team &amp; Führung</p><h2>Menschen hinter der Pflege</h2></div>
+      <div class="lead-card">
+        <div class="av" aria-hidden="true">MH</div>
+        <div>
+          <h3>Dr. Maria Holthaus</h3>
+          <p class="role">Gründerin &amp; Geschäftsführerin</p>
+          <p>Hat LebensZeit 2020 gegründet und in fünf Jahren zum einzigen flächendeckenden ambulanten Pflegedienst im Kreis Soest aufgebaut. Ihr Anspruch: Pflege, die wirtschaftlich tragfähig ist, ohne ihre Menschlichkeit zu verlieren.</p>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box"><span class="n">56</span><span class="l">Mitarbeitende</span></div>
+        <div class="stat-box"><span class="n">25</span><span class="l">examinierte Pflegekräfte</span></div>
+        <div class="stat-box"><span class="n">45</span><span class="l">Ehrenamtliche</span></div>
+        <div class="stat-box"><span class="n">6</span><span class="l">Auszubildende</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALITÄT & DIGITALISIERUNG -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Qualität &amp; Digitalisierung</p><h2>Verlässlich im Alltag, modern im Hintergrund</h2></div>
+      <div class="two-col">
+        <div>
+          <h3>Qualität</h3>
+          <p>Pflege nach anerkannten Standards, dokumentiert und nachvollziehbar — getragen von einem festen Stamm examinierter Fachkräfte und einer eigenen Pflegedienstleitung.</p>
+          <ul>
+            <li>Feste Bezugspflege statt wechselnder Gesichter</li>
+            <li>18 Fahrzeuge für verlässliche Tourenabdeckung</li>
+            <li>Eigene Ausbildung als Investition in die Zukunft</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Digitalisierung</h3>
+          <p>Die digitale Pflegedokumentation (MediFox DAN) ist die Basis — der Ausbau zu Angehörigen-Plattform und digitalem Recruiting ist die strategische Stoßrichtung der kommenden Jahre.</p>
+          <ul>
+            <li>Digitale Pflegedokumentation im Einsatz</li>
+            <li>Angehörigen-App als nächster Schritt</li>
+            <li>Weniger Verwaltungszeit, mehr Zeit am Menschen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WERTE -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Unsere Werte</p><h2>nah · vernetzt · nachhaltig</h2></div>
+      <div class="values-row">
+        <div class="value-box"><h3>nah</h3><p>Fünf Standorte, persönliche Bindung, kurze Wege. Pflege, die das Gesicht ihrer Pflegekraft kennt.</p></div>
+        <div class="value-box"><h3>vernetzt</h3><p>Pflege, Ehrenamt, Mitglieder und digitale Werkzeuge greifen ineinander — kein Baustein steht für sich.</p></div>
+        <div class="value-box"><h3>nachhaltig</h3><p>Gemeinnützig, wirtschaftlich eigenständig, auf Dauer im Quartier verankert.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEMEINNÜTZIGKEIT -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="info-panel" style="display:flex;align-items:center;justify-content:space-between;gap:32px;background:#fff;border:0.5px solid var(--border);border-radius:var(--r);padding:36px 40px;">
+        <div>
+          <h3 style="font-size:28px;margin-bottom:8px;">Warum gemeinnützig?</h3>
+          <p style="color:var(--text2);font-weight:300;max-width:46em;">Als gGmbH fließen Überschüsse zurück in die Versorgung — nicht in private Gewinne. Das macht LebensZeit förderfähig, glaubwürdig und langfristig orientiert. Über die Verwendung der Mittel legen wir transparent Rechenschaft ab.</p>
+        </div>
+        <a href="mitgliedschaft.html" class="btn btn-primary" style="flex-shrink:0;">Gemeinschaft unterstützen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0;">
+    <div class="wrap"><div class="cta-band">
+      <h2>Lernen Sie uns kennen.</h2>
+      <p>In einem kostenlosen Erstgespräch — oder an einem unserer Begegnungsorte.</p>
+      <a href="pflegeberatung.html" class="btn btn-primary">Pflegeberatung anfragen</a>
+    </div></div>
+  </section>
+</main>
+
+
+<!-- ============================================================
+     FOOTER — auf allen Seiten identisch
+     ============================================================ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <span class="logo-lockup">
+          <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="79" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="68" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="32" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+            <circle cx="21" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+            <line x1="50" y1="20" x2="79" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="79" y1="41" x2="68" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="68" y1="75" x2="32" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="32" y1="75" x2="21" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <line x1="21" y1="41" x2="50" y2="20" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+            <circle cx="50" cy="50" r="6" fill="currentColor"/>
+            <path d="M50 38 Q56 31 50 24 Q44 31 50 38Z" fill="currentColor" opacity="0.7"/>
+          </svg>
+          <span class="txt">
+            <span class="name">LebensZeit <sup>gGmbH</sup></span>
+            <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+          </span>
+        </span>
+        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, im Quartier verwurzelt, digital vernetzt.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pflege</h4>
+        <ul>
+          <li><a href="leistungen.html">Leistungen</a></li>
+          <li><a href="pflegeberatung.html">Pflegeberatung</a></li>
+          <li><a href="preise.html">Preise &amp; Eigenanteil</a></li>
+          <li><a href="einzugsgebiet.html">Einzugsgebiet</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Zugänge</h4>
+        <ul>
+          <li><a href="https://investoren.lebenszeit-ggmbh.de">Investoren</a></li>
+          <li><a href="https://partner.lebenszeit-ggmbh.de">Partner &amp; Zuweiser</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="https://kunden.lebenszeit-ggmbh.de">Kundenportal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="barrierefreiheit.html">Barrierefreiheit</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
+      <span class="values">nah · vernetzt · nachhaltig</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Mobile-Navigation */
+function toggleNav(btn) {
+  var links = document.getElementById('navLinks');
+  var open = links.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+</script>
+</body>
+</html>
