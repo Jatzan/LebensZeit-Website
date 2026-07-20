@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint-Übersicht — LebensZeit gGmbH</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3C/g%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#151c17; --panel:#1e2921; --panel2:#243128; --line:#33443a;
+  --text:#dfe7dc; --dim:#93a493; --mint:#A8C9A0; --sage:#8AAC85; --green:#4A6741; --amber:#C99A2E; --red:#C0603A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--mint);text-decoration:none}
+.serif{font-family:Georgia,serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+
+/* Header */
+header{background:#121812;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.hbar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--mint)}
+.brand svg{width:30px;height:30px}
+.brand b{font-family:Georgia,serif;font-size:18px;letter-spacing:1px;color:var(--mint);font-weight:400}
+.brand small{display:block;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.hlinks{display:flex;gap:14px;font-size:13px}
+.hlinks a{color:var(--dim)} .hlinks a:hover{color:var(--mint)}
+
+/* Title */
+.title{padding:26px 0 6px}
+.title h1{font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;font-weight:500}
+.title p{color:var(--dim);font-size:14px;margin-top:2px}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:16px 0 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:30px;padding:9px 16px;font-size:13.5px;cursor:pointer;font-family:inherit;white-space:nowrap;display:flex;align-items:center;gap:8px;transition:all .12s}
+.tab:hover{border-color:var(--sage);color:var(--text)}
+.tab.on{background:var(--mint);color:#16201a;border-color:var(--mint);font-weight:500}
+.tab .dot{width:8px;height:8px;border-radius:50%}
+.tab .dot.done{background:#4A8A54} .tab .dot.active{background:var(--amber)} .tab .dot.plan{background:var(--dim)}
+.tab.on .dot.active{background:#7a5e12}
+
+/* Panels */
+.panel{display:none;padding:20px 0 60px}
+.panel.on{display:block}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.badge{font-size:12px;border-radius:20px;padding:5px 12px;letter-spacing:.3px}
+.badge.done{background:rgba(74,138,84,.18);color:#7fc389;border:1px solid rgba(74,138,84,.4)}
+.badge.active{background:rgba(201,154,46,.15);color:var(--amber);border:1px solid rgba(201,154,46,.4)}
+.badge.plan{background:rgba(147,164,147,.12);color:var(--dim);border:1px solid var(--line)}
+.badge.date{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+
+.lead{font-size:17px;color:#eaf0e8;font-weight:300;margin-bottom:8px}
+.hl{background:var(--panel);border-left:3px solid var(--sage);border-radius:8px;padding:14px 16px;margin:14px 0;color:var(--text);font-weight:300}
+.hl b{color:var(--mint);font-weight:500}
+
+h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin:28px 0 12px;font-weight:500}
+
+/* Baustein-Karten */
+.bst{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px;margin-bottom:12px}
+.bst .no{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--sage)}
+.bst h3{font-size:19px;color:#fff;font-weight:500;margin:2px 0 8px}
+.bst p{font-size:14.5px;color:var(--text);font-weight:300;margin-bottom:8px}
+.bst ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.bst li{position:relative;padding-left:18px;font-size:14px;color:var(--text);font-weight:300}
+.bst li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--sage)}
+.req{margin-top:10px;font-size:13.5px;color:var(--mint);background:rgba(168,201,160,.08);border-radius:8px;padding:8px 12px}
+.req b{color:#fff}
+
+/* Listen */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.checklist li{position:relative;padding-left:26px;font-size:14.5px;color:var(--text);font-weight:300}
+.checklist li::before{content:'✓';position:absolute;left:0;top:0;color:var(--sage);font-size:14px}
+
+/* Kriterien-Grid */
+.crit{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px}
+.crit div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--text);font-weight:300}
+.crit div b{display:block;color:#fff;font-weight:500;margin-bottom:2px;font-size:14px}
+
+.soon{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--dim);text-align:center;font-weight:300}
+.soon b{color:var(--text);display:block;margin-bottom:4px;font-weight:500}
+
+footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color:var(--dim);text-align:center}
+
+@media(max-width:560px){
+  .title h1{font-size:28px}
+  .crit{grid-template-columns:1fr}
+  .hlinks a:not(:last-child){display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hbar">
+    <a class="brand" href="index.html" title="Zur Startseite">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+        <circle cx="50" cy="20" r="4" fill="currentColor"/><circle cx="79" cy="41" r="4" fill="currentColor"/>
+        <circle cx="68" cy="75" r="4" fill="currentColor"/><circle cx="32" cy="75" r="4" fill="currentColor"/>
+        <circle cx="21" cy="41" r="4" fill="currentColor"/>
+        <line x1="50" y1="20" x2="79" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="79" y1="41" x2="68" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="68" y1="75" x2="32" y2="75" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="32" y1="75" x2="21" y2="41" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <line x1="21" y1="41" x2="50" y2="20" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="50" cy="50" r="6" fill="currentColor"/>
+        <path d="M50 38 Q56 31 50 24 Q44 31 50 38Z" fill="currentColor" opacity="0.7"/>
+      </svg>
+      <span><b>LebensZeit</b><small>Sprint-Übersicht</small></span>
+    </a>
+    <div class="hlinks">
+      <a href="unternehmensdaten.html">Unternehmensdaten</a>
+      <a href="website-status.html">Website-Status</a>
+      <a href="index.html">Website</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="title">
+    <h1>Sprint-Übersicht &amp; Anforderungsprofile</h1>
+    <p>Die Handlungsfelder des KI-Pionierzirkels — mit den Anforderungen an jeden Pitch. Tabs wechseln zwischen den Sprints.</p>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-t="1"><span class="dot done"></span>Sprint 1</button>
+    <button class="tab" data-t="2"><span class="dot active"></span>Sprint 2</button>
+    <button class="tab" data-t="3"><span class="dot plan"></span>Sprint 3</button>
+    <button class="tab" data-t="4"><span class="dot plan"></span>Sprint 4</button>
+    <button class="tab" data-t="5"><span class="dot plan"></span>Sprint 5</button>
+    <button class="tab" data-t="6"><span class="dot plan"></span>Sprint 6</button>
+  </div>
+
+  <!-- SPRINT 1 -->
+  <section class="panel on" data-p="1">
+    <div class="meta">
+      <span class="badge done">Abgeschlossen</span>
+      <span class="badge date">Handlungsfeld 1</span>
+    </div>
+    <p class="lead">Marktanalyse · Kundenbedürfnisse · Lieferantenanalyse</p>
+    <div class="hl">Fundament für alle weiteren Sprints: Markt verstanden, Wettbewerb bewertet, Personas entwickelt, strategische Stoßrichtung formuliert. <b>Die Steckbriefe gelten unverändert und verbindlich.</b></div>
+    <h2 class="sec">Ergebnisse</h2>
+    <ul class="checklist">
+      <li>Markt- &amp; Wettbewerbsanalyse (Kreis Soest, ambulante Pflege)</li>
+      <li>Personas: Sandra Köhler, Markus Pohlmann, Hildegard Stemmer, Markus Dörre</li>
+      <li>SWOT &amp; strategische Stoßrichtung 2026–2031</li>
+      <li>Geschäftsmodell-Basisdaten (verbindlich)</li>
+    </ul>
+  </section>
+
+  <!-- SPRINT 2 -->
+  <section class="panel" data-p="2">
+    <div class="meta">
+      <span class="badge active">Aktiv</span>
+      <span class="badge date">Pitch: 7. September 2026</span>
+      <span class="badge date">20 Min + 10 Min Fragen</span>
+    </div>
+    <p class="lead">Vertrieb &amp; Marketing · Preisgestaltung</p>
+    <div class="hl">Der Investor will sehen, dass ihr den Markt nicht nur <b>versteht</b>, sondern auch <b>erreicht</b> — von der Positionierung über den Preis bis zum klickbaren Prototyp. Ihr seid Unternehmer, kein Berichtswesen.</div>
+
+    <h2 class="sec">Die fünf Bausteine</h2>
+
+    <div class="bst">
+      <span class="no">01</span>
+      <h3>Markenkern, USP &amp; Positionierung</h3>
+      <p>Klarheit, wer ihr wirklich seid — jenseits von Preis und Angebot. Drei Schritte: Markenkern → USP in einem Satz → Positionierung (Für wen? Gegen wen? Warum jetzt?).</p>
+      <ul>
+        <li>Mindestens drei unterschiedliche Positionierungsoptionen, strukturiert verglichen</li>
+        <li>KI nach jeder Antwort nachbohren lassen: „Warum glaubt das jemand, der euch nicht kennt?"</li>
+      </ul>
+      <div class="req"><b>Anforderung:</b> Mission in einem Satz sichtbar im Pitch. KI zerlegt die Positionierung als kritischer Investor — zeigt eure Reaktion.</div>
+    </div>
+
+    <div class="bst">
+      <span class="no">02</span>
+      <h3>Preis- &amp; Angebotsarchitektur</h3>
+      <p>Modelle mit vier Fragen prüfen: Passt die Struktur zur Positionierung? Ist der Einstieg für die Wunschpersona attraktiv? Lasst ihr Ertrag liegen? Spiegeln die Namen den Markenkern?</p>
+      <ul>
+        <li>Rechnung: Wie viele neue Selbstzahlerpakete (PG 1–2) heben die Eigenfinanzierung von 62 % auf 70 % — bei welchem Paketpreis?</li>
+      </ul>
+      <div class="req"><b>Anforderung:</b> Begründete Empfehlung (Veränderung oder Status quo). Wirtschaftliche Auswirkungen plausibilisieren, Rechenannahmen offenlegen.</div>
+    </div>
+
+    <div class="bst">
+      <span class="no">03</span>
+      <h3>Kampagnenkonzept mit KPIs</h3>
+      <p>Die Kampagne richtet sich an eine echte Persona aus Sprint 1 — nicht an „potenzielle Kunden". Wo lebt diese Person digital, wo vertraut sie Empfehlungen, was bewegt sie zum Handeln?</p>
+      <ul>
+        <li>Zwei KPIs mit konkreten Zielwerten (z. B. 30 Anfragen in 90 Tagen)</li>
+        <li>Kanäle z. B. Facebook 50+, lokale Gruppen, Arztpraxen/Pflegestützpunkte, Fördermitglieder-Newsletter</li>
+      </ul>
+      <div class="req"><b>Anforderung:</b> Mindestens zwei fertige Kampagnen-Assets, mit KI erstellt — jedes spricht direkt die Persona an.</div>
+    </div>
+
+    <div class="bst">
+      <span class="no">04</span>
+      <h3>Die App — greifbar machen (Showcase)</h3>
+      <p>Herzstück der Investorenpräsentation. Story über Feature: 3–5 Screens zeigen den entscheidenden Moment der Persona — der Moment, in dem sie das Angebot sieht, und der Moment, in dem sie handelt.</p>
+      <ul>
+        <li>Screen 1 — Einstieg: USP in einem Bild und einem Satz</li>
+        <li>Screen 2 — Angebot: Modelle/Pakete auf einen Blick</li>
+        <li>Screen 3 — Beweis: Community-Stimme, Kennzahl oder Alltagsbild</li>
+        <li>Screen 4 — Handlung: klarer Call-to-Action</li>
+        <li>Screen 5 (optional) — interaktives Element (Tarif-Check, Pflegegrad-Orientierung)</li>
+      </ul>
+      <div class="req"><b>Anforderung:</b> Mind. 4 Screens als zusammenhängende Geschichte, 3 Iterationsstufen (V1–V3), Persona-Feedback der KI. Im Pitch live durchgeklickt — kein Screenshot.</div>
+    </div>
+
+    <div class="bst">
+      <span class="no">05</span>
+      <h3>KI-Reflexion: euer Vorgehensmodell (Pflicht)</h3>
+      <p>Dokumentiert, wie und mit welchem System ihr KI eingesetzt habt. Welche Prompts funktionierten, wo lagen die Grenzen — und was habt ihr gegenüber Sprint 1 anders gemacht?</p>
+      <div class="req"><b>Anforderung:</b> Pflicht-Baustein, separat bewertet. Das Prompt-Tagebuch ist zentraler Bestandteil des Pitches.</div>
+    </div>
+
+    <h2 class="sec">Pitch-Anforderungen</h2>
+    <ul class="checklist">
+      <li>Kurze, kreative Unternehmensvorstellung zu Beginn — max. 2 Minuten</li>
+      <li>20 Minuten Präsentation + 10 Minuten Investoren-Fragen</li>
+      <li>Namensschilder mitbringen</li>
+      <li>USP sichtbar in Pitch und Prototyp</li>
+      <li>Alle fünf Bausteine sichtbar</li>
+      <li>Prototyp live demonstriert — klickbar, nicht als Bildschirmfoto</li>
+      <li>Mindestens ein Vorher-nachher-Beispiel aus den Iterationen</li>
+      <li>Erkennbarer Bezug zu Sprint 1 (Persona, Stoßrichtung)</li>
+    </ul>
+
+    <h2 class="sec">Bewertungskriterien (gleich gewichtet)</h2>
+    <div class="crit">
+      <div><b>Markenkern &amp; USP</b>Ist die Einzigartigkeit spürbar — in Pitch und Prototyp?</div>
+      <div><b>Schärfe der Positionierung</b>Klar, unterscheidbar, glaubwürdig begründet?</div>
+      <div><b>Plausibilität der Preisstrategie</b>Wirtschaftlich durchdacht, Annahmen offen?</div>
+      <div><b>Kampagne &amp; Assets</b>Umsetzbar, kreativ, auf die Persona zugeschnitten?</div>
+      <div><b>App-Prototyp (Live-Demo)</b>Klare Geschichte, USP/Zielgruppe/CTA erkennbar, Iterationen sichtbar?</div>
+      <div><b>KI-Einsatz &amp; Reflexion</b>Vielfältig, kreativ, bewusst genutzt — und reflektiert?</div>
+    </div>
+  </section>
+
+  <!-- SPRINT 3 -->
+  <section class="panel" data-p="3">
+    <div class="meta"><span class="badge plan">Geplant</span><span class="badge date">Handlungsfeld</span></div>
+    <p class="lead">Kundenzufriedenheit &amp; -bindung · Nachhaltigkeitsstrategie</p>
+    <div class="soon"><b>Anforderungsprofil folgt</b>Die detaillierten Anforderungen kommen mit den Sprint-3-Unterlagen. Voraussichtlich relevant: Kundenportal, Angehörigenportal, Bindungs- und Nachhaltigkeitsmaßnahmen.</div>
+  </section>
+
+  <!-- SPRINT 4 -->
+  <section class="panel" data-p="4">
+    <div class="meta"><span class="badge plan">Geplant</span><span class="badge date">Handlungsfeld</span></div>
+    <p class="lead">Ressourcenmanagement · Prozessoptimierung</p>
+    <div class="soon"><b>Anforderungsprofil folgt</b>Voraussichtlich relevant: internes Betriebssystem (Cockpit), Tourenplanung/Disposition, Digitalisierung der Abläufe.</div>
+  </section>
+
+  <!-- SPRINT 5 -->
+  <section class="panel" data-p="5">
+    <div class="meta"><span class="badge plan">Geplant</span><span class="badge date">Handlungsfeld</span></div>
+    <p class="lead">Mitgliederbindung</p>
+    <div class="soon"><b>Anforderungsprofil folgt</b>Voraussichtlich relevant: Ausbau der Mitgliedschaftsmodelle, Community, Förderer &amp; Spenden.</div>
+  </section>
+
+  <!-- SPRINT 6 -->
+  <section class="panel" data-p="6">
+    <div class="meta"><span class="badge plan">Geplant</span><span class="badge date">Handlungsfeld</span></div>
+    <p class="lead">Produkt- &amp; Serviceinnovation</p>
+    <div class="soon"><b>Anforderungsprofil folgt</b>Voraussichtlich relevant: neue digitale Services, Presse/Öffentlichkeit, Ausbildungsangebote.</div>
+  </section>
+
+  <footer>Internes Werkzeug · LebensZeit gGmbH · Fiktives Schulungsprojekt · KI-Pionierzirkel · Volksbank Hellweg eG</footer>
+</div>
+
+<script>
+const tabs=document.getElementById('tabs');
+tabs.addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b)return;
+  const t=b.dataset.t;
+  [...tabs.children].forEach(c=>c.classList.toggle('on',c===b));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.p===t));
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
