@@ -104,7 +104,7 @@ header.site {
 .nav-links a.nav-cta::after { display: none; }
 .nav-cta {
   background: var(--green); color: var(--cream) !important;
-  padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
   letter-spacing: .3px; transition: background .15s, transform .15s;
 }
 .nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
@@ -143,11 +143,11 @@ header.site {
 .btn-ghost:hover { background: var(--cream2); border-color: var(--green); }
 
 .hero-art { display: flex; justify-content: center; }
-.hero-art svg { width: 100%; max-width: 460px; height: auto; }
+.hero-art svg { width: 100%; max-width: 510px; height: auto; }
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: flex; justify-content: space-around; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 26px 0; }
 .trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
 .trust-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .5px; }
@@ -211,7 +211,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 36px; }
   .hero-art { order: -1; }
-  .hero-art svg { max-width: 280px; }
+  .hero-art svg { max-width: 340px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .nav-links {
     position: absolute; top: 76px; left: 0; right: 0;
@@ -227,14 +227,32 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 }
 @media (max-width: 520px) {
   .footer-grid { grid-template-columns: 1fr; }
-  .trust-row { gap: 18px 8px; justify-content: center; }
-  .trust-item { flex: 1 1 40%; }
+  .trust-row { grid-template-columns: repeat(2, 1fr); gap: 20px 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* HAUPTSEITEN-LESBARKEIT & KACHELN */
+body { font-size: 16.5px; }
+.hero p.lead, .page-hero .lead { font-size: 20px; }
+.section-head p { font-size: 17px; }
+.card p { font-size: 15px; }
+.svc-body > p { font-size: 15.5px; } .svc-list li { font-size: 15px; }
+.value-box p { font-size: 15px; } .loc-card p { font-size: 14.5px; }
+.tier-list li { font-size: 15px; } .two-col p { font-size: 16px; } .two-col li { font-size: 15px; }
+.lb-card p { font-size: 16px; } .tl-item p { font-size: 15px; } .story p { font-size: 17px; }
+.aside-list span { font-size: 14.5px; } .ptab td, .ptab th { font-size: 15px; }
+@media (min-width:561px) and (max-width:1024px){ .cards { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .cards { grid-template-columns: 1fr; } }
+.loc-grid { grid-template-columns: repeat(4,1fr); }
+.loc-card.hq { grid-column: 1 / -1; }
+@media (max-width:1024px){ .loc-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .loc-grid { grid-template-columns: 1fr; } }
+
 </style>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 </head>
 <body>
 
@@ -300,7 +318,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       <div class="hero-text">
         <p class="eyebrow">Ambulante Pflege in Nordrhein-Westfalen</p>
         <h1>Pflege, die <em>bei Ihnen</em> zu Hause beginnt.</h1>
-        <p class="lead">LebensZeit begleitet pflegebedürftige Menschen in ihrem eigenen Zuhause — fachlich verlässlich, persönlich vertraut und gut vernetzt im Quartier.</p>
+        <p class="lead">LebensZeit begleitet pflegebedürftige Menschen in ihrem eigenen Zuhause — fachlich verlässlich, persönlich vertraut und gut vernetzt in der Nachbarschaft.</p>
         <div class="hero-actions">
           <a href="pflegeberatung.html" class="btn btn-primary">Kostenlose Erstberatung</a>
           <a href="leistungen.html" class="btn btn-ghost">Leistungen ansehen</a>
@@ -336,7 +354,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <div class="wrap trust-row">
       <div class="trust-item"><span class="num">24/7</span><span class="lbl">Erreichbarkeit im Notfall</span></div>
       <div class="trust-item"><span class="num">5</span><span class="lbl">Pflegegrade abgedeckt</span></div>
-      <div class="trust-item"><span class="num">100%</span><span class="lbl">Im Quartier vernetzt</span></div>
+      <div class="trust-item"><span class="num">100%</span><span class="lbl">In der Nachbarschaft vernetzt</span></div>
       <div class="trust-item"><span class="num">gGmbH</span><span class="lbl">Gemeinnützig &amp; transparent</span></div>
     </div>
   </div>
@@ -415,7 +433,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
           </span>
         </span>
-        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, im Quartier verwurzelt, digital vernetzt.</p>
+        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, in der Nachbarschaft verwurzelt, digital vernetzt.</p>
       </div>
 
       <div class="footer-col">
@@ -434,6 +452,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <li><a href="investoren.html">Investoren</a></li>
           <li><a href="partner.html">Partner &amp; Zuweiser</a></li>
           <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="cockpit.html">Internes Betriebssystem</a></li>
           <li><a href="pflegeberatung.html">Kundenportal</a></li>
         </ul>
       </div>
@@ -450,7 +469,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
+      <a href="unternehmensdaten.html" style="color:inherit;text-decoration:none;border-bottom:1px dotted rgba(168,201,160,.5);">© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</a>
       <span class="values">nah · vernetzt · nachhaltig</span>
     </div>
   </div>
