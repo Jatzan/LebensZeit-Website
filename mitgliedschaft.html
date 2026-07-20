@@ -104,7 +104,7 @@ header.site {
 .nav-links a.nav-cta::after { display: none; }
 .nav-cta {
   background: var(--green); color: var(--cream) !important;
-  padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
   letter-spacing: .3px; transition: background .15s, transform .15s;
 }
 .nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
@@ -306,7 +306,26 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+
+/* HAUPTSEITEN-LESBARKEIT & KACHELN */
+body { font-size: 16.5px; }
+.hero p.lead, .page-hero .lead { font-size: 20px; }
+.section-head p { font-size: 17px; }
+.card p { font-size: 15px; }
+.svc-body > p { font-size: 15.5px; } .svc-list li { font-size: 15px; }
+.value-box p { font-size: 15px; } .loc-card p { font-size: 14.5px; }
+.tier-list li { font-size: 15px; } .two-col p { font-size: 16px; } .two-col li { font-size: 15px; }
+.lb-card p { font-size: 16px; } .tl-item p { font-size: 15px; } .story p { font-size: 17px; }
+.aside-list span { font-size: 14.5px; } .ptab td, .ptab th { font-size: 15px; }
+@media (min-width:561px) and (max-width:1024px){ .cards { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .cards { grid-template-columns: 1fr; } }
+.loc-grid { grid-template-columns: repeat(4,1fr); }
+.loc-card.hq { grid-column: 1 / -1; }
+@media (max-width:1024px){ .loc-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .loc-grid { grid-template-columns: 1fr; } }
+
 </style>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 </head>
 <body>
 <!-- FIKTIV-LAUFBAND (ganz oben) -->
@@ -372,7 +391,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <div class="wrap">
       <p class="eyebrow">Mitgliedschaft</p>
       <h1>Pflege wie eine <em>Genossenschaft</em> gedacht.</h1>
-      <p class="lead">Bei LebensZeit sind Sie nicht anonyme Kundschaft, sondern Teil einer Gemeinschaft. Mitglieder sichern mit ihrem Beitrag Nähe, Begegnungsorte und verlässliche Versorgung im Quartier — und genießen dafür spürbare Vorteile.</p>
+      <p class="lead">Bei LebensZeit sind Sie nicht anonyme Kundschaft, sondern Teil einer Gemeinschaft. Mitglieder sichern mit ihrem Beitrag Nähe, Begegnungsorte und verlässliche Versorgung in der Nachbarschaft — und genießen dafür spürbare Vorteile.</p>
     </div>
   </section>
 
@@ -381,7 +400,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <div class="wrap">
       <div class="pillar-strip">
         <div class="pillar-item"><strong>Ambulante Pflege</strong><span>Fachlich verlässlich zu Hause</span></div>
-        <div class="pillar-item"><strong>Nachbarschaftshilfe</strong><span>45 Ehrenamtliche im Quartier</span></div>
+        <div class="pillar-item"><strong>Nachbarschaftshilfe</strong><span>45 Ehrenamtliche in der Nachbarschaft</span></div>
         <div class="pillar-item active"><strong>Mitgliedschaft</strong><span>Nähe &amp; Finanzierung gesichert</span></div>
       </div>
     </div>
@@ -406,7 +425,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <span class="tier-note">Für alle, die LebensZeit unterstützen möchten.</span>
           </div>
           <ul class="tier-list">
-            <li>Newsletter mit Quartiers-News</li>
+            <li>Newsletter mit Nachbarschafts-News</li>
             <li>Zugang zu Begegnungsort-Events</li>
             <li>Kostenlose Erstberatung</li>
           </ul>
@@ -457,7 +476,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       <div class="info-panel">
         <div>
           <h3>Warum eine Mitgliedschaft?</h3>
-          <p>Mitgliedsbeiträge schaffen planbare Einnahmen, stärken die Bindung im Quartier und machen LebensZeit unabhängiger von Fördergeldern. Schon 520 Menschen tragen die Idee mit — gemeinnützig, regional und auf Dauer.</p>
+          <p>Mitgliedsbeiträge schaffen planbare Einnahmen, stärken die Bindung in der Nachbarschaft und machen LebensZeit unabhängiger von Fördergeldern. Schon 520 Menschen tragen die Idee mit — gemeinnützig, regional und auf Dauer.</p>
         </div>
         <a href="ueber-uns.html" class="btn btn-primary">Mehr über LebensZeit</a>
       </div>
@@ -506,7 +525,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
           </span>
         </span>
-        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, im Quartier verwurzelt, digital vernetzt.</p>
+        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, in der Nachbarschaft verwurzelt, digital vernetzt.</p>
       </div>
 
       <div class="footer-col">
@@ -525,6 +544,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <li><a href="investoren.html">Investoren</a></li>
           <li><a href="partner.html">Partner &amp; Zuweiser</a></li>
           <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="cockpit.html">Internes Betriebssystem</a></li>
           <li><a href="pflegeberatung.html">Kundenportal</a></li>
         </ul>
       </div>
@@ -541,7 +561,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
+      <a href="unternehmensdaten.html" style="color:inherit;text-decoration:none;border-bottom:1px dotted rgba(168,201,160,.5);">© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</a>
       <span class="values">nah · vernetzt · nachhaltig</span>
     </div>
   </div>
