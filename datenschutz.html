@@ -104,7 +104,7 @@ header.site {
 .nav-links a.nav-cta::after { display: none; }
 .nav-cta {
   background: var(--green); color: var(--cream) !important;
-  padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
   letter-spacing: .3px; transition: background .15s, transform .15s;
 }
 .nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
@@ -273,6 +273,24 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+
+/* HAUPTSEITEN-LESBARKEIT & KACHELN */
+body { font-size: 16.5px; }
+.hero p.lead, .page-hero .lead { font-size: 20px; }
+.section-head p { font-size: 17px; }
+.card p { font-size: 15px; }
+.svc-body > p { font-size: 15.5px; } .svc-list li { font-size: 15px; }
+.value-box p { font-size: 15px; } .loc-card p { font-size: 14.5px; }
+.tier-list li { font-size: 15px; } .two-col p { font-size: 16px; } .two-col li { font-size: 15px; }
+.lb-card p { font-size: 16px; } .tl-item p { font-size: 15px; } .story p { font-size: 17px; }
+.aside-list span { font-size: 14.5px; } .ptab td, .ptab th { font-size: 15px; }
+@media (min-width:561px) and (max-width:1024px){ .cards { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .cards { grid-template-columns: 1fr; } }
+.loc-grid { grid-template-columns: repeat(4,1fr); }
+.loc-card.hq { grid-column: 1 / -1; }
+@media (max-width:1024px){ .loc-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .loc-grid { grid-template-columns: 1fr; } }
+
 </style>
 </head>
 <body>
@@ -434,6 +452,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <li><a href="investoren.html">Investoren</a></li>
           <li><a href="partner.html">Partner &amp; Zuweiser</a></li>
           <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="cockpit.html">Internes Betriebssystem</a></li>
           <li><a href="pflegeberatung.html">Kundenportal</a></li>
         </ul>
       </div>

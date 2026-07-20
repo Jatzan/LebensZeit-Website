@@ -104,7 +104,7 @@ header.site {
 .nav-links a.nav-cta::after { display: none; }
 .nav-cta {
   background: var(--green); color: var(--cream) !important;
-  padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
   letter-spacing: .3px; transition: background .15s, transform .15s;
 }
 .nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
@@ -407,6 +407,11 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+
+/* INVESTOR-KACHELN gleichmaessig (5 -> 3+2) */
+.sec-grid { grid-template-columns: repeat(3,1fr); }
+@media (max-width:760px){ .sec-grid { grid-template-columns: 1fr; } }
+
 </style>
 </head>
 <body class="inv-theme">
@@ -576,6 +581,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <li><a href="investoren.html">Investoren</a></li>
           <li><a href="partner.html">Partner &amp; Zuweiser</a></li>
           <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="cockpit.html">Internes Betriebssystem</a></li>
           <li><a href="pflegeberatung.html">Kundenportal</a></li>
         </ul>
       </div>
