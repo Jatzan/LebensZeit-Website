@@ -48,9 +48,8 @@
 <div style="position: relative;">
   <div id="map"></div>
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background: #185FA5;"></div> Hauptstandort</div>
-    <div class="legend-item"><div class="legend-dot" style="background: #1D9E75;"></div> Filialstandort</div>
-    <div class="legend-item"><div class="legend-dot" style="background: #E24B4A;"></div> Wirtschaftlich kritisch</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #4A6741;"></div> Hauptstandort</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #8AAC85;"></div> Standort</div>
     <div class="legend-note">Einwohnerzahlen: Kreis Soest 2024<br>Altersquoten: Statistik NRW / IT.NRW</div>
   </div>
 </div>
@@ -69,7 +68,7 @@ const locations = [
     name: "Erwitte",
     role: "Hauptstandort",
     lat: 51.6062, lng: 8.3403,
-    color: "#185FA5",
+    color: "#4A6741",
     einwohner: 16300,
     anteil65: 23.1,
     durchschnittsalter: 46.2,
@@ -79,9 +78,9 @@ const locations = [
   },
   {
     name: "Bad Sassendorf",
-    role: "Filialstandort",
+    role: "Standort",
     lat: 51.5886, lng: 8.1707,
-    color: "#1D9E75",
+    color: "#8AAC85",
     einwohner: 12194,
     anteil65: 33.0,
     durchschnittsalter: 50.3,
@@ -91,9 +90,9 @@ const locations = [
   },
   {
     name: "Anröchte",
-    role: "Filialstandort",
+    role: "Standort",
     lat: 51.5622, lng: 8.3256,
-    color: "#1D9E75",
+    color: "#8AAC85",
     einwohner: 10304,
     anteil65: 24.5,
     durchschnittsalter: 47.1,
@@ -103,27 +102,27 @@ const locations = [
   },
   {
     name: "Rüthen",
-    role: "Kritischer Standort",
+    role: "Standort",
     lat: 51.4925, lng: 8.4370,
-    color: "#E24B4A",
+    color: "#8AAC85",
     einwohner: 10290,
     anteil65: 26.8,
     durchschnittsalter: 48.4,
     trend: "Schrumpfend (−3,66 %/J.)",
     trendType: "neg",
-    note: "Nicht kostendeckend; stärkster Bevölkerungsrückgang im Kreis"
+    note: "Ländlicher Raum — Teil der Flächendeckung"
   },
   {
     name: "Lippetal",
-    role: "Kritischer Standort",
+    role: "Standort",
     lat: 51.6637, lng: 8.1443,
-    color: "#E24B4A",
+    color: "#8AAC85",
     einwohner: 11883,
     anteil65: 25.6,
     durchschnittsalter: 47.8,
     trend: "Schrumpfend (−1,13 %/J.)",
     trendType: "neg",
-    note: "Nicht kostendeckend; Bevölkerungsrückgang bis 2050 anhaltend"
+    note: "Anbindung des nördlichen Einzugsgebiets"
   }
 ];
 
@@ -146,7 +145,7 @@ locations.forEach(loc => {
   const marker = L.marker([loc.lat, loc.lng], { icon: makeIcon(loc.color, isMain) }).addTo(map);
 
   const barWidth = Math.round((loc.anteil65 / 40) * 100);
-  const barColor = loc.anteil65 > 30 ? '#E24B4A' : loc.anteil65 > 25 ? '#EF9F27' : '#185FA5';
+  const barColor = '#4A6741';
   const trendClass = loc.trendType === 'pos' ? 'trend-pos' : loc.trendType === 'neg' ? 'trend-neg' : 'trend-neu';
 
   const popup = `
