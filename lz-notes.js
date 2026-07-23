@@ -61,7 +61,53 @@
 
     { id: "n-sprints-reflexion", page: "sprints", selector: "main", status: "spaeter",
       title: "Sprint-Reflexion (Baustein 5)",
-      text: "„Was habt ihr anders gemacht als in Sprint 1?\" wird separat bewertet — geteiltes Prompt-Tagebuch ab Tag 1 führen, nicht rückwirkend." }
+      text: "„Was habt ihr anders gemacht als in Sprint 1?\" wird separat bewertet — geteiltes Prompt-Tagebuch ab Tag 1 führen, nicht rückwirkend." },
+
+    /* ----- Fest erledigt (im Build eingearbeitet) ----- */
+    { id: "n-done-baustein-board", page: "sprints", selector: "main", status: "auszubauen", done: true,
+      title: "Baustein-Board eingebaut",
+      text: "Sprint-2-Tab: Board mit Ampel, Verantwortlich (offen) und Deadlines ergänzt. Verantwortliche noch einzutragen." },
+
+    { id: "n-done-annahmen-log", page: "unternehmensdaten", selector: "main", status: "auszubauen", done: true,
+      title: "Annahmen-Log integriert",
+      text: "Unternehmensdaten: Annahmen/Ziele/Projektionen farblich von der Datenbasis abgesetzt." },
+
+    { id: "n-done-prompt-tagebuch", page: "prompt-tagebuch", selector: "main", status: "auszubauen", done: true,
+      title: "Prompt-Tagebuch-Seite erstellt",
+      text: "Sprint 1 aus der Vorlage nach HTML übersetzt: Vorgehensmodell, dokumentierte Sessions, Abschluss-Reflexion, Leervorlage. Als Menüpunkt verlinkt." },
+
+    { id: "n-done-favicon", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Favicon (.ico) ergänzt",
+      text: "Echte favicon.ico (16–64 px) aus dem Pentagon-Logo erzeugt und auf allen Seiten zusätzlich zum inline-SVG verlinkt." },
+
+    { id: "n-done-404", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "404-Seite erstellt",
+      text: "Eigene 404.html im Marken-Design statt Netlify-Standard." },
+
+    { id: "n-done-kundenportal-link", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Kundenportal-Link umgebogen",
+      text: "Footer-Link „Kundenportal\" zeigt jetzt auf /kundenportal (Platzhalterseite) statt provisorisch auf /pflegeberatung." },
+
+    { id: "n-done-pillmenu-standalone", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Pillmenü auf Standalone-Seiten",
+      text: "Schwebendes Planspiel-Menü + einheitliche interne Leiste auf unternehmensdaten/website-status/sprints ergänzt. Cockpit bewusst ausgenommen (Vollbild-Layout)." },
+
+    /* ----- Offen (aus dem Technik-/Review-Check) ----- */
+    { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "Asset-Bibliothek-Seite",
+      text: "Neuer Menüpunkt mit Zoho-WorkDrive-Links (Ansehen/Herunterladen + Collection-Upload) — wartet auf die Freigabelinks." },
+
+    { id: "n-mobile-investor", page: "allgemein", selector: "main", status: "offen",
+      title: "Mobile-Test Investor-Seiten",
+      text: "Dunkle KPI-Bänder und Tabellen der Investor-Seiten auf kleinen Screens real prüfen — steht noch aus." },
+
+    { id: "n-review-report", page: "allgemein", selector: "main", status: "offen",
+      title: "Gesamt-Review-Report",
+      text: "Konsistenz-Durchlauf über alle Seiten ist erfolgt (Begriffe, Zahlen, Diskrepanzen). Ein zusammenhängender Review zu Lesbarkeit/Darstellung/Unterscheidbarkeit fehlt noch." },
+
+    { id: "n-gate-optisch", page: "allgemein", selector: "main", status: "spaeter",
+      title: "Investoren-Gate nur optisch",
+      text: "Das Gate ist kein echter Zugriffsschutz (Demo-Login vorbelegt) — bewusst so; nur als Punkt festgehalten." }
   ];
 
   /* ---------- 2. Status-Metadaten ---------- */
@@ -174,6 +220,7 @@
         "<a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>" +
         "<a href='/website-status' role='menuitem'>Website-Status</a>" +
         "<a href='/sprints' role='menuitem'>Sprint-Übersicht</a>" +
+        "<a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>" +
         "<a href='/notizen' role='menuitem'>Notiz-Übersicht</a>" +
         '<div class="fiktiv-menu-sep"></div>' +
         '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 Notizen</span><span id="lzNotesState">Aus</span></button>' +

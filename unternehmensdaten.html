@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unternehmensdaten — LebensZeit gGmbH</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -38,10 +39,20 @@
 .lz-intbar a:hover{color:#fff;}
 .lz-intbar a.here{color:#fff;border-bottom:2px solid #8AAC85;padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
+
+  /* Annahmen-Log (farblich von Fakten abgesetzt) */
+  .annahmen { background:#FBF3E0; border:1px solid rgba(176,122,42,.4); border-left:4px solid var(--amber); border-radius:12px; padding:6px 22px; margin:14px 0 12px; }
+  .annahmen .arow { display:flex; gap:16px; padding:12px 0; border-bottom:1px solid rgba(176,122,42,.20); }
+  .annahmen .arow:last-child { border-bottom:0; }
+  .annahmen .arow dt { flex:0 0 46%; font-weight:600; color:var(--green3); }
+  .annahmen .arow dd { flex:1; color:var(--text2); }
+  .atag { display:inline-block; font-size:10.5px; letter-spacing:.5px; text-transform:uppercase; color:#8a5a12; background:rgba(176,122,42,.16); border-radius:20px; padding:2px 9px; margin-left:8px; white-space:nowrap; }
+  .annahmen-intro { color:var(--text2); font-size:16px; margin:6px 0 0; }
+  @media (max-width:560px){ .annahmen .arow{flex-direction:column;gap:2px} .annahmen .arow dt{flex:none} }
 </style>
 </head>
 <body>
-<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten' class='here'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints'>Sprint-Übersicht</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
+<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten' class='here'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints'>Sprint-Übersicht</a><a href='/prompt-tagebuch'>Prompt-Tagebuch</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
 
 <div class="doc">
 
@@ -126,6 +137,17 @@
     <div class="row"><dt>E-Mail</dt><dd>kontakt@lebenszeit-ggmbh.example</dd></div>
     <div class="row"><dt>Weitere Angaben</dt><dd><a href='/impressum'>Impressum</a> · <a href='/datenschutz'>Datenschutz</a></dd></div>
   </dl>
+
+  <h2 style="border-bottom-color:rgba(176,122,42,.5);">Annahmen-Log</h2>
+  <p class="annahmen-intro">Die Angaben oben sind <strong>Datenbasis</strong> (verbindlicher Steckbrief). Die folgenden Werte sind <strong>Annahmen, Ziele oder Projektionen</strong> — für den Pitch bewusst als solche gekennzeichnet.</p>
+  <div class="annahmen">
+    <div class="arow"><dt>Eigenfinanzierung 70 %<span class="atag">Ziel</span></dt><dd>Strategisches Ziel; Ist-Wert 62 %. Hebel: neue Selbstzahlerpakete (PG 1–2).</dd></div>
+    <div class="arow"><dt>Sachleistungs-Ausschöpfung ~46 %<span class="atag">Ziel · Hebel 1</span></dt><dd>Ist ~40 % der relevanten Pflegegrade; +6 Pp als erster Ergebnishebel.</dd></div>
+    <div class="arow"><dt>Adressierbares Volumen ~3,0 Mio. €<span class="atag">Abgeleitet</span></dt><dd>≈ 3.995 Pflegebedürftige im Einzugsgebiet × Ausschöpfung; Pflegeumsatz und Fördermittel getrennt.</dd></div>
+    <div class="arow"><dt>Marktpenetration 4,5 %<span class="atag">Abgeleitet</span></dt><dd>Aus betreuten Fällen gegenüber dem adressierbaren Markt.</dd></div>
+    <div class="arow"><dt>Anteil 65+ bis 2040 ~30 %<span class="atag">Projektion</span></dt><dd>Demografie Kreis Soest (Statistik NRW / IT.NRW).</dd></div>
+    <div class="arow"><dt>~90 Klient:innen PG 1 / Beratung<span class="atag">Annahme</span></dt><dd>Nicht in den 180 aktiv betreuten Fällen (PG 2–5) enthalten — Segment noch zu entscheiden.</dd></div>
+  </div>
 
   <div class="foot">
     © 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Volksbank Hellweg eG<br>
