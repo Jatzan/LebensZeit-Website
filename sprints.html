@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sprint-Übersicht — LebensZeit gGmbH</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -98,10 +99,23 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
 .lz-intbar a:hover{color:#fff;}
 .lz-intbar a.here{color:#fff;border-bottom:2px solid #8AAC85;padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
+
+/* Baustein-Board (Sprint 2) */
+.bboard{width:100%;border-collapse:collapse;margin:4px 0 10px;font-size:14.5px;}
+.bboard th{text-align:left;font-weight:500;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:8px 10px;border-bottom:1px solid var(--line);}
+.bboard td{padding:12px 10px;border-bottom:1px solid rgba(74,103,65,.10);color:var(--text);vertical-align:top;}
+.bboard tr:last-child td{border-bottom:0;}
+.bboard .bno{color:var(--sage);font-family:'Cormorant Garamond',serif;font-size:18px;padding-right:2px;}
+.bboard .bt{font-weight:500;color:var(--green3);}
+.amp{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
+.amp .d{width:11px;height:11px;border-radius:50%;flex:0 0 auto;}
+.amp.gruen .d{background:#4A8A54;} .amp.gelb .d{background:#C99A2E;} .amp.rot .d{background:#C0603A;}
+.bboard .resp{color:var(--dim);}
+@media(max-width:640px){.bboard,.bboard tbody,.bboard tr,.bboard td{display:block;width:100%}.bboard thead{display:none}.bboard td{border:0;padding:3px 0}.bboard tr{border-bottom:1px solid var(--line);padding:12px 0}}
 </style>
 </head>
 <body>
-<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints' class='here'>Sprint-Übersicht</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
+<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints' class='here'>Sprint-Übersicht</a><a href='/prompt-tagebuch'>Prompt-Tagebuch</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
 
 
 <div class="wrap">
@@ -128,6 +142,18 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
     </div>
     <p class="lead">Marktanalyse · Kundenbedürfnisse · Lieferantenanalyse</p>
     <div class="hl">Fundament für alle weiteren Sprints: Markt verstanden, Wettbewerb bewertet, Personas entwickelt, strategische Stoßrichtung formuliert. <b>Die Steckbriefe gelten unverändert und verbindlich.</b></div>
+
+    <h2 class="sec">Baustein-Board</h2>
+    <table class="bboard">
+      <thead><tr><th>Baustein</th><th>Status</th><th>Verantwortlich</th><th>Deadline</th></tr></thead>
+      <tbody>
+        <tr><td><span class="bno">01</span> <span class="bt">Markenkern, USP &amp; Positionierung</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>Entwurf: 01.07.</td></tr>
+        <tr><td><span class="bno">02</span> <span class="bt">Preis- &amp; Angebotsarchitektur</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>08.07.</td></tr>
+        <tr><td><span class="bno">03</span> <span class="bt">Kampagnenkonzept mit KPIs</span></td><td><span class="amp rot"><span class="d"></span>Kaum begonnen</span></td><td class="resp">offen</td><td>08.07.</td></tr>
+        <tr><td><span class="bno">04</span> <span class="bt">App-Prototyp (V1→V3)</span></td><td><span class="amp gelb"><span class="d"></span>V1 steht</span></td><td class="resp">offen · ein Owner nötig</td><td>V1: 15.07. · V2–V3: Ferien</td></tr>
+        <tr><td><span class="bno">05</span> <span class="bt">KI-Vorgehensmodell (Doku)</span></td><td><span class="amp gelb"><span class="d"></span>Laufend</span></td><td class="resp">offen</td><td>ab Tag 1 → 02.09.</td></tr>
+      </tbody>
+    </table>
 
     <h2 class="sec">Die fünf Bausteine</h2>
 

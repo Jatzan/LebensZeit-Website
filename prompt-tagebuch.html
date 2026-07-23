@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Prompt-Tagebuch — Planspiel-intern · LebensZeit</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.4%22/%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F0E8;--cream2:#EDE7D9;--green:#4A6741;--green2:#3A5233;--green3:#2C3D27;--mint:#A8C9A0;--sage:#8AAC85;--amber:#B07A2A;--red:#8C3A2A;--text:#2A2820;--text2:#5A5648;--text3:#8A8478;--border:rgba(74,103,65,.18);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--green3);line-height:1.15;}
+a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+.lz-intbar{background:var(--green3);color:var(--cream);}
+.lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
+.lz-intbar .badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:600;margin-right:6px;}
+.lz-intbar a{color:rgba(245,240,232,.82);font-size:14px;letter-spacing:.3px;}
+.lz-intbar a:hover{color:#fff;}
+.lz-intbar a.here{color:#fff;border-bottom:2px solid var(--sage);padding-bottom:2px;}
+.lz-intbar .spacer{margin-left:auto;}
+header.page{padding:44px 0 8px;}
+header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px;}
+header.page h1{font-size:clamp(34px,5vw,48px);}
+header.page p.lead{font-size:19px;color:var(--text2);max-width:62ch;margin-top:12px;}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 4px;}
+.badge{font-size:12px;border-radius:20px;padding:5px 12px;letter-spacing:.3px;}
+.badge.done{background:rgba(74,138,84,.14);color:#2f7d3a;border:1px solid rgba(74,138,84,.4);}
+.badge.info{background:#fff;color:var(--text2);border:1px solid var(--border);}
+h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin:34px 0 12px;font-weight:500;}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:14px;}
+.card .no{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage);}
+.card h3{font-size:21px;color:var(--green3);font-weight:600;margin:2px 0 6px;}
+.card p{font-size:15.5px;color:var(--text2);}
+.card .tag{display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--green);background:rgba(74,103,65,.08);border:1px solid var(--border);border-radius:20px;padding:3px 10px;margin-top:8px;}
+.session{background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+.session .kv{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;font-size:15px;margin-top:8px;}
+.session .kv dt{color:var(--text3);font-size:13px;letter-spacing:.4px;}
+.session .kv dd{color:var(--text);}
+.session .prompt{background:var(--cream2);border-radius:8px;padding:10px 14px;font-size:14.5px;color:var(--text);font-style:italic;}
+.reflect{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:6px 0 8px;}
+.reflect .r{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 14px;text-align:center;}
+.reflect .r .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--green3);line-height:1;}
+.reflect .r .l{font-size:12px;color:var(--text3);margin-top:5px;}
+.rlist{background:#fff;border:1px solid var(--border);border-radius:12px;padding:6px 20px;}
+.rlist .row{display:grid;grid-template-columns:210px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(74,103,65,.08);font-size:15px;}
+.rlist .row:last-child{border-bottom:0;}
+.rlist .row dt{color:var(--text3);font-size:13px;}
+.tmpl{background:var(--cream2);border:1px dashed var(--border);border-radius:12px;padding:8px 20px;}
+.tmpl .row{display:grid;grid-template-columns:230px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid rgba(74,103,65,.10);font-size:14.5px;}
+.tmpl .row:last-child{border-bottom:0;}
+.tmpl .row dt{color:var(--text2);font-weight:500;}
+.tmpl .row dd{color:var(--text3);font-style:italic;}
+.hint{font-size:13.5px;color:var(--text3);background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:26px 0 10px;}
+footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
+@media(max-width:600px){.reflect{grid-template-columns:repeat(2,1fr)}.session .kv,.rlist .row,.tmpl .row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="lz-intbar">
+  <div class="lz-intbar-in">
+    <span class="badge">Planspiel-intern</span>
+    <a href="/unternehmensdaten">Unternehmensdaten</a>
+    <a href="/website-status">Website-Status</a>
+    <a href="/sprints">Sprint-Übersicht</a>
+    <a href="/prompt-tagebuch" class="here">Prompt-Tagebuch</a>
+    <a href="/notizen">Notizen</a>
+    <a href="/cockpit">Betriebs-Cockpit</a>
+    <a href="/" class="spacer">← zur Website</a>
+  </div>
+</div>
+
+<header class="page">
+  <div class="wrap">
+    <p class="eyebrow">Planspiel-intern</p>
+    <h1>Prompt-Tagebuch</h1>
+    <p class="lead">Kein bürokratischer Nachweis, sondern Lernwerkzeug und zentraler Bestandteil des Pitches: nicht nur <em>was</em> wir erarbeitet haben, sondern <em>wie</em>. Gemeinsam geführt, nach Sprint unterteilt.</p>
+    <div class="meta">
+      <span class="badge done">Sprint 1 · abgeschlossen</span>
+      <span class="badge info">7 dokumentierte Sessions</span>
+      <span class="badge info">Team LebensZeit</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h2 class="sec">Sprint 1 · Vorgehensmodell (5 Methoden)</h2>
+
+  <div class="card"><span class="no">01</span><h3>Kontext-Anker</h3><p>Sprint-Skript eingespielt und von Claude kritisch zusammenfassen lassen — als gemeinsame, verbindliche Datenbasis für alle folgenden Sessions.</p><span class="tag">Session 1 · Grundlage</span></div>
+  <div class="card"><span class="no">02</span><h3>Prompt-Creator-Methode</h3><p>Claude entwickelt den Prompt mit uns — durch Rückfragen zu Tiefe, Skala und Format. Unser wirkungsvollster Ansatz; macht schon den ersten Durchlauf verwertbar.</p><span class="tag">Session 2 · Basis aller Bausteine</span></div>
+  <div class="card"><span class="no">03</span><h3>Zwei-Stufen-Kritik</h3><p>Erst die Analyse aufbauen, dann Claude in getrennter Rolle angreifen lassen („Was würde ein kritischer Analyst bemängeln?"). Die Rollentrennung erzeugt schärfere Ergebnisse.</p><span class="tag">Session 3 · Pitch-ready in 4 Stufen</span></div>
+  <div class="card"><span class="no">04</span><h3>Iterieren &amp; Testen</h3><p>Nichts ungeprüft übernehmen: Personas dreistufig verfeinert, HTML-Outputs im Browser getestet. Hier fanden wir die blinden Flecken.</p><span class="tag">Sessions 4 + 5</span></div>
+  <div class="card"><span class="no">05</span><h3>Qualitätssicherung</h3><p>Querprüfungen und Konsistenzchecks über alle Bausteine — Zahlen, Begriffe und Aussagen gegen die verbindliche Datenbasis abgeglichen.</p><span class="tag">Sessions 1 · 6 · 7</span></div>
+
+  <h2 class="sec">Ausgewählte Sessions (dokumentiert)</h2>
+
+  <div class="session">
+    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color:var(--amber);">Baustein 3 · Personas · 25.05.2026</span>
+    <dl class="kv">
+      <dt>Ziel</dt><dd>Die in der Selbstkritik gefundenen Schwächen der Personas beheben — Widersprüche als Muster, konkretes Scheitern-Moment, Kognition zeigen statt benennen.</dd>
+      <dt>Prompt (Auszug)</dt><dd><div class="prompt">„Schreibe beide Personas neu. Einzubauen: (1) innere Widersprüche als Muster, nicht als Einzelszene; (2) konkretes Scheitern-Moment mit Datum und Konsequenz; (3) Hildegards Kognition durch Szenen zeigen; (4) Strategiematrizen differenzieren."</div></dd>
+      <dt>Ergebnis</dt><dd>Hildegard Stemmer und Markus Dörre als pitch-reife Fassung (V6) — alle fünf Kritikpunkte aus der Selbstanalyse bereinigt.</dd>
+      <dt>Claude als Kritiker?</dt><dd>Ja — vorher explizit: „Bist du mit Hildegard und Markus zufrieden?" → fünf Schwachstellen benannt und behoben.</dd>
+      <dt>Erkenntnis</dt><dd>Iteration endet nicht, wenn das Ergebnis gut ist — sondern wenn der Kritiker keine neuen Argumente mehr findet.</dd>
+    </dl>
+  </div>
+
+  <div class="session">
+    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color:var(--amber);">Baustein 3 · Prompt-Optimierung</span>
+    <dl class="kv">
+      <dt>Ziel</dt><dd>Aus einem vagen Persona-Prompt einen verwertbaren machen.</dd>
+      <dt>Schwächen erkannt</dt><dd>„Typischer Kunde" zu vage · kein Unternehmenskontext · Listenzwang · kein Ziel benannt · keine Iteration eingebaut.</dd>
+      <dt>Ergebnis</dt><dd>Optimiert um Expertenrolle, Kontext, Ziel, Job-to-be-done und regionalen Anker — der erste Durchlauf war sofort verwertbar (neue Persona Brigitte Feldkamp pitch-reifer als frühere nach zwei Iterationen).</dd>
+      <dt>Erkenntnis</dt><dd>Kontext + Ziel + Struktur + Qualitätsanker ergeben zusammen eine andere Antwort als jedes Element allein.</dd>
+    </dl>
+  </div>
+
+  <h2 class="sec">Abschluss-Reflexion (vor dem Pitch)</h2>
+  <div class="reflect">
+    <div class="r"><div class="n">7</div><div class="l">Claude-Sessions gesamt</div></div>
+    <div class="r"><div class="n">5 / 7</div><div class="l">mit Claude als Kritiker</div></div>
+    <div class="r"><div class="n">3</div><div class="l">echte blinde Flecken</div></div>
+    <div class="r"><div class="n">2</div><div class="l">Strategie-Änderungen</div></div>
+  </div>
+  <div class="rlist">
+    <div class="row"><dt>Wirkungsvollster Prompt</dt><dd>Prompt-Creator-Methode — Claude entwickelt den Prompt mit uns, statt ihn fertig zu übernehmen.</dd></div>
+    <div class="row"><dt>Blinde Flecken</dt><dd>Graumarkt · Digital als Querschnittswirkung · fehlende Entscheiderin-Persona (Angehörige).</dd></div>
+    <div class="row"><dt>Strategie-Änderungen</dt><dd>Von drei Säulen zu einer Stoßrichtung · Persona-Fokus auf Angehörige (Option C).</dd></div>
+    <div class="row"><dt>Grenzen von Claude</dt><dd>Ohne verbindliche Datenbasis driften Zahlen; erste Antworten oft zu generisch — erst Kontext-Anker, Iteration und Kritik machen sie pitch-reif.</dd></div>
+    <div class="row"><dt>Nächsten Sprint anders</dt><dd>Geteiltes Tagebuch ab Tag 1 (nicht rückwirkend) · ein App-Owner · Kritik ritualisieren (Investor-Roast, Persona-Kritik).</dd></div>
+  </div>
+
+  <h2 class="sec">Vorlage: Session-Eintrag (für neue Einträge kopieren)</h2>
+  <div class="tmpl">
+    <div class="row"><dt>Datum</dt><dd>—</dd></div>
+    <div class="row"><dt>Baustein</dt><dd>—</dd></div>
+    <div class="row"><dt>Ziel dieser Session</dt><dd>—</dd></div>
+    <div class="row"><dt>Unser Prompt (wortwörtlich)</dt><dd>(Prompt hier einfügen)</dd></div>
+    <div class="row"><dt>Claudes Antwort (kurz)</dt><dd>—</dd></div>
+    <div class="row"><dt>Was hat überrascht?</dt><dd>—</dd></div>
+    <div class="row"><dt>Was hat nicht funktioniert?</dt><dd>—</dd></div>
+    <div class="row"><dt>Veränderter Prompt</dt><dd>(verbesserter Prompt hier)</dd></div>
+    <div class="row"><dt>Ergebnis der Verbesserung</dt><dd>—</dd></div>
+    <div class="row"><dt>Claude als Kritiker?</dt><dd>ja / nein</dd></div>
+    <div class="row"><dt>Erkenntnis</dt><dd>—</dd></div>
+  </div>
+
+  <p class="hint">Sprint 2 wird hier fortgeführt: gleiche Struktur, ab Tag 1 gepflegt. Die verbindliche Datenbasis liegt in den Unternehmensdaten; Annahmen sind dort im Annahmen-Log gesondert markiert.</p>
+
+</main>
+
+<footer>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Planspiel-intern</footer>
+
+<script src="/lz-notes.js" defer></script>
+</body>
+</html>
