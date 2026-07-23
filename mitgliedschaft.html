@@ -360,9 +360,12 @@ body { font-size: 16.5px; }
   </button>
   <div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>
     <span class="fiktiv-menu-h">Planspiel-intern</span>
-    <a role="menuitem" href="unternehmensdaten.html">Unternehmensdaten</a>
-    <a role="menuitem" href="website-status.html">Website-Status</a>
-    <a role="menuitem" href="sprints.html">Sprint-Übersicht</a>
+    <a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>
+    <a href='/website-status' role='menuitem'>Website-Status</a>
+    <a href='/sprints' role='menuitem'>Sprint-Übersicht</a>
+    <div class="fiktiv-menu-sep"></div>
+    <a href='/notizen' role='menuitem'>Notiz-Übersicht</a>
+    <button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 Notizen</span><span id="lzNotesState">Aus</span></button>
   </div>
 </div>
 
@@ -372,7 +375,7 @@ body { font-size: 16.5px; }
      ============================================================ -->
 <header class="site">
   <div class="wrap nav-bar">
-    <a href="index.html" class="logo-lockup" aria-label="LebensZeit gGmbH Startseite">
+    <a aria-label='LebensZeit gGmbH Startseite' class='logo-lockup' href='/'>
       <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
       <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
@@ -400,13 +403,13 @@ body { font-size: 16.5px; }
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="leistungen.html">Leistungen</a></li>
-      <li><a href="ueber-uns.html">Über uns</a></li>
-      <li><a href="einzugsgebiet.html">Einzugsgebiet</a></li>
-      <li><a href="preise.html">Preise</a></li>
-      <li><a href="aktuelles.html">Aktuelles</a></li>
-      <li><a href="mitgliedschaft.html" class="nav-cta secondary" aria-current="page">Mitglied werden</a></li>
-      <li><a href="pflegeberatung.html" class="nav-cta">Pflegeberatung anfragen</a></li>
+      <li><a href='/leistungen'>Leistungen</a></li>
+      <li><a href='/ueber-uns'>Über uns</a></li>
+      <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
+      <li><a href='/preise'>Preise</a></li>
+      <li><a href='/aktuelles'>Aktuelles</a></li>
+      <li><a aria-current='page' class='nav-cta secondary' href='/mitgliedschaft'>Mitglied werden</a></li>
+      <li><a class='nav-cta' href='/pflegeberatung'>Pflegeberatung anfragen</a></li>
     </ul>
   </div>
 </header>
@@ -462,7 +465,7 @@ body { font-size: 16.5px; }
             <li>Zugang zu Begegnungsort-Events</li>
             <li>Kostenlose Erstberatung</li>
           </ul>
-          <a href="pflegeberatung.html" class="btn btn-ghost tier-btn">Fördermitglied werden</a>
+          <a class='btn btn-ghost tier-btn' href='/pflegeberatung'>Fördermitglied werden</a>
         </div>
 
         <!-- AKTIV (empfohlen) -->
@@ -480,7 +483,7 @@ body { font-size: 16.5px; }
             <li>10 % auf Entlastungsleistungen</li>
             <li>Freie Teilnahme an Kursen</li>
           </ul>
-          <a href="pflegeberatung.html" class="btn btn-primary tier-btn">Aktiv-Mitglied werden</a>
+          <a class='btn btn-primary tier-btn' href='/pflegeberatung'>Aktiv-Mitglied werden</a>
         </div>
 
         <!-- PREMIUM -->
@@ -496,7 +499,7 @@ body { font-size: 16.5px; }
             <li>Fester persönlicher Ansprechpartner</li>
             <li>Hausnotruf inklusive</li>
           </ul>
-          <a href="pflegeberatung.html" class="btn btn-ghost tier-btn">Premium-Mitglied werden</a>
+          <a class='btn btn-ghost tier-btn' href='/pflegeberatung'>Premium-Mitglied werden</a>
         </div>
 
       </div>
@@ -509,9 +512,9 @@ body { font-size: 16.5px; }
       <div class="info-panel">
         <div>
           <h3>Warum eine Mitgliedschaft?</h3>
-          <p>Mitgliedsbeiträge schaffen planbare Einnahmen, stärken die Bindung in der Nachbarschaft und machen LebensZeit unabhängiger von Fördergeldern. Schon 520 Menschen tragen die Idee mit — gemeinnützig, regional und auf Dauer.</p>
+          <p>Mitgliedsbeiträge schaffen planbare Einnahmen, stärken die Bindung in der Nachbarschaft und machen LebensZeit unabhängiger von Fördergeldern. Schon 520 Menschen tragen die Idee mit — 300 in Basis, 170 in Aktiv und 50 in Premium, gemeinnützig, regional und auf Dauer.</p>
         </div>
-        <a href="ueber-uns.html" class="btn btn-primary">Mehr über LebensZeit</a>
+        <a class='btn btn-primary' href='/ueber-uns'>Mehr über LebensZeit</a>
       </div>
     </div>
   </section>
@@ -522,7 +525,7 @@ body { font-size: 16.5px; }
       <div class="cta-band">
         <h2>Werden Sie Teil der Gemeinschaft.</h2>
         <p>In der kostenlosen Erstberatung finden wir gemeinsam die passende Stufe für Ihre Situation.</p>
-        <a href="pflegeberatung.html" class="btn btn-primary">Jetzt Mitglied werden</a>
+        <a class='btn btn-primary' href='/pflegeberatung'>Jetzt Mitglied werden</a>
       </div>
     </div>
   </section>
@@ -537,7 +540,7 @@ body { font-size: 16.5px; }
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-col">
-        <a class="logo-lockup" href="website-status.html" style="text-decoration:none;" title="Zur Seitenübersicht">
+        <a class='logo-lockup' href='/website-status' style='text-decoration:none;' title='Zur Seitenübersicht'>
           <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
             <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/>
@@ -564,37 +567,37 @@ body { font-size: 16.5px; }
       <div class="footer-col">
         <h4>Pflege</h4>
         <ul>
-          <li><a href="leistungen.html">Leistungen</a></li>
-          <li><a href="pflegeberatung.html">Pflegeberatung</a></li>
-          <li><a href="preise.html">Preise &amp; Eigenanteil</a></li>
-          <li><a href="einzugsgebiet.html">Einzugsgebiet</a></li>
+          <li><a href='/leistungen'>Leistungen</a></li>
+          <li><a href='/pflegeberatung'>Pflegeberatung</a></li>
+          <li><a href='/preise'>Preise &amp; Eigenanteil</a></li>
+          <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Zugänge</h4>
         <ul>
-          <li><a href="investoren.html">Investoren</a></li>
-          <li><a href="partner.html">Partner &amp; Zuweiser</a></li>
-          <li><a href="karriere.html">Karriere</a></li>
-          <li><a href="cockpit.html">Internes Betriebssystem</a></li>
-          <li><a href="pflegeberatung.html">Kundenportal</a></li>
+          <li><a href='/investoren'>Investoren</a></li>
+          <li><a href='/partner'>Partner &amp; Zuweiser</a></li>
+          <li><a href='/karriere'>Karriere</a></li>
+          <li><a href='/cockpit'>Betriebs-Cockpit</a></li>
+          <li><a href='/kundenportal'>Kundenportal</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Rechtliches</h4>
         <ul>
-          <li><a href="impressum.html">Impressum</a></li>
-          <li><a href="datenschutz.html">Datenschutz</a></li>
-          <li><a href="barrierefreiheit.html">Barrierefreiheit</a></li>
-          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href='/impressum'>Impressum</a></li>
+          <li><a href='/datenschutz'>Datenschutz</a></li>
+          <li><a href='/barrierefreiheit'>Barrierefreiheit</a></li>
+          <li><a href='/kontakt'>Kontakt</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <a href="unternehmensdaten.html" style="color:inherit;text-decoration:none;border-bottom:1px dotted rgba(168,201,160,.5);">© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</a>
+      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
       <span class="values">nah · vernetzt · nachhaltig</span>
     </div>
   </div>
@@ -608,5 +611,6 @@ function toggleNav(btn) {
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 </script>
+<script src="/lz-notes.js" defer></script>
 </body>
 </html>

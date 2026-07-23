@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Notiz-Übersicht — Planspiel-intern · LebensZeit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5F0E8; --cream2:#EDE7D9; --green:#4A6741; --green2:#3A5233; --green3:#2C3D27;
+  --mint:#A8C9A0; --sage:#8AAC85; --amber:#B07A2A; --red:#8C3A2A;
+  --text:#2A2820; --text2:#5A5648; --text3:#8A8478; --border:rgba(74,103,65,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--green3);line-height:1.15;}
+a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+
+/* Interner Kopf (einheitlich für alle Planspiel-Seiten) */
+.lz-intbar{background:var(--green3);color:var(--cream);}
+.lz-intbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;}
+.lz-intbar .badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:600;margin-right:6px;}
+.lz-intbar a{color:rgba(245,240,232,.82);font-size:14px;letter-spacing:.3px;}
+.lz-intbar a:hover{color:#fff;}
+.lz-intbar a.here{color:#fff;border-bottom:2px solid var(--sage);padding-bottom:2px;}
+.lz-intbar .spacer{margin-left:auto;}
+
+header.page{padding:48px 0 8px;}
+header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px;}
+header.page h1{font-size:clamp(34px,5vw,48px);}
+header.page p.lead{font-size:19px;color:var(--text2);max-width:60ch;margin-top:12px;}
+
+.summary{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 8px;}
+.sum-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;min-width:120px;}
+.sum-chip .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--green3);line-height:1;}
+.sum-chip .l{font-size:13px;color:var(--text3);letter-spacing:.5px;margin-top:4px;}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px;}
+.filter{font:inherit;font-size:14px;padding:8px 16px;border-radius:24px;border:1px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;transition:all .12s;}
+.filter:hover{border-color:var(--sage);}
+.filter.active{background:var(--green3);color:#fff;border-color:var(--green3);}
+
+.pagegroup{background:#fff;border:1px solid var(--border);border-radius:16px;padding:8px 22px 6px;margin:16px 0;}
+.pagegroup>h2{font-size:24px;display:flex;align-items:baseline;gap:12px;padding:16px 0 8px;border-bottom:1px solid var(--border);}
+.pagegroup>h2 .go{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.5px;color:var(--green);font-weight:400;}
+
+.note{display:grid;grid-template-columns:1fr auto;gap:6px 18px;padding:18px 0;border-bottom:1px solid rgba(74,103,65,.08);}
+.note:last-child{border-bottom:0;}
+.note .badge{grid-column:1;justify-self:start;display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:20px;color:#fff;margin-bottom:6px;}
+.note h3{grid-column:1;font-size:21px;font-weight:600;color:var(--green3);}
+.note p{grid-column:1;color:var(--text2);font-size:15.5px;margin-top:3px;max-width:62ch;}
+.note .chk{grid-column:2;grid-row:1 / span 4;align-self:start;display:flex;align-items:center;gap:9px;font-size:14px;color:var(--text2);white-space:nowrap;cursor:pointer;user-select:none;}
+.note .chk input{width:20px;height:20px;accent-color:var(--green);cursor:pointer;}
+.note.done h3,.note.done p{text-decoration:line-through;color:var(--text3);}
+.note.done .badge{opacity:.5;}
+
+.b-offen{background:var(--red);} .b-auszubauen{background:var(--amber);} .b-spaeter{background:var(--green);}
+
+.empty{color:var(--text3);font-style:italic;padding:28px 0;}
+.hint{font-size:13.5px;color:var(--text3);background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:26px 0 60px;line-height:1.5;}
+footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- Einheitlicher interner Kopf -->
+<div class="lz-intbar">
+  <div class="wrap">
+    <span class="badge">Planspiel-intern</span>
+    <a href="/unternehmensdaten">Unternehmensdaten</a>
+    <a href="/website-status">Website-Status</a>
+    <a href="/sprints">Sprint-Übersicht</a>
+    <a href="/notizen" class="here">Notizen</a>
+    <a href="/cockpit">Betriebs-Cockpit</a>
+    <a href="/" class="spacer">← zur Website</a>
+  </div>
+</div>
+
+<header class="page">
+  <div class="wrap">
+    <p class="eyebrow">Planspiel-intern</p>
+    <h1>Notiz-Übersicht</h1>
+    <p class="lead">Alle offenen Punkte der Website an einem Ort — gruppiert nach Seite. Abgehakte Notizen verschwinden hier und auf der jeweiligen Seite.</p>
+    <div class="summary" id="summary"></div>
+    <div class="filters" id="filters"></div>
+  </div>
+</header>
+
+<main class="wrap" id="list"></main>
+
+<div class="wrap">
+  <p class="hint" id="hint">Der Erledigt-Status wird in diesem Browser gespeichert (nicht teamweit synchron). Der verbindliche Gesamtstand lebt in <code>lz-notes.js</code>; dauerhaft erledigte Punkte dort beim nächsten Deploy entfernen.</p>
+</div>
+
+<footer>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Planspiel-intern</footer>
+
+<script src="/lz-notes.js"></script>
+<script>
+(function(){
+  // Anzeigenamen + Ziel-URL je Seiten-Slug
+  var PAGE_INFO = {
+    "index":            {name:"Startseite",             url:"/"},
+    "kundenportal":     {name:"Kundenportal",           url:"/kundenportal"},
+    "investoren-markt": {name:"Investoren · Markt",      url:"/investoren-markt"},
+    "preise":           {name:"Preise & Eigenanteil",    url:"/preise"},
+    "sprints":          {name:"Sprint-Übersicht",        url:"/sprints"},
+    "mitgliedschaft":   {name:"Mitgliedschaft",          url:"/mitgliedschaft"},
+    "leistungen":       {name:"Leistungen",              url:"/leistungen"},
+    "aktuelles":        {name:"Aktuelles",               url:"/aktuelles"}
+  };
+  function info(slug){ return PAGE_INFO[slug] || {name:slug, url:"/"+slug}; }
+
+  var LZ = window.LZNotes;
+  var STATUS = LZ.status;
+  var filter = "alle";
+
+  function render(){
+    var notes = LZ.all();
+    var list = document.getElementById("list");
+    list.innerHTML = "";
+
+    // Zusammenfassung
+    var counts = {offen:0, auszubauen:0, spaeter:0, done:0};
+    notes.forEach(function(n){ if(LZ.isDone(n.id)) counts.done++; else counts[n.status]++; });
+    var open = counts.offen+counts.auszubauen+counts.spaeter;
+    document.getElementById("summary").innerHTML =
+      chip(open,"Offen gesamt") + chip(counts.auszubauen,"Auszubauen") +
+      chip(counts.spaeter,"Späterer Sprint") + chip(counts.done,"Erledigt");
+
+    // gefiltert
+    var shown = notes.filter(function(n){
+      var done = LZ.isDone(n.id);
+      if(filter==="alle")  return !done;
+      if(filter==="erledigt") return done;
+      return !done && n.status===filter;
+    });
+
+    if(!shown.length){ list.innerHTML = '<p class="empty">Keine Notizen in dieser Ansicht.</p>'; return; }
+
+    // nach Seite gruppieren
+    var groups = {};
+    shown.forEach(function(n){ (groups[n.page]=groups[n.page]||[]).push(n); });
+
+    Object.keys(groups).forEach(function(slug){
+      var gi = info(slug);
+      var g = document.createElement("section");
+      g.className = "pagegroup";
+      g.innerHTML = '<h2>'+esc(gi.name)+' <a class="go" href="'+gi.url+'">→ zur Seite</a></h2>';
+      groups[slug].forEach(function(n){
+        var done = LZ.isDone(n.id);
+        var meta = STATUS[n.status] || STATUS.offen;
+        var el = document.createElement("div");
+        el.className = "note" + (done?" done":"");
+        el.innerHTML =
+          '<span class="badge b-'+n.status+'">'+esc(meta.label)+'</span>'+
+          '<h3>'+esc(n.title)+'</h3>'+
+          '<p>'+esc(n.text)+'</p>'+
+          '<label class="chk"><input type="checkbox" '+(done?"checked":"")+'> erledigt</label>';
+        el.querySelector("input").addEventListener("change", function(e){
+          LZ.setDone(n.id, e.target.checked);
+          render();
+        });
+        g.appendChild(el);
+      });
+      list.appendChild(g);
+    });
+  }
+
+  function chip(n,l){ return '<div class="sum-chip"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  // Filter-Buttons
+  var FILTERS = [["alle","Offene"],["auszubauen","Auszubauen"],["spaeter","Späterer Sprint"],["offen","Offen"],["erledigt","Erledigt"]];
+  var fbar = document.getElementById("filters");
+  FILTERS.forEach(function(f){
+    var b=document.createElement("button");
+    b.className="filter"+(f[0]==="alle"?" active":"");
+    b.textContent=f[1]; b.dataset.f=f[0];
+    b.addEventListener("click",function(){
+      filter=f[0];
+      fbar.querySelectorAll(".filter").forEach(function(x){x.classList.toggle("active",x.dataset.f===filter);});
+      render();
+    });
+    fbar.appendChild(b);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

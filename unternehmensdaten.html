@@ -31,14 +31,24 @@
   a:focus-visible, .back:focus-visible { outline: 3px solid #1a5c2a; outline-offset: 2px; }
   .foot { margin-top: 48px; padding-top: 18px; border-top: 2px solid #ddd; font-size: 16px; color: #555; }
   @media (max-width: 560px) { body { font-size: 18px; } h1 { font-size: 28px; } .row { flex-direction: column; gap: 2px; } .row dt { flex: none; } }
+
+/* Einheitlicher interner Kopf (Planspiel) */
+.lz-intbar{background:#2C3D27;color:#F5F0E8;}
+.lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
+.lz-intbar .badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8AAC85;font-weight:600;margin-right:6px;}
+.lz-intbar a{color:rgba(245,240,232,.82);font-size:14px;letter-spacing:.3px;text-decoration:none;}
+.lz-intbar a:hover{color:#fff;}
+.lz-intbar a.here{color:#fff;border-bottom:2px solid #8AAC85;padding-bottom:2px;}
+.lz-intbar .spacer{margin-left:auto;}
 </style>
 </head>
 <body>
+<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten' class='here'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints'>Sprint-Übersicht</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
+
 <div class="doc">
 
   <div class="top">
     <h1>Unternehmensdaten</h1>
-    <a class="back" href="index.html">← Zur Startseite</a>
   </div>
   <p style="font-size:18px;color:#555;">Alle wichtigen Fakten zu LebensZeit gGmbH auf einen Blick — bewusst schlicht und gut lesbar gehalten.</p>
 
@@ -107,23 +117,24 @@
   <h2>Mitgliedschaft</h2>
   <p>520 Mitglieder in drei Stufen:</p>
   <dl>
-    <div class="row"><dt>Basis / Förder</dt><dd>48 € / Jahr</dd></div>
-    <div class="row"><dt>Aktiv</dt><dd>120 € / Jahr</dd></div>
-    <div class="row"><dt>Premium</dt><dd>360 € / Jahr</dd></div>
+    <div class="row"><dt>Basis / Förder</dt><dd>48 € / Jahr · 300 Mitglieder</dd></div>
+    <div class="row"><dt>Aktiv</dt><dd>120 € / Jahr · 170 Mitglieder</dd></div>
+    <div class="row"><dt>Premium</dt><dd>360 € / Jahr · 50 Mitglieder</dd></div>
   </dl>
 
   <h2>Kontakt (fiktiv)</h2>
   <dl>
     <div class="row"><dt>Anschrift</dt><dd>Marktstraße 1, 59597 Erwitte</dd></div>
     <div class="row"><dt>E-Mail</dt><dd>kontakt@lebenszeit-ggmbh.example</dd></div>
-    <div class="row"><dt>Weitere Angaben</dt><dd><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></dd></div>
+    <div class="row"><dt>Weitere Angaben</dt><dd><a href='/impressum'>Impressum</a> · <a href='/datenschutz'>Datenschutz</a></dd></div>
   </dl>
 
   <div class="foot">
     © 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Volksbank Hellweg eG<br>
-    <a href="index.html">← Zurück zur Startseite</a>
+    <a href='/'>← Zurück zur Startseite</a>
   </div>
 
 </div>
+<script src="/lz-notes.js" defer></script>
 </body>
 </html>
