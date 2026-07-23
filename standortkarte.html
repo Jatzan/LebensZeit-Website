@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Standortkarte — LebensZeit gGmbH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>html,body{margin:0;padding:0;font-family:'Jost',sans-serif;background:#F5F0E8;color:#2A2820;}body{padding:12px 4px 8px;}#map{height:460px;}</style>
+</head>
+<body>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  #map { width: 100%; height: 480px; border-radius: 14px; border: 0.5px solid rgba(74,103,65,.18); }
+  .leaflet-popup-content-wrapper { border-radius: 12px !important; border: 0.5px solid #e0ddd8; box-shadow: 0 4px 16px rgba(0,0,0,0.10) !important; padding: 0; overflow: hidden; }
+  .leaflet-popup-content { margin: 0 !important; width: 240px !important; }
+  .popup-header { padding: 12px 14px 8px; border-bottom: 0.5px solid #f0ede8; }
+  .popup-name { font-size: 14px; font-weight: 500; color: #1a1917; margin: 0 0 1px; }
+  .popup-role { font-size: 11px; color: #888780; margin: 0; }
+  .popup-body { padding: 10px 14px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .popup-stat { display: flex; flex-direction: column; }
+  .popup-stat-label { font-size: 10px; color: #888780; margin-bottom: 2px; }
+  .popup-stat-value { font-size: 17px; font-weight: 500; color: #1a1917; line-height: 1.2; }
+  .popup-stat-unit { font-size: 10px; color: #888780; }
+  .popup-bar-row { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 3px; }
+  .popup-bar-label { font-size: 10px; color: #888780; display: flex; justify-content: space-between; }
+  .bar-track { height: 5px; background: #f0ede8; border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .popup-trend { grid-column: 1 / -1; font-size: 11px; padding: 6px 8px; border-radius: 6px; margin-top: 2px; }
+  .trend-neg { background: #FCEBEB; color: #791F1F; }
+  .trend-pos { background: #EAF3DE; color: #27500A; }
+  .trend-neu { background: #F1EFE8; color: #5F5E5A; }
+  .hs-badge { display: inline-block; font-size: 10px; background: #E6F1FB; color: #0C447C; padding: 2px 7px; border-radius: 999px; margin-top: 3px; }
+  .legend { position: absolute; bottom: 20px; left: 12px; z-index: 999; background: rgba(255,255,255,0.95); border: 0.5px solid #e0ddd8; border-radius: 10px; padding: 10px 13px; font-size: 11px; color: #5F5E5A; }
+  .legend-item { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.15); }
+  .legend-note { font-size: 10px; color: #888780; margin-top: 4px; border-top: 0.5px solid #e0ddd8; padding-top: 5px; }
+  .info-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 10px; font-size: 12px; color: #5A5648; }
+</style>
+
+<div class="info-bar">
+  <span style="font-weight: 500; font-size: 13px; color: #2A2820;">LebensZeit gGmbH — Geschäftsgebiet Hellweg/Soest</span>
+  <span style="font-size: 11px; color: #8A8478;">Klick auf Marker für Demografie-Details</span>
+</div>
+
+<div style="position: relative;">
+  <div id="map"></div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: #185FA5;"></div> Hauptstandort</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #1D9E75;"></div> Filialstandort</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #E24B4A;"></div> Wirtschaftlich kritisch</div>
+    <div class="legend-note">Einwohnerzahlen: Kreis Soest 2024<br>Altersquoten: Statistik NRW / IT.NRW</div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([51.575, 8.29], 11);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap &copy; CARTO',
+  subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
+
+const locations = [
+  {
+    name: "Erwitte",
+    role: "Hauptstandort",
+    lat: 51.6062, lng: 8.3403,
+    color: "#185FA5",
+    einwohner: 16300,
+    anteil65: 23.1,
+    durchschnittsalter: 46.2,
+    trend: "Leicht wachsend (+0,44 %/J.)",
+    trendType: "pos",
+    note: "Kreisstraßenkreuz; Pflegebedarf wächst stetig"
+  },
+  {
+    name: "Bad Sassendorf",
+    role: "Filialstandort",
+    lat: 51.5886, lng: 8.1707,
+    color: "#1D9E75",
+    einwohner: 12194,
+    anteil65: 33.0,
+    durchschnittsalter: 50.3,
+    trend: "Leicht wachsend (+0,70 %/J.)",
+    trendType: "pos",
+    note: "Älteste Gemeinde NRWs (Ø-Alter 50,3 J.) — höchste Pflegedichte"
+  },
+  {
+    name: "Anröchte",
+    role: "Filialstandort",
+    lat: 51.5622, lng: 8.3256,
+    color: "#1D9E75",
+    einwohner: 10304,
+    anteil65: 24.5,
+    durchschnittsalter: 47.1,
+    trend: "Schrumpfend (−1,64 %/J.)",
+    trendType: "neg",
+    note: "Starker Bevölkerungsrückgang bis 2050 erwartet"
+  },
+  {
+    name: "Rüthen",
+    role: "Kritischer Standort",
+    lat: 51.4925, lng: 8.4370,
+    color: "#E24B4A",
+    einwohner: 10290,
+    anteil65: 26.8,
+    durchschnittsalter: 48.4,
+    trend: "Schrumpfend (−3,66 %/J.)",
+    trendType: "neg",
+    note: "Nicht kostendeckend; stärkster Bevölkerungsrückgang im Kreis"
+  },
+  {
+    name: "Lippetal",
+    role: "Kritischer Standort",
+    lat: 51.6637, lng: 8.1443,
+    color: "#E24B4A",
+    einwohner: 11883,
+    anteil65: 25.6,
+    durchschnittsalter: 47.8,
+    trend: "Schrumpfend (−1,13 %/J.)",
+    trendType: "neg",
+    note: "Nicht kostendeckend; Bevölkerungsrückgang bis 2050 anhaltend"
+  }
+];
+
+function makeIcon(color, isMain) {
+  const size = isMain ? 18 : 14;
+  const ring = isMain ? 3 : 2;
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color};border:${ring}px solid white;box-shadow:0 0 0 1.5px ${color},0 2px 8px rgba(0,0,0,0.18);"></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2]
+  });
+}
+
+function fmtNum(n) { return n.toLocaleString('de-DE'); }
+
+locations.forEach(loc => {
+  const isMain = loc.role === "Hauptstandort";
+  const isCrit = loc.trendType === "neg" && loc.role.includes("Kritisch");
+  const marker = L.marker([loc.lat, loc.lng], { icon: makeIcon(loc.color, isMain) }).addTo(map);
+
+  const barWidth = Math.round((loc.anteil65 / 40) * 100);
+  const barColor = loc.anteil65 > 30 ? '#E24B4A' : loc.anteil65 > 25 ? '#EF9F27' : '#185FA5';
+  const trendClass = loc.trendType === 'pos' ? 'trend-pos' : loc.trendType === 'neg' ? 'trend-neg' : 'trend-neu';
+
+  const popup = `
+    <div class="popup-header">
+      <p class="popup-name">${loc.name} ${isMain ? '<span class="hs-badge">Hauptstandort</span>' : ''}</p>
+      <p class="popup-role">${loc.role}</p>
+    </div>
+    <div class="popup-body">
+      <div class="popup-stat">
+        <span class="popup-stat-label">Einwohner</span>
+        <span class="popup-stat-value">${fmtNum(loc.einwohner)}</span>
+      </div>
+      <div class="popup-stat">
+        <span class="popup-stat-label">Ø-Alter</span>
+        <span class="popup-stat-value">${loc.durchschnittsalter.toFixed(1)} <span class="popup-stat-unit">Jahre</span></span>
+      </div>
+      <div class="popup-bar-row">
+        <div class="popup-bar-label">
+          <span>Anteil über 65 Jahre</span>
+          <span style="font-weight:500;color:#1a1917;">${loc.anteil65.toFixed(1)} %</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${barWidth}%;background:${barColor};"></div></div>
+      </div>
+      <div class="popup-trend ${trendClass}" style="grid-column:1/-1;">
+        <strong>Trend:</strong> ${loc.trend}
+      </div>
+      <div style="grid-column:1/-1;font-size:11px;color:#5F5E5A;padding-top:2px;">${loc.note}</div>
+    </div>
+  `;
+
+  marker.bindPopup(popup, { maxWidth: 260, minWidth: 240 });
+});
+
+setTimeout(() => map.invalidateSize(), 300);
+</script>
+
+</body>
+</html>

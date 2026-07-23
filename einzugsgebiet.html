@@ -334,6 +334,9 @@ body { font-size: 16.5px; }
 .fiktiv-menu a:hover { background: var(--green); border-color: var(--green); transform: translateX(2px); }
 @keyframes lzMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
+.kpi-item{display:flex;flex-direction:column;gap:6px;align-items:center;}
+.kpi-strip .num{display:block;line-height:1;}
+.kpi-strip .lbl{display:block;}
 </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 </head>
@@ -412,8 +415,8 @@ body { font-size: 16.5px; }
     </div>
   </section>
 
-  <div class="kpi-strip" style="background:var(--cream2);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);">
-    <div class="wrap kpi-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:26px 0;">
+  <div class="kpi-strip" style="background:var(--cream2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="wrap kpi-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:32px 0;">
       <div class="kpi-item" style="text-align:center;"><span class="num" style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--green);">5</span><span class="lbl" style="font-size:12px;color:var(--text3);">Standorte im Kreis Soest</span></div>
       <div class="kpi-item" style="text-align:center;"><span class="num" style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--green);">60.900</span><span class="lbl" style="font-size:12px;color:var(--text3);">Einwohner im Versorgungsgebiet</span></div>
       <div class="kpi-item" style="text-align:center;"><span class="num" style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--green);">180</span><span class="lbl" style="font-size:12px;color:var(--text3);">aktiv betreute Pflegefälle</span></div>
@@ -430,8 +433,10 @@ body { font-size: 16.5px; }
         <div class="loc-card"><span class="role">Standort</span><h3>Rüthen</h3><p>Versorgung im ländlich geprägten Raum — Teil der Flächendeckung.</p></div>
         <div class="loc-card"><span class="role">Standort</span><h3>Lippetal</h3><p>Anbindung des nördlichen Einzugsgebiets.</p></div>
       </div>
-      <p class="rev-note" style="margin-top:20px;font-size:13px;color:var(--text2);font-weight:300;background:var(--cream2);border-left:3px solid var(--sage);border-radius:10px;padding:12px 16px;">
-        Eine interaktive Standortkarte mit Tourengebieten ist als separates Modul vorhanden und kann hier eingebunden werden.</p>
+      <div class="loc-map" style="margin-top:28px;">
+        <iframe src="/standortkarte.html" title="Interaktive Standortkarte der LebensZeit gGmbH im Kreis Soest" loading="lazy" style="width:100%;height:560px;border:1px solid var(--border);border-radius:14px;background:var(--cream2);"></iframe>
+        <p style="margin-top:10px;font-size:12.5px;color:var(--text3);">Klick auf einen Marker zeigt Demografie-Details des jeweiligen Standorts. Blau = Hauptstandort, Grün = Filiale, Rot = wirtschaftlich kritisch.</p>
+      </div>
     </div>
   </section>
 

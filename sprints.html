@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#151c17; --panel:#1e2921; --panel2:#243128; --line:#33443a;
-  --text:#dfe7dc; --dim:#93a493; --mint:#A8C9A0; --sage:#8AAC85; --green:#4A6741; --amber:#C99A2E; --red:#C0603A;
+  --bg:#F5F0E8; --panel:#ffffff; --panel2:#EDE7D9; --line:rgba(74,103,65,.18);
+  --text:#2A2820; --dim:#5A5648; --mint:#A8C9A0; --sage:#8AAC85; --green:#4A6741; --amber:#B07A2A; --red:#8C3A2A;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -29,7 +29,7 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 
 /* Title */
 .title{padding:26px 0 6px}
-.title h1{font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;font-weight:500}
+.title h1{font-family:'Cormorant Garamond',serif;font-size:34px;color:#2C3D27;font-weight:600}
 .title p{color:var(--dim);font-size:14px;margin-top:2px}
 
 /* Tabs */
@@ -47,27 +47,27 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 .panel.on{display:block}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .badge{font-size:12px;border-radius:20px;padding:5px 12px;letter-spacing:.3px}
-.badge.done{background:rgba(74,138,84,.18);color:#7fc389;border:1px solid rgba(74,138,84,.4)}
+.badge.done{background:rgba(74,138,84,.14);color:#2f7d3a;border:1px solid rgba(74,138,84,.4)}
 .badge.active{background:rgba(201,154,46,.15);color:var(--amber);border:1px solid rgba(201,154,46,.4)}
 .badge.plan{background:rgba(147,164,147,.12);color:var(--dim);border:1px solid var(--line)}
 .badge.date{background:var(--panel);color:var(--text);border:1px solid var(--line)}
 
-.lead{font-size:17px;color:#eaf0e8;font-weight:300;margin-bottom:8px}
+.lead{font-size:17px;color:#5A5648;font-weight:400;margin-bottom:8px}
 .hl{background:var(--panel);border-left:3px solid var(--sage);border-radius:8px;padding:14px 16px;margin:14px 0;color:var(--text);font-weight:300}
-.hl b{color:var(--mint);font-weight:500}
+.hl b{color:#3A5233;font-weight:600}
 
 h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin:28px 0 12px;font-weight:500}
 
 /* Baustein-Karten */
 .bst{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px;margin-bottom:12px}
 .bst .no{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--sage)}
-.bst h3{font-size:19px;color:#fff;font-weight:500;margin:2px 0 8px}
+.bst h3{font-size:19px;color:#2C3D27;font-weight:600;margin:2px 0 8px}
 .bst p{font-size:14.5px;color:var(--text);font-weight:300;margin-bottom:8px}
 .bst ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px}
 .bst li{position:relative;padding-left:18px;font-size:14px;color:var(--text);font-weight:300}
 .bst li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--sage)}
-.req{margin-top:10px;font-size:13.5px;color:var(--mint);background:rgba(168,201,160,.08);border-radius:8px;padding:8px 12px}
-.req b{color:#fff}
+.req{margin-top:10px;font-size:13.5px;color:#3A5233;background:rgba(74,103,65,.06);border-radius:8px;padding:8px 12px}
+.req b{color:#2C3D27}
 
 /* Listen */
 .checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
@@ -77,7 +77,7 @@ h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sa
 /* Kriterien-Grid */
 .crit{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px}
 .crit div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--text);font-weight:300}
-.crit div b{display:block;color:#fff;font-weight:500;margin-bottom:2px;font-size:14px}
+.crit div b{display:block;color:#2C3D27;font-weight:600;margin-bottom:2px;font-size:14px}
 
 .soon{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--dim);text-align:center;font-weight:300}
 .soon b{color:var(--text);display:block;margin-bottom:4px;font-weight:500}

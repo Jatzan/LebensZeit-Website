@@ -104,6 +104,63 @@
     document.head.appendChild(el);
   }
 
+  /* ---------- 6b. Pillmenü-Leiste (CSS + Auto-Inject) ---------- */
+  function injectBarCSS() {
+    if (document.getElementById("lz-bar-css")) return;
+    var css = "" +
+      ".fiktiv-bar{position:relative;z-index:100;}" +
+      ".fiktiv-marquee{display:block;width:100%;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;background:#8C3A2A;color:#fff;overflow:hidden;white-space:nowrap;}" +
+      ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
+      ".fiktiv-marquee .track{display:inline-block;padding:7px 0;animation:fiktivscroll 60s linear infinite;}" +
+      ".fiktiv-marquee .track span{font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:0 36px;}" +
+      "@keyframes fiktivscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}" +
+      ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
+      ".fiktiv-menu[hidden]{display:none;}" +
+      ".fiktiv-menu-h{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8AAC85;padding:2px 6px 4px;}" +
+      ".fiktiv-menu a{display:block;color:#F5F0E8;background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:15px;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
+      ".fiktiv-menu a:hover{background:#4A6741;border-color:#4A6741;transform:translateX(2px);color:#fff;}" +
+      "@keyframes lzMenuIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}";
+    var el = document.createElement("style"); el.id = "lz-bar-css"; el.textContent = css;
+    document.head.appendChild(el);
+  }
+
+  function ensureBar() {
+    if (document.querySelector(".fiktiv-bar")) return false; // schon vorhanden (öffentliche Seiten)
+    var marquee = "";
+    for (var i = 0; i < 8; i++) marquee += "<span>Fiktives Unternehmen · nur zu Schulungszwecken</span>";
+    var bar = document.createElement("div");
+    bar.className = "fiktiv-bar";
+    bar.innerHTML =
+      '<button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()"><div class="track">' + marquee + '</div></button>' +
+      '<div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>' +
+        '<span class="fiktiv-menu-h">Planspiel-intern</span>' +
+        "<a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>" +
+        "<a href='/website-status' role='menuitem'>Website-Status</a>" +
+        "<a href='/sprints' role='menuitem'>Sprint-Übersicht</a>" +
+        "<a href='/notizen' role='menuitem'>Notiz-Übersicht</a>" +
+        '<div class="fiktiv-menu-sep"></div>' +
+        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 Notizen</span><span id="lzNotesState">Aus</span></button>' +
+      '</div>';
+    document.body.insertBefore(bar, document.body.firstChild);
+    // Menü-Verhalten nur für die injizierte Leiste binden
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".fiktiv-bar")) lzToggleMenu(false);
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") lzToggleMenu(false); });
+    return true;
+  }
+
+  /* lzToggleMenu nur definieren, falls die Seite es nicht schon inline hat */
+  if (typeof window.lzToggleMenu !== "function") {
+    window.lzToggleMenu = function (force) {
+      var m = document.getElementById("fiktivMenu"), t = document.getElementById("lzTrigger");
+      if (!m) return;
+      var open = (typeof force === "boolean") ? force : m.hasAttribute("hidden");
+      if (open) m.removeAttribute("hidden"); else m.setAttribute("hidden", "");
+      if (t) t.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+  }
+
   /* ---------- 7. Pins auf der aktuellen Seite bauen ---------- */
   function buildPins() {
     var mine = notesForPage().filter(function (n) { return !isDone(n.id); });
@@ -192,6 +249,8 @@
   function init() {
     loadDone();
     injectCSS();
+    injectBarCSS();
+    if (slug() !== "cockpit") ensureBar(); // Cockpit: Vollbild-Layout, keine Leiste einfügen
     if (loadVisible()) document.body.classList.add("lz-notes-active");
     buildPins();
   }
