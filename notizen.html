@@ -55,6 +55,7 @@ header.page p.lead{font-size:19px;color:var(--text2);max-width:60ch;margin-top:1
 .note p{grid-column:1;color:var(--text2);font-size:15.5px;margin-top:3px;max-width:62ch;}
 .note .chk{grid-column:2;grid-row:1 / span 4;align-self:start;display:flex;align-items:center;gap:9px;font-size:14px;color:var(--text2);white-space:nowrap;cursor:pointer;user-select:none;}
 .note .chk input{width:20px;height:20px;accent-color:var(--green);cursor:pointer;}
+.note .chk-fixed{color:var(--green);font-weight:500;cursor:default;}
 .note.done h3,.note.done p{text-decoration:line-through;color:var(--text3);}
 .note.done .badge{opacity:.5;}
 
@@ -108,6 +109,8 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     "investoren-markt": {name:"Investoren · Markt",      url:"/investoren-markt"},
     "preise":           {name:"Preise & Eigenanteil",    url:"/preise"},
     "sprints":          {name:"Sprint-Übersicht",        url:"/sprints"},
+    "einzugsgebiet":    {name:"Einzugsgebiet",           url:"/einzugsgebiet"},
+    "ueber-uns":        {name:"Über uns",                url:"/ueber-uns"},
     "mitgliedschaft":   {name:"Mitgliedschaft",          url:"/mitgliedschaft"},
     "leistungen":       {name:"Leistungen",              url:"/leistungen"},
     "aktuelles":        {name:"Aktuelles",               url:"/aktuelles"}
@@ -152,6 +155,7 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
       g.innerHTML = '<h2>'+esc(gi.name)+' <a class="go" href="'+gi.url+'">→ zur Seite</a></h2>';
       groups[slug].forEach(function(n){
         var done = LZ.isDone(n.id);
+        var fixed = LZ.isFixed(n.id);
         var meta = STATUS[n.status] || STATUS.offen;
         var el = document.createElement("div");
         el.className = "note" + (done?" done":"");
@@ -159,11 +163,15 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
           '<span class="badge b-'+n.status+'">'+esc(meta.label)+'</span>'+
           '<h3>'+esc(n.title)+'</h3>'+
           '<p>'+esc(n.text)+'</p>'+
-          '<label class="chk"><input type="checkbox" '+(done?"checked":"")+'> erledigt</label>';
-        el.querySelector("input").addEventListener("change", function(e){
-          LZ.setDone(n.id, e.target.checked);
-          render();
-        });
+          (fixed
+            ? '<span class="chk chk-fixed" title="Im Build fest erledigt — auf der Live-Website nicht umschaltbar">🔒 fest erledigt</span>'
+            : '<label class="chk"><input type="checkbox" '+(done?"checked":"")+'> erledigt</label>');
+        if (!fixed) {
+          el.querySelector("input").addEventListener("change", function(e){
+            LZ.setDone(n.id, e.target.checked);
+            render();
+          });
+        }
         g.appendChild(el);
       });
       list.appendChild(g);

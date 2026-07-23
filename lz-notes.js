@@ -22,12 +22,46 @@
       text: "~90 Klient:innen in Pflegegrad 1 bzw. reiner Beratung sind nicht als eigenes Segment ausgewiesen (180 = PG 2–5). Ergänzen oder bewusst ausklammern — Entscheidung offen." },
 
     { id: "n-preise-rechner", page: "preise", selector: "main", status: "auszubauen",
-      title: "Preis-Empfehlung / Eigenanteil-Rechner",
-      text: "Baustein 2: Eigenanteil-Rechner bzw. Preis-Empfehlung ergänzen. Datenbasis liegt vor." },
+      title: "Preis-Empfehlung + Herleitung (Baustein 2)",
+      text: "Eigenanteil-Rechner bzw. Preis-Empfehlung ergänzen und die 62 %→70 %-Eigenfinanzierung nachvollziehbar offenlegen. Datenbasis liegt vor." },
 
     { id: "n-sprints-kampagne", page: "sprints", selector: "main", status: "spaeter",
       title: "Kampagne + 2 Assets (Baustein 3)",
-      text: "Marketing-Kampagne plus zwei Assets — bislang kaum begonnen. Größte inhaltliche Lücke in Sprint 2." }
+      text: "Marketing-Kampagne plus zwei Assets und zwei KPIs — bislang kaum begonnen. Größte inhaltliche Lücke in Sprint 2." },
+
+    /* ----- KI-Kritik (aus Audit-Analyse) ----- */
+    { id: "n-eg-kartenstatus", page: "einzugsgebiet", selector: ".loc-map", status: "offen", done: true,
+      title: "Standort-Status öffentlich sichtbar",
+      text: "KI-Kritik: Die eingebettete Karte zeigt öffentlich „Wirtschaftlich kritisch\" / „Nicht kostendeckend\" (Rüthen, Lippetal). Für die Kundenansicht entschärfen — die ehrliche Diagnose gehört in Cockpit/Investorenbereich." },
+
+    { id: "n-eg-einwohner", page: "einzugsgebiet", selector: ".kpi-strip", status: "offen",
+      title: "Einwohnerzahlen vereinheitlichen",
+      text: "KI-Kritik: Zahlen driften zwischen Standortkarte, Wettbewerbsanalyse und Investorpitch (z. B. Erwitte 16.300 vs. ~20.200, Lippetal 11.883 vs. 8.500). Vor dem Pitch auf einen Datensatz festlegen — sonst Angriffsfläche im Investoren-Q&A." },
+
+    { id: "n-index-247", page: "index", selector: ".trust", status: "offen",
+      title: "24/7-Versprechen überzieht",
+      text: "KI-Kritik: Laut Basisdaten kein Nachtdienst (nur Früh-/Spätdienst, Wochenende Rufbereitschaft), Hausnotruf nur Premium. „24/7 Erreichbarkeit im Notfall\" präzisieren oder streichen." },
+
+    { id: "n-index-usp", page: "index", selector: ".hero", status: "auszubauen",
+      title: "USP zuspitzen (Baustein 1)",
+      text: "KI-Kritik: Startseite noch generisch (vier Standardleistungen). Auf Option C zuspitzen — „Digitale Nähe – der sichtbare Pflegepartner für Angehörige\" (Persona Markus Dörre), nicht auf drei Säulen." },
+
+    { id: "n-aktuelles-grammatik", page: "aktuelles", selector: "main", status: "offen",
+      title: "Grammatik: „aus der Nachbarschaft\"",
+      text: "KI-Kritik: Überschrift „Neues aus dem Nachbarschaft\" → „Neues aus der Nachbarschaft\" korrigieren." },
+
+    { id: "n-ueberuns-oton", page: "ueber-uns", selector: "main", status: "spaeter",
+      title: "O-Ton der Gründerin",
+      text: "KI-Kritik (Kür): kurzes Zitat von Dr. Maria Holthaus „Warum ich LebensZeit gegründet habe\" erhöht Authentizität." },
+
+    /* ----- Sprint-2-Bausteine ----- */
+    { id: "n-sprints-app", page: "sprints", selector: "main", status: "auszubauen",
+      title: "App-Prototyp V1→V3 (Baustein 4)",
+      text: "Drei dokumentierte Iterationsstufen V1–V3 + KI-Persona-Feedback + Live-Klick im Pitch. Braucht einen Owner; V1 muss vor den Ferien stehen." },
+
+    { id: "n-sprints-reflexion", page: "sprints", selector: "main", status: "spaeter",
+      title: "Sprint-Reflexion (Baustein 5)",
+      text: "„Was habt ihr anders gemacht als in Sprint 1?\" wird separat bewertet — geteiltes Prompt-Tagebuch ab Tag 1 führen, nicht rückwirkend." }
   ];
 
   /* ---------- 2. Status-Metadaten ---------- */
@@ -40,6 +74,8 @@
   /* ---------- 3. Erledigt-Status (localStorage + Fallback) ---------- */
   var MEM = {};           // In-Memory-Spiegel (Preview ohne localStorage)
   var KEY = "lz-notes-done";
+  var BY_ID = {}; NOTES.forEach(function (n) { BY_ID[n.id] = n; });
+  function isFixed(id) { return !!(BY_ID[id] && BY_ID[id].done); } // im Build fest erledigt
   function loadDone() {
     try {
       var raw = window.localStorage.getItem(KEY);
@@ -50,8 +86,9 @@
   function saveDone() {
     try { window.localStorage.setItem(KEY, JSON.stringify(MEM)); } catch (e) {}
   }
-  function isDone(id) { return !!MEM[id]; }
+  function isDone(id) { return isFixed(id) || !!MEM[id]; }
   function setDone(id, done) {
+    if (isFixed(id)) return; // fest erledigt — auf der Live-Seite nicht umschaltbar
     if (done) MEM[id] = true; else delete MEM[id];
     saveDone();
     document.dispatchEvent(new CustomEvent("lz-notes-changed", { detail: { id: id, done: done } }));
@@ -241,6 +278,7 @@
     status: STATUS,
     slug: slug,
     isDone: isDone,
+    isFixed: isFixed,
     setDone: setDone,
     rebuild: function () { clearPins(); buildPins(); }
   };
