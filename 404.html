@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finanzierung — Investorenbereich · LebensZeit gGmbH</title>
-<meta name="description" content="Investorenbereich der LebensZeit gGmbH — vertraulich. Kennzahlen, Markt, SWOT, Finanzierung. Fiktives Schulungsprojekt.">
+<title>Seite nicht gefunden — LebensZeit gGmbH</title>
+<meta name="description" content="Fehler 404 — die gesuchte Seite der LebensZeit gGmbH wurde nicht gefunden.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -143,14 +143,19 @@ header.site {
 .btn-ghost:hover { background: var(--cream2); border-color: var(--green); }
 
 .hero-art { display: flex; justify-content: center; }
-.hero-art svg { width: 100%; max-width: 380px; height: auto; }
+.hero-art svg { width: 100%; max-width: 510px; height: auto; }
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
-.trust-item { display: flex; flex-direction: column; }
+.trust-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 26px 0; }
+.trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
 .trust-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .5px; }
+/* Fiktiv-Laufband (oben) */
+.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
+.fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
+@keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ============================================================
    SECTION-HELFER
@@ -206,7 +211,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 36px; }
   .hero-art { order: -1; }
-  .hero-art svg { max-width: 280px; }
+  .hero-art svg { max-width: 340px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .nav-links {
     position: absolute; top: 76px; left: 0; right: 0;
@@ -222,195 +227,29 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 }
 @media (max-width: 520px) {
   .footer-grid { grid-template-columns: 1fr; }
-  .trust-row { gap: 18px; }
-  .trust-item { flex: 1 1 40%; }
+  .trust-row { grid-template-columns: repeat(2, 1fr); gap: 20px 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
-/* ============================================================
-   INVESTORENBEREICH · gemeinsame Komponenten
-   ============================================================ */
-.conf-bar {
-  background: var(--green3); color: var(--mint);
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  text-align: center; padding: 7px 16px;
-}
-
-/* ---- Mock-Login-Gate ---- */
-.gate {
-  position: fixed; inset: 0; z-index: 200;
-  background: linear-gradient(135deg, #2C3D27, #4A6741);
-  display: flex; align-items: center; justify-content: center; padding: 24px;
-}
-.gate.hidden { display: none; }
-.gate-card {
-  background: var(--cream); border-radius: 18px; padding: 44px 40px;
-  width: 100%; max-width: 420px; box-shadow: 0 30px 80px rgba(0,0,0,.35);
-  text-align: center;
-}
-.gate-card .logo-lockup { color: var(--green); justify-content: center; margin-bottom: 8px; }
-.gate-card h1 { font-size: 30px; margin: 16px 0 6px; }
-.gate-card .gate-sub { font-size: 14px; color: var(--text2); font-weight: 300; margin-bottom: 26px; }
-.gate-field { text-align: left; margin-bottom: 16px; }
-.gate-field label { display: block; font-size: 12px; letter-spacing: .5px; color: var(--text2); margin-bottom: 6px; }
-.gate-field input {
-  width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
-  background: #fff; font-family: 'Jost', sans-serif; font-size: 15px; color: var(--text);
-}
-.gate-field input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; border-color: var(--green); }
-.gate .btn { width: 100%; justify-content: center; margin-top: 6px; }
-.gate-demo {
-  margin-top: 20px; font-size: 12px; color: var(--text2); font-weight: 300;
-  background: #FBF4E6; border: 1px solid var(--amber); border-radius: 10px; padding: 10px 14px;
-}
-.gate-err { color: #A23; font-size: 13px; min-height: 18px; margin-top: 4px; }
-
-/* ---- Portal-Hero ---- */
-.inv-hero { padding: 64px 0 36px; }
-.inv-hero .eyebrow { margin-bottom: 14px; }
-.inv-hero h1 { font-size: clamp(34px, 5vw, 56px); margin-bottom: 16px; }
-.inv-hero h1 em { font-style: italic; color: var(--green); }
-.inv-hero .lead { font-size: 18px; color: var(--text2); font-weight: 300; max-width: 40em; }
-
-/* ---- KPI-Schnellleiste ---- */
-.kpi-strip { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 28px 0; }
-.kpi-item { display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; }
-.kpi-item .num { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--green); line-height: 1; }
-.kpi-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .4px; }
-
-/* ---- Sektion-Karten ---- */
-.sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.sec-card {
-  display: flex; flex-direction: column; background: #fff; border: 0.5px solid var(--border);
-  border-radius: var(--r); padding: 28px 26px; transition: transform .18s, box-shadow .18s; height: 100%;
-}
-.sec-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(44,61,39,.10); }
-.sec-card .sec-ix { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--sage); }
-.sec-card h3 { font-size: 24px; margin: 6px 0 8px; }
-.sec-card p { font-size: 14px; color: var(--text2); font-weight: 300; flex-grow: 1; margin-bottom: 16px; }
-.sec-card .go { font-size: 14px; color: var(--green); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
-.sec-card:hover .go { gap: 10px; }
-
-/* ---- KPI-Tabelle / Benchmark (Kennzahlen-Seite) ---- */
-.bench { width: 100%; border-collapse: collapse; margin-top: 8px; }
-.bench th, .bench td { text-align: left; padding: 12px 14px; font-size: 14px; border-bottom: 0.5px solid var(--border); }
-.bench th { font-family: 'Jost', sans-serif; font-weight: 500; color: var(--text2); font-size: 12px; letter-spacing: .5px; text-transform: uppercase; }
-.bench td:first-child { color: var(--text); }
-.bench .val { font-weight: 500; color: var(--green3); }
-.bench .flag-ok { color: var(--green); font-size: 12px; }
-.bench .flag-warn { color: var(--amber); font-size: 12px; }
-.bench tr:hover td { background: var(--cream2); }
-
-/* ---- Umsatzstruktur-Balken ---- */
-.rev { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-.rev-row { display: grid; grid-template-columns: 180px 1fr 64px; align-items: center; gap: 14px; }
-.rev-row .rl { font-size: 14px; color: var(--text); }
-.rev-bar { height: 22px; border-radius: 6px; background: var(--green); }
-.rev-row .rv { font-size: 14px; color: var(--text2); text-align: right; font-variant-numeric: tabular-nums; }
-.rev-note { font-size: 13px; color: var(--text2); font-weight: 300; margin-top: 14px; padding: 12px 16px; background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--sage); }
-
-.tbd { display:inline-block; background:#FBF4E6; border:1px dashed var(--amber); color:#6B4A12;
-       font-size:11px; letter-spacing:.3px; padding:1px 8px; border-radius:10px; }
-
-@media (max-width: 1024px) {
-  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .rev-row { grid-template-columns: 120px 1fr 56px; }
-}
-@media (max-width: 520px) {
-  .kpi-row { grid-template-columns: 1fr 1fr; }
-}
-
-
-/* Investoren · SWOT-Grid + Kontakt */
-.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.swot-q { border-radius: var(--r); padding: 24px 26px; border: 0.5px solid var(--border); }
-.swot-q h3 { font-size: 22px; margin-bottom: 12px; }
-.swot-q ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.swot-q li { position: relative; padding-left: 18px; font-size: 13.5px; color: var(--text); font-weight: 300; line-height: 1.45; }
-.swot-q li::before { content:''; position:absolute; left:0; top:8px; width:6px; height:6px; border-radius:50%; }
-.swot-q.s { background:#EEF3EC; } .swot-q.s li::before{ background:var(--green); }
-.swot-q.w { background:#FBF1E6; } .swot-q.w li::before{ background:var(--amber); }
-.swot-q.o { background:#EDF3F0; } .swot-q.o li::before{ background:var(--sage); }
-.swot-q.t { background:#F6ECEA; } .swot-q.t li::before{ background:#8C3A2A; }
-
-.contact-grid { display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; }
-.contact-card { background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:32px; display:flex; gap:22px; }
-.contact-avatar { width:64px; height:64px; flex-shrink:0; border-radius:50%; background:var(--green); color:var(--cream);
-  display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:24px; }
-.contact-card h3 { font-size:26px; margin-bottom:2px; }
-.contact-role { font-size:14px; color:var(--sage); font-weight:500; margin-bottom:16px; }
-.contact-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
-.contact-list li { font-size:14px; color:var(--text); }
-.contact-list li span:first-child { display:inline-block; width:64px; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--text3); }
-.contact-form { background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:32px; }
-.contact-form h3 { font-size:24px; margin-bottom:18px; }
-.contact-form textarea { width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:10px; font-family:'Jost',sans-serif; font-size:15px; resize:vertical; }
-.contact-form .btn { width:100%; justify-content:center; margin-top:6px; }
-.contact-ok { font-size:13px; color:var(--green); font-weight:300; margin-top:12px; min-height:18px; }
-@media (max-width:880px){ .swot-grid{ grid-template-columns:1fr; } .contact-grid{ grid-template-columns:1fr; } }
-
-
-/* ============================================================
-   INVESTOREN-THEME · wertiger, dunkler, markenverwandt
-   ============================================================ */
-.inv-theme header.site { background: var(--green3); border-bottom: 1px solid rgba(168,201,160,.18); backdrop-filter: none; }
-.inv-theme header .logo-lockup { color: var(--mint); }
-.inv-theme .nav-links a { color: rgba(245,240,232,.82); }
-.inv-theme .nav-links a:hover { color: var(--mint); }
-.inv-theme .nav-links a::after { background: var(--mint); }
-.inv-theme .nav-links a[aria-current="page"] { color: var(--mint) !important; }
-.inv-theme .nav-cta.secondary { color: var(--mint) !important; border-color: rgba(168,201,160,.5); }
-.inv-theme .nav-cta.secondary:hover { background: var(--mint); color: var(--green3) !important; }
-.inv-theme .nav-toggle { color: var(--mint); }
-
-/* Hero dunkel + Gold-Akzent */
-.inv-theme .inv-hero {
-  background: linear-gradient(135deg, #243120 0%, var(--green) 145%);
-  color: var(--cream); position: relative; overflow: hidden;
-}
-.inv-theme .inv-hero::after {
-  content:''; position:absolute; right:-140px; top:-90px; width:460px; height:460px; border-radius:50%;
-  background: radial-gradient(circle, rgba(168,201,160,.16), transparent 68%); pointer-events:none;
-}
-.inv-theme .inv-hero .eyebrow { color: var(--amber); }
-.inv-theme .inv-hero h1 { color: var(--cream); }
-.inv-theme .inv-hero h1 em { color: var(--mint); }
-.inv-theme .inv-hero .lead { color: rgba(245,240,232,.82); }
-
-/* KPI-Band dunkel — Bruecke unter dem Hero */
-.inv-theme .kpi-strip { background: var(--green3); border-color: rgba(168,201,160,.18); }
-.inv-theme .kpi-item .num { color: var(--mint); }
-.inv-theme .kpi-item .lbl { color: rgba(245,240,232,.62); }
-
-/* Content-Akzent: Amber statt Sage */
-.inv-theme section.block .section-head .eyebrow { color: var(--amber); }
-
-/* Sektion-Karten: feine Gold-Oberkante */
-.inv-theme .sec-card { border-top: 2px solid var(--amber); }
-
-/* CTA-Band dunkler */
-.inv-theme .cta-band { background: var(--green3); }
-
-/* Mobile-Dropdown dunkel */
-@media (max-width: 1024px) {
-  .inv-theme .nav-links { background: var(--green3); border-bottom-color: rgba(168,201,160,.18); }
-}
-
-
-/* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
-.fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
-.fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
-@keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-
-/* INVESTOR-KACHELN gleichmaessig (5 -> 3+2) */
-.sec-grid { grid-template-columns: repeat(3,1fr); }
-@media (max-width:760px){ .sec-grid { grid-template-columns: 1fr; } }
+/* HAUPTSEITEN-LESBARKEIT & KACHELN */
+body { font-size: 16.5px; }
+.hero p.lead, .page-hero .lead { font-size: 20px; }
+.section-head p { font-size: 17px; }
+.card p { font-size: 15px; }
+.svc-body > p { font-size: 15.5px; } .svc-list li { font-size: 15px; }
+.value-box p { font-size: 15px; } .loc-card p { font-size: 14.5px; }
+.tier-list li { font-size: 15px; } .two-col p { font-size: 16px; } .two-col li { font-size: 15px; }
+.lb-card p { font-size: 16px; } .tl-item p { font-size: 15px; } .story p { font-size: 17px; }
+.aside-list span { font-size: 14.5px; } .ptab td, .ptab th { font-size: 15px; }
+@media (min-width:561px) and (max-width:1024px){ .cards { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .cards { grid-template-columns: 1fr; } }
+.loc-grid { grid-template-columns: repeat(4,1fr); }
+.loc-card.hq { grid-column: 1 / -1; }
+@media (max-width:1024px){ .loc-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .loc-grid { grid-template-columns: 1fr; } }
 
 
 /* Fiktiv-Banner -> Aufklapp-Menue */
@@ -438,9 +277,10 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 @keyframes lzMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
 </style>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 </head>
-<body class="inv-theme">
+<body>
+
 <!-- FIKTIV-LAUFBAND + Planspiel-Menü (schwebend) -->
 <div class="fiktiv-bar">
   <button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()">
@@ -457,14 +297,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   </div>
 </div>
 
-<div class="conf-bar">Vertraulich · Investorenbereich · Fiktives Schulungsprojekt</div>
-
 <!-- ============================================================
      HEADER — auf allen Seiten identisch
      ============================================================ -->
 <header class="site">
   <div class="wrap nav-bar">
-    <a aria-label='LebensZeit Investorenbereich' class='logo-lockup' href='/'>
+    <a aria-label='LebensZeit gGmbH Startseite' class='logo-lockup' href='/'>
       <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
       <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
@@ -492,13 +330,13 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href='/investoren'>Übersicht</a></li>
-      <li><a href='/investoren-kennzahlen'>Kennzahlen</a></li>
-      <li><a href='/investoren-markt'>Markt &amp; Wettbewerb</a></li>
-      <li><a href='/investoren-swot'>SWOT</a></li>
-      <li><a aria-current='page' href='/investoren-finanzierung' style='color:var(--green);'>Finanzierung</a></li>
-      <li><a href='/investoren-kontakt'>IR-Kontakt</a></li>
-      <li><a class='nav-cta secondary' href='/investoren' onclick='logout(event)'>Abmelden</a></li>
+      <li><a href='/leistungen'>Leistungen</a></li>
+      <li><a href='/ueber-uns'>Über uns</a></li>
+      <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
+      <li><a href='/preise'>Preise</a></li>
+      <li><a href='/aktuelles'>Aktuelles</a></li>
+      <li><a class='nav-cta secondary' href='/mitgliedschaft'>Mitglied werden</a></li>
+      <li><a class='nav-cta' href='/pflegeberatung'>Pflegeberatung anfragen</a></li>
     </ul>
   </div>
 </header>
@@ -506,70 +344,38 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 <!-- ============================================================
      MAIN — pro Seite austauschbar. Hier: oeffentliche Startseite.
      ============================================================ -->
-<!-- MAIN — Investoren · Finanzierung -->
 <main>
-  <section class="inv-hero" style="padding-bottom:24px;">
-    <div class="wrap">
-      <p class="eyebrow">Baustein 04 · Finanzierung</p>
-      <h1>Eine Investition, die auf <em>alle drei</em> einzahlt.</h1>
-      <p class="lead">Drei Risiken, ein Hebel: Statt knappes Kapital auf parallele Programme zu verteilen, konzentriert LebensZeit die Mittel auf Digitalisierung — den Punkt, an dem Förderabhängigkeit, Personalengpass und Standortdefizite zusammenlaufen.</p>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Fehler 404</p>
+        <h1>Diese Seite gibt es <em>nicht</em> (mehr).</h1>
+        <p class="lead">Der Link ist veraltet oder falsch geschrieben. Vielleicht helfen Ihnen diese Wege weiter.</p>
+        <div class="hero-actions">
+          <a class='btn btn-primary' href='/'>Zur Startseite</a>
+          <a class='btn btn-ghost' href='/pflegeberatung'>Pflegeberatung</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+          <text x="240" y="185" font-family="Georgia, serif" font-size="150" letter-spacing="4" text-anchor="middle" fill="#4A6741" opacity="0.85">404</text>
+        </svg>
+      </div>
     </div>
   </section>
 
   <section class="block">
     <div class="wrap">
-      <div class="section-head"><p class="eyebrow">Die Logik</p><h2>Digital als Hebel für alles</h2></div>
+      <div class="section-head"><h2>Beliebte Seiten</h2></div>
       <div class="cards">
-        <div class="card"><h3>Förderabhängigkeit</h3><p>Digitale Effizienz macht Selbstzahlerangebote profitabel — und senkt die 38 % Förderanteil Richtung unter 30 %.</p></div>
-        <div class="card"><h3>Personalengpass</h3><p>Digitales Recruiting und moderne Dokumentation halbieren die Time-to-hire und machen LebensZeit für Fachkräfte attraktiv.</p></div>
-        <div class="card"><h3>Standortdefizite</h3><p>~20 % weniger Verwaltungszeit durch digitale Pflegedokumentation bringen Rüthen &amp; Lippetal näher an die Kostendeckung.</p></div>
+        <div class="card"><h3><a href="/leistungen">Leistungen</a></h3><p>Grundpflege, Behandlungspflege, Betreuung, Hauswirtschaft.</p></div>
+        <div class="card"><h3><a href="/preise">Preise &amp; Eigenanteil</a></h3><p>Was Pflege bei LebensZeit kostet.</p></div>
+        <div class="card"><h3><a href="/mitgliedschaft">Mitglied werden</a></h3><p>Basis, Aktiv oder Premium.</p></div>
+        <div class="card"><h3><a href="/kontakt">Kontakt</a></h3><p>Wir sind für Sie erreichbar.</p></div>
       </div>
     </div>
   </section>
-
-  <section class="block" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head"><p class="eyebrow">Mittelverwendung</p><h2>Wofür das Kapital eingesetzt wird</h2>
-        <p>Aufteilung des Kapitalbedarfs auf die drei Maßnahmen der Digital-Säule plus Standortrestrukturierung. Beträge werden nach interner Abstimmung eingetragen.</p></div>
-      <table class="bench">
-        <thead><tr><th>Verwendung</th><th>Betrag</th><th>Bezug zur SWOT</th></tr></thead>
-        <tbody>
-          <tr><td>Digitale Pflegedokumentation (Pilot → Rollout, z. B. MediFox)</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>W: Digitalisierung</td></tr>
-          <tr><td>Angehörigen-Plattform / App</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>O: Marktlücke</td></tr>
-          <tr><td>Digitales Recruiting &amp; Personalbindung</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>W: 8 offene Stellen</td></tr>
-          <tr><td>Restrukturierung Rüthen &amp; Lippetal</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>W: defizitäre Standorte</td></tr>
-          <tr><td>Puffer / Sonstiges</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>—</td></tr>
-          <tr style="border-top:2px solid var(--green);"><td><b>Kapitalbedarf gesamt</b></td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td><b>Stoßrichtung gesamt</b></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="block" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head"><p class="eyebrow">Zielgrößen</p><h2>Worauf die Investition einzahlt</h2></div>
-      <table class="bench">
-        <thead><tr><th>Kennzahl</th><th>Heute</th><th>Ziel</th></tr></thead>
-        <tbody>
-          <tr><td>Eigenfinanzierungsquote</td><td>62 %</td><td class="val">70 %+ bis 2027</td></tr>
-          <tr><td>Förderabhängigkeit</td><td>38 %</td><td class="val">strukturell &lt; 30 %</td></tr>
-          <tr><td>Offene Fachkraftstellen</td><td>8</td><td class="val">besetzt bis Q4 2026</td></tr>
-          <tr><td>Rüthen &amp; Lippetal</td><td>defizitär</td><td class="val">kostendeckend in 18–24 Mon.</td></tr>
-        </tbody>
-      </table>
-      <p class="rev-note"><b>Hinweis:</b> Die Eurobeträge sind bewusst offengelassen und werden nach interner Abstimmung ergänzt. Die strategische Logik („Digital als Hebel") und die Zielgrößen stehen unabhängig davon fest.</p>
-    </div>
-  </section>
-
-  <section class="block" style="padding-top:0;">
-    <div class="wrap"><div class="cta-band">
-      <h2>Sprechen wir über die Details.</h2>
-      <p>Für Rückfragen und die weitere Due Diligence steht die Geschäftsführung bereit.</p>
-      <a class='btn btn-primary' href='/investoren-kontakt'>Zum IR-Kontakt</a>
-    </div></div>
-  </section>
 </main>
-
 
 <!-- ============================================================
      FOOTER — auf allen Seiten identisch
@@ -641,6 +447,20 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   </div>
 </footer>
 
+<script>
+/* Planspiel-Menü (schwebend) */
+function lzToggleMenu(force){
+  var m=document.getElementById('fiktivMenu'), t=document.getElementById('lzTrigger');
+  var open = (typeof force==='boolean') ? force : m.hasAttribute('hidden');
+  if(open){ m.removeAttribute('hidden'); } else { m.setAttribute('hidden',''); }
+  t.setAttribute('aria-expanded', open?'true':'false');
+}
+document.addEventListener('click', function(e){
+  var bar=document.querySelector('.fiktiv-bar');
+  if(bar && !bar.contains(e.target)) lzToggleMenu(false);
+});
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') lzToggleMenu(false); });
+</script>
 <script>
 /* Mobile-Navigation */
 function toggleNav(btn) {
