@@ -13,7 +13,7 @@
   :root { color-scheme: light; --green:#4A6741; --green3:#2C3D27; --cream:#F5F0E8; --amber:#B07A2A; --text:#2A2820; --text2:#5A5648; --border:rgba(74,103,65,.18); }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--text); line-height:1.7; font-size:19px; -webkit-font-smoothing:antialiased; }
-  .doc { max-width: 820px; margin: 0 auto; padding: 44px 24px 80px; }
+  .doc { max-width: 1120px; margin: 0 auto; padding: 44px 32px 80px; }
   .top { border-bottom: 2px solid var(--green3); padding-bottom: 14px; margin-bottom: 8px; }
   h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:44px; line-height:1.1; color:var(--green3); }
   .top p, .doc > p { color:var(--text2); }
@@ -49,10 +49,26 @@
   .atag { display:inline-block; font-size:10.5px; letter-spacing:.5px; text-transform:uppercase; color:#8a5a12; background:rgba(176,122,42,.16); border-radius:20px; padding:2px 9px; margin-left:8px; white-space:nowrap; }
   .annahmen-intro { color:var(--text2); font-size:16px; margin:6px 0 0; }
   @media (max-width:560px){ .annahmen .arow{flex-direction:column;gap:2px} .annahmen .arow dt{flex:none} }
+.ud-cols { column-count: 2; column-gap: 48px; margin-top: 8px; }
+  .ud-block { break-inside: avoid; -webkit-column-break-inside: avoid; margin-bottom: 4px; display: inline-block; width: 100%; }
+  .ud-block h2 { margin-top: 22px; }
+  .ud-span { column-span: all; -webkit-column-span: all; }
+  @media (max-width: 820px){ .ud-cols { column-count: 1; } }
 </style>
 </head>
 <body>
-<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten' class='here'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints'>Sprint-Übersicht</a><a href='/prompt-tagebuch'>Prompt-Tagebuch</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
+<div class="lz-intbar">
+  <div class="lz-intbar-in">
+    <span class="badge">Planspiel-intern</span>
+    <a href="/unternehmensdaten" class="here">Unternehmensdaten</a>
+    <a href="/sprints">Sprint-Übersicht</a>
+    <a href="/website-status">Website-Status</a>
+    <a href="/notizen">To-Do's</a>
+    <a href="/prompt-tagebuch">Prompt-Tagebuch</a>
+    <a href="/cockpit">Betriebs-Cockpit</a>
+    <a href="/" class="spacer">← zur Website</a>
+  </div>
+</div>
 
 <div class="doc">
 
@@ -63,7 +79,9 @@
 
   <div class="note"><strong>Hinweis:</strong> LebensZeit gGmbH ist ein fiktives Unternehmen. Alle Angaben dienen ausschließlich Schulungszwecken im Rahmen des KI-Pionierzirkels der Volksbank Hellweg eG.</div>
 
-  <h2>Das Unternehmen</h2>
+  <div class="ud-cols">
+  <section class="ud-block">
+    <h2>Das Unternehmen</h2>
   <dl>
     <div class="row"><dt>Name</dt><dd>LebensZeit gGmbH (fiktiv)</dd></div>
     <div class="row"><dt>Rechtsform</dt><dd>Gemeinnützige GmbH (gGmbH)</dd></div>
@@ -73,13 +91,15 @@
     <div class="row"><dt>Tätigkeit</dt><dd>Ambulanter Pflegedienst</dd></div>
     <div class="row"><dt>Pflegesoftware</dt><dd>MediFox DAN</dd></div>
   </dl>
-
-  <h2>Auftrag &amp; Werte</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Auftrag &amp; Werte</h2>
   <p><strong>Purpose:</strong> Menschen im ländlichen Kreis Soest ein würdevolles, selbstbestimmtes Leben im eigenen Zuhause ermöglichen — getragen von einer Gemeinschaft.</p>
   <p><strong>Vision 2031:</strong> ein wirtschaftlich eigenständiges, digital vernetztes Pflege-Ökosystem im ländlichen NRW.</p>
   <p><strong>Werte:</strong> nah · vernetzt · nachhaltig</p>
-
-  <h2>Standorte</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Standorte</h2>
   <ul>
     <li>Erwitte — Hauptsitz (Verwaltung &amp; Pflegedienstleitung)</li>
     <li>Bad Sassendorf</li>
@@ -88,23 +108,26 @@
     <li>Lippetal</li>
   </ul>
   <p>Versorgungsgebiet: rund 60.900 Einwohner, davon etwa 3.995 Pflegebedürftige.</p>
-
-  <h2>Leistungen</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Leistungen</h2>
   <ul>
     <li>Grundpflege (§ 36 SGB XI)</li>
     <li>Behandlungspflege (§ 37 SGB V)</li>
     <li>Betreuung &amp; Entlastung (§ 45b SGB XI)</li>
     <li>Hauswirtschaft</li>
   </ul>
-
-  <h2>Drei Säulen</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Drei Säulen</h2>
   <ul>
     <li>Ambulante Pflege</li>
     <li>Ehrenamtliche Nachbarschaftshilfe</li>
     <li>Mitgliedergemeinschaft</li>
   </ul>
-
-  <h2>Kennzahlen</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Kennzahlen</h2>
   <dl>
     <div class="row"><dt>Jahresumsatz</dt><dd>rund 2,1 Mio. € (Branchenschnitt ca. 1,5 Mio. €)</dd></div>
     <div class="row"><dt>Betreute Pflegefälle</dt><dd>180 aktiv</dd></div>
@@ -113,8 +136,9 @@
     <div class="row"><dt>Eigenfinanzierungsquote</dt><dd>62 % (Ziel: 70 %+)</dd></div>
     <div class="row"><dt>Förderanteil am Umsatz</dt><dd>38 % (Branche 20–25 %)</dd></div>
   </dl>
-
-  <h2>Team</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Team</h2>
   <dl>
     <div class="row"><dt>Mitarbeitende</dt><dd>56 (davon 25 examinierte Pflegekräfte)</dd></div>
     <div class="row"><dt>Ehrenamtliche</dt><dd>45</dd></div>
@@ -122,23 +146,26 @@
     <div class="row"><dt>Offene Fachkraftstellen</dt><dd>8</dd></div>
     <div class="row"><dt>Fuhrpark</dt><dd>18 Fahrzeuge</dd></div>
   </dl>
-
-  <h2>Mitgliedschaft</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Mitgliedschaft</h2>
   <p>520 Mitglieder in drei Stufen:</p>
   <dl>
     <div class="row"><dt>Basis / Förder</dt><dd>48 € / Jahr · 300 Mitglieder</dd></div>
     <div class="row"><dt>Aktiv</dt><dd>120 € / Jahr · 170 Mitglieder</dd></div>
     <div class="row"><dt>Premium</dt><dd>360 € / Jahr · 50 Mitglieder</dd></div>
   </dl>
-
-  <h2>Kontakt (fiktiv)</h2>
+  </section>
+  <section class="ud-block">
+    <h2>Kontakt (fiktiv)</h2>
   <dl>
     <div class="row"><dt>Anschrift</dt><dd>Marktstraße 1, 59597 Erwitte</dd></div>
     <div class="row"><dt>E-Mail</dt><dd>kontakt@lebenszeit-ggmbh.example</dd></div>
     <div class="row"><dt>Weitere Angaben</dt><dd><a href='/impressum'>Impressum</a> · <a href='/datenschutz'>Datenschutz</a></dd></div>
   </dl>
-
-  <h2 style="border-bottom-color:rgba(176,122,42,.5);">Annahmen-Log</h2>
+  </section>
+  <section class="ud-block ud-span">
+    <h2 style="border-bottom-color:rgba(176,122,42,.5);">Annahmen-Log</h2>
   <p class="annahmen-intro">Die Angaben oben sind <strong>Datenbasis</strong> (verbindlicher Steckbrief). Die folgenden Werte sind <strong>Annahmen, Ziele oder Projektionen</strong> — für den Pitch bewusst als solche gekennzeichnet.</p>
   <div class="annahmen">
     <div class="arow"><dt>Eigenfinanzierung 70 %<span class="atag">Ziel</span></dt><dd>Strategisches Ziel; Ist-Wert 62 %. Hebel: neue Selbstzahlerpakete (PG 1–2).</dd></div>
@@ -148,6 +175,8 @@
     <div class="arow"><dt>Anteil 65+ bis 2040 ~30 %<span class="atag">Projektion</span></dt><dd>Demografie Kreis Soest (Statistik NRW / IT.NRW).</dd></div>
     <div class="arow"><dt>~90 Klient:innen PG 1 / Beratung<span class="atag">Annahme</span></dt><dd>Nicht in den 180 aktiv betreuten Fällen (PG 2–5) enthalten — Segment noch zu entscheiden.</dd></div>
   </div>
+  </section>
+</div>
 
   <div class="foot">
     © 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Volksbank Hellweg eG<br>

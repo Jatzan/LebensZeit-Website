@@ -218,12 +218,12 @@
       '<div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>' +
         '<span class="fiktiv-menu-h">Planspiel-intern</span>' +
         "<a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>" +
-        "<a href='/website-status' role='menuitem'>Website-Status</a>" +
         "<a href='/sprints' role='menuitem'>Sprint-Übersicht</a>" +
+        "<a href='/website-status' role='menuitem'>Website-Status</a>" +
+        "<a href='/notizen' role='menuitem'>To-Do's</a>" +
         "<a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>" +
-        "<a href='/notizen' role='menuitem'>Notiz-Übersicht</a>" +
         '<div class="fiktiv-menu-sep"></div>' +
-        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 Notizen</span><span id="lzNotesState">Aus</span></button>' +
+        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 To-Do\'s</span><span id="lzNotesState">Aus</span></button>' +
       '</div>';
     document.body.insertBefore(bar, document.body.firstChild);
     // Menü-Verhalten nur für die injizierte Leiste binden
