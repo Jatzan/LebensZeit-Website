@@ -22,7 +22,7 @@ a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
 
 /* Interner Kopf (einheitlich für alle Planspiel-Seiten) */
 .lz-intbar{background:var(--green3);color:var(--cream);}
-.lz-intbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;}
+.lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
 .lz-intbar .badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:600;margin-right:6px;}
 .lz-intbar a{color:rgba(245,240,232,.82);font-size:14px;letter-spacing:.3px;}
 .lz-intbar a:hover{color:#fff;}
@@ -34,10 +34,19 @@ header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;
 header.page h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,40px);color:var(--green3);font-weight:600;}
 header.page p.lead{font-size:17px;color:var(--text2);max-width:62ch;margin-top:8px;font-weight:400;}
 
-.summary{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 8px;}
-.sum-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;min-width:120px;}
-.sum-chip .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--green3);line-height:1;}
-.sum-chip .l{font-size:13px;color:var(--text3);letter-spacing:.5px;margin-top:4px;}
+.summary{display:flex;gap:14px;flex-wrap:wrap;margin:24px 0 8px;}
+.sum-card{flex:1;min-width:130px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.sum-card .n{font-family:'Cormorant Garamond',serif;font-size:32px;line-height:1;color:var(--green3);}
+.sum-card .l{font-size:12px;color:var(--text3);letter-spacing:.4px;margin-top:2px;}
+.sum-card.total .n{color:var(--green);}
+.sum-card.y .n{color:var(--amber);}
+.sum-card.s .n{color:var(--sage);}
+.sum-card.g .n{color:#2f7d3a;}
+.progress{height:8px;border-radius:6px;background:var(--cream2);overflow:hidden;display:flex;margin:4px 0 8px;}
+.progress i{display:block;height:100%;}
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 4px;}
+.grp{display:flex;flex-wrap:wrap;gap:8px;}
+.fsep{width:1px;height:22px;background:var(--border);margin:0 6px;}
 
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px;}
 .filter{font:inherit;font-size:14px;padding:8px 16px;border-radius:24px;border:1px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;transition:all .12s;}
@@ -60,6 +69,20 @@ header.page p.lead{font-size:17px;color:var(--text2);max-width:62ch;margin-top:8
 .note.done .badge{opacity:.5;}
 
 .b-offen{background:var(--red);} .b-auszubauen{background:var(--amber);} .b-spaeter{background:var(--green);}
+.note-top{grid-column:1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.note-top .badge{margin-bottom:0;}
+.prio{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;}
+.prio i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.prio.p1{color:#a5291a;border-color:rgba(192,57,43,.4);background:rgba(192,57,43,.08);}
+.prio.p1 i{background:#C0392B;}
+.prio.p2{color:#8a5a12;border-color:rgba(176,122,42,.4);background:rgba(176,122,42,.08);}
+.prio.p2 i{background:#B07A2A;}
+.prio.p3{color:#4a6741;border-color:rgba(74,103,65,.3);background:rgba(74,103,65,.06);}
+.prio.p3 i{background:#8AAC85;}
+.note.prio-1{border-left:3px solid #C0392B;padding-left:14px;}
+.note.prio-2{border-left:3px solid #B07A2A;padding-left:14px;}
+.note.prio-3{border-left:3px solid #8AAC85;padding-left:14px;}
+.note.done{border-left-color:rgba(74,103,65,.2);}
 
 .empty{color:var(--text3);font-style:italic;padding:28px 0;}
 .pagefilter{display:inline-flex;align-items:center;gap:10px;background:var(--cream2);border:1px solid var(--border);border-radius:24px;padding:8px 16px;margin:0 0 16px;font-size:14px;color:var(--text2);}
@@ -90,6 +113,7 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     <h1>To-Do's</h1>
     <p class="lead">Alle offenen Punkte der Website an einem Ort — gruppiert nach Seite. Abgehakte To-Do's verschwinden hier und auf der jeweiligen Seite.</p>
     <div class="summary" id="summary"></div>
+    <div class="progress" id="progress"></div>
     <div class="filters" id="filters"></div>
   </div>
 </header>
@@ -126,6 +150,13 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   var LZ = window.LZNotes;
   var STATUS = LZ.status;
   var selStatus = new Set();
+  var selSprint = new Set();
+  var SPRINTMAP = {"n-index-usp":2,"n-preise-rechner":2,"n-sprints-kampagne":2,"n-sprints-app":2,"n-sprints-reflexion":2,"n-done-baustein-board":2,"n-done-prompt-tagebuch":1};
+  function sprintOf(n){ return SPRINTMAP[n.id] || null; }
+  var PRIOMAP = {"n-index-247":1,"n-eg-einwohner":1,"n-index-usp":1,"n-sprints-kampagne":1,"n-aktuelles-grammatik":1,"n-mobile-investor":1,
+                 "n-ueberuns-oton":3,"n-sprints-reflexion":3,"n-gate-optisch":3,"n-markt-pg1":3};
+  var PRIOLABEL = {1:"Hoch",2:"Mittel",3:"Niedrig"};
+  function prioOf(n){ return PRIOMAP[n.id] || 2; }
   var pageFilter = (new URLSearchParams(location.search)).get("page") || null;
 
   function render(){
@@ -138,12 +169,19 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     notes.forEach(function(n){ if(LZ.isDone(n.id)) counts.done++; else counts[n.status]++; });
     var open = counts.offen+counts.auszubauen+counts.spaeter;
     document.getElementById("summary").innerHTML =
-      chip(open,"Offen gesamt") + chip(counts.auszubauen,"Auszubauen") +
-      chip(counts.spaeter,"Späterer Sprint") + chip(counts.done,"Erledigt");
+      card(open,"Offen gesamt","total") + card(counts.auszubauen,"Auszubauen","y") +
+      card(counts.spaeter,"Späterer Sprint","s") + card(counts.done,"Erledigt","g");
+    var tot = (open + counts.done) || 1;
+    document.getElementById("progress").innerHTML =
+      '<i style="width:'+(counts.done/tot*100)+'%;background:#2f7d3a"></i>'+
+      '<i style="width:'+(counts.spaeter/tot*100)+'%;background:var(--sage)"></i>'+
+      '<i style="width:'+(counts.auszubauen/tot*100)+'%;background:var(--amber)"></i>'+
+      '<i style="width:'+(counts.offen/tot*100)+'%;background:var(--red)"></i>';
 
     // gefiltert
     var shown = notes.filter(function(n){
       if(pageFilter && n.page!==pageFilter) return false;
+      if(selSprint.size>0){ var sp=sprintOf(n); if(!(sp && selSprint.has(String(sp)))) return false; }
       var done = LZ.isDone(n.id);
       if(selStatus.size===0) return !done;
       if(done) return selStatus.has("erledigt");
@@ -161,14 +199,19 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
       var g = document.createElement("section");
       g.className = "pagegroup";
       g.innerHTML = '<h2>'+esc(gi.name)+' <a class="go" href="'+gi.url+'">→ zur Seite</a></h2>';
+      groups[slug].sort(function(a,b){ return prioOf(a)-prioOf(b); });
       groups[slug].forEach(function(n){
         var done = LZ.isDone(n.id);
         var fixed = LZ.isFixed(n.id);
         var meta = STATUS[n.status] || STATUS.offen;
+        var prio = prioOf(n);
         var el = document.createElement("div");
-        el.className = "note" + (done?" done":"");
+        el.className = "note prio-"+prio + (done?" done":"");
         el.innerHTML =
-          '<span class="badge b-'+n.status+'">'+esc(meta.label)+'</span>'+
+          '<div class="note-top">'+
+            '<span class="badge b-'+n.status+'">'+esc(meta.label)+'</span>'+
+            '<span class="prio p'+prio+'"><i></i>'+PRIOLABEL[prio]+'</span>'+
+          '</div>'+
           '<h3>'+esc(n.title)+'</h3>'+
           '<p>'+esc(n.text)+'</p>'+
           (fixed
@@ -186,26 +229,32 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     });
   }
 
-  function chip(n,l){ return '<div class="sum-chip"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+  function card(n,l,cls){ return '<div class="sum-card '+cls+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 
-  // Filter-Buttons
-  var FILTERS = [["all","Alle offenen"],["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]];
+  // Filter-Buttons: zwei Gruppen (Status + Sprint), Mehrfachauswahl
   var fbar = document.getElementById("filters");
-  FILTERS.forEach(function(f){
-    var b=document.createElement("button");
-    b.className="filter"+(f[0]==="all"?" active":"");
-    b.textContent=f[1]; b.dataset.f=f[0];
-    b.addEventListener("click",function(){
-      if(f[0]==="all"){ selStatus.clear(); }
-      else { selStatus.has(f[0])?selStatus.delete(f[0]):selStatus.add(f[0]); }
-      fbar.querySelectorAll(".filter").forEach(function(x){ var v=x.dataset.f;
-        if(v==="all") x.classList.toggle("active", selStatus.size===0);
-        else x.classList.toggle("active", selStatus.has(v)); });
-      render();
+  function makeGroup(defs, set){
+    var g=document.createElement("div"); g.className="grp";
+    defs.forEach(function(f){
+      var b=document.createElement("button");
+      b.className="filter"+(f[0]==="all"?" active":"");
+      b.textContent=f[1]; b.dataset.f=f[0];
+      b.addEventListener("click",function(){
+        if(f[0]==="all"){ set.clear(); }
+        else { set.has(f[0])?set.delete(f[0]):set.add(f[0]); }
+        g.querySelectorAll(".filter").forEach(function(x){ var v=x.dataset.f;
+          if(v==="all") x.classList.toggle("active", set.size===0);
+          else x.classList.toggle("active", set.has(v)); });
+        render();
+      });
+      g.appendChild(b);
     });
-    fbar.appendChild(b);
-  });
+    return g;
+  }
+  fbar.appendChild(makeGroup([["all","Alle offenen"],["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]], selStatus));
+  var sep=document.createElement("span"); sep.className="fsep"; fbar.appendChild(sep);
+  fbar.appendChild(makeGroup([["all","Alle Sprints"],["1","S1"],["2","S2"]], selSprint));
 
   if(pageFilter){
     var pf=document.createElement("div");
