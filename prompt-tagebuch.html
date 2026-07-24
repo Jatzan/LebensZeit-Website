@@ -26,7 +26,7 @@ a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
 .lz-intbar .spacer{margin-left:auto;}
 header.page{padding:44px 0 8px;}
 header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px;}
-header.page h1{font-size:clamp(34px,5vw,48px);}
+header.page h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,40px);color:var(--green3);font-weight:600;}
 header.page p.lead{font-size:19px;color:var(--text2);max-width:62ch;margin-top:12px;}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 4px;}
 .badge{font-size:12px;border-radius:20px;padding:5px 12px;letter-spacing:.3px;}
@@ -57,6 +57,14 @@ h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sa
 .tmpl .row dt{color:var(--text2);font-weight:500;}
 .tmpl .row dd{color:var(--text3);font-style:italic;}
 .hint{font-size:13.5px;color:var(--text3);background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:26px 0 10px;}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 16px;}
+.tab{background:#fff;border:1px solid var(--border);color:var(--text2);border-radius:30px;padding:9px 18px;font:inherit;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .12s;}
+.tab:hover{border-color:var(--sage);color:var(--text);}
+.tab.on{background:var(--mint);color:#16201a;border-color:var(--mint);font-weight:500;}
+.tab .dot{width:8px;height:8px;border-radius:50%;}
+.tab .dot.done{background:#4A8A54;}.tab .dot.active{background:var(--amber);}
+.tab.on .dot.active{background:#7a5e12;}
+.panel{display:none;}.panel.on{display:block;}
 footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 @media(max-width:600px){.reflect{grid-template-columns:repeat(2,1fr)}.session .kv,.rlist .row,.tmpl .row{grid-template-columns:1fr}}
 </style>
@@ -67,10 +75,10 @@ footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   <div class="lz-intbar-in">
     <span class="badge">Planspiel-intern</span>
     <a href="/unternehmensdaten">Unternehmensdaten</a>
-    <a href="/website-status">Website-Status</a>
     <a href="/sprints">Sprint-Übersicht</a>
+    <a href="/website-status">Website-Status</a>
+    <a href="/notizen">To-Do's</a>
     <a href="/prompt-tagebuch" class="here">Prompt-Tagebuch</a>
-    <a href="/notizen">Notizen</a>
     <a href="/cockpit">Betriebs-Cockpit</a>
     <a href="/" class="spacer">← zur Website</a>
   </div>
@@ -78,18 +86,24 @@ footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 
 <header class="page">
   <div class="wrap">
-    <p class="eyebrow">Planspiel-intern</p>
     <h1>Prompt-Tagebuch</h1>
     <p class="lead">Kein bürokratischer Nachweis, sondern Lernwerkzeug und zentraler Bestandteil des Pitches: nicht nur <em>was</em> wir erarbeitet haben, sondern <em>wie</em>. Gemeinsam geführt, nach Sprint unterteilt.</p>
-    <div class="meta">
-      <span class="badge done">Sprint 1 · abgeschlossen</span>
-      <span class="badge info">7 dokumentierte Sessions</span>
-      <span class="badge info">Team LebensZeit</span>
-    </div>
   </div>
 </header>
 
 <main class="wrap">
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-t="1"><span class="dot done"></span>Sprint 1</button>
+    <button class="tab on" data-t="2"><span class="dot active"></span>Sprint 2</button>
+  </div>
+
+  <section class="panel" data-p="1">
+  <div class="meta">
+    <span class="badge done">Sprint 1 · abgeschlossen</span>
+    <span class="badge info">7 dokumentierte Sessions</span>
+    <span class="badge info">Team LebensZeit</span>
+  </div>
 
   <h2 class="sec">Sprint 1 · Vorgehensmodell (5 Methoden)</h2>
 
@@ -137,6 +151,14 @@ footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     <div class="row"><dt>Nächsten Sprint anders</dt><dd>Geteiltes Tagebuch ab Tag 1 (nicht rückwirkend) · ein App-Owner · Kritik ritualisieren (Investor-Roast, Persona-Kritik).</dd></div>
   </div>
 
+  </section>
+
+  <section class="panel on" data-p="2">
+  <div class="meta">
+    <span class="badge info" style="background:rgba(176,122,42,.12);border-color:rgba(176,122,42,.4);color:#8a5a12;">Sprint 2 · läuft</span>
+  </div>
+  <p class="lead" style="font-size:17px;color:var(--text2);margin:6px 0 4px;">Sprint 2 „Vertrieb &amp; Marketing" wird ab Tag 1 dokumentiert — gleiche Struktur wie Sprint 1. Für jede Claude-Session einen Eintrag anlegen.</p>
+
   <h2 class="sec">Vorlage: Session-Eintrag (für neue Einträge kopieren)</h2>
   <div class="tmpl">
     <div class="row"><dt>Datum</dt><dd>—</dd></div>
@@ -152,12 +174,24 @@ footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     <div class="row"><dt>Erkenntnis</dt><dd>—</dd></div>
   </div>
 
-  <p class="hint">Sprint 2 wird hier fortgeführt: gleiche Struktur, ab Tag 1 gepflegt. Die verbindliche Datenbasis liegt in den Unternehmensdaten; Annahmen sind dort im Annahmen-Log gesondert markiert.</p>
+  <p class="hint">Die verbindliche Datenbasis liegt in den Unternehmensdaten; Annahmen sind dort im Annahmen-Log gesondert markiert.</p>
+  </section>
 
 </main>
 
 <footer>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Planspiel-intern</footer>
 
+<script>
+(function(){
+  var tabs=document.getElementById('tabs');
+  tabs.addEventListener('click',function(e){
+    var b=e.target.closest('.tab'); if(!b)return;
+    var t=b.dataset.t;
+    [].forEach.call(tabs.children,function(c){c.classList.toggle('on',c===b);});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.dataset.p===t);});
+  });
+})();
+</script>
 <script src="/lz-notes.js" defer></script>
 </body>
 </html>

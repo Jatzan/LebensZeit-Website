@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Notiz-Übersicht — Planspiel-intern · LebensZeit</title>
+<title>To-Do's — Planspiel-intern · LebensZeit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -31,8 +31,8 @@ a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
 
 header.page{padding:48px 0 8px;}
 header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px;}
-header.page h1{font-size:clamp(34px,5vw,48px);}
-header.page p.lead{font-size:19px;color:var(--text2);max-width:60ch;margin-top:12px;}
+header.page h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,40px);color:var(--green3);font-weight:600;}
+header.page p.lead{font-size:17px;color:var(--text2);max-width:62ch;margin-top:8px;font-weight:400;}
 
 .summary{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 8px;}
 .sum-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 18px;min-width:120px;}
@@ -62,6 +62,9 @@ header.page p.lead{font-size:19px;color:var(--text2);max-width:60ch;margin-top:1
 .b-offen{background:var(--red);} .b-auszubauen{background:var(--amber);} .b-spaeter{background:var(--green);}
 
 .empty{color:var(--text3);font-style:italic;padding:28px 0;}
+.pagefilter{display:inline-flex;align-items:center;gap:10px;background:var(--cream2);border:1px solid var(--border);border-radius:24px;padding:8px 16px;margin:0 0 16px;font-size:14px;color:var(--text2);}
+.pagefilter b{color:var(--green3);}
+.pf-clear{border:0;background:none;color:var(--text3);font-size:18px;cursor:pointer;line-height:1;}
 .hint{font-size:13.5px;color:var(--text3);background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:26px 0 60px;line-height:1.5;}
 footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 </style>
@@ -70,13 +73,13 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 
 <!-- Einheitlicher interner Kopf -->
 <div class="lz-intbar">
-  <div class="wrap">
+  <div class="lz-intbar-in">
     <span class="badge">Planspiel-intern</span>
     <a href="/unternehmensdaten">Unternehmensdaten</a>
-    <a href="/website-status">Website-Status</a>
     <a href="/sprints">Sprint-Übersicht</a>
+    <a href="/website-status">Website-Status</a>
+    <a href="/notizen" class="here">To-Do's</a>
     <a href="/prompt-tagebuch">Prompt-Tagebuch</a>
-    <a href="/notizen" class="here">Notizen</a>
     <a href="/cockpit">Betriebs-Cockpit</a>
     <a href="/" class="spacer">← zur Website</a>
   </div>
@@ -84,9 +87,8 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 
 <header class="page">
   <div class="wrap">
-    <p class="eyebrow">Planspiel-intern</p>
-    <h1>Notiz-Übersicht</h1>
-    <p class="lead">Alle offenen Punkte der Website an einem Ort — gruppiert nach Seite. Abgehakte Notizen verschwinden hier und auf der jeweiligen Seite.</p>
+    <h1>To-Do's</h1>
+    <p class="lead">Alle offenen Punkte der Website an einem Ort — gruppiert nach Seite. Abgehakte To-Do's verschwinden hier und auf der jeweiligen Seite.</p>
     <div class="summary" id="summary"></div>
     <div class="filters" id="filters"></div>
   </div>
@@ -123,7 +125,8 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 
   var LZ = window.LZNotes;
   var STATUS = LZ.status;
-  var filter = "alle";
+  var selStatus = new Set();
+  var pageFilter = (new URLSearchParams(location.search)).get("page") || null;
 
   function render(){
     var notes = LZ.all();
@@ -140,13 +143,14 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 
     // gefiltert
     var shown = notes.filter(function(n){
+      if(pageFilter && n.page!==pageFilter) return false;
       var done = LZ.isDone(n.id);
-      if(filter==="alle")  return !done;
-      if(filter==="erledigt") return done;
-      return !done && n.status===filter;
+      if(selStatus.size===0) return !done;
+      if(done) return selStatus.has("erledigt");
+      return selStatus.has(n.status);
     });
 
-    if(!shown.length){ list.innerHTML = '<p class="empty">Keine Notizen in dieser Ansicht.</p>'; return; }
+    if(!shown.length){ list.innerHTML = '<p class="empty">Keine To-Do\'s in dieser Ansicht.</p>'; return; }
 
     // nach Seite gruppieren
     var groups = {};
@@ -186,19 +190,32 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 
   // Filter-Buttons
-  var FILTERS = [["alle","Offene"],["auszubauen","Auszubauen"],["spaeter","Späterer Sprint"],["offen","Offen"],["erledigt","Erledigt"]];
+  var FILTERS = [["all","Alle offenen"],["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]];
   var fbar = document.getElementById("filters");
   FILTERS.forEach(function(f){
     var b=document.createElement("button");
-    b.className="filter"+(f[0]==="alle"?" active":"");
+    b.className="filter"+(f[0]==="all"?" active":"");
     b.textContent=f[1]; b.dataset.f=f[0];
     b.addEventListener("click",function(){
-      filter=f[0];
-      fbar.querySelectorAll(".filter").forEach(function(x){x.classList.toggle("active",x.dataset.f===filter);});
+      if(f[0]==="all"){ selStatus.clear(); }
+      else { selStatus.has(f[0])?selStatus.delete(f[0]):selStatus.add(f[0]); }
+      fbar.querySelectorAll(".filter").forEach(function(x){ var v=x.dataset.f;
+        if(v==="all") x.classList.toggle("active", selStatus.size===0);
+        else x.classList.toggle("active", selStatus.has(v)); });
       render();
     });
     fbar.appendChild(b);
   });
+
+  if(pageFilter){
+    var pf=document.createElement("div");
+    pf.className="pagefilter";
+    pf.innerHTML='Nur: <b>'+esc(info(pageFilter).name)+'</b> <button class="pf-clear" title="Filter entfernen">×</button>';
+    pf.querySelector(".pf-clear").addEventListener("click",function(){
+      pageFilter=null; history.replaceState(null,"",location.pathname); pf.remove(); render();
+    });
+    var lst=document.getElementById("list"); lst.parentNode.insertBefore(pf,lst);
+  }
 
   render();
 })();

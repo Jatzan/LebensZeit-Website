@@ -30,8 +30,8 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 
 /* Title */
 .title{padding:26px 0 6px}
-.title h1{font-family:'Cormorant Garamond',serif;font-size:34px;color:#2C3D27;font-weight:600}
-.title p{color:var(--dim);font-size:14px;margin-top:2px}
+.title h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,40px);color:#2C3D27;font-weight:600}
+.title p{color:var(--text2);font-size:17px;margin-top:8px;max-width:62ch}
 
 /* Tabs */
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:16px 0 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -115,7 +115,18 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
 </style>
 </head>
 <body>
-<div class="lz-intbar"><div class="lz-intbar-in"><span class="badge">Planspiel-intern</span><a href='/unternehmensdaten'>Unternehmensdaten</a><a href='/website-status'>Website-Status</a><a href='/sprints' class='here'>Sprint-Übersicht</a><a href='/prompt-tagebuch'>Prompt-Tagebuch</a><a href='/notizen'>Notizen</a><a href='/cockpit'>Betriebs-Cockpit</a><a href='/' class='spacer'>← zur Website</a></div></div>
+<div class="lz-intbar">
+  <div class="lz-intbar-in">
+    <span class="badge">Planspiel-intern</span>
+    <a href="/unternehmensdaten">Unternehmensdaten</a>
+    <a href="/sprints" class="here">Sprint-Übersicht</a>
+    <a href="/website-status">Website-Status</a>
+    <a href="/notizen">To-Do's</a>
+    <a href="/prompt-tagebuch">Prompt-Tagebuch</a>
+    <a href="/cockpit">Betriebs-Cockpit</a>
+    <a href="/" class="spacer">← zur Website</a>
+  </div>
+</div>
 
 
 <div class="wrap">
@@ -125,8 +136,8 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
   </div>
 
   <div class="tabs" id="tabs">
-    <button class="tab on" data-t="1"><span class="dot done"></span>Sprint 1</button>
-    <button class="tab" data-t="2"><span class="dot active"></span>Sprint 2</button>
+    <button class="tab" data-t="1"><span class="dot done"></span>Sprint 1</button>
+    <button class="tab on" data-t="2"><span class="dot active"></span>Sprint 2</button>
     <button class="tab" data-t="3"><span class="dot plan"></span>Sprint 3</button>
     <button class="tab" data-t="4"><span class="dot plan"></span>Sprint 4</button>
     <button class="tab" data-t="5"><span class="dot plan"></span>Sprint 5</button>
@@ -134,7 +145,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
   </div>
 
   <!-- SPRINT 1 -->
-  <section class="panel on" data-p="1">
+  <section class="panel" data-p="1">
     <div class="meta">
       <span class="badge done">Abgeschlossen</span>
       <span class="badge date">Handlungsfeld 1: Markt &amp; Wettbewerb</span>
@@ -142,18 +153,6 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
     </div>
     <p class="lead">Marktanalyse · Kundenbedürfnisse · Lieferantenanalyse</p>
     <div class="hl">Fundament für alle weiteren Sprints: Markt verstanden, Wettbewerb bewertet, Personas entwickelt, strategische Stoßrichtung formuliert. <b>Die Steckbriefe gelten unverändert und verbindlich.</b></div>
-
-    <h2 class="sec">Baustein-Board</h2>
-    <table class="bboard">
-      <thead><tr><th>Baustein</th><th>Status</th><th>Verantwortlich</th><th>Deadline</th></tr></thead>
-      <tbody>
-        <tr><td><span class="bno">01</span> <span class="bt">Markenkern, USP &amp; Positionierung</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>Entwurf: 01.07.</td></tr>
-        <tr><td><span class="bno">02</span> <span class="bt">Preis- &amp; Angebotsarchitektur</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>08.07.</td></tr>
-        <tr><td><span class="bno">03</span> <span class="bt">Kampagnenkonzept mit KPIs</span></td><td><span class="amp rot"><span class="d"></span>Kaum begonnen</span></td><td class="resp">offen</td><td>08.07.</td></tr>
-        <tr><td><span class="bno">04</span> <span class="bt">App-Prototyp (V1→V3)</span></td><td><span class="amp gelb"><span class="d"></span>V1 steht</span></td><td class="resp">offen · ein Owner nötig</td><td>V1: 15.07. · V2–V3: Ferien</td></tr>
-        <tr><td><span class="bno">05</span> <span class="bt">KI-Vorgehensmodell (Doku)</span></td><td><span class="amp gelb"><span class="d"></span>Laufend</span></td><td class="resp">offen</td><td>ab Tag 1 → 02.09.</td></tr>
-      </tbody>
-    </table>
 
     <h2 class="sec">Die fünf Bausteine</h2>
 
@@ -216,7 +215,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
   </section>
 
   <!-- SPRINT 2 -->
-  <section class="panel" data-p="2">
+  <section class="panel on" data-p="2">
     <div class="meta">
       <span class="badge active">Aktiv</span>
       <span class="badge date">Pitch: 7. September 2026</span>
@@ -225,7 +224,19 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
     <p class="lead">Vertrieb &amp; Marketing · Preisgestaltung</p>
     <div class="hl">Der Investor will sehen, dass ihr den Markt nicht nur <b>versteht</b>, sondern auch <b>erreicht</b> — von der Positionierung über den Preis bis zum klickbaren Prototyp. Ihr seid Unternehmer, kein Berichtswesen.</div>
 
-    <h2 class="sec">Die fünf Bausteine</h2>
+        <h2 class="sec">Baustein-Board</h2>
+    <table class="bboard">
+      <thead><tr><th>Baustein</th><th>Status</th><th>Verantwortlich</th><th>Deadline</th></tr></thead>
+      <tbody>
+        <tr><td><span class="bno">01</span> <span class="bt">Markenkern, USP &amp; Positionierung</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>Entwurf: 01.07.</td></tr>
+        <tr><td><span class="bno">02</span> <span class="bt">Preis- &amp; Angebotsarchitektur</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>08.07.</td></tr>
+        <tr><td><span class="bno">03</span> <span class="bt">Kampagnenkonzept mit KPIs</span></td><td><span class="amp rot"><span class="d"></span>Kaum begonnen</span></td><td class="resp">offen</td><td>08.07.</td></tr>
+        <tr><td><span class="bno">04</span> <span class="bt">App-Prototyp (V1→V3)</span></td><td><span class="amp gelb"><span class="d"></span>V1 steht</span></td><td class="resp">offen · ein Owner nötig</td><td>V1: 15.07. · V2–V3: Ferien</td></tr>
+        <tr><td><span class="bno">05</span> <span class="bt">KI-Vorgehensmodell (Doku)</span></td><td><span class="amp gelb"><span class="d"></span>Laufend</span></td><td class="resp">offen</td><td>ab Tag 1 → 02.09.</td></tr>
+      </tbody>
+    </table>
+
+<h2 class="sec">Die fünf Bausteine</h2>
 
     <div class="bst">
       <span class="no">01</span>
