@@ -9,7 +9,7 @@
 
   /* ---------- 1. Notiz-Registry (hier pflegen) ---------- */
   var NOTES = [
-    { id: "n-index-trust", page: "index", selector: ".trust", status: "auszubauen",
+    { id: "n-index-trust", page: "index", selector: ".trust", status: "auszubauen", done: true,
       title: "Platzhalterzahlen der Vertrauensleiste",
       text: "Die Kennzahlen (24/7 · 5 Pflegegrade · 100 % · gGmbH) sind Platzhalter. Durch echte Werte aus dem Betriebs-Cockpit ersetzen." },
 
@@ -38,8 +38,8 @@
       title: "Einwohnerzahlen vereinheitlichen",
       text: "KI-Kritik: Zahlen driften zwischen Standortkarte, Wettbewerbsanalyse und Investorpitch (z. B. Erwitte 16.300 vs. ~20.200, Lippetal 11.883 vs. 8.500). Vor dem Pitch auf einen Datensatz festlegen — sonst Angriffsfläche im Investoren-Q&A." },
 
-    { id: "n-index-247", page: "index", selector: ".trust", status: "offen",
-      title: "24/7-Versprechen überzieht",
+    { id: "n-index-247", page: "index", selector: ".trust", status: "offen", done: true,
+      title: "24/7-Versprechen ersetzt",
       text: "KI-Kritik: Laut Basisdaten kein Nachtdienst (nur Früh-/Spätdienst, Wochenende Rufbereitschaft), Hausnotruf nur Premium. „24/7 Erreichbarkeit im Notfall\" präzisieren oder streichen." },
 
     { id: "n-index-usp", page: "index", selector: ".hero", status: "auszubauen",
@@ -107,7 +107,44 @@
 
     { id: "n-gate-optisch", page: "allgemein", selector: "main", status: "spaeter",
       title: "Investoren-Gate nur optisch",
-      text: "Das Gate ist kein echter Zugriffsschutz (Demo-Login vorbelegt) — bewusst so; nur als Punkt festgehalten." }
+      text: "Das Gate ist kein echter Zugriffsschutz (Demo-Login vorbelegt) — bewusst so; nur als Punkt festgehalten." },
+
+    /* ----- Betriebs-Cockpit (Ausbaustufe 2) ----- */
+    { id: "n-done-cockpit1a", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Cockpit Stufe 1a erledigt",
+      text: "Login-Dropdown (6 Rollen aus dem Roster), Alt/Neu-reaktive Login-Seite, Berechtigung Ebene A (gesperrte Module ausgeblendet), Logout mit Vorauswahl. Version v2.4.0." },
+    { id: "n-cockpit-1b", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Cockpit Stufe 1b erledigt",
+      text: "Ebene B: Reiter im Klientenprofil rollenabhängig sperren (sichtbar, deaktiviert, Tooltip) + Ausnahmezugriff ▲ mit Grund-Abfrage und Zugriffsprotokoll." },
+    { id: "n-cockpit-roster", page: "cockpit", selector: "main", status: "offen",
+      title: "Personalstamm-Nachtrag",
+      text: "Brandt (Disposition), Holthaus (GF) und Yilmaz (Pflegekraft) sind Login-/Website-Namen, fehlen aber im 56er-Roster (DB.belegschaft). Nachtragen oder abgleichen." },
+    { id: "n-cockpit-stufe2", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Cockpit Stufe 2 erledigt",
+      text: "Sechs rollenspezifische Übersichtsseiten als Einstieg — Aufgaben und Abweichungen, nicht Statistik; einheitliches Muster (2–3 Kennzahlen + Aufgabenliste)." },
+    { id: "n-cockpit-medifox", page: "cockpit", selector: "main", status: "auszubauen",
+      title: "MediFox-Herkunftskennzeichnung",
+      text: "Gespiegelte Datenblöcke markieren (Quelle: MediFox DAN, Stand 06:00); im Altsystem 2024 zusätzlich eine Störmeldung, dass der Export nach MediFox fehlgeschlagen ist. MediFox ist kein Altsystem." },
+    { id: "n-done-cockpit-stufe3", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Cockpit Stufe 3 erledigt",
+      text: "Pflegekraft-Ansicht (mobile Handy-Spalte, Doku-Status als Spiegel, Übergabe-Knopf „In MediFox dokumentieren\", Hebel 1) und Ehrenamts-Ansicht (Bindungskennzahlen, Bedarfsabgleich mit Vorschlag, Hauptamt-trifft-Ehrenamt)." },
+    /* ----- Quellen-Overlay (Datenherkunft) ----- */
+    { id: "n-done-quellen-praezise", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Belege praezisiert (Datei, Seite, Abschnitt)",
+      text: "Jeder Datenpunkt nennt jetzt Dateiname, Seitenzahl, Abschnitt, ggf. externen Ursprung und eine Belegstufe A-D. Grundlage: Seitenweise Auswertung der Sprint-Unterlagen (Basisdaten 7 S., Investorpitch 24 S.)." },
+    { id: "n-done-index-trustfix", page: "index", selector: ".trust", status: "auszubauen", done: true,
+      title: "Vertrauensleiste durch belegte Werte ersetzt",
+      text: "24/7, 5 Pflegegrade und 100 % vernetzt entfernt. Neu: 6-22 Uhr Frueh-/Spaetdienst (Basisdaten S. 5, C.3), 180 Pflegefaelle PG 2-5 (S. 6, D.1), 45 Ehrenamtliche (S. 2), gGmbH (S. 2). Alle vier belegt." },
+    { id: "n-done-quellen-overlay", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Quellen-Overlay gebaut",
+      text: "Zweiter Layer neben den To-Dos: lz-quellen.js markiert Datenpunkte nach Herkunft (Datenbasis, amtliche Statistik, Ziel, Annahme, Platzhalter) mit Badge, Popover (Quelle/Stand/Hinweis) und Seiten-Panel inkl. Zaehlung. Umschaltbar im Pillmenue, Cockpit ausgenommen." },
+    { id: "n-quellen-registry", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "Quellen-Registry vervollstaendigen",
+      text: "Konzeptstand: 20 Datenpunkte auf 7 Seiten mit Datei, Seite, Abschnitt und Belegstufe erfasst. Offen: Leistungen, Aktuelles, Pflegeberatung, Investoren-Unterseiten sowie die gespiegelten Cockpit-Bloecke (MediFox-Kennzeichnung)." },
+
+    { id: "n-cockpit-stufe4", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Cockpit Stufe 4 erledigt",
+      text: "Tagesansicht mit Störung (Disposition): Dienstag 07:12, 2 Krankmeldungen / 3 Touren; Vorschlagsliste prüft §37.3-Qualifikation und Zeitfenster, Ein-Klick-Umplanung; 2024-Telefonzettel-Version. Zugleich Sprint-4-Vorlage." }
   ];
 
   /* ---------- 2. Status-Metadaten ---------- */

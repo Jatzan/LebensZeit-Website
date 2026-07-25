@@ -47,6 +47,8 @@ header.page p.lead{font-size:17px;color:var(--text2);max-width:62ch;margin-top:8
 .filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 4px;}
 .grp{display:flex;flex-wrap:wrap;gap:8px;}
 .fsep{width:1px;height:22px;background:var(--border);margin:0 6px;}
+.freset{margin-left:4px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--text2);font-size:17px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .12s;}
+.freset:hover{background:var(--cream2);color:var(--green3);border-color:var(--sage);transform:rotate(-45deg);}
 
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px;}
 .filter{font:inherit;font-size:14px;padding:8px 16px;border-radius:24px;border:1px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;transition:all .12s;}
@@ -127,6 +129,7 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
 <footer>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel · Planspiel-intern</footer>
 
 <script src="/lz-notes.js"></script>
+<script src="/lz-quellen.js" defer></script>
 <script>
 (function(){
   // Anzeigenamen + Ziel-URL je Seiten-Slug
@@ -137,6 +140,7 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     "preise":           {name:"Preise & Eigenanteil",    url:"/preise"},
     "sprints":          {name:"Sprint-Übersicht",        url:"/sprints"},
     "prompt-tagebuch":  {name:"Prompt-Tagebuch",         url:"/prompt-tagebuch"},
+    "cockpit":          {name:"Betriebs-Cockpit",         url:"/cockpit"},
     "allgemein":        {name:"Allgemein / Technik",      url:"/"},
     "investoren":       {name:"Investorenbereich",        url:"/investoren"},
     "einzugsgebiet":    {name:"Einzugsgebiet",           url:"/einzugsgebiet"},
@@ -151,10 +155,12 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   var STATUS = LZ.status;
   var selStatus = new Set();
   var selSprint = new Set();
+  var selPrio = new Set();
   var SPRINTMAP = {"n-index-usp":2,"n-preise-rechner":2,"n-sprints-kampagne":2,"n-sprints-app":2,"n-sprints-reflexion":2,"n-done-baustein-board":2,"n-done-prompt-tagebuch":1};
   function sprintOf(n){ return SPRINTMAP[n.id] || null; }
   var PRIOMAP = {"n-index-247":1,"n-eg-einwohner":1,"n-index-usp":1,"n-sprints-kampagne":1,"n-aktuelles-grammatik":1,"n-mobile-investor":1,
-                 "n-ueberuns-oton":3,"n-sprints-reflexion":3,"n-gate-optisch":3,"n-markt-pg1":3};
+                 "n-ueberuns-oton":3,"n-sprints-reflexion":3,"n-gate-optisch":3,"n-markt-pg1":3,
+                 "n-cockpit-1b":1,"n-cockpit-roster":1,"n-cockpit-stufe4":3,"n-quellen-registry":2};
   var PRIOLABEL = {1:"Hoch",2:"Mittel",3:"Niedrig"};
   function prioOf(n){ return PRIOMAP[n.id] || 2; }
   var pageFilter = (new URLSearchParams(location.search)).get("page") || null;
@@ -182,6 +188,7 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
     var shown = notes.filter(function(n){
       if(pageFilter && n.page!==pageFilter) return false;
       if(selSprint.size>0){ var sp=sprintOf(n); if(!(sp && selSprint.has(String(sp)))) return false; }
+      if(selPrio.size>0 && !selPrio.has(String(prioOf(n)))) return false;
       var done = LZ.isDone(n.id);
       if(selStatus.size===0) return !done;
       if(done) return selStatus.has("erledigt");
@@ -232,29 +239,39 @@ footer{padding:24px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   function card(n,l,cls){ return '<div class="sum-card '+cls+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 
-  // Filter-Buttons: zwei Gruppen (Status + Sprint), Mehrfachauswahl
+  // Filter-Buttons: drei Gruppen (Status · Sprint · Priorität), Mehrfachauswahl
   var fbar = document.getElementById("filters");
   function makeGroup(defs, set){
     var g=document.createElement("div"); g.className="grp";
     defs.forEach(function(f){
       var b=document.createElement("button");
-      b.className="filter"+(f[0]==="all"?" active":"");
-      b.textContent=f[1]; b.dataset.f=f[0];
+      b.className="filter"; b.textContent=f[1]; b.dataset.f=f[0];
       b.addEventListener("click",function(){
-        if(f[0]==="all"){ set.clear(); }
-        else { set.has(f[0])?set.delete(f[0]):set.add(f[0]); }
-        g.querySelectorAll(".filter").forEach(function(x){ var v=x.dataset.f;
-          if(v==="all") x.classList.toggle("active", set.size===0);
-          else x.classList.toggle("active", set.has(v)); });
+        set.has(f[0])?set.delete(f[0]):set.add(f[0]);
+        b.classList.toggle("active", set.has(f[0]));
         render();
       });
       g.appendChild(b);
     });
     return g;
   }
-  fbar.appendChild(makeGroup([["all","Alle offenen"],["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]], selStatus));
-  var sep=document.createElement("span"); sep.className="fsep"; fbar.appendChild(sep);
-  fbar.appendChild(makeGroup([["all","Alle Sprints"],["1","S1"],["2","S2"]], selSprint));
+  function fsep(){ var s=document.createElement("span"); s.className="fsep"; return s; }
+  fbar.appendChild(makeGroup([["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]], selStatus));
+  fbar.appendChild(fsep());
+  fbar.appendChild(makeGroup([["1","S1"],["2","S2"]], selSprint));
+  fbar.appendChild(fsep());
+  fbar.appendChild(makeGroup([["1","Hoch"],["2","Mittel"],["3","Niedrig"]], selPrio));
+  // Zurücksetzen-Symbol hinter den Filtern
+  var resetBtn=document.createElement("button");
+  resetBtn.className="freset"; resetBtn.title="Filter zurücksetzen"; resetBtn.setAttribute("aria-label","Filter zurücksetzen");
+  resetBtn.innerHTML="↺";
+  resetBtn.addEventListener("click",function(){
+    selStatus.clear(); selSprint.clear(); selPrio.clear();
+    fbar.querySelectorAll(".filter.active").forEach(function(x){ x.classList.remove("active"); });
+    if(pageFilter){ pageFilter=null; history.replaceState(null,"",location.pathname); var pfc=document.querySelector(".pagefilter"); if(pfc) pfc.remove(); }
+    render();
+  });
+  fbar.appendChild(resetBtn);
 
   if(pageFilter){
     var pf=document.createElement("div");
