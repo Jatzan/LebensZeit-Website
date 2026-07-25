@@ -213,6 +213,82 @@ body.alt .tourlist button{border-color:#c8c8c8}body.alt .tourlist button:hover{b
 <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
 <body class="neu">
+<style id="lz-stufe1">
+.login-era{display:flex;gap:6px;margin:2px 0 16px;}
+.le-btn{flex:1;padding:8px 10px;border:1px solid rgba(138,172,133,.32);background:rgba(138,172,133,.08);color:#cfe0cb;border-radius:8px;font:inherit;font-size:11.5px;cursor:pointer;transition:all .12s;}
+.le-btn.on{background:#4A6741;border-color:#4A6741;color:#fff;font-weight:600;}
+.demoNote{font-size:11.5px;color:#8aac85;margin-top:12px;opacity:.9;line-height:1.4;}
+#logoutBtn{margin-left:14px;background:none;border:1px solid rgba(255,255,255,.2);color:#cfe0cb;border-radius:8px;padding:6px 13px;font:inherit;font-size:12px;cursor:pointer;transition:all .12s;}
+#logoutBtn:hover{background:rgba(255,255,255,.1);color:#fff;}
+body.alt #logoutBtn{border-color:#9aa;color:#334;background:#e8eef2;}
+.profhead{margin:2px 0 12px}
+.ctabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.ctab{background:rgba(138,172,133,.06);border:1px solid #33443a;color:#9fb0a0;border-radius:8px;padding:8px 13px;font:inherit;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.ctab.on{background:#4A6741;color:#fff;border-color:#4A6741;font-weight:500}
+.ctab.lock{opacity:.45;cursor:not-allowed}
+.ctab .cst{font-size:11px}
+.ctab.exc .cst{color:#C99A2E}
+.ctabbody{margin-bottom:6px}
+.exc-form{background:rgba(201,154,46,.1);border:1px solid rgba(201,154,46,.4);border-radius:10px;padding:16px}
+.exc-form textarea{width:100%;box-sizing:border-box;background:#1e2921;border:1px solid #33443a;color:#dfe7dc;border-radius:8px;padding:8px;font:inherit;margin:8px 0}
+.acclog .row{font-size:12px;color:#9fb0a0;border-bottom:1px solid #33443a;padding:6px 0}
+.acclog .row:last-child{border-bottom:none}
+.tasklead{font-size:12px;opacity:.7;margin:2px 0 8px}
+.tasklist{display:flex;flex-direction:column;gap:6px}
+.taskrow{display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(138,172,133,.06);border:1px solid #33443a;color:#dfe7dc;border-radius:8px;padding:11px 14px;font:inherit;font-size:13.5px;cursor:pointer;text-align:left;transition:all .12s}
+.taskrow:hover{background:#4A6741;border-color:#4A6741}
+.taskrow .go2{opacity:.55}
+.phone{max-width:430px;margin:6px auto;border:1px solid #33443a;border-radius:20px;padding:14px;background:rgba(30,41,33,.4)}
+.phtop{font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.6;text-align:center;margin-bottom:12px}
+.kgrid-ph{grid-template-columns:repeat(3,1fr)!important}
+.einsatz{border:1px solid #33443a;border-radius:12px;padding:12px;margin-bottom:10px;background:rgba(138,172,133,.05)}
+.ez-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.ez-row{font-size:12.5px;color:#cfe0cb;margin:3px 0}
+.dbadge{font-size:10.5px;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.dbadge.ok{background:rgba(74,138,84,.18);color:#7fc389}
+.dbadge.open{background:rgba(201,154,46,.18);color:#e0b45a}
+.ehinweis{font-size:11.5px;color:#e0b45a;background:rgba(201,154,46,.1);border-radius:6px;padding:6px 8px;margin:6px 0}
+.mfx{width:100%;margin-top:8px;background:#4A6741;border:none;color:#fff;border-radius:8px;padding:9px;font:inherit;font-size:12.5px;cursor:pointer}
+.mfx:hover{background:#5a7a51}
+.phnote{font-size:11px;opacity:.6;margin-top:8px;line-height:1.45}
+.matchrow{display:grid;grid-template-columns:1fr auto 1fr auto;gap:12px;align-items:center;border-bottom:1px solid #33443a;padding:10px 0}
+.matchrow:last-child{border-bottom:none}
+.matchrow b{display:block}.matchrow span{font-size:11.5px;opacity:.65}
+.matchrow .arrow{opacity:.5}
+.zbtn{background:rgba(138,172,133,.12);border:1px solid #8AAC85;color:#cfe0cb;border-radius:7px;padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+.zbtn.done{background:#4A6741;border-color:#4A6741;color:#fff;cursor:default}
+.haupt{display:flex;align-items:stretch;gap:12px}
+.hcol{flex:1;border:1px solid #33443a;border-radius:10px;padding:12px}
+.hcol b{display:block;margin:4px 0}.hcol span{font-size:11.5px;opacity:.65}
+.htag{font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.htag.pro{background:rgba(74,103,65,.25);color:#a8c9a0}
+.htag.ea{background:rgba(201,154,46,.18);color:#e0b45a}
+.hplus{display:flex;align-items:center;font-size:20px;opacity:.5}
+@media(max-width:560px){.matchrow{grid-template-columns:1fr}.haupt{flex-direction:column}.candrow{grid-template-columns:1fr}}
+.stoerhdr{background:rgba(192,96,58,.15);border:1px solid rgba(192,96,58,.5);color:#e8a88f;border-radius:10px;padding:12px 16px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.stoerhdr.done{background:rgba(74,138,84,.15);border-color:rgba(74,138,84,.5);color:#7fc389}
+.stoerhdr .cnt{font-weight:700}
+.ok-dot{width:9px;height:9px;border-radius:50%;background:#4A8A54;display:inline-block}
+.stoercard{border:1px solid #33443a;border-radius:12px;padding:14px;margin-bottom:12px;background:rgba(138,172,133,.04)}
+.stoercard.resolved{background:rgba(74,138,84,.08);border-color:rgba(74,138,84,.4)}
+.sc-head{margin-bottom:10px;font-size:14px}
+.sc-head .req{color:#a8c9a0}.sc-head .loc{opacity:.6;font-size:12px;margin-left:8px}
+.candlist{display:flex;flex-direction:column;gap:2px}
+.candrow{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;border-top:1px solid #2a3830;padding:9px 0}
+.candrow:first-child{border-top:none}
+.candrow.rec{background:rgba(74,103,65,.1);border-radius:8px;padding:9px 10px;margin:2px 0}
+.cname{font-size:13px}
+.rectag{font-size:10px;background:rgba(74,138,84,.2);color:#7fc389;padding:1px 7px;border-radius:20px;margin-left:6px}
+.checks{display:flex;gap:8px}
+.chk{font-size:10.5px;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.chk.yes{background:rgba(74,138,84,.16);color:#7fc389}
+.chk.no{background:rgba(192,96,58,.16);color:#e0917a}
+.assign{border:none;border-radius:7px;padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+.assign.go{background:#4A6741;color:#fff}.assign.go:hover{background:#5a7a51}
+.assign.warn{background:rgba(201,154,46,.15);border:1px solid #C99A2E;color:#e0b45a}
+.assign[disabled]{background:#2a3830;color:#6a7a6a;cursor:not-allowed}
+.resolved-in{color:#7fc389;font-size:13px}
+</style>
 
 <div class="marquee"><span>Fiktives Unternehmen · Beispieldaten · nur zu Schulungszwecken · KI-Pionierzirkel Volksbank Hellweg eG · Fiktives Unternehmen · Beispieldaten · nur zu Schulungszwecken</span></div>
 
@@ -221,22 +297,35 @@ body.alt .tourlist button{border-color:#c8c8c8}body.alt .tourlist button:hover{b
     <div class="lg" id="loginLogo"></div>
     <h1><span class="serif">LebensZeit</span> · LZ Cockpit</h1>
     <div class="sub">Betriebs-Cockpit · Beispielumgebung</div>
-    <div class="f">
-      <label for="em">Benutzerkennung</label>
-      <input id="em" value="k.brandt@lebenszeit-ggmbh.de">
-      <label for="pw">Passwort</label>
-      <input id="pw" type="password" value="demo-2026">
-      <label for="role">Rolle</label>
-      <select id="role">
-        <option>Disposition · Erwitte</option>
-        <option>Pflegedienstleitung · Bad Sassendorf</option>
-        <option>Geschäftsführung</option>
-        <option>Mitglieder- &amp; Community-Management</option>
-        <option>Ehrenamtskoordination</option>
+    <div class="login-era" id="loginEra">
+      <button type="button" class="le-btn on" data-e="neu" onclick="setLoginEra('neu')">2026 · LZ Cockpit</button>
+      <button type="button" class="le-btn" data-e="alt" onclick="setLoginEra('alt')">2024 · Altsystem</button>
+    </div>
+    <div class="f" id="f2026">
+      <label for="loginSel">Anmelden als</label>
+      <select id="loginSel" onchange="fillLogin()">
+        <option value="disposition">Katrin Brandt · Disposition · Erwitte</option>
+        <option value="pdl">Miriam Föcker · Pflegedienstleitung · Erwitte</option>
+        <option value="gf">Dr. Maria Holthaus · Geschäftsführung · Erwitte</option>
+        <option value="pflegekraft">Elif Yilmaz · Pflegekraft (exam.) · Erwitte</option>
+        <option value="ehrenamt">Sandra Föcker · Ehrenamtskoordination · Erwitte</option>
+        <option value="community">Tanja Middendorf · Mitglieder &amp; Community · Erwitte</option>
       </select>
+      <label for="em">Benutzerkennung</label>
+      <input id="em" readonly>
+      <label for="pw">Passwort</label>
+      <input id="pw" type="password" readonly>
+      <div class="demoNote">Demo-Zugänge: 6 Rollen — Auswahl füllt Kennung &amp; Passwort.</div>
+    </div>
+    <div class="f" id="f2024" style="display:none">
+      <label for="em24">Benutzerkennung</label>
+      <input id="em24" value="verwaltung@lebenszeit-ggmbh.de" readonly>
+      <label for="pw24">Passwort</label>
+      <input id="pw24" type="password" value="pflege2024" readonly>
+      <div class="demoNote">Sammelzugang · keine Rollen — alle arbeiten in derselben Excel.</div>
     </div>
     <button class="login-btn" onclick="doLogin()">Anmelden</button>
-    <div class="login-meta">LZ Cockpit v2.3.1 · Mandant: LebensZeit gGmbH · www.lebenszeit-ggmbh.de</div>
+    <div class="login-meta">LZ Cockpit v2.5.0 · Mandant: LebensZeit gGmbH · www.lebenszeit-ggmbh.de</div>
   </div>
 </div>
 
@@ -256,6 +345,7 @@ body.alt .tourlist button{border-color:#c8c8c8}body.alt .tourlist button:hover{b
       </div>
     </div>
     <div class="userchip"><span class="av">KB</span><span id="userName">K. Brandt</span></div>
+    <button id="logoutBtn" onclick="logout()" title="Abmelden — zurück zur Anmeldung">Abmelden</button>
   </header>
   <main id="main"></main>
   <footer id="foot"><span id="footVer"></span><span id="footSave"></span><span style="margin-left:auto">Mandant: LebensZeit gGmbH · Kreis Soest</span></footer>
@@ -279,7 +369,9 @@ const avgAus=Math.round(sum(K,k=>k.ausschoepfung)/K.length);
 /* ============ Module ============ */
 const MODULES=[
  {id:"home",ic:"grid",n:"Übersicht"},
+ {id:"meintag",ic:"phone",n:"Mein Dienst"},
  {id:"tour",ic:"map",n:"Touren & Disposition",sprint:"Sprint 4"},
+ {id:"tag",ic:"cal",n:"Tagesansicht",sprint:"Sprint 4"},
  {id:"kli",ic:"users",n:"Klienten & Stammdaten"},
  {id:"doku",ic:"file",n:"Pflegedokumentation"},
  {id:"medi",ic:"pill",n:"Medikation"},
@@ -299,7 +391,62 @@ const svgIc=k=>`<svg class="ic" viewBox="0 0 17 17" fill="none" stroke-width="1.
 function logoSVG(c,s){return `<svg width="${s}" height="${s}" viewBox="0 0 200 200"><g stroke="${c}" fill="none" stroke-width="6"><circle cx="100" cy="100" r="88"/><circle cx="100" cy="100" r="72" stroke-width="3" opacity=".7"/></g><g stroke="${c}" stroke-width="2.4" opacity=".8"><line x1="100" y1="28" x2="168.5" y2="77.8"/><line x1="168.5" y1="77.8" x2="142.3" y2="158.3"/><line x1="142.3" y1="158.3" x2="57.7" y2="158.3"/><line x1="57.7" y1="158.3" x2="31.5" y2="77.8"/><line x1="31.5" y1="77.8" x2="100" y2="28"/><line x1="100" y1="28" x2="142.3" y2="158.3"/><line x1="100" y1="28" x2="57.7" y2="158.3"/><line x1="168.5" y1="77.8" x2="31.5" y2="77.8"/><line x1="168.5" y1="77.8" x2="57.7" y2="158.3"/><line x1="31.5" y1="77.8" x2="142.3" y2="158.3"/><line x1="100" y1="28" x2="100" y2="100"/><line x1="168.5" y1="77.8" x2="100" y2="100"/><line x1="142.3" y1="158.3" x2="100" y2="100"/><line x1="57.7" y1="158.3" x2="100" y2="100"/><line x1="31.5" y1="77.8" x2="100" y2="100"/></g><g fill="${c}"><circle cx="100" cy="28" r="9"/><circle cx="168.5" cy="77.8" r="9"/><circle cx="142.3" cy="158.3" r="9"/><circle cx="57.7" cy="158.3" r="9"/><circle cx="31.5" cy="77.8" r="9"/><circle cx="100" cy="106" r="13"/><path d="M100 58 C 90 72, 90 84, 100 94 C 110 84, 110 72, 100 58 Z"/></g></svg>`}
 
 /* ============ State ============ */
-let S={mode:"neu",mod:"home",sel:null};
+let S={mode:"neu",mod:"home",sel:null,role:"disposition",lastRole:"disposition",ctab:null,exc:{}};
+/* ---- Rollen & Berechtigung Ebene A (Navigation) ---- */
+const PW="demo-2026";
+const ROLES={
+  disposition:{name:"Katrin Brandt",       mail:"k.brandt@lebenszeit-ggmbh.de",   ini:"KB", fn:"Disposition",              ort:"Erwitte", start:"home", mods:new Set(["home","tag","tour","kli","vo","dienst","pers","fuhr","ehren"])},
+  pdl:        {name:"Miriam Föcker",        mail:"m.foecker@lebenszeit-ggmbh.de",  ini:"MF", fn:"Pflegedienstleitung",     ort:"Erwitte", start:"home", mods:new Set(["home","tag","tour","kli","doku","medi","vo","dienst","abr","qual","mitgl","pers","fuhr","ehren","appv"])},
+  gf:         {name:"Dr. Maria Holthaus",   mail:"m.holthaus@lebenszeit-ggmbh.de", ini:"MH", fn:"Geschäftsführung",        ort:"Erwitte", start:"home", mods:"all"},
+  pflegekraft:{name:"Elif Yilmaz",          mail:"e.yilmaz@lebenszeit-ggmbh.de",   ini:"EY", fn:"Pflegekraft (exam.)",     ort:"Erwitte", start:"meintag", mods:new Set(["meintag","home","tour","kli","doku","medi","vo","dienst","mitgl","pers","fuhr","ehren","appv"])},
+  ehrenamt:   {name:"Sandra Föcker",        mail:"s.foecker@lebenszeit-ggmbh.de",  ini:"SF", fn:"Ehrenamtskoordination",   ort:"Erwitte", start:"home", mods:new Set(["home","kli","qual","mitgl","pers","ehren"])},
+  community:  {name:"Tanja Middendorf",     mail:"t.middendorf@lebenszeit-ggmbh.de",ini:"TM",fn:"Mitglieder & Community",   ort:"Erwitte", start:"home", mods:new Set(["home","kli","abr","qual","mitgl","ehren","serv","appv"])}
+};
+function roleMods(){ const r=ROLES[S.role]; if(!r||r.mods==="all"||S.role==="sammel") return "all"; return r.mods; }
+/* ---- Ebene B: Reiter im Klientenprofil ---- */
+const CTABS=[
+  {id:"stamm",  n:"Stammdaten"},
+  {id:"bedarf", n:"Einsatzbedarf"},
+  {id:"vertrag",n:"Vertrag & Pflegegrad"},
+  {id:"doku",   n:"Pflegedokumentation"},
+  {id:"medi",   n:"Medikation"},
+  {id:"abr",    n:"Abrechnung & Ausschöpfung"},
+  {id:"besch",  n:"Beschwerdehistorie"}
+];
+/* full=voll · lim=eingeschränkt · lock=gesperrt · exc=Ausnahmezugriff */
+const CACCESS={
+  disposition:{stamm:"full",bedarf:"full",vertrag:"lim", doku:"lock",medi:"lock",abr:"lock",besch:"lock"},
+  pflegekraft:{stamm:"lim", bedarf:"lim", vertrag:"lim", doku:"full",medi:"full",abr:"lock",besch:"lock"},
+  pdl:        {stamm:"full",bedarf:"full",vertrag:"full",doku:"full",medi:"full",abr:"lim", besch:"full"},
+  gf:         {stamm:"full",bedarf:"lim", vertrag:"full",doku:"exc", medi:"exc", abr:"full",besch:"full"},
+  ehrenamt:   {stamm:"lim", bedarf:"lock",vertrag:"lock",doku:"lock",medi:"lock",abr:"lock",besch:"lock"},
+  community:  {stamm:"lim", bedarf:"lock",vertrag:"lim", doku:"lock",medi:"lock",abr:"lim", besch:"full"},
+  sammel:     {stamm:"full",bedarf:"full",vertrag:"full",doku:"full",medi:"full",abr:"full",besch:"full"}
+};
+const LOCKREASON={
+  bedarf:"Einsatzplanung — kein Zugriff für diese Rolle",
+  vertrag:"Vertrags-/Pflegegraddaten — kein Zugriff für diese Rolle",
+  doku:"Gesundheitsdaten (Pflegedokumentation) — kein Zugriff für diese Rolle",
+  medi:"Gesundheitsdaten (Medikation) — kein Zugriff für diese Rolle",
+  abr:"Abrechnungsdaten — kein Zugriff für diese Rolle",
+  besch:"Beschwerdedaten — kein Zugriff für diese Rolle",
+  stamm:"Stammdaten — kein Zugriff für diese Rolle"
+};
+const ACCESSLOG=[];
+function curUser(){ return (ROLES[S.role]||{}).name || "Sammelzugang"; }
+function tabAccess(id,tab){
+  const a=(CACCESS[S.role]||CACCESS.sammel)[tab]||"lock";
+  if(a==="exc" && S.exc[id+"/"+tab]) return "granted";
+  return a;
+}
+function setCTab(t){ S.ctab=t; render(); }
+function grantExc(tab){
+  const ta=document.getElementById("excReason"); const reason=(ta&&ta.value||"").trim();
+  if(!reason){ if(ta){ta.style.borderColor="#C0603A";ta.focus();} return; }
+  S.exc[S.sel+"/"+tab]=true;
+  ACCESSLOG.push({ts:new Date(),person:curUser(),klient:S.sel,tab:(CTABS.find(c=>c.id===tab)||{}).n||tab,reason:reason});
+  S.ctab=tab; render();
+}
 document.getElementById("loginLogo").innerHTML=logoSVG("#8AAC85",64);
 
 /* dynamische Uhr */
@@ -312,20 +459,56 @@ function tick(){
 }
 setInterval(tick,1000);
 
+function fillLogin(){
+  const sel=document.getElementById("loginSel"); if(!sel) return;
+  const r=ROLES[sel.value]||ROLES.disposition;
+  document.getElementById("em").value=r.mail;
+  document.getElementById("pw").value=PW;
+}
+function setLoginEra(e){
+  S.mode=e; document.body.className=e;
+  document.getElementById("f2026").style.display = e==="neu"?"":"none";
+  document.getElementById("f2024").style.display = e==="alt"?"":"none";
+  document.querySelectorAll("#loginEra .le-btn").forEach(b=>b.classList.toggle("on",b.dataset.e===e));
+  const sw=document.getElementById("sw"); if(sw) sw.setAttribute("aria-checked", e==="neu");
+}
+function setUser(name,ini,roleLabel){
+  document.getElementById("userName").textContent=name;
+  const av=document.querySelector(".userchip .av"); if(av) av.textContent=ini;
+  document.getElementById("roleBox").textContent="Rolle: "+roleLabel;
+}
 function doLogin(){
+  if(S.mode==="alt"){
+    S.role="sammel";
+    setUser("Sammelzugang","SZ","Verwaltung · kein Rollenmodell");
+  } else {
+    const key=document.getElementById("loginSel").value;
+    S.role=key; S.lastRole=key;
+    const r=ROLES[key];
+    setUser(r.name,r.ini,r.fn+" · "+r.ort);
+  }
   document.getElementById("login").style.display="none";
   document.getElementById("app").classList.add("on");
-  document.getElementById("roleBox").textContent="Rolle: "+document.getElementById("role").value;
-  tick(); buildNav(); go("home");
+  tick(); buildNav();
+  go(S.mode==="alt"?"home":(ROLES[S.role]?ROLES[S.role].start:"home"));
+}
+function logout(){
+  document.getElementById("app").classList.remove("on");
+  document.getElementById("login").style.display="";
+  setLoginEra(S.mode);
+  if(S.mode==="neu" && S.lastRole){ var sel=document.getElementById("loginSel"); if(sel){ sel.value=S.lastRole; fillLogin(); } }
 }
 function buildNav(){
   const nav=document.getElementById("nav"); nav.innerHTML="";
+  const allowed=roleMods();
   MODULES.forEach(m=>{
+    if(allowed!=="all" && !allowed.has(m.id)) return; // Ebene A: gesperrte Module ausblenden
     const b=document.createElement("button");
     b.innerHTML=svgIc(m.ic)+`<span>${m.n}</span>`+(m.sprint?`<span class="bdg">${m.sprint}</span>`:"");
     b.dataset.id=m.id; b.onclick=()=>go(m.id); nav.appendChild(b);
   });
 }
+fillLogin();
 document.getElementById("sw").onclick=switchMode;
 document.getElementById("sw").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();switchMode()}};
 function switchMode(){
@@ -421,7 +604,7 @@ R.home=m=>{
   if(m==="neu")return `
     <div class="kgrid">
       ${kpi(K.length,"Aktive Pflegefälle","5 Standorte",false,"go('kli')")}
-      ${kpi("62 %","Eigenfinanzierung","Ziel 71 % · Brücke aktiv","amb","go('abr')")}
+      ${kpi("62 %","Eigenfinanzierung","Ziel 70 % · Brücke aktiv","amb","go('abr')")}
       ${kpi(MA.length+" / 64","Mitarbeitende","8 Stellen offen",false,"go('pers')")}
       ${kpi("520","Mitglieder","Ziel 750",false,"go('mitgl')")}
       ${kpi(FZ.length,"Fahrzeuge","−10 % km seit Umstellung",false,"go('fuhr')")}
@@ -606,33 +789,60 @@ function kliProfile(id,m){
   ];
   const medi=k.pg>=3?["Ramipril 5 mg (1-0-0)","Metformin 850 mg (1-0-1)","ASS 100 (1-0-0)"]:["Bedarfsmedikation n. Absprache"];
   if(m==="alt")return backBtn("kli","zur Kartei")+panel("Papierakte (Scan)",`<div class="empty"><b>${k.name}</b>Vollständige Akte im Papierordner Schrank ${k.standort.charAt(0)}-2, ${k.standort_name}. Digital nur Stammblatt vorhanden.</div>`);
-  return backBtn("kli","zur Klientenübersicht")+`
-    <div class="kgrid">
-      ${kpi("PG "+k.pg,"Pflegegrad",k.leistung)}
-      ${kpi(k.ausschoepfung+" %","Ausschöpfung",k.ausschoepfung<46?"unter Ziel — Hebel 1":"im Ziel","amb")}
-      ${kpi(eur(k.offen),"offener Anspruch/Mt.","Beratung terminieren")}
-      ${kpi(k.besuche_woche+"×","Besuche/Woche","Tour "+(TOUR.find(t=>t.stops.some(s=>s.id===k.id))||{id:"—"}).id)}
-    </div>
-    <div class="profgrid">
-      ${panel("Stammdaten",`<div class="kv">
-        <div><span>Name</span><span>${k.name}</span></div>
-        <div><span>Alter</span><span>${k.alter} Jahre</span></div>
-        <div><span>Adresse</span><span>${k.adresse}</span></div>
-        <div><span>Standort</span><span>${k.standort_name}</span></div>
-        <div><span>Kunde seit</span><span>${k.seit}</span></div>
-        <div><span>Auf Karte</span><span><a href="#" onclick="open_('tour',null);return false;">Tourenkarte →</a></span></div>
-      </div>`)}
-      ${panel("Leistung & Abrechnung",`<div class="kv">
-        <div><span>Sachleistungs-Cap</span><span>${eur(k.cap)}/Monat</span></div>
-        <div><span>abgerufen</span><span>${eur(k.abgerufen)} (${k.ausschoepfung} %)</span></div>
-        <div><span>ungenutzt</span><span style="color:var(--amber)">${eur(k.offen)}</span></div>
-        <div><span>Leistungsart</span><span>${k.leistung}</span></div>
-      </div><div class="bar" style="margin-top:8px"><i style="width:${k.ausschoepfung}%;background:var(--amber)"></i></div>`)}
-    </div>
-    <div class="profgrid">
-      ${panel("Pflegedokumentation (Auszug)",doku.map(x=>`<div class="appointment"><b>${x.d}</b> — ${x.t}</div>`).join(""))}
-      ${panel("Medikationsplan",`<div class="kv">${medi.map(x=>`<div><span>${x}</span><span>✓</span></div>`).join("")}</div><p style="font-size:11px;opacity:.6;margin-top:6px">Beispieldaten · in der Demo nicht klinisch valide.</p>`)}
-    </div>`;
+  const usable=t=>{const a=tabAccess(id,t.id);return a!=="lock";};
+  let cur=S.ctab; if(!cur||tabAccess(id,cur)==="lock"){const f=CTABS.find(usable);cur=f?f.id:"stamm";}
+  const A=t=>tabAccess(id,t);
+  let kx=[];
+  if(A("vertrag")!=="lock") kx.push(kpi("PG "+k.pg,"Pflegegrad",k.leistung));
+  if(A("abr")!=="lock"||S.role==="pflegekraft"){ kx.push(kpi(k.ausschoepfung+" %","Ausschöpfung",k.ausschoepfung<46?"unter Ziel — Hebel 1":"im Ziel","amb")); kx.push(kpi(eur(k.offen),"offener Anspruch/Mt.","Beratung terminieren")); }
+  if(A("bedarf")!=="lock") kx.push(kpi(k.besuche_woche+"×","Besuche/Woche","Tour "+(TOUR.find(t=>t.stops.some(s=>s.id===k.id))||{id:"—"}).id));
+  if(!kx.length) kx.push(kpi(k.leistung,"Bedarfsart","für Einsatzabgleich"));
+  const bar=`<div class="ctabs">`+CTABS.map(t=>{
+    const a=tabAccess(id,t.id);
+    if(a==="lock") return `<button class="ctab lock" disabled title="${LOCKREASON[t.id]}">${t.n} <span class="cst">○</span></button>`;
+    if(a==="exc")  return `<button class="ctab exc${cur===t.id?" on":""}" onclick="setCTab('${t.id}')" title="Ausnahmezugriff — Protokollpflicht">${t.n} <span class="cst">▲</span></button>`;
+    const mk=a==="granted"?` <span class="cst" title="Ausnahmezugriff erteilt">▲✓</span>`:(a==="lim"?` <span class="cst" title="eingeschränkte Sicht">◐</span>`:"");
+    return `<button class="ctab${cur===t.id?" on":""}" onclick="setCTab('${t.id}')">${t.n}${mk}</button>`;
+  }).join("")+`</div>`;
+  const body=tabBody(cur,k,tabAccess(id,cur),doku,medi);
+  let log="";
+  if(ACCESSLOG.length){
+    log=panel("Zugriffsprotokoll (Ausnahmezugriffe)",`<div class="acclog">`+ACCESSLOG.slice().reverse().map(e=>`<div class="row"><b>${e.tab}</b> · ${e.person} · Klient ${e.klient} · ${e.ts.toLocaleTimeString('de-DE')} — Grund: ${e.reason}</div>`).join("")+`</div>`);
+  }
+  const fn=(ROLES[S.role]||{}).fn||"Sammelzugang";
+  return backBtn("kli","zur Klientenübersicht")+
+    `<div class="profhead"><h2 style="font-family:'Cormorant Garamond',serif;margin:2px 0">${k.name}</h2><div style="font-size:12px;opacity:.6">${k.standort_name} · Kunde seit ${k.seit} · aktive Rolle: ${fn}</div></div>`+
+    `<div class="kgrid">${kx.join("")}</div>`+bar+`<div class="ctabbody">${body}</div>`+log;
+}
+function tabBody(tab,k,a,doku,medi){
+  const note=t=>`<p style="font-size:11.5px;color:#C99A2E;margin-top:8px">${t}</p>`;
+  const fn=(ROLES[S.role]||{}).fn||"—";
+  if(a==="exc"){
+    const lbl=(CTABS.find(c=>c.id===tab)||{}).n||"Gesundheitsdaten";
+    return `<div class="exc-form"><b>Ausnahmezugriff auf ${lbl}</b><p style="font-size:12px;opacity:.8;margin:6px 0">Zugriff auf Gesundheitsdaten wird protokolliert — Grund erforderlich.</p><textarea id="excReason" rows="2" placeholder="z. B. Beschwerdeprüfung / Härtefallentscheidung …"></textarea><button class="login-btn" style="width:auto;padding:8px 16px" onclick="grantExc('${tab}')">Zugriff protokollieren &amp; öffnen</button></div>`;
+  }
+  const exd=a==="granted"?note("Ausnahmezugriff erteilt und protokolliert."):"";
+  if(tab==="stamm"){
+    if(a==="lim"){
+      const extra=S.role==="community"?`<div><span>Mitgliedsbezug</span><span>${k.pg>=3?"Aktiv":"Basis"}</span></div>`:`<div><span>Bedarfsart</span><span>${k.leistung}</span></div>`;
+      return panel("Stammdaten (eingeschränkt)",`<div class="kv"><div><span>Name</span><span>${k.name}</span></div><div><span>Adresse</span><span>${k.adresse}</span></div><div><span>Standort</span><span>${k.standort_name}</span></div>${extra}</div>`+note("Eingeschränkte Sicht für Rolle "+fn+" — weitere Felder ausgeblendet."));
+    }
+    return panel("Stammdaten",`<div class="kv"><div><span>Name</span><span>${k.name}</span></div><div><span>Alter</span><span>${k.alter} Jahre</span></div><div><span>Adresse</span><span>${k.adresse}</span></div><div><span>Standort</span><span>${k.standort_name}</span></div><div><span>Kunde seit</span><span>${k.seit}</span></div><div><span>Auf Karte</span><span><a href="#" onclick="open_('tour',null);return false;">Tourenkarte →</a></span></div></div>`);
+  }
+  if(tab==="bedarf"){
+    const qual=k.pg>=3?"examinierte Fachkraft — Behandlungspflege §37.3":"Pflegehilfskraft ausreichend";
+    const fenster=/körper|grund/i.test(k.leistung||"")?"Morgens 06:30–08:30 (feste Korridore)":"tagsüber, flexibel";
+    return panel("Einsatzbedarf · Qualifikation · Zeitfenster",`<div class="kv"><div><span>Erforderliche Qualifikation</span><span>${qual}</span></div><div><span>Zeitfenster</span><span>${fenster}</span></div><div><span>Frequenz</span><span>${k.besuche_woche}× / Woche</span></div><div><span>Leistungsart</span><span>${k.leistung}</span></div></div>`+note("Ableitung ohne Gesundheitsdaten — genügt für die Tourenplanung."));
+  }
+  if(tab==="vertrag"){
+    const diag=a==="lim"?"":`<div><span>Diagnosegruppe</span><span>${k.pg>=4?"Demenz / Multimorbidität":"altersbedingte Einschränkung"}</span></div>`;
+    return panel("Vertrag · Pflegegrad · Leistungsumfang",`<div class="kv"><div><span>Pflegegrad</span><span>PG ${k.pg}</span></div><div><span>Leistungsumfang</span><span>${k.leistung}, ${k.besuche_woche}×/Woche</span></div><div><span>Sachleistungs-Cap</span><span>${eur(k.cap)}/Monat</span></div>${diag}</div>`+(a==="lim"?note("Ohne Diagnose — für die Disposition nicht erforderlich."):""));
+  }
+  if(tab==="doku") return exd+panel("Pflegedokumentation (Auszug · Quelle: MediFox DAN)",doku.map(x=>`<div class="appointment"><b>${x.d}</b> — ${x.t}</div>`).join(""));
+  if(tab==="medi") return exd+panel("Medikationsplan (Quelle: MediFox DAN)",`<div class="kv">${medi.map(x=>`<div><span>${x}</span><span>✓</span></div>`).join("")}</div><p style="font-size:11px;opacity:.6;margin-top:6px">Beispieldaten · in der Demo nicht klinisch valide.</p>`);
+  if(tab==="abr") return panel("Abrechnung & Ausschöpfung",`<div class="kv"><div><span>Sachleistungs-Cap</span><span>${eur(k.cap)}/Monat</span></div><div><span>abgerufen</span><span>${eur(k.abgerufen)} (${k.ausschoepfung} %)</span></div><div><span>ungenutzt</span><span style="color:#C99A2E">${eur(k.offen)}</span></div></div><div class="bar" style="margin-top:8px"><i style="width:${k.ausschoepfung}%;background:#C99A2E"></i></div>`+(a==="lim"?note("Aggregiert — Detailtiefe je nach Rolle eingeschränkt."):""));
+  if(tab==="besch") return panel("Beschwerdehistorie",`<div class="empty">Keine Beschwerde in den letzten 12 Monaten erfasst.</div>`);
+  return "";
 }
 
 /* ---- Personal ---- */
@@ -731,6 +941,7 @@ R.ehren=m=>{
         {label:"§45c/d",sort:r=>r.foerderrelevant?1:0,html:r=>r.foerderrelevant?'<span class="pill ok">ja</span>':'<span class="pill">–</span>'}
       ]}),`${EA.length} Personen`)}`;
 };
+(function(){ const _e=R.ehren; R.ehren=m=> ehrenExtra(m)+_e(m); })();
 
 /* ---- Hüllen-Module ---- */
 function hull(id){
@@ -739,7 +950,7 @@ function hull(id){
    medi:{t:"Medikation",neuK:[["96","aktive Medikamentenpläne",""],["0","offene Abweichungen","heute"]],neuE:["Nur Hülle — bewusst ohne Beispieldaten","Medikationsdaten sind sensibel; in der Demo leer. Beispiel-Plan je Klient im Profil."],alt:"Medikamentenpläne als Kopie in Papierakte · Änderungen per Telefon vom Hausarzt"},
    vo:{t:"Verordnungen & §37.3",neuK:[["42","Beratungsbesuche fällig Q3","11 terminiert"],["18","Verordnungen SGB V aktiv",""]],neuE:["Beispielansicht in Vorbereitung","Fristen, Termine und Nachweise der Beratungsbesuche nach §37 Abs. 3."],alt:"Fristenliste als Excel · Erinnerung per Wandkalender"},
    dienst:{t:"Dienstplan",neuK:[["7 %","Krankenstand","im Branchenrahmen"],["2","offene Schichten diese Woche","Vertretung angefragt"]],neuE:["Beispielansicht in Vorbereitung","Früh-/Spätdienst je Standort, Ausfallmanagement, Wunschdienste."],alt:"Wandplan + Excel je Standort · Tausch per Telefon"},
-   abr:{t:"Abrechnung & Kassen",neuK:[["1,15 Mio €","Pflegeumsatz p.a.","SGB XI/V"],["62 %","Eigenfinanzierung","Ziel 71 %","amb"],["✓","Kassen-Schnittstelle","Datenaustausch aktiv"]],neuE:["Beispielansicht in Vorbereitung","Monatsabrechnung je Kasse, §45b-Entlastungsbeträge, Eigenanteile. Grundlage der 62→71-Brücke."],alt:"Abrechnung monatlich per Sammelmappe an Rechenzentrum · Rückläufer manuell"},
+   abr:{t:"Abrechnung & Kassen",neuK:[["1,15 Mio €","Pflegeumsatz p.a.","SGB XI/V"],["62 %","Eigenfinanzierung","Ziel 70 %","amb"],["✓","Kassen-Schnittstelle","Datenaustausch aktiv"]],neuE:["Beispielansicht in Vorbereitung","Monatsabrechnung je Kasse, §45b-Entlastungsbeträge, Eigenanteile. Grundlage der 62→70-Brücke."],alt:"Abrechnung monatlich per Sammelmappe an Rechenzentrum · Rückläufer manuell"},
    qual:{t:"Qualität & Zufriedenheit",neuK:[["+47","Net Promoter Score","Ziel ≥ +45 erreicht","amb"],["4,4 / 5","Angehörigen-Zufriedenheit",""],["48 h","Beschwerde-Reaktion","zugesagt & gehalten"]],neuE:["Messsystem live seit Q4/2026","NPS-Verlauf, Bindungs-Funnel und Beschwerde-Ampel — Konzept aus Sprint 3."],alt:"Keine Daten erhoben. Zufriedenheit wird nicht gemessen — Beschwerden landen im Telefonprotokoll."},
    mitgl:{t:"Mitglieder",neuK:[["520 → 750","Mitglieder · Ziel",""],["300/170/50","Basis / Aktiv / Premium",""],["52,8 k€","Beiträge p.a.","Ziel ~90 k€","amb"]],neuE:["Funnel-Ansicht in Vorbereitung","Lebenszyklus Interessent → Basis → Aktiv → Premium → Fürsprecher."],alt:"Mitglieder_Liste_AKTUELL_März.xls (4 Monate alt) · Beitragseinzug per Durchschlag"},
    pers:null,fuhr:null,ehren:null,
@@ -756,12 +967,123 @@ function hull(id){
 ["doku","medi","vo","dienst","abr","qual","mitgl","serv","appv"].forEach(id=>R[id]=hull(id));
 
 /* ---- render ---- */
+/* ============ Stufe 2: rollenspezifische Übersicht ============ */
+function roleOverview(){
+  const O={
+    disposition:{t:"Disposition · heute",k:[["2","Krankmeldungen heute"],["3","Touren betroffen"],["18","Fahrzeuge im Einsatz"]],
+      tasks:[["Ausfälle umplanen — 3 Touren ohne Kraft","tag"],["Einsätze ohne passende Qualifikation prüfen","tour"],["Offene Zuordnungen abschließen","kli"]]},
+    pflegekraft:{t:"Pflegekraft · heute",k:[["6","Einsätze heute"],["1","offene Dokumentation"],["2","Nachrichten von der PDL"]],
+      tasks:[["Nächster Einsatz 08:00 — Zeitfenster beachten","tour"],["Offene Doku in MediFox nachtragen","kli"],["Ungenutzten Sachleistungsanspruch ansprechen (Hebel 1)","kli"]]},
+    pdl:{t:"Pflegedienstleitung · heute",k:[["4","Freigaben offen"],["3","Verordnungen laufen aus"],["1","Beschwerde in 48-h-Frist"]],
+      tasks:[["Beschwerde fristgerecht bearbeiten","qual"],["Auslaufende §37.3-Verordnungen verlängern","vo"],["Dokumentationsrückstand im Team prüfen","kli"],["Qualifikationslücken in den Touren schließen","pers"]]},
+    gf:{t:"Geschäftsführung · heute",k:[["62 %","Eigenfinanzierung → Ziel 70 %"],["2","defizitäre Standorte"],["8","offene Fachkraftstellen"]],
+      tasks:[["Rüthen −38 k€ / Lippetal −30 k€ — Maßnahmen prüfen","fuhr"],["Vakanzen priorisieren (8 offen)","pers"],["Digitalförderung läuft 2027 aus — Frist beachten","abr"]]},
+    ehrenamt:{t:"Ehrenamtskoordination · heute",k:[["45","Ehrenamtliche"],["5","unversorgte Bedarfe"],["3","> 3 Monate ohne Einsatz"]],
+      tasks:[["Bedarfsabgleich: offene Klientenbedarfe zuordnen","ehren"],["Inaktive Ehrenamtliche reaktivieren","ehren"],["Neue Anfragen bearbeiten","ehren"]]},
+    community:{t:"Mitglieder & Community · heute",k:[["520 / 750","Mitglieder · Ziel"],["12","Upgrade-Kandidaten"],["3","Kündigungen offen"]],
+      tasks:[["Upgrade-Kandidaten Basis→Aktiv ansprechen","mitgl"],["Kündigungen prüfen / Rückgewinnung","mitgl"],["Beitragsausfälle klären","abr"]]}
+  };
+  const o=O[S.role]; if(!o) return "";
+  const kx=o.k.map(x=>kpi(x[0],x[1])).join("");
+  const tasks=`<div class="tasklead">Was ist heute zu tun?</div><div class="tasklist">`+o.tasks.map(t=>`<button class="taskrow" onclick="go('${t[1]}')"><span>${t[0]}</span><span class="go2">→</span></button>`).join("")+`</div>`;
+  return panel(o.t, `<div class="kgrid" style="margin-bottom:12px">${kx}</div>`+tasks, "Rollen-Einstieg");
+}
+(function(){ const _hb=R.home; R.home=m=> (m==="neu"?roleOverview():"") + _hb(m); })();
+
+/* ============ Stufe 3: Pflegekraft-Ansicht (mobil) + Ehrenamt ============ */
+const SKILLS=["Fahrdienst","Einkauf","Besuch","Digitalhilfe"];
+const FEN=["Mo/Mi vormittags","Di/Do nachmittags","am Wochenende","werktags flexibel"];
+function _num(id){return parseInt((id||"").replace(/\D/g,""))||0;}
+function eaSkill(e){return SKILLS[_num(e.id)%4];}
+function eaFenster(e){return FEN[_num(e.id)%FEN.length];}
+function eaAktiv(e){return _num(e.id)%5!==0;}
+function memb(k){return ["Basis","Aktiv","Premium"][(_num(k.id)+k.pg)%3];}
+function membBonus(m){return m==="Aktiv"?"10 % auf Entlastungsleistungen":m==="Premium"?"Hausnotruf inkl. · 15 % Entlastung":"Grundleistungen";}
+function mfxDone(b){const c=b.closest(".einsatz");const d=c.querySelector(".dbadge");d.className="dbadge ok";d.textContent="Doku \u2713 (MediFox)";b.remove();}
+function zuordnen(b){b.textContent="\u2713 zugeordnet";b.disabled=true;b.classList.add("done");}
+
+R.meintag=m=>{
+  const my=K.slice(0,4);
+  const times=["07:15","08:30","10:00","11:30"];
+  if(m==="alt"){
+    return `<div class="phone"><div class="phtop">Tourenzettel · Papier · 2024</div>`+
+      panel("Erfassung",`<div class="kv"><div><span>Mobile Erfassungsquote</span><span>0 %</span></div><div><span>\u00d8 Nachdokumentation / Dienst</span><span>~40 Min.</span></div><div><span>Doku-R\u00fcckstand</span><span style="color:#C0603A">hoch (3 Tage)</span></div></div>`)+
+      panel("Ablauf 2024",`<div class="empty">Tourenzettel gedruckt \u00b7 Leistungsnachweis auf Papier \u00b7 abends am Standort-PC nachtragen. Lizenz f\u00fcr das mobile Modul vorhanden, aber nie eingef\u00fchrt.</div>`)+
+      `</div>`;
+  }
+  const kpis=`<div class="kgrid kgrid-ph">${kpi("&gt; 90 %","Mobile Erfassung","MediFox-App","amb")}${kpi("~ 0","Nachdok. / Dienst","Dienstende = Dienstende")}${kpi("~ 0","Doku-R\u00fcckstand","aktuell")}</div>`;
+  const einsaetze=my.map((k,i)=>{
+    const mb=memb(k); const done=i<2;
+    const ea=EA.find(e=>e.standort===k.standort && eaAktiv(e));
+    const hebel=k.ausschoepfung<46?`<div class="ehinweis">Ungenutzter Sachleistungsanspruch (${k.ausschoepfung} %) \u2014 Beratung anregen (Hebel 1)</div>`:"";
+    return `<div class="einsatz"><div class="ez-top"><b>${times[i]} \u00b7 ${k.name}</b><span class="dbadge ${done?'ok':'open'}">${done?'Doku \u2713':'Doku offen'}</span></div>`+
+      `<div class="ez-row">Mitglied: <b>${mb}</b> \u2014 ${membBonus(mb)}</div>`+
+      `<div class="ez-row">Ehrenamt: ${ea?`${ea.name} (${eaSkill(ea)})`:"\u2014 keiner zugeordnet"}</div>`+
+      hebel+(done?"":`<button class="mfx" onclick="mfxDone(this)">In MediFox dokumentieren \u2192</button>`)+`</div>`;
+  }).join("");
+  return `<div class="phone"><div class="phtop">Mein Dienst \u00b7 heute \u00b7 E. Yilmaz</div>`+kpis+
+    panel("Meine Eins\u00e4tze heute",einsaetze)+
+    panel("Nachrichten an die PDL",`<div class="empty">Keine offenen Nachrichten \u00b7 <a href="#" onclick="return false">Neue Nachricht an M. F\u00f6cker</a></div>`)+
+    `<p class="phnote">Dokumentiert wird in MediFox DAN \u2014 das Cockpit zeigt nur den Fortschritt und erg\u00e4nzt, was MediFox nicht wei\u00df (Mitgliedsstatus, Ehrenamt, ungenutzte Anspr\u00fcche).</p></div>`;
+};
+
+function ehrenExtra(m){
+  if(m!=="neu") return "";
+  const aktiv=EA.filter(eaAktiv).length, inaktiv=EA.length-aktiv;
+  const beds=[{k:"Hildegard Stemmer",b:"Einkauf",ort:"R\u00fcthen"},{k:"Adele W\u00fcrdemann",b:"Besuch",ort:"Anr\u00f6chte"},{k:"Josef Kramer",b:"Fahrdienst",ort:"Lippetal"}];
+  const rows=beds.map(bd=>{
+    const cand=EA.find(e=>eaSkill(e)===bd.b && eaAktiv(e))||EA.find(eaAktiv);
+    return `<div class="matchrow"><div><b>${bd.k}</b><span>Bedarf: ${bd.b} \u00b7 ${bd.ort}</span></div><div class="arrow">\u2192</div><div><b>${cand?cand.name:"\u2014"}</b><span>${cand?eaSkill(cand)+" \u00b7 "+eaFenster(cand):""}</span></div><button class="zbtn" onclick="zuordnen(this)">Zuordnen</button></div>`;
+  }).join("");
+  return `<div class="kgrid">${kpi(aktiv,"aktiv im Einsatz","letzte 4 Wochen")}${kpi(inaktiv,"> 3 Monate ohne Einsatz","reaktivieren","amb")}${kpi(beds.length,"unversorgte Bedarfe","Abgleich offen")}</div>`+
+    panel("Bedarfsabgleich \u2014 offene Bedarfe \u2194 verf\u00fcgbare Ehrenamtliche",rows,"Kernfunktion")+
+    panel("Hauptamt trifft Ehrenamt \u2014 ein Bild pro Klient",`<div class="haupt"><div class="hcol"><span class="htag pro">Hauptamt</span><b>Behandlungspflege \u00a737.3</b><span>Fachkraft E. Yilmaz \u00b7 Mo\u2013Fr 07:15</span></div><div class="hplus">+</div><div class="hcol"><span class="htag ea">Ehrenamt</span><b>Einkaufsbegleitung</b><span>J. Kleophas \u00b7 Mi vormittags</span></div></div><p class="phnote" style="margin-top:8px">Beispiel Hildegard Stemmer \u2014 dieses gemeinsame Bild sieht sonst niemand in einem System.</p>`,"USP");
+}
+/* ============ Stufe 4: Tagesansicht mit Störung (Disposition) ============ */
+function umplanen(btn,name){
+  const card=btn.closest(".stoercard");
+  card.classList.add("resolved");
+  card.innerHTML=`<div class="resolved-in">\u2713 Neu zugewiesen an <b>${name}</b> \u2014 Klient informiert, Tour & Dienstplan aktualisiert.</div>`;
+  const left=document.querySelectorAll(".stoercard:not(.resolved)").length;
+  const hdr=document.getElementById("stoerhdr");
+  if(hdr){ if(left===0){ hdr.className="stoerhdr done"; hdr.innerHTML=`<span class="ok-dot"></span> Alle betroffenen Touren wieder besetzt \u2014 07:19 Uhr`; }
+    else { const c=hdr.querySelector(".cnt"); if(c) c.textContent=left; } }
+}
+R.tag=m=>{
+  if(m==="alt") return panel("Tagesansicht \u2014 Altsystem 2024",`<div class="empty"><b>Telefonzettel &amp; WhatsApp</b>Krankmeldung kommt per Anruf. Die Disponentin streicht handschriftlich in <i>TOUREN_JULI_v14_FINAL_neu(2).xls</i>, ruft Kr\u00e4fte einzeln durch und verschiebt Klienten telefonisch. Keine Qualifikations- oder Zeitfensterpr\u00fcfung \u2014 Fehler fallen erst beim Klienten auf.</div>`);
+  const KRANK=[{name:"Lena Rasche",code:"E-F1"},{name:"Melanie R\u00fcther",code:"R-F1"}];
+  const betroffen=K.filter(k=>k.pg>=3).slice(0,3).map((k,i)=>({k,zeit:["07:00\u201307:45","07:30\u201308:15","08:00\u201308:45"][i]}));
+  const POOL=[
+    [{n:"Aylin Kaya",q:1,z:1},{n:"Sven Br\u00fcck",q:1,z:0},{n:"Petra Hoss",q:0,z:1}],
+    [{n:"Miriam F\u00f6cker",q:1,z:1},{n:"Thomas Lenz",q:1,z:0},{n:"Karin Ott",q:0,z:1}],
+    [{n:"Jonas Weber",q:1,z:1},{n:"Elif Yilmaz",q:1,z:0},{n:"Rita Kem",q:0,z:0}]
+  ];
+  const cards=betroffen.map((bt,i)=>{
+    const cands=POOL[i%POOL.length];
+    const rows=cands.map((c,ci)=>{
+      const ok=c.q&&c.z;
+      const q=c.q?'<span class="chk yes">\u00a737.3 \u2713</span>':'<span class="chk no">\u00a737.3 \u2717</span>';
+      const z=c.z?'<span class="chk yes">Zeitfenster \u2713</span>':'<span class="chk no">Zeitfenster \u2717</span>';
+      let btn;
+      if(!c.q) btn='<button class="assign" disabled title="Nur examinierte Fachkraft darf Behandlungspflege \u00a737.3">nicht zul\u00e4ssig</button>';
+      else if(!c.z) btn=`<button class="assign warn" onclick="umplanen(this,'${c.n}')">trotzdem zuweisen</button>`;
+      else btn=`<button class="assign go" onclick="umplanen(this,'${c.n}')">zuweisen</button>`;
+      return `<div class="candrow${ok&&ci===0?' rec':''}"><span class="cname">${c.n}${ok&&ci===0?' <span class="rectag">empfohlen</span>':''}</span><span class="checks">${q} ${z}</span>${btn}</div>`;
+    }).join("");
+    return `<div class="stoercard"><div class="sc-head"><b>${bt.k.name}</b> \u00b7 ${bt.zeit} \u00b7 <span class="req">Behandlungspflege \u00a737.3</span><span class="loc">${bt.k.standort_name}</span></div><div class="candlist">${rows}</div></div>`;
+  }).join("");
+  return `<div class="stoerhdr" id="stoerhdr">\u26a0 Dienstag \u00b7 07:12 \u2014 2 Krankmeldungen \u00b7 <span class="cnt">3</span> Touren betroffen</div>`+
+    panel("Ausgefallen",`<div class="kv">${KRANK.map(x=>`<div><span>${x.name} \u00b7 Tour ${x.code}</span><span>examiniert \u00b7 krankgemeldet 06:48</span></div>`).join("")}</div>`)+
+    cards+
+    `<p class="phnote">Die Vorschl\u00e4ge pr\u00fcfen Qualifikation (\u00a737.3 nur examinierte Fachkraft \u2014 25 von 56) und Zeitfenster automatisch. Ein Klick weist neu zu; im Altsystem 2024 war das eine halbe Stunde Telefonieren.</p>`;
+};
+
 function render(){
   const m=S.mode, mod=MODULES.find(x=>x.id===S.mod);
   document.getElementById("crumb").textContent=mod.n;
   document.getElementById("sideLogo").innerHTML=logoSVG(m==="neu"?"#8AAC85":"#5a6e52",34);
-  document.getElementById("sysline").textContent=m==="neu"?"LZ Cockpit v2.3.1 · verbunden":"PflegeVerwaltung 2024 (Build 8.1.44) · \\\\SRV-ERW-01";
-  document.getElementById("footVer").textContent=m==="neu"?"LZ Cockpit v2.3.1":"PflegeVerwaltung 2024 · Lizenz: 5 Arbeitsplätze";
+  document.getElementById("sysline").textContent=m==="neu"?"LZ Cockpit v2.5.0 · verbunden":"PflegeVerwaltung 2024 (Build 8.1.44) · \\\\SRV-ERW-01";
+  document.getElementById("footVer").textContent=m==="neu"?"LZ Cockpit v2.5.0":"PflegeVerwaltung 2024 · Lizenz: 5 Arbeitsplätze";
   document.getElementById("footSave").textContent=m==="neu"?"Alle Änderungen gespeichert ✓":"Zuletzt gespeichert vor 3 Std.";
   document.querySelectorAll(".nav button").forEach(b=>{
     b.classList.toggle("act",b.dataset.id===S.mod);
