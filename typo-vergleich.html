@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Typografie-Vergleich — LebensZeit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F0E8;--green:#4A6741;--green3:#2C3D27;--text2:#5A5648;--border:rgba(74,103,65,.18);--amber-ink:#8F6318;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#EDE7D9;color:#2A2820;font-family:'Jost',sans-serif;padding:26px 18px 60px;}
+.head{max-width:1180px;margin:0 auto 22px;}
+.head h1{font-family:'Jost',sans-serif;font-size:17px;font-weight:500;letter-spacing:.3px;}
+.head p{font-size:14px;color:var(--text2);margin-top:5px;max-width:82ch;}
+.grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.col{background:var(--cream);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.col > header{padding:11px 22px;font-size:12px;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;color:#fff;}
+.col.ist > header{background:#7A7360;}
+.col.soll > header{background:var(--green);}
+.pad{padding:26px 30px 34px;}
+
+/* --- Logo-Lockup (in beiden Spalten identisch: Georgia laut Regel) --- */
+.lockup{display:inline-flex;align-items:center;gap:12px;color:var(--green);margin-bottom:30px;}
+.lockup .sym{width:38px;height:38px;flex-shrink:0;}
+.lockup .txt{display:flex;flex-direction:column;line-height:1;}
+.lockup .name{font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:2px;}
+.lockup .name sup{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:1px;opacity:.9;}
+.lockup .tag{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:.9;margin-top:4px;}
+
+.eyebrow{font-size:11.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--green);margin-bottom:18px;font-weight:500;}
+h2.hero{font-size:clamp(34px,3.6vw,52px);line-height:1.12;color:var(--green3);font-weight:400;margin-bottom:18px;}
+h2.hero em{font-style:italic;color:var(--green);}
+h3.sub{font-size:26px;line-height:1.2;color:var(--green3);font-weight:400;margin:26px 0 8px;}
+p.lead{font-size:18px;color:var(--text2);font-weight:300;line-height:1.6;max-width:46ch;}
+
+/* Ist-Zustand: Überschriften Cormorant Garamond */
+.ist h2.hero, .ist h3.sub{font-family:'Cormorant Garamond',serif;}
+/* Regelkonform: Überschriften Georgia wie die Wortmarke */
+.soll h2.hero, .soll h3.sub{font-family:Georgia,'Times New Roman',serif;}
+
+.note{margin-top:26px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.55;}
+.note b{color:var(--green3);}
+.zoom{margin-top:22px;padding:14px 16px;background:#fff;border:1px dashed var(--border);border-radius:12px;}
+.zoom .lbl{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--amber-ink);font-weight:600;margin-bottom:8px;}
+.zoom .pair{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.zoom .wm{font-family:Georgia,'Times New Roman',serif;font-size:30px;color:var(--green);letter-spacing:1.5px;}
+.zoom .hl{font-size:30px;color:var(--green3);}
+.ist .zoom .hl{font-family:'Cormorant Garamond',serif;}
+.soll .zoom .hl{font-family:Georgia,'Times New Roman',serif;}
+.zoom .cap{font-size:11.5px;color:var(--text2);margin-top:6px;}
+@media(max-width:860px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Typografie-Grundsatzfrage: Cormorant Garamond oder Georgia für Überschriften?</h1>
+  <p>Beide Spalten zeigen denselben Ausschnitt. Die Wortmarke „LebensZeit" ist in beiden Spalten gleich (Georgia, wie die Markenregel es vorschreibt) — unterschiedlich sind nur die <strong>Überschriften</strong>. Achte auf das Zusammenspiel von Logo und Headline, besonders im eingerahmten Direktvergleich unten.</p>
+</div>
+
+<div class="grid">
+
+  <!-- ================= IST ================= -->
+  <section class="col ist">
+    <header>So ist es jetzt — Überschriften in Cormorant Garamond</header>
+    <div class="pad">
+      <a class="lockup" href="#" onclick="return false;">
+        <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/><circle cx="79" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+          <circle cx="68" cy="75" r="4" fill="currentColor" opacity="0.9"/><circle cx="32" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+          <circle cx="21" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+          <g stroke="currentColor" stroke-width="0.8" opacity="0.4">
+            <line x1="50" y1="20" x2="79" y2="41"/><line x1="79" y1="41" x2="68" y2="75"/><line x1="68" y1="75" x2="32" y2="75"/>
+            <line x1="32" y1="75" x2="21" y2="41"/><line x1="21" y1="41" x2="50" y2="20"/>
+          </g>
+        </svg>
+        <span class="txt"><span class="name">LebensZeit<sup>gGmbH</sup></span><span class="tag">Pflege · Gesundheit · Gemeinschaft</span></span>
+      </a>
+
+      <p class="eyebrow">Ambulante Pflege in Nordrhein-Westfalen</p>
+      <h2 class="hero">Pflege, die <em>bei Ihnen</em> zu Hause beginnt.</h2>
+      <p class="lead">LebensZeit begleitet pflegebedürftige Menschen in ihrem eigenen Zuhause — fachlich verlässlich, persönlich vertraut und gut vernetzt in der Nachbarschaft.</p>
+      <h3 class="sub">Fünf Standorte, eine Region.</h3>
+      <p class="lead">Flächendeckend im Kreis Soest.</p>
+
+      <div class="zoom">
+        <div class="lbl">Direktvergleich Logo ↔ Headline</div>
+        <div class="pair"><span class="wm">LebensZeit</span><span class="hl">LebensZeit</span></div>
+        <div class="cap">links Wortmarke (Georgia) · rechts Headline-Schrift (Cormorant Garamond) — zwei verschiedene Serifencharaktere</div>
+      </div>
+
+      <div class="note">
+        <b>Was das Audit kritisiert:</b> Die filigrane, hochkontrastige Cormorant steht direkt neben der robusten Georgia der Wortmarke. Sie wirken nicht wie eine Familie — die Markenregel „LebensZeit immer Georgia/Times" ist im Logo eingehalten, aber die Seitentypografie folgt einer anderen Stimme.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOLL ================= -->
+  <section class="col soll">
+    <header>Regelkonform — Überschriften in Georgia</header>
+    <div class="pad">
+      <a class="lockup" href="#" onclick="return false;">
+        <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <circle cx="50" cy="20" r="4" fill="currentColor" opacity="0.9"/><circle cx="79" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+          <circle cx="68" cy="75" r="4" fill="currentColor" opacity="0.9"/><circle cx="32" cy="75" r="4" fill="currentColor" opacity="0.9"/>
+          <circle cx="21" cy="41" r="4" fill="currentColor" opacity="0.9"/>
+          <g stroke="currentColor" stroke-width="0.8" opacity="0.4">
+            <line x1="50" y1="20" x2="79" y2="41"/><line x1="79" y1="41" x2="68" y2="75"/><line x1="68" y1="75" x2="32" y2="75"/>
+            <line x1="32" y1="75" x2="21" y2="41"/><line x1="21" y1="41" x2="50" y2="20"/>
+          </g>
+        </svg>
+        <span class="txt"><span class="name">LebensZeit<sup>gGmbH</sup></span><span class="tag">Pflege · Gesundheit · Gemeinschaft</span></span>
+      </a>
+
+      <p class="eyebrow">Ambulante Pflege in Nordrhein-Westfalen</p>
+      <h2 class="hero">Pflege, die <em>bei Ihnen</em> zu Hause beginnt.</h2>
+      <p class="lead">LebensZeit begleitet pflegebedürftige Menschen in ihrem eigenen Zuhause — fachlich verlässlich, persönlich vertraut und gut vernetzt in der Nachbarschaft.</p>
+      <h3 class="sub">Fünf Standorte, eine Region.</h3>
+      <p class="lead">Flächendeckend im Kreis Soest.</p>
+
+      <div class="zoom">
+        <div class="lbl">Direktvergleich Logo ↔ Headline</div>
+        <div class="pair"><span class="wm">LebensZeit</span><span class="hl">LebensZeit</span></div>
+        <div class="cap">links Wortmarke (Georgia) · rechts Headline-Schrift (Georgia) — eine Stimme, identische Buchstabenformen</div>
+      </div>
+
+      <div class="note">
+        <b>Was sich ändert:</b> Logo und Überschriften sprechen dieselbe Schrift. Wirkt geschlossener und ist regelkonform, aber deutlich schwerer und weniger elegant — Georgia ist eine Bildschirm-Arbeitsschrift, keine Display-Serif. Die Hero-Zeile verliert an Feinheit, gewinnt an Bodenhaftung.
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

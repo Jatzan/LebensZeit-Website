@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512"
+     role="img" aria-label="LebensZeit Pentagon-Netzwerk-Symbol">
+  <title>LebensZeit gGmbH — Bildmarke (Pentagon-Netzwerk)</title>
+  <desc>Reine Vektorgeometrie ohne Schrift. Farbe über currentColor steuerbar.
+        Farbregel: heller Hintergrund #4A6741 · dunkelgrüner Hintergrund #A8C9A0 ·
+        Dark Mode #8AAC85 · warmes Beige #5A6E52. Niemals weiß.</desc>
+  <g fill="none" stroke="currentColor" color="#4A6741">
+    <!-- umgebender Kreis -->
+    <circle cx="50" cy="50" r="42" stroke-width="1" opacity="0.25"/>
+    <!-- Netzverbindungen (Pentagon, Punkt oben) -->
+    <g stroke-width="0.8" opacity="0.4">
+      <line x1="50" y1="20" x2="79" y2="41"/>
+      <line x1="79" y1="41" x2="68" y2="75"/>
+      <line x1="68" y1="75" x2="32" y2="75"/>
+      <line x1="32" y1="75" x2="21" y2="41"/>
+      <line x1="21" y1="41" x2="50" y2="20"/>
+      <!-- innere Verstrebungen -->
+      <line x1="50" y1="20" x2="68" y2="75"/>
+      <line x1="50" y1="20" x2="32" y2="75"/>
+      <line x1="79" y1="41" x2="32" y2="75"/>
+      <line x1="79" y1="41" x2="21" y2="41"/>
+      <line x1="68" y1="75" x2="21" y2="41"/>
+    </g>
+    <!-- Knoten -->
+    <g fill="currentColor" stroke="none" opacity="0.9">
+      <circle cx="50" cy="20" r="4"/>
+      <circle cx="79" cy="41" r="4"/>
+      <circle cx="68" cy="75" r="4"/>
+      <circle cx="32" cy="75" r="4"/>
+      <circle cx="21" cy="41" r="4"/>
+    </g>
+  </g>
+</svg>

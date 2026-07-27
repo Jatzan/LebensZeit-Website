@@ -24,9 +24,9 @@
   --green:    #4A6741;
   --green2:   #3A5233;
   --green3:   #2C3D27;
-  --mint:     #A8C9A0;
+  --mint:     #A8C9A0; --forest: #5A6E52;
   --sage:     #8AAC85;
-  --amber:    #B07A2A;
+  --amber:    #B07A2A; --amber-ink: #8F6318;
   --text:     #2A2820;
   --text2:    #5A5648;
   --text3:    #8A8478;
@@ -74,10 +74,10 @@ a:focus-visible, button:focus-visible {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 22px; letter-spacing: 2px; color: currentColor;
 }
-.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .7; }
+.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .9; }
 .logo-lockup .tag {
-  font-family: 'Jost', sans-serif; font-size: 8px; letter-spacing: 2.5px;
-  text-transform: uppercase; color: currentColor; opacity: .65; margin-top: 4px;
+  font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase; color: currentColor; opacity: .9; margin-top: 4px;
 }
 
 /* ============================================================
@@ -125,8 +125,8 @@ header.site {
 }
 .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
 .eyebrow {
-  font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
-  color: var(--sage); margin-bottom: 18px; font-weight: 500;
+  font-size: 11.5px; letter-spacing: 2.6px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 18px; font-weight: 500;
 }
 .hero h1 { font-size: clamp(40px, 6vw, 66px); margin-bottom: 22px; }
 .hero h1 em { font-style: italic; color: var(--green); }
@@ -150,7 +150,7 @@ header.site {
 .trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
 .trust-item { display: flex; flex-direction: column; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
-.trust-item .lbl { font-size: 12px; color: var(--text3); letter-spacing: .5px; }
+.trust-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .5px; }
 
 /* ============================================================
    SECTION-HELFER
@@ -175,7 +175,7 @@ section.block { padding: 80px 0; }
 /* ---- CTA-Band ---- */
 .cta-band { background: var(--green); color: var(--cream); border-radius: var(--r); padding: 52px 48px; text-align: center; }
 .cta-band h2 { color: var(--cream); font-size: 38px; margin-bottom: 12px; }
-.cta-band p { color: rgba(245,240,232,.82); font-weight: 300; margin-bottom: 26px; }
+.cta-band p { color: rgba(245,240,232,.92); font-weight: 300; margin-bottom: 26px; }
 .cta-band .btn-primary { background: var(--cream); color: var(--green3) !important; }
 .cta-band .btn-primary:hover { background: #fff; }
 
@@ -187,8 +187,8 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
 .footer-grid p { font-size: 13px; font-weight: 300; max-width: 24em; }
 .footer-col h4 {
-  font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--sage); margin-bottom: 16px; font-weight: 500;
+  font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.6px;
+  text-transform: uppercase; color: var(--mint); margin-bottom: 16px; font-weight: 500;
 }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .footer-col a { color: rgba(245,240,232,.7); font-size: 14px; font-weight: 300; }
@@ -196,7 +196,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .footer-bottom {
   border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  font-size: 12px; color: rgba(245,240,232,.5);
+  font-size: 12px; color: rgba(245,240,232,.72);
 }
 .footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
 
@@ -253,7 +253,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .svc-visual svg { width: 64px; height: 64px; color: var(--green); }
 .svc-num {
   position: absolute; top: 14px; left: 16px;
-  font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--sage);
+  font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--forest);
 }
 .svc-body h2 { font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 10px; }
 .svc-body > p { color: var(--text2); font-weight: 300; max-width: 40em; margin-bottom: 16px; }

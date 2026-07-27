@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#F5F0E8;--cream2:#EDE7D9;--green:#4A6741;--green2:#3A5233;--green3:#2C3D27;--mint:#A8C9A0;--sage:#8AAC85;--amber:#B07A2A;--red:#8C3A2A;--text:#2A2820;--text2:#5A5648;--text3:#8A8478;--border:rgba(74,103,65,.18);}
+:root{--cream:#F5F0E8;--cream2:#EDE7D9;--green:#4A6741;--green2:#3A5233;--green3:#2C3D27;--mint:#A8C9A0; --forest: #5A6E52;--sage:#8AAC85;--amber:#B07A2A; --amber-ink: #8F6318;--red:#8C3A2A;--text:#2A2820;--text2:#5A5648;--text3:#8A8478;--border:rgba(74,103,65,.18);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
 h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--green3);line-height:1.15;}
@@ -20,52 +20,52 @@ a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
 .lz-intbar{background:var(--green3);color:var(--cream);}
 .lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
 .lz-intbar .badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:600;margin-right:6px;}
-.lz-intbar a{color:rgba(245,240,232,.82);font-size:14px;letter-spacing:.3px;}
+.lz-intbar a{color:rgba(245,240,232,.92);font-size:14px;letter-spacing:.3px;}
 .lz-intbar a:hover{color:#fff;}
 .lz-intbar a.here{color:#fff;border-bottom:2px solid var(--sage);padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
 header.page{padding:44px 0 8px;}
-header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px;}
+header.page .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color: var(--amber-ink);font-weight:600;margin-bottom:10px;}
 header.page h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,40px);color:var(--green3);font-weight:600;}
 header.page p.lead{font-size:19px;color:var(--text2);max-width:62ch;margin-top:12px;}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 4px;}
 .badge{font-size:12px;border-radius:20px;padding:5px 12px;letter-spacing:.3px;}
-.badge.done{background:rgba(74,138,84,.14);color:#2f7d3a;border:1px solid rgba(74,138,84,.4);}
+.badge.done{background:rgba(74,138,84,.14);color:#276b31;border:1px solid rgba(74,138,84,.4);}
 .badge.info{background:#fff;color:var(--text2);border:1px solid var(--border);}
-h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin:34px 0 12px;font-weight:500;}
+h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:34px 0 12px;font-weight:500;}
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:14px;}
-.card .no{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage);}
+.card .no{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--forest);}
 .card h3{font-size:21px;color:var(--green3);font-weight:600;margin:2px 0 6px;}
 .card p{font-size:15.5px;color:var(--text2);}
 .card .tag{display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--green);background:rgba(74,103,65,.08);border:1px solid var(--border);border-radius:20px;padding:3px 10px;margin-top:8px;}
 .session{background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
 .session .kv{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;font-size:15px;margin-top:8px;}
-.session .kv dt{color:var(--text3);font-size:13px;letter-spacing:.4px;}
+.session .kv dt{color:var(--text2);font-size:13px;letter-spacing:.4px;}
 .session .kv dd{color:var(--text);}
 .session .prompt{background:var(--cream2);border-radius:8px;padding:10px 14px;font-size:14.5px;color:var(--text);font-style:italic;}
 .reflect{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:6px 0 8px;}
 .reflect .r{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 14px;text-align:center;}
 .reflect .r .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--green3);line-height:1;}
-.reflect .r .l{font-size:12px;color:var(--text3);margin-top:5px;}
+.reflect .r .l{font-size:12px;color:var(--text2);margin-top:5px;}
 .rlist{background:#fff;border:1px solid var(--border);border-radius:12px;padding:6px 20px;}
 .rlist .row{display:grid;grid-template-columns:210px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(74,103,65,.08);font-size:15px;}
 .rlist .row:last-child{border-bottom:0;}
-.rlist .row dt{color:var(--text3);font-size:13px;}
+.rlist .row dt{color:var(--text2);font-size:13px;}
 .tmpl{background:var(--cream2);border:1px dashed var(--border);border-radius:12px;padding:8px 20px;}
 .tmpl .row{display:grid;grid-template-columns:230px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid rgba(74,103,65,.10);font-size:14.5px;}
 .tmpl .row:last-child{border-bottom:0;}
 .tmpl .row dt{color:var(--text2);font-weight:500;}
-.tmpl .row dd{color:var(--text3);font-style:italic;}
-.hint{font-size:13.5px;color:var(--text3);background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:26px 0 10px;}
+.tmpl .row dd{color:var(--text2);font-style:italic;}
+.hint{font-size:13.5px;color:var(--text2);background:var(--cream2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:26px 0 10px;}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 16px;}
 .tab{background:#fff;border:1px solid var(--border);color:var(--text2);border-radius:30px;padding:9px 18px;font:inherit;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .12s;}
-.tab:hover{border-color:var(--sage);color:var(--text);}
+.tab:hover{border-color:var(--forest);color:var(--text);}
 .tab.on{background:var(--mint);color:#16201a;border-color:var(--mint);font-weight:500;}
 .tab .dot{width:8px;height:8px;border-radius:50%;}
-.tab .dot.done{background:#4A8A54;}.tab .dot.active{background:var(--amber);}
+.tab .dot.done{background:#2E7038;}.tab .dot.active{background:var(--amber);}
 .tab.on .dot.active{background:#7a5e12;}
 .panel{display:none;}.panel.on{display:block;}
-footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
+footer{padding:26px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
 @media(max-width:600px){.reflect{grid-template-columns:repeat(2,1fr)}.session .kv,.rlist .row,.tmpl .row{grid-template-columns:1fr}}
 </style>
 </head>
@@ -116,7 +116,7 @@ footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   <h2 class="sec">Ausgewählte Sessions (dokumentiert)</h2>
 
   <div class="session">
-    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color:var(--amber);">Baustein 3 · Personas · 25.05.2026</span>
+    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color: var(--amber-ink);">Baustein 3 · Personas · 25.05.2026</span>
     <dl class="kv">
       <dt>Ziel</dt><dd>Die in der Selbstkritik gefundenen Schwächen der Personas beheben — Widersprüche als Muster, konkretes Scheitern-Moment, Kognition zeigen statt benennen.</dd>
       <dt>Prompt (Auszug)</dt><dd><div class="prompt">„Schreibe beide Personas neu. Einzubauen: (1) innere Widersprüche als Muster, nicht als Einzelszene; (2) konkretes Scheitern-Moment mit Datum und Konsequenz; (3) Hildegards Kognition durch Szenen zeigen; (4) Strategiematrizen differenzieren."</div></dd>
@@ -127,7 +127,7 @@ footer{padding:26px 0 40px;color:var(--text3);font-size:13px;text-align:center;}
   </div>
 
   <div class="session">
-    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color:var(--amber);">Baustein 3 · Prompt-Optimierung</span>
+    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color: var(--amber-ink);">Baustein 3 · Prompt-Optimierung</span>
     <dl class="kv">
       <dt>Ziel</dt><dd>Aus einem vagen Persona-Prompt einen verwertbaren machen.</dd>
       <dt>Schwächen erkannt</dt><dd>„Typischer Kunde" zu vage · kein Unternehmenskontext · Listenzwang · kein Ziel benannt · keine Iteration eingebaut.</dd>

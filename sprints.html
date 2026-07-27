@@ -10,7 +10,7 @@
 <style>
 :root{
   --bg:#F5F0E8; --panel:#ffffff; --panel2:#EDE7D9; --line:rgba(74,103,65,.18);
-  --text:#2A2820; --dim:#5A5648; --mint:#A8C9A0; --sage:#8AAC85; --green:#4A6741; --amber:#B07A2A; --red:#8C3A2A;
+  --text:#2A2820; --dim:#5A5648; --mint:#A8C9A0; --forest: #5A6E52; --sage:#8AAC85; --green:#4A6741; --amber:#B07A2A; --amber-ink: #8F6318; --red:#8C3A2A;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -37,10 +37,10 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:16px 0 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:30px;padding:9px 16px;font-size:13.5px;cursor:pointer;font-family:inherit;white-space:nowrap;display:flex;align-items:center;gap:8px;transition:all .12s}
-.tab:hover{border-color:var(--sage);color:var(--text)}
+.tab:hover{border-color:var(--forest);color:var(--text)}
 .tab.on{background:var(--mint);color:#16201a;border-color:var(--mint);font-weight:500}
 .tab .dot{width:8px;height:8px;border-radius:50%}
-.tab .dot.done{background:#4A8A54} .tab .dot.active{background:var(--amber)} .tab .dot.plan{background:var(--dim)}
+.tab .dot.done{background:#2E7038} .tab .dot.active{background:var(--amber)} .tab .dot.plan{background:var(--dim)}
 .tab.on .dot.active{background:#7a5e12}
 
 /* Panels */
@@ -48,8 +48,8 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 .panel.on{display:block}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .badge{font-size:12px;border-radius:20px;padding:5px 12px;letter-spacing:.3px}
-.badge.done{background:rgba(74,138,84,.14);color:#2f7d3a;border:1px solid rgba(74,138,84,.4)}
-.badge.active{background:rgba(201,154,46,.15);color:var(--amber);border:1px solid rgba(201,154,46,.4)}
+.badge.done{background:rgba(74,138,84,.14);color:#276b31;border:1px solid rgba(74,138,84,.4)}
+.badge.active{background:rgba(201,154,46,.15);color: #7E5410;border:1px solid rgba(201,154,46,.4)}
 .badge.plan{background:rgba(147,164,147,.12);color:var(--dim);border:1px solid var(--line)}
 .badge.date{background:var(--panel);color:var(--text);border:1px solid var(--line)}
 
@@ -57,11 +57,11 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 .hl{background:var(--panel);border-left:3px solid var(--sage);border-radius:8px;padding:14px 16px;margin:14px 0;color:var(--text);font-weight:300}
 .hl b{color:#3A5233;font-weight:600}
 
-h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin:28px 0 12px;font-weight:500}
+h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:28px 0 12px;font-weight:500}
 
 /* Baustein-Karten */
 .bst{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px;margin-bottom:12px}
-.bst .no{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--sage)}
+.bst .no{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--forest)}
 .bst h3{font-size:19px;color:#2C3D27;font-weight:600;margin:2px 0 8px}
 .bst p{font-size:14.5px;color:var(--text);font-weight:300;margin-bottom:8px}
 .bst ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px}
@@ -73,7 +73,7 @@ h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--sa
 /* Listen */
 .checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .checklist li{position:relative;padding-left:26px;font-size:14.5px;color:var(--text);font-weight:300}
-.checklist li::before{content:'✓';position:absolute;left:0;top:0;color:var(--sage);font-size:14px}
+.checklist li::before{content:'✓';position:absolute;left:0;top:0;color:var(--forest);font-size:14px}
 
 /* Kriterien-Grid */
 .crit{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px}
@@ -95,7 +95,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
 .lz-intbar{background:#2C3D27;color:#F5F0E8;}
 .lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
 .lz-intbar .badge{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8AAC85;font-weight:600;margin-right:6px;}
-.lz-intbar a{color:rgba(245,240,232,.82);font-size:14px;letter-spacing:.3px;text-decoration:none;}
+.lz-intbar a{color:rgba(245,240,232,.92);font-size:14px;letter-spacing:.3px;text-decoration:none;}
 .lz-intbar a:hover{color:#fff;}
 .lz-intbar a.here{color:#fff;border-bottom:2px solid #8AAC85;padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
@@ -105,11 +105,11 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:12px;color
 .bboard th{text-align:left;font-weight:500;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:8px 10px;border-bottom:1px solid var(--line);}
 .bboard td{padding:12px 10px;border-bottom:1px solid rgba(74,103,65,.10);color:var(--text);vertical-align:top;}
 .bboard tr:last-child td{border-bottom:0;}
-.bboard .bno{color:var(--sage);font-family:'Cormorant Garamond',serif;font-size:18px;padding-right:2px;}
+.bboard .bno{color:var(--forest);font-family:'Cormorant Garamond',serif;font-size:18px;padding-right:2px;}
 .bboard .bt{font-weight:500;color:var(--green3);}
 .amp{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
 .amp .d{width:11px;height:11px;border-radius:50%;flex:0 0 auto;}
-.amp.gruen .d{background:#4A8A54;} .amp.gelb .d{background:#C99A2E;} .amp.rot .d{background:#C0603A;}
+.amp.gruen .d{background:#2E7038;} .amp.gelb .d{background:#C99A2E;} .amp.rot .d{background:#C0603A;}
 .bboard .resp{color:var(--dim);}
 @media(max-width:640px){.bboard,.bboard tbody,.bboard tr,.bboard td{display:block;width:100%}.bboard thead{display:none}.bboard td{border:0;padding:3px 0}.bboard tr{border-bottom:1px solid var(--line);padding:12px 0}}
 </style>
