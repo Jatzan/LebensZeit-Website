@@ -10,12 +10,12 @@
 
   /* ---------- 1. Kategorien ---------- */
   var CATS = {
-    basis:   { label: "Datenbasis",        farbe: "#4A6741", sym: "\u25C6", info: "Verbindlicher Steckbrief \u2014 unveraendert uebernehmen." },
-    amt:     { label: "Amtliche Statistik", farbe: "#8AAC85", sym: "\u25B2", info: "Externe Quelle, im Pitch zitierbar." },
-    ziel:    { label: "Ziel / Planwert",   farbe: "#B07A2A", sym: "\u25CF", info: "Angestrebter Wert \u2014 nicht als Ist ausgeben." },
-    annahme: { label: "Annahme",           farbe: "#5A5648", sym: "\u25CB", info: "Abgeleitet oder geschaetzt \u2014 Herleitung offenlegen." },
-    platz:   { label: "Platzhalter",       farbe: "#8C3A2A", sym: "\u2715", info: "Nicht belegt \u2014 vor dem Pitch ersetzen oder streichen." },
-    cd:      { label: "Corporate Design",  farbe: "#A8C9A0", sym: "\u25C8", info: "Festlegung aus dem Projektspeicher \u2014 tr\u00e4gt das Corporate Design, l\u00e4sst sich aber nicht \u00fcber die Sprint-Unterlagen belegen." }
+    basis:   { label: "Datenbasis",        farbe: "var(--green, #4A6741)", sym: "\u25C6", info: "Verbindlicher Steckbrief \u2014 unveraendert uebernehmen." },
+    amt:     { label: "Amtliche Statistik", farbe: "var(--sage, #8AAC85)", sym: "\u25B2", info: "Externe Quelle, im Pitch zitierbar." },
+    ziel:    { label: "Ziel / Planwert",   farbe: "var(--amber, #B07A2A)", sym: "\u25CF", info: "Angestrebter Wert \u2014 nicht als Ist ausgeben." },
+    annahme: { label: "Annahme",           farbe: "var(--text2, #5A5648)", sym: "\u25CB", info: "Abgeleitet oder geschaetzt \u2014 Herleitung offenlegen." },
+    platz:   { label: "Platzhalter",       farbe: "var(--red, #8C3A2A)", sym: "\u2715", info: "Nicht belegt \u2014 vor dem Pitch ersetzen oder streichen." },
+    cd:      { label: "Corporate Design",  farbe: "var(--mint, #A8C9A0)", sym: "\u25C8", info: "Festlegung aus dem Projektspeicher \u2014 tr\u00e4gt das Corporate Design, l\u00e4sst sich aber nicht \u00fcber die Sprint-Unterlagen belegen." }
   };
 
   /* ---------- 2. Registry: Datenpunkte je Seite ---------- */
@@ -34,10 +34,10 @@
     /* --- Corporate Design (Projektspeicher, gilt auf allen Seiten) --- */
     { page: "*", sel: ".logo-lockup", idx: 0, wert: "Logo, Wortmarke & Farbregel", kat: "cd", ud: "cd",
       dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Corporate Design", stand: "laufend", guete: "S",
-      hinweis: "Pentagon-Netz als SVG (nie als JPEG/PNG), Wortmarke in Georgia. Das Logo erscheint nie in Wei\u00df \u2014 die Farbe folgt dem Hintergrund: #4A6741 auf hell, #A8C9A0 auf Dunkelgr\u00fcn, #8AAC85 im Dark Mode, #5A6E52 auf Beige. Logo und Claims sind in LebensZeit_Logo.pdf S. 1 abgebildet; die Farb- und Verwendungsregeln stehen in keiner Unterlage." },
+      hinweis: "Pentagon-Netz als SVG (nie als JPEG/PNG), Wortmarke in Georgia. Das Logo erscheint nie in Wei\u00df \u2014 die Farbe folgt dem Hintergrund: var(--green, #4A6741) auf hell, var(--mint, #A8C9A0) auf Dunkelgr\u00fcn, var(--sage, #8AAC85) im Dark Mode, var(--forest, #5A6E52) auf Beige. Logo und Claims sind in LebensZeit_Logo.pdf S. 1 abgebildet; die Farb- und Verwendungsregeln stehen in keiner Unterlage." },
     { page: "*", sel: "header.site", idx: 0, wert: "Typografie & Farbpalette", kat: "cd", ud: "cd",
       dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Corporate Design", stand: "laufend", guete: "S",
-      hinweis: "Cormorant Garamond f\u00fcr \u00dcberschriften, Jost f\u00fcr Text. Palette: Creme #F5F0E8 \u00b7 Gr\u00fcn #4A6741 \u00b7 Dunkelgr\u00fcn #2C3D27 \u00b7 Mint #A8C9A0 \u00b7 Salbei #8AAC85 \u00b7 Amber #B07A2A \u00b7 Rot #8C3A2A. Keine Unterlage nennt Schriftschnitte oder Hexwerte." },
+      hinweis: "Cormorant Garamond f\u00fcr \u00dcberschriften, Jost f\u00fcr Text. Palette: Creme var(--cream, #F5F0E8) \u00b7 Gr\u00fcn var(--green, #4A6741) \u00b7 Dunkelgr\u00fcn var(--green3, #2C3D27) \u00b7 Mint var(--mint, #A8C9A0) \u00b7 Salbei var(--sage, #8AAC85) \u00b7 Amber var(--amber, #B07A2A) \u00b7 Rot var(--red, #8C3A2A). Keine Unterlage nennt Schriftschnitte oder Hexwerte." },
     { page: "*", sel: "footer.site", idx: 0, wert: "Sprach- & Darstellungsregeln", kat: "cd", ud: "cd",
       dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Corporate Design", stand: "laufend", guete: "S",
       hinweis: "Strikt ambulant (nie station\u00e4r) \u00b7 Nachbarschaft (nicht Quartier) \u00b7 Stufen Basis/Aktiv/Premium (nie Familie) \u00b7 Pflegeumsatz und F\u00f6rdermittel immer getrennt ausweisen. Teamkonvention \u2014 in den Unterlagen nicht als Regel dokumentiert; die Stufenbezeichnung Familie taucht dort sogar irrt\u00fcmlich auf." },
@@ -52,9 +52,9 @@
     { page: "index", sel: ".trust-item", idx: 2, wert: "45 Ehrenamtliche", kat: "basis", ud: "team",
       dok: BD, seite: "2", absch: "1 \u00b7 Das Gesch\u00e4ftsmodell \u2014 einfach erkl\u00e4rt", stand: "Sprint 1", guete: "A",
       hinweis: "Kennzahlenblock; Personaldetail S. 7, Abschnitt F: Ehrenamtskoordination 1 Kopf f\u00fcr 45 Ehrenamtliche." },
-    { page: "index", sel: ".trust-item", idx: 3, wert: "gGmbH \u00b7 gemeinn\u00fctzig", kat: "basis", ud: "ueberblick",
-      dok: BD, seite: "2", absch: "1 \u00b7 Kernlogik", stand: "Sprint 1", guete: "A",
-      hinweis: "Wortlaut: ambulanter Pflegedienst (gemeinn\u00fctzige gGmbH)." },
+    { page: "index", sel: ".trust-item", idx: 3, wert: "5 Standorte im Kreis Soest", kat: "basis", ud: "standorte",
+      dok: BD, seite: "2", absch: "1 \u00b7 Das Gesch\u00e4ftsmodell \u2014 einfach erkl\u00e4rt", stand: "Sprint 1", guete: "A",
+      hinweis: "Erwitte (Hauptsitz), Bad Sassendorf, Anr\u00f6chte, R\u00fcthen, Lippetal. Ersetzt die Kachel gGmbH \u2014 ein Wort im Zahlenraster (Audit-Befund 3.4); die Rechtsform steht weiterhin im Footer und unter \u00dcber uns." },
 
     /* --- Einzugsgebiet --- */
     { page: "einzugsgebiet", sel: ".kpi-item", idx: 0, wert: "5 Standorte", kat: "basis", ud: "standorte",
@@ -87,6 +87,51 @@
       dok: IP, seite: "4", absch: "Baustein 1 \u00b7 Makromarkt, Kachel MARKTWACHSTUM P. A.", stand: "Sprint 1", guete: "B",
       extern: "Destatis Pflegestatistik \u00b7 IT.NRW \u00b7 Bertelsmann Stiftung 2023 (Sammelquelle der Seite)",
       hinweis: "Begr\u00fcndung im Dokument: Babyboomer erreichen ab 2030 das Hochpflegealter. Einzelnachweis je Zahl fehlt \u2014 f\u00fcr das Q&A nachtragen." },
+
+    /* --- Investoren: Uebersicht --- */
+    { page: "investoren", sel: ".kpi-item", idx: 0, wert: "2,1 Mio \u20ac Jahresumsatz", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "4", absch: "A.1 Umsatz-Split", stand: "Sprint 1", guete: "A",
+      hinweis: "Enthaelt 38 % Foerdermittel. Der Vergleichswert Branche 1,5 Mio \u20ac steht in keiner Sprint-Unterlage \u2014 Quelle nachtragen." },
+    { page: "investoren", sel: ".kpi-item", idx: 1, wert: "4,5 % Marktpenetration", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "2", absch: "1 \u00b7 Kennzahlenblock", stand: "Sprint 1", guete: "A",
+      hinweis: "Wortlaut: 180 betreute Pflegefaelle (~4,5 % Penetration). Auch Investorpitch S. 3." },
+    { page: "investoren", sel: ".kpi-item", idx: 2, wert: "5 Standorte", kat: "basis", ud: "standorte",
+      dok: BD, seite: "2", absch: "1 \u00b7 Das Gesch\u00e4ftsmodell", stand: "Sprint 1", guete: "A",
+      hinweis: "Der Zusatz Wettbewerber-Durchschnitt 1\u20132 stammt aus der Wettbewerbsmatrix (10 Anbieter im Benchmark)." },
+    { page: "investoren", sel: ".kpi-item", idx: 3, wert: "62 % Eigenfinanzierung (Ziel 70 %)", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "4", absch: "A.1 Umsatz-Split", stand: "Sprint 1", guete: "A",
+      hinweis: "Ist-Wert belegt; Ziel 70 % dreifach belegt (2_Sprint_Unterlagen S. 3, Investorpitch S. 3, Basisdaten). Kein Dokument nennt eine Jahreszahl fuer das Ziel." },
+
+    /* --- Investoren: Kennzahlen --- */
+    { page: "investoren-kennzahlen", sel: ".kpi-item", idx: 0, wert: "2,1 Mio \u20ac Jahresumsatz", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "4", absch: "A.1 Umsatz-Split", stand: "Sprint 1", guete: "A",
+      hinweis: "Pflegeumsatz 1,15 Mio \u20ac und Foerdermittel sind getrennt auszuweisen (Basisdaten S. 7, Abschnitt 3)." },
+    { page: "investoren-kennzahlen", sel: ".kpi-item", idx: 1, wert: "180 aktiv betreute Pflegefaelle", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "6", absch: "D.1 Klientenstruktur nach Pflegegrad", stand: "Sprint 1", guete: "A",
+      hinweis: "PG 2: 70 \u00b7 PG 3: 65 \u00b7 PG 4: 35 \u00b7 PG 5: 10." },
+    { page: "investoren-kennzahlen", sel: ".kpi-item", idx: 2, wert: "~11.700 \u20ac Umsatz je Pflegefall", kat: "basis", ud: "annahmen",
+      dok: "LebensZeit_SWOT_Analyse.pdf", seite: "2", absch: "Das Unternehmen im \u00dcberblick", stand: "Sprint 1", guete: "A",
+      hinweis: "Wortlaut: 180 Personen (~11.700 \u20ac Umsatz je Fall p. a. \u2014 im Normbereich). Methodisch heikel: Das ist Gesamtumsatz inklusive 38 % Foerdermittel geteilt durch Pflegefaelle. Rein aus Pflegeumsatz (1,15 Mio \u20ac) waeren es ~6.400 \u20ac. Im Q&A angreifbar.",
+      todo: "investoren-kennzahlen" },
+    { page: "investoren-kennzahlen", sel: ".kpi-item", idx: 3, wert: "101 Team inkl. Ehrenamt", kat: "basis", ud: "team",
+      dok: IP, seite: "3", absch: "Kennzahlenblock TEAM", stand: "Sprint 1", guete: "A",
+      hinweis: "Wortlaut: TEAM 101 \u2014 34 Festangestellte, 22 Teilzeit, 45 Ehrenamtliche als Alleinstellungsmerkmal. Also 56 Beschaeftigte plus 45 Ehrenamtliche; die Zahl ist keine Beschaeftigtenzahl. Achtung: dieselbe Seite nennt die Stufe faelschlich Familie statt Premium." },
+
+    /* --- Investoren: Markt (Makro-Tabelle + Five Forces) --- */
+    { page: "investoren-markt", sel: ".bench", idx: 0, wert: "Makromarkt-Tabelle (D/NRW)", kat: "amt", ud: "kennzahlen",
+      dok: IP, seite: "4", absch: "Baustein 1 \u00b7 Makromarkt", stand: "Sprint 1", guete: "B",
+      extern: "Destatis Pflegestatistik \u00b7 IT.NRW \u00b7 Bertelsmann Stiftung 2023",
+      hinweis: "Belegt: Pflegebeduerftige 5,0 Mio, Prognose 2040 6,8 Mio, ~15.400 Dienste / ~3.100 in NRW, Gesamtmarkt ~44 Mrd \u20ac, ambulant ~14 Mrd \u20ac (auch SWOT S. 2). NICHT belegt: die Zeile ambulante Dienste ~1,75 Mio (~35 %) \u2014 auf der Seite mit Destatis 2021 angegeben, in keiner Sprint-Unterlage enthalten.",
+      todo: "investoren-markt" },
+    { page: "investoren-markt", sel: ".bench", idx: 1, wert: "Porter's Five Forces", kat: "basis", ud: "kennzahlen",
+      dok: IP, seite: "9", absch: "Baustein 2 \u00b7 Five Forces \u00dcbersicht", stand: "Sprint 1", guete: "A",
+      hinweis: "Originalwerte: Lieferantenmacht 4/5 \u00b7 Substitute 3/5 \u00b7 Wettbewerbsintensitaet 3/5 \u00b7 Neue Wettbewerber 2/5 \u00b7 Kundenmacht 2/5. Substitute und Wettbewerbsintensitaet zusaetzlich auf S. 11 bestaetigt. Skala 1 (gering) bis 5 (sehr hoch)." },
+
+    /* --- Investoren: Finanzierung --- */
+    { page: "investoren-finanzierung", sel: ".bench", idx: 0, wert: "Zielwerte der Finanzierungslogik", kat: "ziel", ud: "annahmen",
+      dok: BD, seite: "4", absch: "A.1 Umsatz-Split (Ausgangswerte)", stand: "Sprint 1", guete: "C",
+      hinweis: "Ausgangswerte belegt (62 % Eigenfinanzierung, 38 % Foerderanteil). Die Zielformulierungen sind abgeleitet: 70 %+ ist belegt, die Jahreszahl 2027 in keiner Unterlage; Foerderanteil unter 30 % ist als Richtung plausibel (SWOT S. 2 nennt Branche 20\u201325 %), aber nicht als Ziel dokumentiert. Belegt hingegen: 8 Stellen bis Q4 2026 besetzt (SWOT S. 6, Saeule 03).",
+      todo: "investoren-finanzierung" },
 
     /* --- Mitgliedschaft --- */
     { page: "mitgliedschaft", sel: ".tier", idx: 0, wert: "Basis / F\u00f6rder 48 \u20ac/Jahr", kat: "basis", ud: "mitgliedschaft",
@@ -204,18 +249,18 @@
       ".lz-src-host{position:relative;}" +
       ".lz-src-badge{position:absolute;top:3px;right:4px;z-index:40;color:#fff;font:600 10px/1 Jost,system-ui,sans-serif;letter-spacing:.4px;padding:4px 7px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.28);border:0;}" +
       ".lz-src-badge:hover{transform:scale(1.08);}" +
-      ".lz-src-pop{position:absolute;z-index:60;top:26px;right:0;width:265px;background:#fff;color:#2A2820;border:1px solid rgba(74,103,65,.28);border-radius:12px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.2);font:400 13px/1.5 Jost,system-ui,sans-serif;text-align:left;}" +
-      ".lz-src-pop h5{font:600 14px/1.3 Jost,system-ui,sans-serif;margin:0 0 6px;color:#2C3D27;}" +
+      ".lz-src-pop{position:absolute;z-index:60;top:26px;right:0;width:265px;background:#fff;color:var(--text, #2A2820);border:1px solid rgba(74,103,65,.28);border-radius:12px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.2);font:400 13px/1.5 Jost,system-ui,sans-serif;text-align:left;}" +
+      ".lz-src-pop h5{font:600 14px/1.3 Jost,system-ui,sans-serif;margin:0 0 6px;color:var(--green3, #2C3D27);}" +
       ".lz-src-pop .kat{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#fff;border-radius:20px;padding:2px 9px;margin-bottom:8px;}" +
       ".lz-src-pop dl{margin:0;display:grid;grid-template-columns:58px 1fr;gap:3px 9px;}" +
-      ".lz-src-pop dt{color:#8A8478;font-size:11.5px;}" +
+      ".lz-src-pop dt{color:var(--text3, #8A8478);font-size:11.5px;}" +
       ".lz-src-pop dd{margin:0;font-size:12.5px;}" +
       ".lz-src-pop dd.dok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;word-break:break-all;}" +
-      ".lz-src-pop .hint{margin-top:9px;font-size:12px;color:#5A5648;border-top:1px solid rgba(74,103,65,.14);padding-top:8px;}" +
+      ".lz-src-pop .hint{margin-top:9px;font-size:12px;color:var(--text2, #5A5648);border-top:1px solid rgba(74,103,65,.14);padding-top:8px;}" +
       ".lz-src-pop .plinks{display:flex;flex-direction:column;gap:4px;margin-top:9px;}" +
-      ".lz-src-pop .udlink{font-size:12px;color:#4A6741;font-weight:600;}" +
-      ".lz-src-pop .tlink{font-size:12px;color:#8C3A2A;font-weight:500;}" +
-      ".lz-src-pop .cls{position:absolute;top:6px;right:9px;border:0;background:none;font-size:16px;color:#8A8478;cursor:pointer;line-height:1;}" +
+      ".lz-src-pop .udlink{font-size:12px;color:var(--green, #4A6741);font-weight:600;}" +
+      ".lz-src-pop .tlink{font-size:12px;color:var(--red, #8C3A2A);font-weight:500;}" +
+      ".lz-src-pop .cls{position:absolute;top:6px;right:9px;border:0;background:none;font-size:16px;color:var(--text3, #8A8478);cursor:pointer;line-height:1;}" +
       ".lz-src-pulse{animation:lzSrcPulse 1.1s ease-out 2;}" +
       "@keyframes lzSrcPulse{0%,100%{box-shadow:0 0 0 0 rgba(176,122,42,0);}50%{box-shadow:0 0 0 7px rgba(176,122,42,.32);}}" +
       "@media(max-width:620px){.lz-src-pop{width:210px;}}";

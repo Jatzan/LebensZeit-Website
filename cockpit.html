@@ -208,6 +208,13 @@ body.alt .tourlist button{border-color:#c8c8c8}body.alt .tourlist button:hover{b
 .kv{font-size:12.5px}.kv div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed rgba(150,150,150,.25)}
 .kv div span:first-child{opacity:.7}
 .appointment{font-size:12px;padding:6px 0;border-bottom:1px dashed rgba(150,150,150,.25)}
+
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;scrollbar-width:thin}
+.tbl-scroll>table{min-width:620px}
+.tbl-scroll::-webkit-scrollbar{height:6px}
+.tbl-scroll::-webkit-scrollbar-track{background:rgba(168,201,160,.10);border-radius:3px}
+.tbl-scroll::-webkit-scrollbar-thumb{background:rgba(168,201,160,.40);border-radius:3px}
+@media(min-width:760px){.tbl-scroll>table{min-width:0}}
 </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -554,7 +561,7 @@ function tableWidget(id,cfg){
   const head=cfg.cols.map((c,i)=>`<th class="srt${i===(cfg.defSort||0)?' on':''}" onclick="tblSort('${id}',${i})">${c.label}<span class="ar">▲</span></th>`).join("");
   return `<div id="${id}_wrap">
     <input class="search" id="${id}_q" oninput="tblSearch('${id}')" placeholder="${cfg.placeholder||'Suchen …'}" aria-label="${cfg.placeholder||'Suchen'}">
-    <div style="overflow-x:auto"><table class="tbl"><thead><tr>${head}</tr></thead><tbody id="${id}_tb"></tbody></table></div>
+    <div style="overflow-x:auto"><div class="tbl-scroll"><table class="tbl"><thead><tr>${head}</tr></thead><tbody id="${id}_tb"></tbody></table></div></div>
     <div class="tblfoot"><span class="cnt" id="${id}_cnt"></span><button class="morebtn" id="${id}_more" onclick="tblToggle('${id}')" style="display:none"></button></div>
   </div>`;
 }
@@ -611,11 +618,11 @@ R.home=m=>{
       ${kpi(EA.length,"Ehrenamtliche","§45c/d aktiv",false,"go('ehren')")}
     </div>
     ${panel("Standorte heute",stTable(),"zur Tourenkarte →")}
-    ${panel("Hinweise des Tages",`<table class="tbl">
+    ${panel("Hinweise des Tages",`<div class="tbl-scroll"><table class="tbl">
       <tr class="rowclk" onclick="go('tour')"><td><span class="pill warn">Disposition</span></td><td>Tour R-F1 (Rüthen): Vertretung eingeplant — S. Köhler übernimmt für M. Albers (krank). <b>›</b></td></tr>
       <tr class="rowclk" onclick="go('qual')"><td><span class="pill ok">Qualität</span></td><td>Beschwerde #2026-041 innerhalb 48 h gelöst · Rückruf dokumentiert. <b>›</b></td></tr>
       <tr class="rowclk" onclick="go('mitgl')"><td><span class="pill ok">Mitglieder</span></td><td>3 neue Aktiv-Mitgliedschaften über Begegnungsort Bad Sassendorf. <b>›</b></td></tr>
-      <tr class="rowclk" onclick="go('vo')"><td><span class="pill warn">Verordnungen</span></td><td>42 Beratungsbesuche §37.3 im Q3 fällig — 11 terminiert. <b>›</b></td></tr></table>`,"anklickbar")}`;
+      <tr class="rowclk" onclick="go('vo')"><td><span class="pill warn">Verordnungen</span></td><td>42 Beratungsbesuche §37.3 im Q3 fällig — 11 terminiert. <b>›</b></td></tr></table></div>`,"anklickbar")}`;
   return macroBar()+`
     <div class="kgrid">
       ${kpi(K.length,"Pflegefälle","Stand: Monatsliste")}
@@ -623,17 +630,17 @@ R.home=m=>{
       ${kpi(MA.length,"Mitarbeiter","Personal_2024.xls")}
       ${kpi("520","Mitglieder","Karteikasten Erwitte")}
     </div>
-    ${panel("Systemmeldungen",`<table class="tbl">
+    ${panel("Systemmeldungen",`<div class="tbl-scroll"><table class="tbl">
       <tr><td>07:12</td><td>Sicherung von TOUREN_JULI_v14_FINAL_neu(2).xls fehlgeschlagen — Datei gesperrt durch 'A. Nowak'.</td></tr>
       <tr><td>06:58</td><td>14 offene telefonische Rückfragen zur heutigen Tourenliste.</td></tr>
-      <tr><td>gestern</td><td>Fax an Pflegekasse (Abrechnung Juni) erneut gesendet.</td></tr></table>`)}
-    ${panel("Zuletzt geöffnete Dateien",`<table class="tbl">
+      <tr><td>gestern</td><td>Fax an Pflegekasse (Abrechnung Juni) erneut gesendet.</td></tr></table></div>`)}
+    ${panel("Zuletzt geöffnete Dateien",`<div class="tbl-scroll"><table class="tbl">
       <tr><td>📄 TOUREN_JULI_v14_FINAL_neu(2).xls</td><td>vor 3 Std.</td></tr>
       <tr><td>📄 Personal_2024.xls</td><td>gestern 16:22</td></tr>
-      <tr><td>📄 Mitglieder_Liste_AKTUELL_März.xls</td><td>vor 4 Monaten</td></tr></table>`)}`;
+      <tr><td>📄 Mitglieder_Liste_AKTUELL_März.xls</td><td>vor 4 Monaten</td></tr></table></div>`)}`;
 };
-function stTable(){return `<table class="tbl"><tr><th>Standort</th><th>Fälle</th><th>Fahrzeuge</th><th>Deckungsbeitrag</th><th>Status</th></tr>`+
-  ST.map(s=>`<tr class="rowclk" onclick="go('tour')"><td>${s.name}${s.hq?" (HQ)":""}</td><td>${locMix[s.id]}</td><td>${s.fzg}</td><td>${s.db>=0?"+":"−"}${Math.abs(s.db)} k€</td><td><span class="pill ${s.db>=0?"ok":"crit"}">${s.db>=0?"stabil":"Break-even-Pfad"}</span></td></tr>`).join("")+`</table>`}
+function stTable(){return `<div class="tbl-scroll"><table class="tbl"><tr><th>Standort</th><th>Fälle</th><th>Fahrzeuge</th><th>Deckungsbeitrag</th><th>Status</th></tr>`+
+  ST.map(s=>`<tr class="rowclk" onclick="go('tour')"><td>${s.name}${s.hq?" (HQ)":""}</td><td>${locMix[s.id]}</td><td>${s.fzg}</td><td>${s.db>=0?"+":"−"}${Math.abs(s.db)} k€</td><td><span class="pill ${s.db>=0?"ok":"crit"}">${s.db>=0?"stabil":"Break-even-Pfad"}</span></td></tr>`).join("")+`</table></div>`}
 
 /* ---- Touren mit Leaflet ---- */
 let LMAP=null, LLAYERS={markers:null,routes:{}}, activeTour=null;
@@ -717,37 +724,37 @@ function stopsTable(id){
     const voll=FILLED.has(s.id);
     return `<tr class="rowclk" onclick="open_('kli','${s.id}')"><td>${i+1}</td><td>${hh}:${mm}</td><td>${voll?`<b>${s.name}</b>`:s.name}</td><td>${s.adresse}</td><td><span class="pill" style="background:${PGCOL[s.pg]}22;color:${PGCOL[s.pg]}">PG ${s.pg}</span></td></tr>`;
   }).join("");
-  return `<table class="tbl"><tr><th>#</th><th>Ankunft</th><th>Klient/in</th><th>Adresse</th><th>PG</th></tr>${rows}</table>
+  return `<div class="tbl-scroll"><table class="tbl"><tr><th>#</th><th>Ankunft</th><th>Klient/in</th><th>Adresse</th><th>PG</th></tr>${rows}</table></div>
     <p class="cnt">Ankunftszeiten sind fiktiv · Zeile anklicken öffnet das Klientenprofil.</p>`;
 }
 function altTour(){return `
   ${panel("TOUREN_JULI_v14_FINAL_neu(2).xls — schreibgeschützt",`
-    <div style="overflow-x:auto"><table class="tbl" style="font-family:'Courier New',monospace">
+    <div style="overflow-x:auto"><div class="tbl-scroll"><table class="tbl" style="font-family:'Courier New',monospace">
       <tr><th>Tour</th><th>Fahrer</th><th>Klienten</th><th>km (geschätzt)</th><th>Telefonnotiz</th></tr>
       ${TOUR.map((t,i)=>`<tr><td>${t.id}</td><td>${t.pflegekraft}</td><td>${t.stops.length}</td><td>${[64,58,47,92,84,60][i]}</td><td style="background:#fff8c9">${["Frau vor 8 Uhr!!","","Schlüssel Nachbarin","M. Albers krank – wer?","Tankkarte!","–"][i]}</td></tr>`).join("")}
       <tr><td colspan="5" style="background:#ffd7d7;color:#8c2c1c">⚠ Zirkelbezug in Zelle F5 — Summen unvollständig</td></tr>
-    </table></div>
+    </table></div></div>
     <p style="font-size:11px;color:#888;margin-top:8px">Zuletzt gespeichert vor 3 Std. · gesperrt durch 'A. Nowak' · 14 offene Rückfragen (Zettel am Dispo-Brett)</p>`)}
-  ${panel("Telefonprotokoll Disposition",`<table class="tbl">
+  ${panel("Telefonprotokoll Disposition",`<div class="tbl-scroll"><table class="tbl">
     <tr><td>06:12</td><td>Rüthen: M. Albers krank → Rundruf Vertretung (3 Versuche)</td></tr>
     <tr><td>06:31</td><td>Angehöriger Dörre fragt Ankunftszeit → "zwischen 7 und 9"</td></tr>
-    <tr><td>06:47</td><td>SO-LZ 501: Tankkarte vergessen → Rückfahrt</td></tr></table>`)}`;
+    <tr><td>06:47</td><td>SO-LZ 501: Tankkarte vergessen → Rückfahrt</td></tr></table></div>`)}`;
 }
 
 /* ---- Klienten ---- */
 R.kli=m=>{
   if(S.sel) return kliProfile(S.sel,m);
   if(m==="alt")return macroBar()+panel("Karteikarten (digitalisiert aus Papierbestand)",
-    `<table class="tbl"><tr><th>Name</th><th>Ort</th><th>PG</th><th>Bemerkung</th></tr>`+
+    `<div class="tbl-scroll"><table class="tbl"><tr><th>Name</th><th>Ort</th><th>PG</th><th>Bemerkung</th></tr>`+
     K.slice(0,20).map(k=>`<tr><td>${FILLED.has(k.id)?`<b>${k.name}</b>`:k.name}</td><td>${k.standort_name}</td><td>${k.pg}</td><td>Papierakte Schrank ${k.standort.charAt(0)}-2</td></tr>`).join("")+
-    `</table><p style="font-size:11px;color:#888;margin-top:8px">… 160 weitere in Papierordnern je Standort · Änderungen per Fax an Verwaltung Erwitte</p>`);
+    `</table></div><p style="font-size:11px;color:#888;margin-top:8px">… 160 weitere in Papierordnern je Standort · Änderungen per Fax an Verwaltung Erwitte</p>`);
   // Hebel oben
   const topOffen=[...K].sort((a,b)=>b.offen-a.offen).slice(0,6);
   const hebel=panel("Ungenutzte Ansprüche — Hebel 1 (Sachleistungs-Ausschöpfung)",
     `<p style="font-size:12px;opacity:.8;margin-bottom:8px">Ø-Ausschöpfung aktuell <b>${avgAus} %</b> · Ziel ~46 % · Summe offener Ansprüche im Bestand: <b>${eur(offenGes)}/Monat</b>. Größte Einzelpotenziale:</p>
-     <table class="tbl"><tr><th>Klient/in</th><th>Standort</th><th>PG</th><th>Cap/Mt.</th><th>abgerufen</th><th>offen</th></tr>`+
+     <div class="tbl-scroll"><table class="tbl"><tr><th>Klient/in</th><th>Standort</th><th>PG</th><th>Cap/Mt.</th><th>abgerufen</th><th>offen</th></tr>`+
      topOffen.map(k=>`<tr class="rowclk" onclick="open_('kli','${k.id}')"><td>${k.name}</td><td>${k.standort_name}</td><td>${k.pg}</td><td>${eur(k.cap)}</td><td>${k.ausschoepfung} %</td><td><span class="pill warn">${eur(k.offen)}</span></td></tr>`).join("")+
-     `</table>`,"Sprint 3 / 5");
+     `</table></div>`,"Sprint 3 / 5");
   // Verteilungen
   const pgData=[2,3,4,5].map(p=>({p,v:pgMix[p],color:PGCOL[p]}));
   const locData=ST.map(s=>({s:s.name,id:s.id,v:locMix[s.id],color:COLORS[s.id]}));
@@ -858,8 +865,8 @@ R.pers=m=>{
       ${kpi("38","direkte Pflege","68 % der Belegschaft")}
       ${kpi("14 %","Fluktuation","Stärke: Branche höher","amb")}
     </div>
-    ${panel("Offene Stellen (Recruiting-Ampel)",`<table class="tbl"><tr><th>Rolle</th><th>Standort</th><th>vakant seit</th><th>Priorität</th></tr>`+
-      offen.map(o=>`<tr><td>${o.rolle}</td><td>${stName(o.standort)}</td><td>${o.seit_monaten} Monate</td><td><span class="pill ${o.seit_monaten>=8?"crit":"warn"}">${o.seit_monaten>=8?"kritisch":"offen"}</span></td></tr>`).join("")+`</table>`,"Sprint 2 · Recruiting")}
+    ${panel("Offene Stellen (Recruiting-Ampel)",`<div class="tbl-scroll"><table class="tbl"><tr><th>Rolle</th><th>Standort</th><th>vakant seit</th><th>Priorität</th></tr>`+
+      offen.map(o=>`<tr><td>${o.rolle}</td><td>${stName(o.standort)}</td><td>${o.seit_monaten} Monate</td><td><span class="pill ${o.seit_monaten>=8?"crit":"warn"}">${o.seit_monaten>=8?"kritisch":"offen"}</span></td></tr>`).join("")+`</table></div>`,"Sprint 2 · Recruiting")}
     <div class="profgrid">
       ${panel("Verteilung nach Rolle",distRows(rolleMix,MA.length,()=>"var(--sage)",d=>d.r))}
       ${panel("Verteilung nach Standort",distRows(locStaff,MA.length,d=>d.color,d=>d.s))}
@@ -895,8 +902,8 @@ R.fuhr=m=>{
       ${panel("Antriebsmix",`<div class="donut">${donut(antrieb,140)}<div class="legend2">${antrieb.map(d=>`<div><i style="background:${d.color}"></i>${d.r} — ${d.v}</div>`).join("")}</div></div>`)}
       ${panel("Fahrzeuge je Standort",distRows(locF,FZ.length,d=>d.color,d=>d.s))}
     </div>
-    ${panel("Wartung fällig (nächste 5)",`<table class="tbl"><tr><th>Kennzeichen</th><th>Modell</th><th>Standort</th><th>km</th><th>Wartung in</th></tr>`+
-      wartungBald.map(f=>`<tr><td>${f.kennzeichen}</td><td>${f.modell}</td><td>${f.standort_name}</td><td>${f.km_stand.toLocaleString("de-DE")}</td><td><span class="pill ${f.wartung_in_tagen<=14?"crit":"ok"}">${f.wartung_in_tagen} Tage</span></td></tr>`).join("")+`</table>`)}
+    ${panel("Wartung fällig (nächste 5)",`<div class="tbl-scroll"><table class="tbl"><tr><th>Kennzeichen</th><th>Modell</th><th>Standort</th><th>km</th><th>Wartung in</th></tr>`+
+      wartungBald.map(f=>`<tr><td>${f.kennzeichen}</td><td>${f.modell}</td><td>${f.standort_name}</td><td>${f.km_stand.toLocaleString("de-DE")}</td><td><span class="pill ${f.wartung_in_tagen<=14?"crit":"ok"}">${f.wartung_in_tagen} Tage</span></td></tr>`).join("")+`</table></div>`)}
     ${panel("Gesamtflotte",tableWidget("fzTbl",{
       rows:FZ,defSort:0,defDir:1,placeholder:"Kennzeichen, Standort, Modell, Antrieb …",
       search:r=>`${r.kennzeichen} ${r.standort_name} ${r.modell} ${r.antrieb}`,

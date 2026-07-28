@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{
+:root{ --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);
   --cream:#F5F0E8; --cream2:#EDE7D9; --green:#4A6741; --green2:#3A5233; --green3:#2C3D27;
-  --mint:#A8C9A0; --forest: #5A6E52; --sage:#8AAC85; --amber:#B07A2A; --amber-ink: #8F6318; --red:#8C3A2A;
+  --mint:#A8C9A0; --forest: #5A6E52; --sage:#8AAC85; --amber:#B07A2A; --amber-ink: #8F6318; --red:var(--red, #8C3A2A);
   --text:#2A2820; --text2:#5A5648; --text3:#8A8478; --border:rgba(74,103,65,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -143,6 +143,8 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
     "cockpit":          {name:"Betriebs-Cockpit",         url:"/cockpit"},
     "allgemein":        {name:"Allgemein / Technik",      url:"/"},
     "investoren":       {name:"Investorenbereich",        url:"/investoren"},
+    "investoren-kennzahlen": {name:"Investoren · Kennzahlen", url:"/investoren-kennzahlen"},
+    "investoren-finanzierung": {name:"Investoren · Finanzierung", url:"/investoren-finanzierung"},
     "einzugsgebiet":    {name:"Einzugsgebiet",           url:"/einzugsgebiet"},
     "ueber-uns":        {name:"Über uns",                url:"/ueber-uns"},
     "mitgliedschaft":   {name:"Mitgliedschaft",          url:"/mitgliedschaft"},
@@ -160,7 +162,7 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
   function sprintOf(n){ return SPRINTMAP[n.id] || null; }
   var PRIOMAP = {"n-index-247":1,"n-eg-einwohner":1,"n-index-usp":1,"n-sprints-kampagne":1,"n-aktuelles-grammatik":1,"n-mobile-investor":1,
                  "n-ueberuns-oton":3,"n-sprints-reflexion":3,"n-gate-optisch":3,"n-markt-pg1":3,
-                 "n-cockpit-1b":1,"n-cockpit-roster":1,"n-cockpit-stufe4":3,"n-quellen-registry":2,"n-ueberuns-chronik":2,"n-typo-entscheidung":1,"n-logo-geometrie":3,"n-trust-vierte-kachel":2,"n-skript-tokens":3};
+                 "n-cockpit-1b":1,"n-cockpit-roster":1,"n-cockpit-stufe4":3,"n-quellen-registry":2,"n-ueberuns-chronik":2,"n-typo-entscheidung":1,"n-logo-geometrie":3,"n-trust-vierte-kachel":2,"n-skript-tokens":3,"n-inv-umsatz-je-fall":1,"n-inv-175mio":1,"n-inv-zieljahre":1,"n-inv-branchenschnitt":2};
   var PRIOLABEL = {1:"Hoch",2:"Mittel",3:"Niedrig"};
   function prioOf(n){ return PRIOMAP[n.id] || 2; }
   var pageFilter = (new URLSearchParams(location.search)).get("page") || null;

@@ -97,9 +97,9 @@
       title: "Asset-Bibliothek-Seite",
       text: "Neuer Menüpunkt mit Zoho-WorkDrive-Links (Ansehen/Herunterladen + Collection-Upload) — wartet auf die Freigabelinks." },
 
-    { id: "n-mobile-investor", page: "allgemein", selector: "main", status: "offen",
-      title: "Mobile-Test Investor-Seiten",
-      text: "Dunkle KPI-Bänder und Tabellen der Investor-Seiten auf kleinen Screens real prüfen — steht noch aus." },
+    { id: "n-mobile-investor", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Mobile-Test Investor-Seiten erledigt",
+      text: "Alle sechs Investorenseiten bei 390 px gemessen: kein Seiten-Overflow mehr, Tabellen scrollen im eigenen Container, KPI-Baender brechen korrekt um. Kontraste wurden im selben Durchgang nachgemessen (alle Kleintexte mindestens 4,5 : 1)." },
 
     { id: "n-review-report", page: "allgemein", selector: "main", status: "offen",
       title: "Gesamt-Review-Report",
@@ -128,6 +128,32 @@
     { id: "n-done-cockpit-stufe3", page: "cockpit", selector: "main", status: "auszubauen", done: true,
       title: "Cockpit Stufe 3 erledigt",
       text: "Pflegekraft-Ansicht (mobile Handy-Spalte, Doku-Status als Spiegel, Übergabe-Knopf „In MediFox dokumentieren\", Hebel 1) und Ehrenamts-Ansicht (Bindungskennzahlen, Bedarfsabgleich mit Vorschlag, Hauptamt-trifft-Ehrenamt)." },
+    { id: "n-done-tbl-scroll", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Tabellen mobil horizontal scrollbar",
+      text: "21 Tabellen (bench, ptab, cockpit tbl) in .tbl-scroll gekapselt: overflow-x auto, min-width 560 px (Cockpit 620 px), duenne Scrollleiste in Markenfarbe, ab 760 px wieder ohne Mindestbreite. Vorher sprengte preise.html die Seite um 88 px und investoren-markt um 3 px; jetzt kein Seiten-Overflow mehr bei 390 px. Das Baustein-Board bleibt ausgenommen, es hat schon ein Karten-Layout fuer schmale Screens." },
+    /* ----- Datenpruefung Five Forces & Investorenbereich ----- */
+    { id: "n-done-fiveforces", page: "sprints", selector: "main", status: "offen", done: true,
+      title: "Five Forces korrigiert (4 von 5 Werten falsch)",
+      text: "Die Sprint-Uebersicht zeigte Branchenrivalitaet 2/5, Kundenmacht 3/5, Lieferantenmacht 3/5 und Ersatzangebote 4/5. Original (Investorpitch S. 9, bestaetigt S. 11): Lieferantenmacht 4/5, Substitute 3/5, Wettbewerbsintensitaet 3/5, Neue Wettbewerber 2/5, Kundenmacht 2/5. Alle fuenf korrigiert und mit Quellenangabe versehen." },
+    { id: "n-done-fiveforces-inv", page: "investoren-markt", selector: ".bench", status: "offen", done: true,
+      title: "Five Forces im Investorenbereich vervollstaendigt",
+      text: "Substitute stand ohne Zahl (nur steigend) und die fuenfte Kraft Wettbewerbsintensitaet fehlte ganz. Substitute jetzt 3/5, Wettbewerbsintensitaet 3/5 ergaenzt — damit stimmen Website und Pitch-Deck ueberein." },
+    { id: "n-done-quellen-investoren", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Investorenbereich auf Quellen geprueft",
+      text: "Alle 13 Kennzahlen der sechs Investorenseiten gegen die Unterlagen geprueft und mit Datei, Seite, Abschnitt und Belegstufe in die Registry aufgenommen (jetzt 47 Datenpunkte)." },
+    { id: "n-inv-umsatz-je-fall", page: "investoren-kennzahlen", selector: ".kpi-item", status: "offen",
+      title: "11.700 EUR je Pflegefall mischt Foerdermittel ein",
+      text: "Die Zahl ist belegt (SWOT S. 2: ~11.700 EUR je Fall, im Normbereich), entsteht aber aus Gesamtumsatz inklusive 38 % Foerdermitteln geteilt durch 180 Faelle. Aus reinem Pflegeumsatz (1,15 Mio EUR) waeren es ~6.400 EUR. Widerspricht der eigenen Regel, Pflegeumsatz und Foerdermittel getrennt auszuweisen — im Q&A angreifbar. Entweder beide Werte zeigen oder die Bezugsgroesse benennen." },
+    { id: "n-inv-175mio", page: "investoren-markt", selector: ".bench", status: "offen",
+      title: "Marktzeile 1,75 Mio ohne Beleg",
+      text: "Die Makro-Tabelle nennt ambulante Dienste ~1,75 Mio (~35 % aller Pflegebeduerftigen) mit Quellenangabe Destatis 2021 — diese Zahl steht in keiner Sprint-Unterlage. Entweder Einzelnachweis nachtragen oder Zeile entfernen." },
+    { id: "n-inv-zieljahre", page: "investoren-finanzierung", selector: ".bench", status: "offen",
+      title: "Zieljahre und Foerderquote nicht belegt",
+      text: "70 %+ Eigenfinanzierung ist belegt, die Jahreszahl 2027 nennt keine Unterlage. Foerderanteil strukturell unter 30 % ist plausibel (SWOT S. 2: Branche 20–25 %), aber nicht als Ziel dokumentiert. Belegt ist hingegen 8 Stellen bis Q4 2026 (SWOT S. 6). Vor dem Pitch entweder herleiten oder Zeitangaben streichen." },
+    { id: "n-inv-branchenschnitt", page: "investoren", selector: ".kpi-item", status: "offen",
+      title: "Branchen-Vergleichswert 1,5 Mio ohne Quelle",
+      text: "Die Startkachel des Investorenbereichs vergleicht 2,1 Mio EUR Umsatz mit einem Branchendurchschnitt von 1,5 Mio EUR. Dieser Vergleichswert steht in keiner Sprint-Unterlage — Quelle nachtragen oder Klammerzusatz entfernen." },
+
     /* ----- Design-Audit (Chat Website-Design-Analyse) ----- */
     { id: "n-done-logo-svg", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Logo als Vektordatei erzeugt",
@@ -138,29 +164,29 @@
     { id: "n-done-audit-arial", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Off-Brand-Font im Hero-SVG entfernt",
       text: "Zweite Audit-Runde: Das Hero-SVG nutzte Arial fuer die Claim-Zeile. Auf Jost umgestellt. Zusaetzlich Footer-Spaltenkopf von Salbei auf Mint (4,61 auf 6,39 : 1)." },
-    { id: "n-trust-vierte-kachel", page: "index", selector: ".trust", status: "offen",
-      title: "Vierte Trust-Kachel: Wort im Zahlenraster",
+    { id: "n-trust-vierte-kachel", page: "index", selector: ".trust", status: "offen", done: true,
+      title: "Vierte Trust-Kachel ersetzt (5 Standorte)",
       text: "Zweite Audit-Runde, Befund 3.4: gGmbH steht als Wort in einem Raster aus Zahlen (6-22 Uhr, 180, 45) - semantischer Bruch. Optionen: durch 520 Mitglieder oder 5 Standorte ersetzen und die Rechtsform anders platzieren, oder das Raster bewusst gemischt lassen. Inhaltliche Entscheidung." },
-    { id: "n-skript-tokens", page: "allgemein", selector: "main", status: "auszubauen",
+    { id: "n-skript-tokens", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Skripte auf CSS-Tokens umstellen",
-      text: "Zweite Audit-Runde, Befund 3.6/3.7: lz-notes.js und lz-quellen.js setzen Hexwerte hart im injizierten CSS (Wartungsrisiko, Palettendrift). Auf var(--token) mit Fallback umstellen; dabei #cfe0cb klaeren und Off-Palette-Werte (#FBF4E6, #A23, #6B4A12, #243120) als Tokens fuehren." },
+      text: "Zweite Audit-Runde, Befund 3.6/3.7: lz-notes.js und lz-quellen.js setzen Hexwerte hart im injizierten CSS (Wartungsrisiko, Palettendrift). Auf var(--token) mit Fallback umstellen; dabei var(--mint-soft, #cfe0cb) klaeren und Off-Palette-Werte (var(--cream-warm, #FBF4E6), var(--red-err, #A23), var(--amber-deep, #6B4A12), var(--green-deep, #243120)) als Tokens fuehren." },
     { id: "n-done-audit-kontrast", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Design-Audit: Kontraste behoben (P1-P3)",
       text: "Eyebrow von Salbei auf Gruen (2,22 auf 5,60) und 11,5 px statt 10 px mit weniger Laufweite; Logo-Tagline Deckkraft .65 auf .9 (2,75 auf 4,50) und 9 px; gGmbH-Hochstellung .7 auf .9; text3 in Kleintext durchgehend auf text2; Footer-Ueberschriften 12 px. Zusaetzlich gefunden und behoben: Salbei- und Amber-Text auf hellem Grund seitenweit (neue Tokens --forest und --amber-ink), CTA-Band, Footer-Bottom, interne Badges und Statusfarben. Nachmessung: 13 Seiten, 1157 Kleintext-Elemente, alle mindestens 4,5 : 1." },
     { id: "n-done-audit-tokens", page: "unternehmensdaten", selector: "main", status: "auszubauen", done: true,
       title: "Palette vervollstaendigt (--forest, --amber-ink)",
-      text: "Waldgruen #5A6E52 aus der Logo-Farbregel war nicht als Token erfasst (Audit-Punkt 6) und ist jetzt auf allen Seiten hinterlegt; zusaetzlich --amber-ink #8F6318 als barrierefreie Amber-Textfarbe. Beides im Reiter Corporate Design dokumentiert, ebenso das horizontale Lockup als offizielle Sekundaervariante." },
-    { id: "n-typo-entscheidung", page: "allgemein", selector: "main", status: "offen",
-      title: "Typografie-Grundsatzentscheidung offen",
+      text: "Waldgruen var(--forest, #5A6E52) aus der Logo-Farbregel war nicht als Token erfasst (Audit-Punkt 6) und ist jetzt auf allen Seiten hinterlegt; zusaetzlich --amber-ink var(--amber-ink, #8F6318) als barrierefreie Amber-Textfarbe. Beides im Reiter Corporate Design dokumentiert, ebenso das horizontale Lockup als offizielle Sekundaervariante." },
+    { id: "n-typo-entscheidung", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Typografie-Entscheidung getroffen: Regel erweitert",
       text: "Audit-Punkt 2: Ueberschriften nutzen Cormorant Garamond, die Markenregel schreibt fuer die Wortmarke Georgia/Times vor - zwei konkurrierende Serifen direkt nebeneinander. Entweder Markenregel um Cormorant als Display-Serif erweitern (Empfehlung des Audits) oder Ueberschriften auf Georgia vereinheitlichen. Bewusst nicht eigenmaechtig geaendert." },
-    { id: "n-logo-geometrie", page: "allgemein", selector: "main", status: "offen",
-      title: "Logo-Geometrie 1:1 abgleichen",
+    { id: "n-logo-geometrie", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Logo-Geometrie: SVG als kanonisch erklaert",
       text: "Audit: Pentagon-Knotenposition der Website (cx50/cy20, Punkt oben) wirkt nah am Original, sollte aber exakt gegen die Originalgeometrie aus LebensZeit_Logo.pdf gelegt werden. Dafuer braucht es die Vektordatei - der Projekt-Export enthaelt nur ein JPEG-Rendering." },
 
     /* ----- Quellen-Overlay (Datenherkunft) ----- */
     { id: "n-done-quellen-cd", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Kategorie Corporate Design (hellgruen)",
-      text: "Sechste Kategorie im Quellen-Overlay: Festlegungen aus dem Projektspeicher, die das Erscheinungsbild tragen, sich aber nicht ueber die Sprint-Unterlagen belegen lassen \u2014 in Mint #A8C9A0 markiert, Belegstufe S. Drei seitenuebergreifende Marker: Logo/Farbregel, Typografie/Palette, Sprach- und Darstellungsregeln." },
+      text: "Sechste Kategorie im Quellen-Overlay: Festlegungen aus dem Projektspeicher, die das Erscheinungsbild tragen, sich aber nicht ueber die Sprint-Unterlagen belegen lassen \u2014 in Mint var(--mint, #A8C9A0) markiert, Belegstufe S. Drei seitenuebergreifende Marker: Logo/Farbregel, Typografie/Palette, Sprach- und Darstellungsregeln." },
     { id: "n-done-ud-cd-tab", page: "unternehmensdaten", selector: "main", status: "auszubauen", done: true,
       title: "Unterreiter Corporate Design",
       text: "Neunter Unterreiter mit Schriften, Farbpalette, Logo-Regel (nie weiss, Farbe folgt dem Hintergrund), Sprachregelung und Darstellungsregel. Linkziel der hellgruenen Marker (?ud=cd)." },
@@ -196,9 +222,9 @@
 
   /* ---------- 2. Status-Metadaten ---------- */
   var STATUS = {
-    offen:      { label: "Offen",           color: "#8C3A2A" },
-    auszubauen: { label: "Auszubauen",      color: "#B07A2A" },
-    spaeter:    { label: "Späterer Sprint", color: "#4A6741" }
+    offen:      { label: "Offen",           color: "var(--red, #8C3A2A)" },
+    auszubauen: { label: "Auszubauen",      color: "var(--amber, #B07A2A)" },
+    spaeter:    { label: "Späterer Sprint", color: "var(--green, #4A6741)" }
   };
 
   /* ---------- 3. Erledigt-Status (localStorage + Fallback) ---------- */
@@ -249,21 +275,21 @@
     if (document.getElementById("lz-notes-css")) return;
     var css = "" +
       ".fiktiv-menu-sep{height:1px;background:rgba(168,201,160,.18);margin:4px 2px;}" +
-      ".fiktiv-note-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;color:#F5F0E8;background:rgba(176,122,42,.16);border:1px solid rgba(176,122,42,.45);border-radius:30px;padding:12px 18px;font:inherit;font-size:15px;letter-spacing:.3px;cursor:pointer;transition:background .12s,transform .12s;}" +
+      ".fiktiv-note-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;color:var(--cream, #F5F0E8);background:rgba(176,122,42,.16);border:1px solid rgba(176,122,42,.45);border-radius:30px;padding:12px 18px;font:inherit;font-size:15px;letter-spacing:.3px;cursor:pointer;transition:background .12s,transform .12s;}" +
       ".fiktiv-note-toggle:hover{background:rgba(176,122,42,.3);transform:translateX(2px);}" +
       ".fiktiv-note-toggle #lzNotesState{font-weight:600;}" +
       ".lz-note-anchor{position:relative;}" +
-      ".lz-note-pin{display:none;position:absolute;top:10px;right:10px;z-index:40;width:30px;height:30px;border-radius:50%;border:2px solid #F5F0E8;background:#B07A2A;color:#fff;font-size:14px;line-height:1;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);}" +
-      ".lz-note-pin.s-offen{background:#8C3A2A;}.lz-note-pin.s-auszubauen{background:#B07A2A;}.lz-note-pin.s-spaeter{background:#4A6741;}" +
+      ".lz-note-pin{display:none;position:absolute;top:10px;right:10px;z-index:40;width:30px;height:30px;border-radius:50%;border:2px solid var(--cream, #F5F0E8);background:var(--amber, #B07A2A);color:#fff;font-size:14px;line-height:1;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);}" +
+      ".lz-note-pin.s-offen{background:var(--red, #8C3A2A);}.lz-note-pin.s-auszubauen{background:var(--amber, #B07A2A);}.lz-note-pin.s-spaeter{background:var(--green, #4A6741);}" +
       "body.lz-notes-active .lz-note-pin{display:flex;animation:lzPinPulse 2.2s ease-in-out infinite;}" +
       "@keyframes lzPinPulse{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 0 rgba(176,122,42,.4);}50%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 7px rgba(176,122,42,0);}}" +
-      ".lz-note-pop{position:absolute;top:48px;right:10px;z-index:41;width:300px;max-width:calc(100vw - 40px);background:#fff;color:#2A2820;border:1px solid rgba(74,103,65,.18);border-radius:12px;padding:16px 18px 16px;box-shadow:0 20px 48px rgba(0,0,0,.22);text-align:left;font-family:'Jost',sans-serif;}" +
+      ".lz-note-pop{position:absolute;top:48px;right:10px;z-index:41;width:300px;max-width:calc(100vw - 40px);background:#fff;color:var(--text, #2A2820);border:1px solid rgba(74,103,65,.18);border-radius:12px;padding:16px 18px 16px;box-shadow:0 20px 48px rgba(0,0,0,.22);text-align:left;font-family:'Jost',sans-serif;}" +
       ".lz-note-pop[hidden]{display:none;}" +
       ".lz-note-badge{display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px;color:#fff;}" +
-      ".lz-note-pop h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:#2C3D27;font-size:20px;margin:0 0 4px;line-height:1.2;}" +
-      ".lz-note-pop p{font-size:14px;line-height:1.55;color:#5A5648;margin:0 0 12px;}" +
-      ".lz-note-pop .lz-note-close{position:absolute;top:8px;right:10px;border:0;background:none;color:#8A8478;font-size:18px;cursor:pointer;line-height:1;}" +
-      ".lz-note-done-btn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;color:#4A6741;background:rgba(74,103,65,.08);border:1px solid rgba(74,103,65,.25);border-radius:20px;padding:7px 14px;cursor:pointer;}" +
+      ".lz-note-pop h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--green3, #2C3D27);font-size:20px;margin:0 0 4px;line-height:1.2;}" +
+      ".lz-note-pop p{font-size:14px;line-height:1.55;color:var(--text2, #5A5648);margin:0 0 12px;}" +
+      ".lz-note-pop .lz-note-close{position:absolute;top:8px;right:10px;border:0;background:none;color:var(--text3, #8A8478);font-size:18px;cursor:pointer;line-height:1;}" +
+      ".lz-note-done-btn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;color:var(--green, #4A6741);background:rgba(74,103,65,.08);border:1px solid rgba(74,103,65,.25);border-radius:20px;padding:7px 14px;cursor:pointer;}" +
       ".lz-note-done-btn:hover{background:rgba(74,103,65,.16);}";
     var el = document.createElement("style");
     el.id = "lz-notes-css";
@@ -276,16 +302,16 @@
     if (document.getElementById("lz-bar-css")) return;
     var css = "" +
       ".fiktiv-bar{position:relative;z-index:100;}" +
-      ".fiktiv-marquee{display:block;width:100%;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;background:#8C3A2A;color:#fff;overflow:hidden;white-space:nowrap;}" +
+      ".fiktiv-marquee{display:block;width:100%;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;background:var(--red, #8C3A2A);color:#fff;overflow:hidden;white-space:nowrap;}" +
       ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
       ".fiktiv-marquee .track{display:inline-block;padding:7px 0;animation:fiktivscroll 60s linear infinite;}" +
       ".fiktiv-marquee .track span{font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:0 36px;}" +
       "@keyframes fiktivscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}" +
       ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
       ".fiktiv-menu[hidden]{display:none;}" +
-      ".fiktiv-menu-h{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8AAC85;padding:2px 6px 4px;}" +
-      ".fiktiv-menu a{display:block;color:#F5F0E8;background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:15px;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
-      ".fiktiv-menu a:hover{background:#4A6741;border-color:#4A6741;transform:translateX(2px);color:#fff;}" +
+      ".fiktiv-menu-h{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sage, #8AAC85);padding:2px 6px 4px;}" +
+      ".fiktiv-menu a{display:block;color:var(--cream, #F5F0E8);background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:15px;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
+      ".fiktiv-menu a:hover{background:var(--green, #4A6741);border-color:var(--green, #4A6741);transform:translateX(2px);color:#fff;}" +
       "@keyframes lzMenuIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}";
     var el = document.createElement("style"); el.id = "lz-bar-css"; el.textContent = css;
     document.head.appendChild(el);

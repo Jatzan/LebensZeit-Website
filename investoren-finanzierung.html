@@ -15,7 +15,7 @@
      Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
      ============================================================ -->
 <style>
-:root {
+:root { --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);
   /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
   --cream:    #F5F0E8;
   --cream2:   #EDE7D9;
@@ -264,9 +264,9 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .gate .btn { width: 100%; justify-content: center; margin-top: 6px; }
 .gate-demo {
   margin-top: 20px; font-size: 12px; color: var(--text2); font-weight: 300;
-  background: #FBF4E6; border: 1px solid var(--amber); border-radius: 10px; padding: 10px 14px;
+  background: var(--cream-warm, #FBF4E6); border: 1px solid var(--amber); border-radius: 10px; padding: 10px 14px;
 }
-.gate-err { color: #A23; font-size: 13px; min-height: 18px; margin-top: 4px; }
+.gate-err { color: var(--red-err, #A23); font-size: 13px; min-height: 18px; margin-top: 4px; }
 
 /* ---- Portal-Hero ---- */
 .inv-hero { padding: 64px 0 36px; }
@@ -313,7 +313,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .rev-row .rv { font-size: 14px; color: var(--text2); text-align: right; font-variant-numeric: tabular-nums; }
 .rev-note { font-size: 13px; color: var(--text2); font-weight: 300; margin-top: 14px; padding: 12px 16px; background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--sage); }
 
-.tbd { display:inline-block; background:#FBF4E6; border:1px dashed var(--amber); color:#6B4A12;
+.tbd { display:inline-block; background:var(--cream-warm, #FBF4E6); border:1px dashed var(--amber); color:var(--amber-deep, #6B4A12);
        font-size:11px; letter-spacing:.3px; padding:1px 8px; border-radius:10px; }
 
 @media (max-width: 1024px) {
@@ -335,7 +335,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .swot-q.s { background:#EEF3EC; } .swot-q.s li::before{ background:var(--green); }
 .swot-q.w { background:#FBF1E6; } .swot-q.w li::before{ background:var(--amber); }
 .swot-q.o { background:#EDF3F0; } .swot-q.o li::before{ background:var(--sage); }
-.swot-q.t { background:#F6ECEA; } .swot-q.t li::before{ background:#8C3A2A; }
+.swot-q.t { background:#F6ECEA; } .swot-q.t li::before{ background:var(--red, #8C3A2A); }
 
 .contact-grid { display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; }
 .contact-card { background:#fff; border:0.5px solid var(--border); border-radius:var(--r); padding:32px; display:flex; gap:22px; }
@@ -369,7 +369,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 /* Hero dunkel + Gold-Akzent */
 .inv-theme .inv-hero {
-  background: linear-gradient(135deg, #243120 0%, var(--green) 145%);
+  background: linear-gradient(135deg, var(--green-deep, #243120) 0%, var(--green) 145%);
   color: var(--cream); position: relative; overflow: hidden;
 }
 .inv-theme .inv-hero::after {
@@ -402,7 +402,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 
 /* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
 .fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -437,6 +437,14 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .fiktiv-menu a:hover { background: var(--green); border-color: var(--green); transform: translateX(2px); }
 @keyframes lzMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
+
+  /* Tabellen: horizontal scrollbar auf schmalen Screens */
+  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; scrollbar-width: thin; }
+  .tbl-scroll > table { min-width: 560px; }
+  .tbl-scroll::-webkit-scrollbar { height: 6px; }
+  .tbl-scroll::-webkit-scrollbar-track { background: rgba(74,103,65,.08); border-radius: 3px; }
+  .tbl-scroll::-webkit-scrollbar-thumb { background: rgba(74,103,65,.35); border-radius: 3px; }
+  @media (min-width: 760px) { .tbl-scroll > table { min-width: 0; } }
 </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -533,7 +541,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <div class="wrap">
       <div class="section-head"><p class="eyebrow">Mittelverwendung</p><h2>Wofür das Kapital eingesetzt wird</h2>
         <p>Aufteilung des Kapitalbedarfs auf die drei Maßnahmen der Digital-Säule plus Standortrestrukturierung. Beträge werden nach interner Abstimmung eingetragen.</p></div>
-      <table class="bench">
+      <div class="tbl-scroll"><table class="bench">
         <thead><tr><th>Verwendung</th><th>Betrag</th><th>Bezug zur SWOT</th></tr></thead>
         <tbody>
           <tr><td>Digitale Pflegedokumentation (Pilot → Rollout, z. B. MediFox)</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>W: Digitalisierung</td></tr>
@@ -543,14 +551,14 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <tr><td>Puffer / Sonstiges</td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td>—</td></tr>
           <tr style="border-top:2px solid var(--green);"><td><b>Kapitalbedarf gesamt</b></td><td class="val"><span class="tbd">€ wird ergänzt</span></td><td><b>Stoßrichtung gesamt</b></td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </section>
 
   <section class="block" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head"><p class="eyebrow">Zielgrößen</p><h2>Worauf die Investition einzahlt</h2></div>
-      <table class="bench">
+      <div class="tbl-scroll"><table class="bench">
         <thead><tr><th>Kennzahl</th><th>Heute</th><th>Ziel</th></tr></thead>
         <tbody>
           <tr><td>Eigenfinanzierungsquote</td><td>62 %</td><td class="val">70 %+ bis 2027</td></tr>
@@ -558,7 +566,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <tr><td>Offene Fachkraftstellen</td><td>8</td><td class="val">besetzt bis Q4 2026</td></tr>
           <tr><td>Rüthen &amp; Lippetal</td><td>defizitär</td><td class="val">kostendeckend in 18–24 Mon.</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p class="rev-note"><b>Hinweis:</b> Die Eurobeträge sind bewusst offengelassen und werden nach interner Abstimmung ergänzt. Die strategische Logik („Digital als Hebel") und die Zielgrößen stehen unabhängig davon fest.</p>
     </div>
   </section>

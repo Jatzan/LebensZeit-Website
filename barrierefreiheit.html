@@ -15,7 +15,7 @@
      Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
      ============================================================ -->
 <style>
-:root {
+:root { --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);
   /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
   --cream:    #F5F0E8;
   --cream2:   #EDE7D9;
@@ -236,12 +236,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .notice-wrap { padding: 28px 0 0; }
 .notice {
   display: flex; gap: 16px; align-items: flex-start;
-  background: #FBF4E6; border: 1px solid var(--amber);
+  background: var(--cream-warm, #FBF4E6); border: 1px solid var(--amber);
   border-left: 4px solid var(--amber); border-radius: var(--r);
   padding: 20px 24px;
 }
 .notice svg { width: 28px; height: 28px; color: var(--amber-ink); flex-shrink: 0; margin-top: 2px; }
-.notice strong { display: block; font-size: 15px; color: #6B4A12; letter-spacing: .3px; margin-bottom: 4px; }
+.notice strong { display: block; font-size: 15px; color: var(--amber-deep, #6B4A12); letter-spacing: .3px; margin-bottom: 4px; }
 .notice p { font-size: 14px; color: var(--text); font-weight: 300; line-height: 1.55; }
 
 .page-hero { padding: 48px 0 32px; }
@@ -258,7 +258,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .legal-wrap p { font-size: 15px; color: var(--text); font-weight: 300; line-height: 1.7; }
 .fik {
   display: inline-block; font-size: 11px; font-weight: 500; color: var(--amber-ink);
-  background: #FBF4E6; border-radius: 12px; padding: 1px 9px; letter-spacing: .3px;
+  background: var(--cream-warm, #FBF4E6); border-radius: 12px; padding: 1px 9px; letter-spacing: .3px;
   vertical-align: middle;
 }
 
@@ -268,7 +268,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 
 /* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
 .fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }

@@ -15,7 +15,7 @@
      Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
      ============================================================ -->
 <style>
-:root {
+:root { --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);
   /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
   --cream:    #F5F0E8;
   --cream2:   #EDE7D9;
@@ -264,9 +264,9 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .gate .btn { width: 100%; justify-content: center; margin-top: 6px; }
 .gate-demo {
   margin-top: 20px; font-size: 12px; color: var(--text2); font-weight: 300;
-  background: #FBF4E6; border: 1px solid var(--amber); border-radius: 10px; padding: 10px 14px;
+  background: var(--cream-warm, #FBF4E6); border: 1px solid var(--amber); border-radius: 10px; padding: 10px 14px;
 }
-.gate-err { color: #A23; font-size: 13px; min-height: 18px; margin-top: 4px; }
+.gate-err { color: var(--red-err, #A23); font-size: 13px; min-height: 18px; margin-top: 4px; }
 
 /* ---- Portal-Hero ---- */
 .inv-hero { padding: 64px 0 36px; }
@@ -313,7 +313,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .rev-row .rv { font-size: 14px; color: var(--text2); text-align: right; font-variant-numeric: tabular-nums; }
 .rev-note { font-size: 13px; color: var(--text2); font-weight: 300; margin-top: 14px; padding: 12px 16px; background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--sage); }
 
-.tbd { display:inline-block; background:#FBF4E6; border:1px dashed var(--amber); color:#6B4A12;
+.tbd { display:inline-block; background:var(--cream-warm, #FBF4E6); border:1px dashed var(--amber); color:var(--amber-deep, #6B4A12);
        font-size:11px; letter-spacing:.3px; padding:1px 8px; border-radius:10px; }
 
 @media (max-width: 1024px) {
@@ -340,7 +340,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 /* Hero dunkel + Gold-Akzent */
 .inv-theme .inv-hero {
-  background: linear-gradient(135deg, #243120 0%, var(--green) 145%);
+  background: linear-gradient(135deg, var(--green-deep, #243120) 0%, var(--green) 145%);
   color: var(--cream); position: relative; overflow: hidden;
 }
 .inv-theme .inv-hero::after {
@@ -373,7 +373,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 
 /* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
 .fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }

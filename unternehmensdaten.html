@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: light; --green:#4A6741; --green3:#2C3D27; --cream:#F5F0E8; --amber:#B07A2A; --amber-ink: #8F6318; --text:#2A2820; --text2:#5A5648; --border:rgba(74,103,65,.18); }
+  :root { --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb); color-scheme: light; --green:#4A6741; --green3:#2C3D27; --cream:#F5F0E8; --amber:#B07A2A; --amber-ink: #8F6318; --text:#2A2820; --text2:#5A5648; --border:rgba(74,103,65,.18); }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--text); line-height:1.7; font-size:19px; -webkit-font-smoothing:antialiased; }
   .doc { max-width: 1120px; margin: 0 auto; padding: 44px 32px 80px; }
@@ -227,11 +227,12 @@
     <h2 style="border-bottom-color:rgba(168,201,160,.6);">Corporate Design</h2>
     <p style="color:var(--text2);font-size:16px;margin:6px 0 4px;">Diese Festlegungen tragen das Erscheinungsbild der Website, lassen sich aber <strong>nicht über die Sprint-Unterlagen belegen</strong> — sie stammen aus dem Projektspeicher (Teamfestlegung, Belegstufe S). Im Quellen-Overlay sind sie <span style="color:#4A6741;font-weight:600;">hellgrün</span> markiert.</p>
   <dl>
-    <div class="row"><dt>Schriften</dt><dd>Cormorant Garamond (Überschriften) · Jost (Text) · Georgia (Wortmarke „LebensZeit")</dd></div>
-    <div class="row"><dt>Farbpalette</dt><dd>Creme #F5F0E8 · Grün #4A6741 · Dunkelgrün #2C3D27 · Mint #A8C9A0 · Salbei #8AAC85 · Amber #B07A2A · Rot #8C3A2A</dd></div>
+    <div class="row"><dt>Schriften</dt><dd><strong>Cormorant Garamond</strong> als Display-Serif für Überschriften · <strong>Jost</strong> für Text und Bedienelemente · <strong>Georgia</strong> (Ersatz: Times New Roman) ausschließlich für die Wortmarke „LebensZeit". <em>Regel am 29.07.2026 erweitert:</em> Die Markenregel schrieb ursprünglich nur Georgia/Times vor; Cormorant ist jetzt ausdrücklich als Überschriftenschrift freigegeben, damit Logo und Seitentypografie nebeneinander bestehen können.</dd></div>
+    <div class="row"><dt>Farbpalette</dt><dd>Creme #F5F0E8 · Grün #4A6741 · Dunkelgrün #2C3D27 · Mint #A8C9A0 · Salbei #8AAC85 · Amber #B07A2A · Rot var(--red, #8C3A2A)</dd></div>
     <div class="row"><dt>Textfarben (barrierefrei)</dt><dd>Waldgrün <strong>#5A6E52</strong> (<code>--forest</code>) für kleine Auszeichnungen auf Creme · Amber-Text <strong>#8F6318</strong> (<code>--amber-ink</code>) statt #B07A2A für Text. Salbei und Amber bleiben Flächen-/Rahmenfarben — als Textfarbe auf Creme erreichen sie nur 2,2 bzw. 3,3 : 1.</dd></div>
     <div class="row"><dt>Logo-Lockup</dt><dd>Original ist <strong>vertikal</strong> (Pentagon oben, darunter vier Zeilen). Die Website nutzt eine <strong>horizontale Sekundärvariante</strong> (Symbol links, Text rechts) für Header und Footer — hiermit als offizielle Zweitvariante festgehalten. Die vierte Zeile „nah · vernetzt · nachhaltig" erscheint in der Kurzform nur im Footer.</dd></div>
     <div class="row"><dt>Logo</dt><dd>Pentagon-Netz, immer als SVG eingebaut (nie als JPEG/PNG), damit es scharf und farblich anpassbar bleibt</dd></div>
+    <div class="row"><dt>Verbindliche Geometrie</dt><dd>Die Vektordateien <code>logo-lebenszeit-symbol.svg</code>, <code>-horizontal.svg</code> und <code>-vertikal.svg</code> sind seit 29.07.2026 <strong>kanonisch</strong>. Grund: Das Original liegt nur als JPEG-Rendering vor, dessen Kompression selbst die Markenfarbe verfälscht (~#587269 statt #4A6741) — als Referenz untauglich. Knotenpositionen: 50/20 · 79/41 · 68/75 · 32/75 · 21/41 bei Radius 42.</dd></div>
     <div class="row"><dt>Logo-Farbregel</dt><dd>Erscheint <strong>nie in Weiß</strong>. Auf hellem Grund #4A6741 · auf dunkelgrünem Grund #A8C9A0 · im Dark Mode #8AAC85 · auf warmem Beige #5A6E52. Faustregel: auf dunklen Flächen heller, auf hellen Flächen dunkler.</dd></div>
     <div class="row"><dt>Sprachregelung</dt><dd>Strikt <strong>ambulant</strong> (nie „stationär") · <strong>Nachbarschaft</strong> (nicht „Quartier") · Stufen <strong>Basis / Aktiv / Premium</strong> (nie „Familie")</dd></div>
     <div class="row"><dt>Darstellungsregel</dt><dd>Pflegeumsatz und Fördermittel werden immer getrennt ausgewiesen, nie aggregiert</dd></div>

@@ -15,7 +15,7 @@
      Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
      ============================================================ -->
 <style>
-:root {
+:root { --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);
   /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
   --cream:    #F5F0E8;
   --cream2:   #EDE7D9;
@@ -293,7 +293,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 
 /* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: #8C3A2A; color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
 .fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
 .fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
 @keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
