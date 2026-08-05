@@ -290,6 +290,63 @@
       hinweis: "Belegt: 38 \u20ac/Std. Hilfskraft, 52 \u20ac/Std. examinierte Fachkraft; Sachleistungs-Caps je Pflegegrad auf S. 6, Abschnitt D.1 (761 / 1.432 / 1.778 / 2.200 \u20ac). Offen: Eigenanteil-Rechner und die 62 %\u219270 %-Br\u00fccke (Baustein 2).",
       todo: "preise" },
 
+    { page: "prompt-tagebuch", sel: ".sx-log", idx: 0, wert: "Session-Log Sprint 1 (24 Eintraege)", kat: "basis", ud: "ueberblick",
+      dok: "LebensZeit_Prompt_Tagebuch_Gesamt.html (Teamdokument)", seite: "\u2014", absch: "Session-Log", stand: "18.04.\u201302.06.2026", guete: "A",
+      hinweis: "Vollstaendig uebernommen: 24 Sessions mit Ziel, wortwoertlichem Prompt, Antwort, Ueberraschung, Fehlschlag, verbessertem Prompt, Ergebnis und Erkenntnis; 12 davon mit Claude als Kritiker. Feldstruktur folgt der Vorlage in Prompt_Tagebuch.pdf S. 1." },
+    { page: "prompt-tagebuch", sel: ".reflect", idx: 0, wert: "Abschluss-Reflexion", kat: "basis", ud: "ueberblick",
+      dok: "LebensZeit_Prompt_Tagebuch_Gesamt.html (Teamdokument)", seite: "\u2014", absch: "Was uns Sprint 1 gelehrt hat", stand: "Sprint 1", guete: "A",
+      hinweis: "Zusammengefuehrte Teamreflexion ohne Personenzuordnung. Kennzahl 24 Sessions und 12 Kritikereinsaetze direkt aus dem Log gezaehlt \u2014 fruehere Angabe 7 Sessions und 5 Kritikereinsaetze war ein veralteter Zwischenstand." },
+
+    /* --- Preise: Tabellen --- */
+    { page: "preise", sel: ".tbl-scroll", idx: 0, wert: "Leistungen & Kostentraeger", kat: "basis", ud: "leistungen",
+      dok: BD, seite: "3", absch: "Welche Leistungen erbringt LebensZeit?", stand: "Sprint 1", guete: "A",
+      extern: "SGB XI \u00a736 (Sachleistung) \u00b7 \u00a737.3 (Behandlungspflege) \u00b7 \u00a745b (Entlastungsbetrag)",
+      hinweis: "Belegt: Grund- und Behandlungspflege als Kernumsatz, Hauswirtschaft und Entlastungsleistungen nach \u00a745b, Beratungsbesuche \u00a737.3. Die Paragrafen selbst sind Gesetzestext." },
+    { page: "preise", sel: ".tbl-scroll", idx: 1, wert: "Selbstzahler-Saetze", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "4", absch: "A.4 Selbstzahler-Stundensatz", stand: "Sprint 1", guete: "A",
+      hinweis: "Belegt: 38 \u20ac/Std. Hilfskraft, 52 \u20ac/Std. examinierte Fachkraft. Sachleistungs-Caps je Pflegegrad auf S. 6, D.1 (761 / 1.432 / 1.778 / 2.200 \u20ac)." },
+
+    /* --- Planspiel: Sprint-Uebersicht --- */
+    { page: "sprints", sel: ".bst", idx: 0, wert: "Baustein 1 \u00b7 Markt- & Wettbewerbsanalyse", kat: "basis", ud: "ueberblick",
+      dok: "LebensZeit_SWOT_Analyse.pdf", seite: "2", absch: "Datenbasis \u00b7 Markt- & Wettbewerbsanalyse", stand: "Sprint 1", guete: "A",
+      hinweis: "Belegt: 10 Wettbewerber im KPI-Benchmark; ambulanter Markt ~14 Mrd \u20ac (Investorpitch S. 4). Vollstaendige Matrix in LebensZeit_Markt_Wettbewerbsanalyse.docx." },
+    { page: "sprints", sel: ".bst", idx: 1, wert: "Baustein 2 \u00b7 Porter's Five Forces", kat: "basis", ud: "kennzahlen",
+      dok: IP, seite: "9", absch: "Baustein 2 \u00b7 Five Forces \u00dcbersicht", stand: "Sprint 1", guete: "A",
+      hinweis: "Lieferantenmacht 4/5 \u00b7 Substitute 3/5 \u00b7 Wettbewerbsintensitaet 3/5 \u00b7 Neue Wettbewerber 2/5 \u00b7 Kundenmacht 2/5; Substitute und Rivalitaet zusaetzlich auf S. 11." },
+    { page: "sprints", sel: ".bst", idx: 2, wert: "Baustein 3 \u00b7 Zwei Personas", kat: "basis", ud: "ueberblick",
+      dok: "LebensZeit_Handout_Personas_neu.pdf", seite: "1", absch: "Baustein 3 \u00b7 Kundenprofile, Pitch-Handout", stand: "Juni 2026", guete: "A",
+      hinweis: "Belegt: Hildegard Stemmer (79, Pflegegrad 2, Ruethen-Meiste, Rente ~1.050 \u20ac) und Markus Doerre. Achtung: Das Cockpit fuehrt dieselbe Person mit 82 Jahren und Pflegegrad 3 \u2014 Abweichung klaeren.",
+      todo: "sprints" },
+    { page: "sprints", sel: ".bst", idx: 3, wert: "Baustein 4 \u00b7 SWOT & Stossrichtung", kat: "basis", ud: "annahmen",
+      dok: "LebensZeit_SWOT_Analyse.pdf", seite: "6", absch: "5 \u00b7 Strategische Stossrichtung & Fazit", stand: "Sprint 1", guete: "A",
+      hinweis: "Option C (Digitale Naehe) als Empfehlung: Baustein-1-Dokument S. 5, C als Speerspitze, getragen von A + B. TOWS-Matrix auf SWOT S. 5." },
+    { page: "sprints", sel: ".bst", idx: 4, wert: "Baustein 5 \u00b7 KI-Vorgehensmodell", kat: "basis", ud: "ueberblick",
+      dok: "Prompt_Tagebuch.pdf", seite: "1", absch: "4 \u00b7 Prompt-Tagebuch (Vorlage Sprint 1)", stand: "Sprint 1", guete: "A",
+      hinweis: "Die Vorlage schreibt Datum, Baustein, Prompt, Ergebnis, Kritikereinsatz und Erkenntnis je Session vor. Die ausgefuellten Sessions liegen in der Gesamtuebersicht des Teams." },
+    { page: "sprints", sel: ".bboard", idx: 0, wert: "Baustein-Board Sprint 2", kat: "basis", ud: "ueberblick",
+      dok: "2_Sprint_Unterlagen.pdf", seite: "4", absch: "2 \u00b7 Eure Aufgabe: Sprint 2 (Vertrieb & Marketing)", stand: "Sprint 2", guete: "A",
+      hinweis: "Die fuenf Bausteine und der Zeitraum stammen aus der Sprint-2-Aufgabenstellung. Ampel, Verantwortliche und Deadlines sind Teamplanung, nicht Vorgabe." },
+
+    /* --- Planspiel: Unternehmensdaten (je Unterreiter) --- */
+    { page: "unternehmensdaten", sel: '.udpanel[data-p="standorte"] .ud-block', idx: 0, wert: "Standortliste", kat: "basis", ud: "standorte",
+      dok: BD, seite: "2", absch: "1 \u00b7 Das Gesch\u00e4ftsmodell \u2014 einfach erkl\u00e4rt", stand: "Sprint 1", guete: "A",
+      hinweis: "Fuenf Standorte; Deckungsbeitraege je Standort auf S. 4, A.3." },
+    { page: "unternehmensdaten", sel: '.udpanel[data-p="kennzahlen"] .ud-block', idx: 0, wert: "Kennzahlen", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "4", absch: "A \u00b7 Finanz- & Kostenstruktur (A.1\u2013A.4)", stand: "Sprint 1", guete: "A",
+      hinweis: "Umsatz 2,10 Mio \u20ac, Eigenfinanzierung 62 %, Foerderanteil 38 %, Ergebnis je Standort, Selbstzahler-Saetze. Klientenzahlen auf S. 6, D.1." },
+    { page: "unternehmensdaten", sel: '.udpanel[data-p="team"] .ud-block', idx: 0, wert: "Team & Personal", kat: "basis", ud: "team",
+      dok: BD, seite: "7", absch: "F \u00b7 Personalstruktur (Detail)", stand: "Sprint 1", guete: "A",
+      hinweis: "56 besetzt bei Soll 64, davon 25 examiniert, 6 Azubis, 45 Ehrenamtliche; 8 offene Fachkraftstellen." },
+    { page: "unternehmensdaten", sel: '.udpanel[data-p="betrieb"] .ud-block', idx: 0, wert: "Betriebsparameter", kat: "basis", ud: "betrieb",
+      dok: BD, seite: "5", absch: "C \u00b7 Operative Basisparameter (C.1\u2013C.4)", stand: "Sprint 1", guete: "A",
+      hinweis: "Fahrzeugflotte, Schichtmodell ohne Nachtdienst, Software-Stack mit MediFox DAN, sieben Schluessellieferanten." },
+    { page: "unternehmensdaten", sel: '.udpanel[data-p="mitgliedschaft"] .ud-block', idx: 0, wert: "Mitgliedschaftsmodell", kat: "basis", ud: "mitgliedschaft",
+      dok: BD, seite: "5", absch: "B \u00b7 Mitgliedschaftsmodell", stand: "Sprint 1", guete: "A",
+      hinweis: "Tabelle mit 300 / 170 / 50 Mitgliedern und 52.800 \u20ac Beitragssumme; Leistungen je Stufe auf S. 3." },
+    { page: "unternehmensdaten", sel: '.udpanel[data-p="cd"] .ud-block', idx: 0, wert: "Corporate Design", kat: "cd", ud: "cd",
+      dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Corporate Design", stand: "laufend", guete: "S",
+      hinweis: "Schriften, Palette, Logo-Farbregel und Sprachregelung sind Teamfestlegungen. Logo und Claims sind in LebensZeit_Logo.pdf S. 1 abgebildet." },
+
     /* --- Unternehmensdaten --- */
     { page: "unternehmensdaten", sel: ".annahmen", idx: 0, wert: "Annahmen-Log (6 Werte)", kat: "annahme", ud: "annahmen",
       dok: BD, seite: "7", absch: "3 \u00b7 Annahmen & Konsistenz-Hinweise", stand: "Sprint 1", guete: "A",
@@ -333,16 +390,16 @@
       ".lz-src-badge:hover{transform:scale(1.08);}" +
       ".lz-src-pop{position:absolute;z-index:60;top:26px;right:0;width:265px;background:#fff;color:var(--text, #2A2820);border:1px solid rgba(74,103,65,.28);border-radius:12px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.2);font:400 13px/1.5 Jost,system-ui,sans-serif;text-align:left;}" +
       ".lz-src-pop h5{font:600 14px/1.3 Jost,system-ui,sans-serif;margin:0 0 6px;color:var(--green3, #2C3D27);}" +
-      ".lz-src-pop .kat{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#fff;border-radius:20px;padding:2px 9px;margin-bottom:8px;}" +
+      ".lz-src-pop .kat{display:inline-block;font-size:0.8rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#fff;border-radius:20px;padding:2px 9px;margin-bottom:8px;}" +
       ".lz-src-pop dl{margin:0;display:grid;grid-template-columns:58px 1fr;gap:3px 9px;}" +
-      ".lz-src-pop dt{color:var(--text3, #8A8478);font-size:11.5px;}" +
-      ".lz-src-pop dd{margin:0;font-size:12.5px;}" +
-      ".lz-src-pop dd.dok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;word-break:break-all;}" +
-      ".lz-src-pop .hint{margin-top:9px;font-size:12px;color:var(--text2, #5A5648);border-top:1px solid rgba(74,103,65,.14);padding-top:8px;}" +
+      ".lz-src-pop dt{color:var(--text3, #8A8478);font-size:0.8rem;}" +
+      ".lz-src-pop dd{margin:0;font-size:0.8rem;}" +
+      ".lz-src-pop dd.dok{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.8rem;word-break:break-all;}" +
+      ".lz-src-pop .hint{margin-top:9px;font-size:0.8rem;color:var(--text2, #5A5648);border-top:1px solid rgba(74,103,65,.14);padding-top:8px;}" +
       ".lz-src-pop .plinks{display:flex;flex-direction:column;gap:4px;margin-top:9px;}" +
-      ".lz-src-pop .udlink{font-size:12px;color:var(--green, #4A6741);font-weight:600;}" +
-      ".lz-src-pop .tlink{font-size:12px;color:var(--red, #8C3A2A);font-weight:500;}" +
-      ".lz-src-pop .cls{position:absolute;top:6px;right:9px;border:0;background:none;font-size:16px;color:var(--text3, #8A8478);cursor:pointer;line-height:1;}" +
+      ".lz-src-pop .udlink{font-size:0.8rem;color:var(--green, #4A6741);font-weight:600;}" +
+      ".lz-src-pop .tlink{font-size:0.8rem;color:var(--red, #8C3A2A);font-weight:500;}" +
+      ".lz-src-pop .cls{position:absolute;top:6px;right:9px;border:0;background:none;font-size:1rem;color:var(--text3, #8A8478);cursor:pointer;line-height:1;}" +
       ".lz-src-pulse{animation:lzSrcPulse 1.1s ease-out 2;}" +
       "@keyframes lzSrcPulse{0%,100%{box-shadow:0 0 0 0 rgba(176,122,42,0);}50%{box-shadow:0 0 0 7px rgba(176,122,42,.32);}}" +
       "@media(max-width:620px){.lz-src-pop{width:210px;}}";
@@ -422,7 +479,7 @@
     b.className = "fiktiv-note-toggle";
     b.id = "lzSrcToggle";
     b.setAttribute("role", "menuitem");
-    b.innerHTML = "<span>\u{1F50E} Datenquellen</span><span id=\"lzSrcState\">Aus</span>";
+    b.innerHTML = "<span><svg class=\"lz-ic\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"7\" cy=\"7\" r=\"4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><line x1=\"10.5\" y1=\"10.5\" x2=\"14\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.3\"/></svg>Datenquellen</span><span id=\"lzSrcState\">Aus</span>";
     b.addEventListener("click", function () { toggle(); });
     menu.appendChild(b);
     syncLabel();

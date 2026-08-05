@@ -13,19 +13,19 @@
       title: "Platzhalterzahlen der Vertrauensleiste",
       text: "Die Kennzahlen (24/7 · 5 Pflegegrade · 100 % · gGmbH) sind Platzhalter. Durch echte Werte aus dem Betriebs-Cockpit ersetzen." },
 
-    { id: "n-kundenportal-stub", page: "kundenportal", selector: "main", status: "auszubauen",
+    { id: "n-kundenportal-stub", page: "kundenportal", selector: "h1", status: "auszubauen",
       title: "Platzhalterseite Kundenportal",
       text: "Vorläufige Platzhalter-Seite. Portal-Funktionen (Login, Termine, Dokumente, Rechnungen, Nachrichten) in einem späteren Sprint ausbauen." },
 
-    { id: "n-markt-pg1", page: "investoren-markt", selector: "main", status: "spaeter",
+    { id: "n-markt-pg1", page: "investoren-markt", selector: ".kpi-row .kpi-item:nth-child(2)", status: "spaeter",
       title: "PG-1-/Beratungssegment fehlt",
       text: "~90 Klient:innen in Pflegegrad 1 bzw. reiner Beratung sind nicht als eigenes Segment ausgewiesen (180 = PG 2–5). Ergänzen oder bewusst ausklammern — Entscheidung offen." },
 
-    { id: "n-preise-rechner", page: "preise", selector: "main", status: "auszubauen",
+    { id: "n-preise-rechner", page: "preise", selector: ".tbl-scroll", status: "auszubauen",
       title: "Preis-Empfehlung + Herleitung (Baustein 2)",
       text: "Eigenanteil-Rechner bzw. Preis-Empfehlung ergänzen und die 62 %→70 %-Eigenfinanzierung nachvollziehbar offenlegen. Datenbasis liegt vor." },
 
-    { id: "n-sprints-kampagne", page: "sprints", selector: "main", status: "spaeter",
+    { id: "n-sprints-kampagne", page: "sprints", selector: ".bboard tbody tr:nth-child(3)", status: "spaeter",
       title: "Kampagne + 2 Assets (Baustein 3)",
       text: "Marketing-Kampagne plus zwei Assets und zwei KPIs — bislang kaum begonnen. Größte inhaltliche Lücke in Sprint 2." },
 
@@ -42,24 +42,24 @@
       title: "24/7-Versprechen ersetzt",
       text: "KI-Kritik: Laut Basisdaten kein Nachtdienst (nur Früh-/Spätdienst, Wochenende Rufbereitschaft), Hausnotruf nur Premium. „24/7 Erreichbarkeit im Notfall\" präzisieren oder streichen." },
 
-    { id: "n-index-usp", page: "index", selector: ".hero", status: "auszubauen",
+    { id: "n-index-usp", page: "index", selector: ".hero h1", status: "auszubauen",
       title: "USP zuspitzen (Baustein 1)",
       text: "KI-Kritik: Startseite noch generisch (vier Standardleistungen). Auf Option C zuspitzen — „Digitale Nähe – der sichtbare Pflegepartner für Angehörige\" (Persona Markus Dörre), nicht auf drei Säulen." },
 
-    { id: "n-aktuelles-grammatik", page: "aktuelles", selector: "main", status: "offen",
+    { id: "n-aktuelles-grammatik", page: "aktuelles", selector: "h1", status: "offen",
       title: "Grammatik: „aus der Nachbarschaft\"",
       text: "KI-Kritik: Überschrift „Neues aus dem Nachbarschaft\" → „Neues aus der Nachbarschaft\" korrigieren." },
 
-    { id: "n-ueberuns-oton", page: "ueber-uns", selector: "main", status: "spaeter",
+    { id: "n-ueberuns-oton", page: "ueber-uns", selector: ".lead-card", status: "spaeter",
       title: "O-Ton der Gründerin",
       text: "KI-Kritik (Kür): kurzes Zitat von Dr. Maria Holthaus „Warum ich LebensZeit gegründet habe\" erhöht Authentizität." },
 
     /* ----- Sprint-2-Bausteine ----- */
-    { id: "n-sprints-app", page: "sprints", selector: "main", status: "auszubauen",
+    { id: "n-sprints-app", page: "sprints", selector: ".bboard tbody tr:nth-child(4)", status: "auszubauen",
       title: "App-Prototyp V1→V3 (Baustein 4)",
       text: "Drei dokumentierte Iterationsstufen V1–V3 + KI-Persona-Feedback + Live-Klick im Pitch. Braucht einen Owner; V1 muss vor den Ferien stehen." },
 
-    { id: "n-sprints-reflexion", page: "sprints", selector: "main", status: "spaeter",
+    { id: "n-sprints-reflexion", page: "sprints", selector: ".bboard tbody tr:nth-child(5)", status: "spaeter",
       title: "Sprint-Reflexion (Baustein 5)",
       text: "„Was habt ihr anders gemacht als in Sprint 1?\" wird separat bewertet — geteiltes Prompt-Tagebuch ab Tag 1 führen, nicht rückwirkend." },
 
@@ -131,6 +131,44 @@
     { id: "n-done-tbl-scroll", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Tabellen mobil horizontal scrollbar",
       text: "21 Tabellen (bench, ptab, cockpit tbl) in .tbl-scroll gekapselt: overflow-x auto, min-width 560 px (Cockpit 620 px), duenne Scrollleiste in Markenfarbe, ab 760 px wieder ohne Mindestbreite. Vorher sprengte preise.html die Seite um 88 px und investoren-markt um 3 px; jetzt kein Seiten-Overflow mehr bei 390 px. Das Baustein-Board bleibt ausgenommen, es hat schon ein Karten-Layout fuer schmale Screens." },
+    /* ----- Designgrundlage v1 (05.08.2026) ----- */
+    { id: "n-done-tokens-public", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Designgrundlage v1 im oeffentlichen Bereich umgesetzt",
+      text: "lz-tokens.css als Einzelquelle eingebunden, eigene :root-Bloecke auf allen 15 oeffentlichen Seiten entfernt, body traegt env-public. 761 px-Schriftgroessen auf rem umgestellt, davon 163 auf die Untergrenze 0,80rem angehoben (kleinster Wert vorher 9 px). Radius 24px aus der Rolle, Bedienelemente mit --line-ui und 48px Tap-Ziel, Emojis durch SVG-Icons ersetzt, Fiktiv-Balken als lz-tick mit Pausensteuerung (96s, aria-pressed, prefers-reduced-motion). Nachgemessen: 1128 Kleintexte, kein Verstoss unter 4,5:1, keine px-Schriftgroesse mehr." },
+    { id: "n-tokens-weitere-umgebungen", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "Tokens auf die vier weiteren Umgebungen ausrollen",
+      text: "Noch offen laut Umsetzungsreihenfolge: env-invest (Investorenbereich), env-portal (Kundenportal), env-intern (Planspiel-Seiten) und env-cockpit. Im Cockpit betrifft das laut Designgrundlage 94 px-Deklarationen in 18 Groessen, davon 42 unter 12 px, sowie die Migration von neun Statustoenen auf vier." },
+    { id: "n-tokens-bruecke-abbauen", page: "allgemein", selector: "main", status: "spaeter",
+      title: "Kompatibilitaetsbruecke entfernen",
+      text: "lz-tokens.css enthaelt eine Bruecke, die Altnamen (--cream, --green, --text2 …) auf die semantischen Rollen abbildet, damit die Migration seitenweise laufen kann. Sobald alle Bauteile Rollen lesen, entfaellt Abschnitt 7 der Datei." },
+    { id: "n-tick-pause-groesse", page: "allgemein", selector: ".lz-tick-pause", status: "offen",
+      title: "Pausenknopf unterschreitet die eigene 0,8rem-Regel",
+      text: "Die Designgrundlage setzt fuer .lz-tick-pause font-size:.72rem (11,5 px) fest und verletzt damit ihre eigene Untergrenze von 0,80rem. Bewusst uebernommen wie geliefert. Entscheidung: entweder auf 0,8rem anheben oder die Ausnahme im Dokument benennen, wie beim 44px-Tap-Ziel im Cockpit." },
+    { id: "n-logo-kompaktvariante", page: "allgemein", selector: ".logo-lockup", status: "offen",
+      title: "Logo-Kompaktvariante fehlt",
+      text: "Designgrundlage, Umsetzungsfehler 2: Die Vollversion mit fuenfzehn Linien, zwei Ringen und Blatt wird im Header bei 38 px gezeichnet und ergibt einen Fleck. Vorgesehen ist die Vollversion ab 120 px, die Kompaktvariante fuer 24 bis 40 px. Kompaktes Emblem zeichnen und im Header einsetzen." },
+    /* ----- Rueckmeldungen 29.07. ----- */
+    { id: "n-done-pin-anker", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "To-Do-Marker sitzen jetzt am Text",
+      text: "Die meisten Notizen hatten selector main — der Pin landete dadurch am Seitencontainer statt am gemeinten Inhalt. Zwoelf Notizen haben praezise Anker bekommen (Ueberschrift, Chronik, Gruenderin-Karte, Board-Zeile, KPI-Kachel, Preistabelle). Ohne Treffer wird kein Streu-Pin mehr gesetzt." },
+    { id: "n-done-token-selbstbezug", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Unsichtbares Offen-Badge behoben",
+      text: "Ursache war ein Fehler aus meiner Token-Umstellung: In den :root-Definitionen standen selbstbezuegliche Deklarationen wie --red: var(--red, #8C3A2A). Dadurch war --red ungueltig und das Offen-Badge transparent. 171 Deklarationen in 28 Dateien repariert; Badge jetzt 7,63 : 1." },
+    { id: "n-done-todo-kategorien", page: "notizen", selector: "main", status: "auszubauen", done: true,
+      title: "To-Dos nach Kategorien sortiert und filterbar",
+      text: "Vierte Filtergruppe: Hauptseite, Zugaenge, Planspiel, Betriebs-Cockpit, Technik & Uebergreifend. Gruppen erscheinen in dieser Reihenfolge; jede Karte zeigt zusaetzlich Sprint- und Kategorie-Chip." },
+    { id: "n-done-cockpit-gf", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Cockpit-Login mit Geschaeftsfuehrung vorbelegt",
+      text: "Beim Aufruf ist Dr. Maria Holthaus vorausgewaehlt — damit sind ohne weiteren Klick alle 15 Module sichtbar." },
+    { id: "n-done-karte-oeffentlich", page: "einzugsgebiet", selector: ".loc-map", status: "auszubauen", done: true,
+      title: "Karte von internen Daten befreit",
+      text: "Einwohnerzahlen, Altersquoten, Durchschnittsalter, Trendbewertungen und interne Notizen sind aus der oeffentlichen Standortkarte entfernt. Die Popups zeigen jetzt Name, Rolle und Leistungsangebot. Im Cockpit bleiben die Kennzahlen erhalten." },
+    { id: "n-done-tagebuch-sprint1", page: "prompt-tagebuch", selector: ".sx-log", status: "auszubauen", done: true,
+      title: "Prompt-Tagebuch Sprint 1 eingearbeitet",
+      text: "24 Sessions aus dem Teamdokument im aktuellen Design uebernommen: aufklappbare Karten mit allen neun Feldern, Baustein- und Strategie-Chips, Kritiker-Kennzeichnung, plus die vier Prompt-Strategien und die Abschluss-Reflexion." },
+    { id: "n-persona-alter", page: "sprints", selector: ".bst", status: "offen",
+      title: "Hildegard Stemmer: Alter und Pflegegrad widersprechen sich",
+      text: "Das Personas-Handout (S. 1) fuehrt sie mit 79 Jahren und Pflegegrad 2 in Ruethen-Meiste, das Betriebs-Cockpit mit 82 Jahren und Pflegegrad 3. Auch das Session-Log nennt 79/PG 2. Vor dem Pitch auf einen Wert festlegen." },
     /* ----- Datenpruefung Five Forces & Investorenbereich ----- */
     { id: "n-done-inv-haupttext", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Investorenbereich: Haupttext vollstaendig verlinkt",
@@ -144,13 +182,13 @@
     { id: "n-done-quellen-investoren", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Investorenbereich auf Quellen geprueft",
       text: "Alle 13 Kennzahlen der sechs Investorenseiten gegen die Unterlagen geprueft und mit Datei, Seite, Abschnitt und Belegstufe in die Registry aufgenommen (jetzt 47 Datenpunkte)." },
-    { id: "n-inv-umsatz-je-fall", page: "investoren-kennzahlen", selector: ".kpi-item", status: "offen",
+    { id: "n-inv-umsatz-je-fall", page: "investoren-kennzahlen", selector: ".kpi-row .kpi-item:nth-child(3)", status: "offen",
       title: "11.700 EUR je Pflegefall mischt Foerdermittel ein",
       text: "Die Zahl ist belegt (SWOT S. 2: ~11.700 EUR je Fall, im Normbereich), entsteht aber aus Gesamtumsatz inklusive 38 % Foerdermitteln geteilt durch 180 Faelle. Aus reinem Pflegeumsatz (1,15 Mio EUR) waeren es ~6.400 EUR. Widerspricht der eigenen Regel, Pflegeumsatz und Foerdermittel getrennt auszuweisen — im Q&A angreifbar. Entweder beide Werte zeigen oder die Bezugsgroesse benennen." },
     { id: "n-inv-175mio", page: "investoren-markt", selector: ".bench", status: "offen",
       title: "Marktzeile 1,75 Mio ohne Beleg",
       text: "Die Makro-Tabelle nennt ambulante Dienste ~1,75 Mio (~35 % aller Pflegebeduerftigen) mit Quellenangabe Destatis 2021 — diese Zahl steht in keiner Sprint-Unterlage. Entweder Einzelnachweis nachtragen oder Zeile entfernen." },
-    { id: "n-inv-zieljahre", page: "investoren-finanzierung", selector: ".bench", status: "offen",
+    { id: "n-inv-zieljahre", page: "investoren-finanzierung", selector: ".bench:nth-of-type(1)", status: "offen",
       title: "Zieljahre und Foerderquote nicht belegt",
       text: "70 %+ Eigenfinanzierung ist belegt, die Jahreszahl 2027 nennt keine Unterlage. Foerderanteil strukturell unter 30 % ist plausibel (SWOT S. 2: Branche 20–25 %), aber nicht als Ziel dokumentiert. Belegt ist hingegen 8 Stellen bis Q4 2026 (SWOT S. 6). Vor dem Pitch entweder herleiten oder Zeitangaben streichen." },
     { id: "n-inv-branchenschnitt", page: "investoren", selector: ".kpi-item", status: "offen", done: true,
@@ -278,21 +316,21 @@
     if (document.getElementById("lz-notes-css")) return;
     var css = "" +
       ".fiktiv-menu-sep{height:1px;background:rgba(168,201,160,.18);margin:4px 2px;}" +
-      ".fiktiv-note-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;color:var(--cream, #F5F0E8);background:rgba(176,122,42,.16);border:1px solid rgba(176,122,42,.45);border-radius:30px;padding:12px 18px;font:inherit;font-size:15px;letter-spacing:.3px;cursor:pointer;transition:background .12s,transform .12s;}" +
+      ".fiktiv-note-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;color:var(--cream, #F5F0E8);background:rgba(176,122,42,.16);border:1px solid rgba(176,122,42,.45);border-radius:30px;padding:12px 18px;font:inherit;font-size:0.94rem;letter-spacing:.3px;cursor:pointer;transition:background .12s,transform .12s;}" +
       ".fiktiv-note-toggle:hover{background:rgba(176,122,42,.3);transform:translateX(2px);}" +
       ".fiktiv-note-toggle #lzNotesState{font-weight:600;}" +
       ".lz-note-anchor{position:relative;}" +
-      ".lz-note-pin{display:none;position:absolute;top:10px;right:10px;z-index:40;width:30px;height:30px;border-radius:50%;border:2px solid var(--cream, #F5F0E8);background:var(--amber, #B07A2A);color:#fff;font-size:14px;line-height:1;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);}" +
+      ".lz-note-pin{display:none;position:absolute;top:10px;right:10px;z-index:40;width:30px;height:30px;border-radius:50%;border:2px solid var(--cream, #F5F0E8);background:var(--amber, #B07A2A);color:#fff;font-size:0.88rem;line-height:1;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);}" +
       ".lz-note-pin.s-offen{background:var(--red, #8C3A2A);}.lz-note-pin.s-auszubauen{background:var(--amber, #B07A2A);}.lz-note-pin.s-spaeter{background:var(--green, #4A6741);}" +
       "body.lz-notes-active .lz-note-pin{display:flex;animation:lzPinPulse 2.2s ease-in-out infinite;}" +
       "@keyframes lzPinPulse{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 0 rgba(176,122,42,.4);}50%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 7px rgba(176,122,42,0);}}" +
       ".lz-note-pop{position:absolute;top:48px;right:10px;z-index:41;width:300px;max-width:calc(100vw - 40px);background:#fff;color:var(--text, #2A2820);border:1px solid rgba(74,103,65,.18);border-radius:12px;padding:16px 18px 16px;box-shadow:0 20px 48px rgba(0,0,0,.22);text-align:left;font-family:'Jost',sans-serif;}" +
       ".lz-note-pop[hidden]{display:none;}" +
-      ".lz-note-badge{display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px;color:#fff;}" +
-      ".lz-note-pop h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--green3, #2C3D27);font-size:20px;margin:0 0 4px;line-height:1.2;}" +
-      ".lz-note-pop p{font-size:14px;line-height:1.55;color:var(--text2, #5A5648);margin:0 0 12px;}" +
-      ".lz-note-pop .lz-note-close{position:absolute;top:8px;right:10px;border:0;background:none;color:var(--text3, #8A8478);font-size:18px;cursor:pointer;line-height:1;}" +
-      ".lz-note-done-btn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;color:var(--green, #4A6741);background:rgba(74,103,65,.08);border:1px solid rgba(74,103,65,.25);border-radius:20px;padding:7px 14px;cursor:pointer;}" +
+      ".lz-note-badge{display:inline-block;font-size:0.8rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px;color:#fff;}" +
+      ".lz-note-pop h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--green3, #2C3D27);font-size:1.25rem;margin:0 0 4px;line-height:1.2;}" +
+      ".lz-note-pop p{font-size:0.88rem;line-height:1.55;color:var(--text2, #5A5648);margin:0 0 12px;}" +
+      ".lz-note-pop .lz-note-close{position:absolute;top:8px;right:10px;border:0;background:none;color:var(--text3, #8A8478);font-size:1.125rem;cursor:pointer;line-height:1;}" +
+      ".lz-note-done-btn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:0.8rem;color:var(--green, #4A6741);background:rgba(74,103,65,.08);border:1px solid rgba(74,103,65,.25);border-radius:20px;padding:7px 14px;cursor:pointer;}" +
       ".lz-note-done-btn:hover{background:rgba(74,103,65,.16);}";
     var el = document.createElement("style");
     el.id = "lz-notes-css";
@@ -308,12 +346,12 @@
       ".fiktiv-marquee{display:block;width:100%;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;background:var(--red, #8C3A2A);color:#fff;overflow:hidden;white-space:nowrap;}" +
       ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
       ".fiktiv-marquee .track{display:inline-block;padding:7px 0;animation:fiktivscroll 60s linear infinite;}" +
-      ".fiktiv-marquee .track span{font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:0 36px;}" +
+      ".fiktiv-marquee .track span{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;padding:0 36px;}" +
       "@keyframes fiktivscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}" +
       ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
       ".fiktiv-menu[hidden]{display:none;}" +
-      ".fiktiv-menu-h{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--sage, #8AAC85);padding:2px 6px 4px;}" +
-      ".fiktiv-menu a{display:block;color:var(--cream, #F5F0E8);background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:15px;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
+      ".fiktiv-menu-h{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage, #8AAC85);padding:2px 6px 4px;}" +
+      ".fiktiv-menu a{display:block;color:var(--cream, #F5F0E8);background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:0.94rem;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
       ".fiktiv-menu a:hover{background:var(--green, #4A6741);border-color:var(--green, #4A6741);transform:translateX(2px);color:#fff;}" +
       "@keyframes lzMenuIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}";
     var el = document.createElement("style"); el.id = "lz-bar-css"; el.textContent = css;
@@ -336,7 +374,7 @@
         "<a href='/notizen' role='menuitem'>To-Do's</a>" +
         "<a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>" +
         '<div class="fiktiv-menu-sep"></div>' +
-        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 To-Do\'s</span><span id="lzNotesState">Aus</span></button>' +
+        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class=\"lz-ic\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"1.5\" width=\"11\" height=\"13\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"5\" y1=\"5\" x2=\"11\" y2=\"5\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"5\" y1=\"8\" x2=\"11\" y2=\"8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"5\" y1=\"11\" x2=\"9\" y2=\"11\" stroke=\"currentColor\" stroke-width=\"1.2\"/></svg>To-Do\'s</span><span id="lzNotesState">Aus</span></button>' +
       '</div>';
     document.body.insertBefore(bar, document.body.firstChild);
     // Menü-Verhalten nur für die injizierte Leiste binden
@@ -369,7 +407,8 @@
     // pro Anker-Element Offset zählen (mehrere Notizen am selben Element)
     var offsetMap = new Map();
     mine.forEach(function (n) {
-      var host = document.querySelector(n.selector) || document.querySelector("main") || document.body;
+      var host = document.querySelector(n.selector);
+      if (!host) return;   // kein Treffer -> kein Streu-Pin; Punkt bleibt im Board sichtbar
       if (!host) return;
       host.classList.add("lz-note-anchor");
       var i = offsetMap.get(host) || 0; offsetMap.set(host, i + 1);

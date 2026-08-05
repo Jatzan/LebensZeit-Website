@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{ --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);--cream:#F5F0E8;--cream2:#EDE7D9;--green:#4A6741;--green2:#3A5233;--green3:#2C3D27;--mint:#A8C9A0; --forest: #5A6E52;--sage:#8AAC85;--amber:#B07A2A; --amber-ink: #8F6318;--red:var(--red, #8C3A2A);--text:#2A2820;--text2:#5A5648;--text3:#8A8478;--border:rgba(74,103,65,.18);}
+:root{ --red: #8C3A2A; --red-err: #A23; --cream-warm: #FBF4E6; --amber-deep: #6B4A12; --green-deep: #243120; --mint-soft: #cfe0cb;--cream:#F5F0E8;--cream2:#EDE7D9;--green:#4A6741;--green2:#3A5233;--green3:#2C3D27;--mint:#A8C9A0; --forest: #5A6E52;--sage:#8AAC85;--amber:#B07A2A; --amber-ink: #8F6318;--red: #8C3A2A;--text:#2A2820;--text2:#5A5648;--text3:#8A8478;--border:rgba(74,103,65,.18);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
 h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--green3);line-height:1.15;}
@@ -67,6 +67,36 @@ h2.sec{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gr
 .panel{display:none;}.panel.on{display:block;}
 footer{padding:26px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
 @media(max-width:600px){.reflect{grid-template-columns:repeat(2,1fr)}.session .kv,.rlist .row,.tmpl .row{grid-template-columns:1fr}}
+
+.sx-log{display:flex;flex-direction:column;gap:8px;margin-bottom:6px;}
+.sx{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.sx[open]{border-color:var(--sage);}
+.sx summary{display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;list-style:none;}
+.sx summary::-webkit-details-marker{display:none;}
+.sx summary:hover{background:var(--cream2);}
+.sx-no{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--sage);min-width:28px;}
+.sx-main{flex:1;display:flex;flex-direction:column;gap:5px;}
+.sx-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.sx-date{font-size:11.5px;color:var(--text2);letter-spacing:.4px;}
+.sx-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--green3);line-height:1.2;}
+.sx-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tg{font-size:10.5px;letter-spacing:.4px;padding:3px 9px;border-radius:20px;white-space:nowrap;font-weight:500;}
+.tg-b{background:var(--cream2);color:var(--green2);border:1px solid var(--border);}
+.tg-strat{background:rgba(74,103,65,.08);color:var(--forest);border:1px solid var(--border);}
+.tg-crit{background:rgba(74,103,65,.08);color:var(--text2);border:1px solid var(--border);}
+.tg-crit.yes{background:rgba(140,58,42,.10);color:var(--red);border-color:rgba(140,58,42,.30);}
+.sx-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.sx-caret{color:var(--sage);font-size:17px;transition:transform .15s;}
+.sx[open] .sx-caret{transform:rotate(90deg);}
+.sx-body{padding:2px 18px 18px;border-top:1px solid var(--border);}
+.fld{display:grid;grid-template-columns:190px 1fr;gap:8px 18px;padding:11px 0;border-bottom:1px solid rgba(74,103,65,.08);}
+.fld:last-child{border-bottom:0;}
+.fld-l{font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--text2);font-weight:500;}
+.fld-v{font-size:15px;color:var(--text);line-height:1.6;}
+.fld-v.fv-prompt{background:var(--cream2);border-radius:8px;padding:10px 13px;font-style:italic;}
+.fld-v.fv-insight{border-left:3px solid var(--sage);padding-left:12px;}
+.fld-v.fv-iter{border-left:3px solid var(--amber);padding-left:12px;}
+@media(max-width:640px){.fld{grid-template-columns:1fr;gap:3px}.sx summary{gap:9px;padding:12px 14px}.sx-title{font-size:17px}}
 </style>
 </head>
 <body>
@@ -101,56 +131,325 @@ footer{padding:26px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
   <section class="panel" data-p="1">
   <div class="meta">
     <span class="badge done">Sprint 1 · abgeschlossen</span>
-    <span class="badge info">7 dokumentierte Sessions</span>
+    <span class="badge info">24 dokumentierte Sessions</span>
+    <span class="badge info">18.04.–02.06.2026</span>
     <span class="badge info">Team LebensZeit</span>
   </div>
 
-  <h2 class="sec">Sprint 1 · Vorgehensmodell (5 Methoden)</h2>
+  <h2 class="sec">Eingesetzte Prompt-Strategien</h2>
+      <div class="card"><span class="no">01</span><h3>Iterativer Aufbau</h3><p>Ergebnisse in Stufen verfeinern statt in einem Wurf — Personas V1 bis V6, Prompts im Direktvergleich.</p></div>
+      <div class="card"><span class="no">02</span><h3>Expertenkontext &amp; Kontextpflege</h3><p>Rolle, Datenbasis und Ziel vorab setzen; die verbindlichen Basisdaten in jeder Session als Anker mitgeben.</p></div>
+      <div class="card"><span class="no">03</span><h3>Claude als Kritiker</h3><p>Getrennte Rollen: erst die eigene Analyse aufbauen, dann von Claude angreifen lassen (CEO Dr. Lehnert, Modus B).</p></div>
+      <div class="card"><span class="no">04</span><h3>Meta-Prompting (Prompt Creator)</h3><p>Den Prompt gemeinsam mit Claude entwickeln, statt ihn zu erraten — wirkungsvollste Methode des Sprints.</p></div>
 
-  <div class="card"><span class="no">01</span><h3>Kontext-Anker</h3><p>Sprint-Skript eingespielt und von Claude kritisch zusammenfassen lassen — als gemeinsame, verbindliche Datenbasis für alle folgenden Sessions.</p><span class="tag">Session 1 · Grundlage</span></div>
-  <div class="card"><span class="no">02</span><h3>Prompt-Creator-Methode</h3><p>Claude entwickelt den Prompt mit uns — durch Rückfragen zu Tiefe, Skala und Format. Unser wirkungsvollster Ansatz; macht schon den ersten Durchlauf verwertbar.</p><span class="tag">Session 2 · Basis aller Bausteine</span></div>
-  <div class="card"><span class="no">03</span><h3>Zwei-Stufen-Kritik</h3><p>Erst die Analyse aufbauen, dann Claude in getrennter Rolle angreifen lassen („Was würde ein kritischer Analyst bemängeln?"). Die Rollentrennung erzeugt schärfere Ergebnisse.</p><span class="tag">Session 3 · Pitch-ready in 4 Stufen</span></div>
-  <div class="card"><span class="no">04</span><h3>Iterieren &amp; Testen</h3><p>Nichts ungeprüft übernehmen: Personas dreistufig verfeinert, HTML-Outputs im Browser getestet. Hier fanden wir die blinden Flecken.</p><span class="tag">Sessions 4 + 5</span></div>
-  <div class="card"><span class="no">05</span><h3>Qualitätssicherung</h3><p>Querprüfungen und Konsistenzchecks über alle Bausteine — Zahlen, Begriffe und Aussagen gegen die verbindliche Datenbasis abgeglichen.</p><span class="tag">Sessions 1 · 6 · 7</span></div>
-
-  <h2 class="sec">Ausgewählte Sessions (dokumentiert)</h2>
-
-  <div class="session">
-    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color: var(--amber-ink);">Baustein 3 · Personas · 25.05.2026</span>
-    <dl class="kv">
-      <dt>Ziel</dt><dd>Die in der Selbstkritik gefundenen Schwächen der Personas beheben — Widersprüche als Muster, konkretes Scheitern-Moment, Kognition zeigen statt benennen.</dd>
-      <dt>Prompt (Auszug)</dt><dd><div class="prompt">„Schreibe beide Personas neu. Einzubauen: (1) innere Widersprüche als Muster, nicht als Einzelszene; (2) konkretes Scheitern-Moment mit Datum und Konsequenz; (3) Hildegards Kognition durch Szenen zeigen; (4) Strategiematrizen differenzieren."</div></dd>
-      <dt>Ergebnis</dt><dd>Hildegard Stemmer und Markus Dörre als pitch-reife Fassung (V6) — alle fünf Kritikpunkte aus der Selbstanalyse bereinigt.</dd>
-      <dt>Claude als Kritiker?</dt><dd>Ja — vorher explizit: „Bist du mit Hildegard und Markus zufrieden?" → fünf Schwachstellen benannt und behoben.</dd>
-      <dt>Erkenntnis</dt><dd>Iteration endet nicht, wenn das Ergebnis gut ist — sondern wenn der Kritiker keine neuen Argumente mehr findet.</dd>
-    </dl>
-  </div>
-
-  <div class="session">
-    <span class="tag" style="background:rgba(176,122,42,.1);border-color:rgba(176,122,42,.35);color: var(--amber-ink);">Baustein 3 · Prompt-Optimierung</span>
-    <dl class="kv">
-      <dt>Ziel</dt><dd>Aus einem vagen Persona-Prompt einen verwertbaren machen.</dd>
-      <dt>Schwächen erkannt</dt><dd>„Typischer Kunde" zu vage · kein Unternehmenskontext · Listenzwang · kein Ziel benannt · keine Iteration eingebaut.</dd>
-      <dt>Ergebnis</dt><dd>Optimiert um Expertenrolle, Kontext, Ziel, Job-to-be-done und regionalen Anker — der erste Durchlauf war sofort verwertbar (neue Persona Brigitte Feldkamp pitch-reifer als frühere nach zwei Iterationen).</dd>
-      <dt>Erkenntnis</dt><dd>Kontext + Ziel + Struktur + Qualitätsanker ergeben zusammen eine andere Antwort als jedes Element allein.</dd>
-    </dl>
+  <h2 class="sec">Session-Log · 24 Einträge</h2>
+  <p class="lead" style="font-size:15px;color:var(--text2);margin:0 0 14px;">Jeder Eintrag zum Aufklappen: Ziel, wortwörtlicher Prompt, Claudes Antwort, Überraschungen, Fehlschläge, verbesserter Prompt, Ergebnis und Erkenntnis.</p>
+  <div class="sx-log">
+      <details class="sx">
+        <summary>
+          <span class="sx-no">01</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">18.04.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Persona-Ersteinstieg (V1)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Iterativer Aufbau</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Eine erste Kundenpersona als Ausgangspunkt für die iterative Verfeinerung entwickeln.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Entwickle eine detaillierte Persona für einen typischen Kunden von LebensZeit. Struktur: Name, Alter, Beruf, Alltag, Bedürfnisse, Ängste, Erwartungen an uns, ein authentisches Zitat.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Lieferte zwei Personas: Hildegard Stemmer (79, Rüthen, Pflegegrad 2) und Markus Dörre (51, Bauleiter, pflegt seine Mutter in Lippetal). Vollständige Abschnitte, aber noch generisch, ohne Regionalbezug.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude erstellte unaufgefordert zwei Personas – und erkannte Markus als „unsichtbaren Kunden“: zahlt mit, entscheidet mit, wird nie direkt angesprochen.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Die Personas waren austauschbar – hätten für München oder Hamburg stehen können. Kein Hellweg-Bezug, keine Verbindung zu LebensZeits Schwachstellen.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Version 1 als Grundlage gesichert. Bedarf für regionale Vertiefung identifiziert.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein – in dieser Session noch als Produzent eingesetzt.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Der genaue Bezug zum eigenen Unternehmen fehlte komplett.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">02</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">18.04.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Regionale Vertiefung (V2)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Iterativer Aufbau</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Die Personas auf die Lebenswirklichkeit der Hellweg-Region zuschneiden – Infrastruktur, Ortsbezug, Schwachstellen verknüpfen.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Diese Personas sind noch zu generisch. Schärfe sie für die ländliche NRW-Realität: konkrete Ortsteile, Distanzen, ÖPNV-Situation, und baue direkte Bezüge zu den bekannten Schwachstellen von LebensZeit ein (defizitäre Standorte Rüthen und Lippetal, 8 offene Stellen, fehlende Digitalisierung).</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Rüthen-Meiste (380 Einwohner), Bus zweimal täglich, Supermarkt 8 km, kein Smartphone. Hildegard hat gehört, der Standort Rüthen habe Probleme. Markus fährt 68 km über die A44, landet auf der Mailbox.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Wie viel Glaubwürdigkeit durch konkrete Kilometer, Bustakte und Ortsteile entsteht – die Personas klingen plötzlich wie echte Menschen.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Der LebensZeit-Bezug war angedeutet, nicht strategisch. Hildegards Sorge um den Standort wirkte wie Dekoration, nicht wie ein Argument.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Guter Zwischenschritt für die strategische Verwertbarkeit und die Schwachstellen-Matrix.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein – Claude noch als Produzent, nicht als Gegenspieler.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Verortung ist kein Stilmittel, sondern Qualitätskriterium. „Ländlich in NRW“ ist kein Profil – „Rüthen-Meiste, 380 Einwohner, Bus zweimal täglich“ schon.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">03</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">18.04.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Strategische Verdichtung (V3)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Iterativer Aufbau</span><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Personas auf pitch-reife strategische Argumente verdichten: Jobs to be done, Schwachstellen-Matrix, Spannungsfelder.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Verdichte beide Personas auf strategische Argumente. Ergänze: (1) Job to be done als einen einzigen Satz – was kauft diese Person wirklich? (2) Eine Tabelle: Persona-Bedürfnis │ Schwachstelle LebensZeit │ Strategische Konsequenz. (3) Einen Satz, der das stärkste Spannungsfeld auf den Punkt bringt.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Hildegard kauft das Gefühl, noch nicht aufgeben zu müssen. Markus kauft Kontrolle aus der Distanz. Dazu Matrizen mit konkreten Konsequenzen (Bezugspflege-Modell, digitale Kurzkommunikation, Pflegelotse) und pitch-reife Spannungsfeld-Sätze.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Der Satz „Markus ist der unsichtbare Kunde von LebensZeit“ – nicht vom Team, von Claude. Sofort als stärkstes Argument identifiziert.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Die Tabellen beider Personas waren zu ähnlich – drei von vier Zeilen inhaltlich gleich (Ehrenamt, Fachkräftemangel doppelt).</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Kürze die Tabellen auf drei Spalten, mach die Konsequenzen handlungsorientierter. Differenziere: Hildegard adressiert interne Qualitätssicherung, Markus Angehörigenkommunikation als eigenständiges Produkt.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Matrizen klar unterschiedlich: Hildegard intern, Markus extern. Spannungsfelder werden deutlich.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude wurde gebeten, die Realisierbarkeit der Maßnahmen zu hinterfragen: Das Ehrenamtsnetzwerk als Brücke funktioniert nur strukturiert eingebunden – bei LebensZeit bisher nicht der Fall.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Job to be done ist der stärkste Verdichtungsschritt. Wer ihn nicht explizit formuliert, hat die Persona nicht verstanden.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">04</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">22.04.2026</span><span class="tg tg-b b-m">Markt &amp; Wettbewerb</span></span>
+            <span class="sx-title">Marktkennzahlen + interaktive Standortkarte</span>
+            <span class="sx-tags"><span class="tg tg-strat">Iterativer Aufbau</span><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Alle nötigen Kennzahlen für die Markt- &amp; Wettbewerbsanalyse zusammentragen, Standorte visualisieren.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">In diesem Projekt möchte ich an der Markt- und Wettbewerbsanalyse für LebensZeit gGmbH arbeiten. Suche mir alle nötigen Kennzahlen für eine solche Analyse zusammen. Beachte besonders die einzelnen Standorte. Konzentriere dich auch auf andere ansässige Pflegedienste und gib mir Kennzahlen wie Einwohnerzahl und Durchschnittsalter je Standort an.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">7-Kapitel-Dokument: Demografie je Standort (~60.900 Einwohner, ~3.995 Pflegebedürftige, ~3,0 Mio. € adressierbar), Makromarkt Deutschland (22 Kennzahlen), Regionalmarkt Kreis Soest, Wettbewerbsmatrix mit 10 Anbietern, KPI-Benchmark, strategische Implikationen.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Viele Informationen, die nicht direkt nachgefragt waren – Claude lieferte über das Geforderte hinaus.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">In dieser Session noch keine Fehlfunktion.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Aufbauend: Erstelle eine interaktive Karte zum Geschäftsgebiet. Kennzeichne die Standorte. Beim Klick sollen Einwohnerzahl, Anteil 65+ und Durchschnittsalter erscheinen.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Visualisierung der Ergebnisse als interaktive Standortkarte.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – beim kritischen Review behob Claude drei Schwächen der Karte: willkürlicher Versorgungskreis entfernt (verzerrte die Darstellung), Basiskarte auf CartoDB Voyager umgestellt, Balkenbreiten-Formel normalisiert.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Kritische Überprüfung ist Pflicht – deutliche optische Darstellungsfehler erkennt Claude nicht von selbst. Man gibt am besten vor, wie viel Ergebnis man haben will.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">05</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">02.05.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Kritische Selbstbefragung</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Die eigene Persona-Auswahl aktiv hinterfragen – Claude als Gegenposition, nicht als Bestätiger.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Bitte hinterfrage deine Antwort kritisch. Wieso wurden diese zwei Personas gewählt? Welche strategisch relevanteren Zielgruppen wurden möglicherweise übersehen?</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Hildegard und Markus sind Lehrbuch-Personas – naheliegend, nicht überraschend. Übersehen: Pflegefachkräfte (Schlüssel gegen Fachkräftemangel), Ehrenamtliche (Alleinstellung), Hausärzte als Zuweiser, Fördermittelgeber. Zudem: Beide Personas bestätigen LebensZeit – eine abwandernde Persona würde stärker zeigen, wo LebensZeit verliert.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Wie scharf Claude die eigene Entscheidung analysierte. Die Fachkraft-Persona als brisantere Alternative war ein echter blinder Fleck.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Wir möchten die Personas als Kundenprofil belassen (nicht Mitarbeiter-/Förderperspektive). Begründe, warum diese Entscheidung trotz der Kritik strategisch vertretbar ist.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Entscheidung bewusst bestätigt: Hildegard + Markus decken beide Entscheidungsebenen ab (Nutzer + Entscheider). Die Kritik hat den Wert der Entscheidung erhöht – sie ist jetzt begründet, nicht nur naheliegend.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude als aktiver Gegenspieler eingesetzt.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Eine Entscheidung, die man verteidigen kann, ist stärker als eine, die nie hinterfragt wurde. Kritiker-Einsatz ist Qualitätssicherung.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">06</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">06.05.2026</span><span class="tg tg-b b-m">Markt &amp; Wettbewerb</span></span>
+            <span class="sx-title">Wettbewerbs-Dashboard + kritische Korrektur</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Dynamisches Dashboard aus Marktkennzahlen mit Fokus auf die anderen Anbieter vor Ort – dann kritisch auf Fehler prüfen.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Baue ein Dashboard aus Marktkennzahlen, was du bisher über den Wettbewerb von LebensZeit weißt. Das Dashboard soll dynamisch sein und seinen Fokus auf die anderen Anbieter vor Ort haben. Wähle selbst Kennzahlen aus oder nutze die vorhandenen Analysen.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Aufgeräumtes Dashboard – aber mit Zähl- und Konsistenzfehlern.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Extrem gut aufgeräumtes Dashboard, aber wiederholende Kennzahlen und Fehler in der Zusammenfassung.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Einfaches Zählen scheiterte: „6 von 9 Wettbewerbern“ – es sind aber 10.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Überprüfe das Wettbewerbs-Dashboard kritisch auf mögliche Fehler – Inhalt und Darstellung. Gibt es Kennzahlen, die du anpassen würdest? Begründe kurz. Aktualisiere anschließend das Dashboard und korrigiere die Werte.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Claude fand selbst 10 Fehler u. a.: „Hochrelevante Rivalen 2“ → 3 (DRK fehlte); „Ø Wettbewerber/Standort 5,3“ → 6,0; „6 von 9“ → „6 von 10“; Graumarkt statt Diakonie als Direktkonkurrent; Förderanteil „–16 PP“ → „+16 PP“; Intensitätswerte an Präsenzmatrix angeglichen; Umsatzbalken skaliert. Zahlen danach korrekt.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude als zweite Expertise auf den eigenen Output angesetzt; lieferte eine 10-Punkte-Fehlerliste mit Begründung.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Auf den ersten Blick sah alles gut aus – man muss in die Tiefe gehen. Am besten mit einer zweiten Claude-Expertise gegenprüfen.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">07</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">13.05.2026</span><span class="tg tg-b b-r">Reflexion &amp; Tooling</span></span>
+            <span class="sx-title">Virtuellen CEO-Kritiker bauen (Dr. Lehnert)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Meta-Prompting (Prompt Creator)</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Gemeinsam mit Claude einen wiederverwendbaren Rollen-Prompt für einen kritischen Geschäftsführer/Investor entwickeln.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Du bist ein kompetenter Promptingenieur und stimmst das Ergebnis perfekt auf unsere Bedürfnisse ab. […] Erarbeite mit mir einen Prompt für einen virtuellen Geschäftsführer, der die Ergebnisse beurteilt und besonders kritisch hinterfragt. Gehe mit mir Schritt für Schritt die Punkte durch, die für einen erfolgreichen Prompt notwendig sind.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">7 Entscheidungsschritte, je eine Frage: 1 Rolle (kritisch-konstruktiver CEO, Pitch-Simulation) · 2 Persona (20 J. Pflege + 10 J. Investor) · 3 Kontext (inkl. Bewertungskriterien) · 4 Aufgabe (Modus A Zwischen-Check + Modus B Generalprobe) · 5 Prüfraster (KI-Einsatz als Hauptfokus) · 6 Ton (fordernd-respektvoll, Lob nur am Schluss) · 7 Leitplanken (7 harte Verbote gegen Gefälligkeit). Jeder Schritt erzwang eine einzige Entscheidung.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Menge an Zwischenschritten und das geführte Frage-Antwort-Vorgehen.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Vollständig konfigurierter, wiederverwendbarer CEO-Rollen-Prompt „Dr. Markus Lehnert“.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Jein – wir haben uns hier einen Kritiker gebaut, statt selbst zu kritisieren.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Prompt bauen lassen, wenn er häufiger eingesetzt werden soll und eine gute Grundstruktur braucht.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">08</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">15.05.2026</span><span class="tg tg-b b-r">Reflexion &amp; Tooling</span></span>
+            <span class="sx-title">Virtuellen Projektorganisator bauen (ORGA)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Meta-Prompting (Prompt Creator)</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Einen Rollen-Prompt für einen Projektorganisator entwickeln, der den KI-Umgang des Teams kritisch hinterfragt.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Du bist ein kompetenter Promptingenieur […]. Es soll ein Experte für Projektorganisation erstellt werden, der unser Vorgehen konstruktiv und kritisch hinterfragt. Fokus ist nicht die Analyse selbst, sondern unser Umgang mit KI. Bisher umgesetzt: 1. Eigenarbeit mit den Unterlagen 2. grobe Abstimmung + Aufgabenverteilung 3. wöchentliche Meetings. Erarbeite mit mir einen Prompt für einen virtuellen Organisator.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Runde 1: Grundgerüst (Rolle, Kontext, Stil) + 3 offene Stellschrauben. Runde 2: alle 3 aktiviert, 8 Detailfaktoren nachgefragt. Runde 3: Fakten geliefert (Datum, Tooling, Schmerzpunkte, Meeting-Takt) → finaler, auf die Team-Realität zugeschnittener Prompt.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Weniger Zwischenschritte und kein geführtes Q&amp;A wie beim CEO.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Die Idee kam zu spät, um in Sprint 1 noch produktiv eingesetzt zu werden.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Ergänzung des konkreten Team-Kontexts (Eigenarbeit → Abstimmung → Wochenmeetings), damit der Organisator an die Team-Realität angepasst ist.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Kontext passte den Prompt deutlich besser ans Team an. Was fehlte, zeigte sich aber erst nach dem ersten Durchlauf.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Wichtig: Kontext mitgeben. Ohne Team-Realität bleibt der Organisator generisch.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">09</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">15.05.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Prompt-Optimierung (Direktvergleich)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span><span class="tg tg-strat">Meta-Prompting (Prompt Creator)</span><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Den Original-Prompt analysieren, seine Schwächen benennen und einen strategisch überlegenen Prompt entwickeln.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Du bist Strategie- und Marketingexperte mit Schwerpunkt ambulante Pflege im ländlichen Deutschland. Entwickle eine detaillierte Kundenpersona für LebensZeit gGmbH […]. Ziel: Zeige, wo das Bedürfnis des Kunden direkt auf eine Schwachstelle trifft. Struktur: 1 Demografie · 2 Alltag &amp; Bedürfnisse (regionale Bezüge) · 3 Ängste &amp; Hemmschwellen · 4 Erwartungen an LebensZeit · 5 Job to be done (ein Satz) · 6 authentisches Zitat (westfälisch-zurückhaltend). Als Fließtext, nicht als Liste. Danach Tabelle: Bedürfnis │ Schwachstelle │ Konsequenz. Zum Schluss: stärkstes Spannungsfeld in einem Satz.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Claude benannte 5 Schwächen des Original-Prompts: (1) „typischer Kunde“ zu vage, (2) kein Unternehmenskontext, (3) Listenstruktur erzwingt Stichpunkte, (4) kein Ziel benannt, (5) keine Iteration eingebaut. Optimierter Prompt: Expertenrolle + Kontext + Ziel + Fließtext + Job-to-be-done-Pflichtfeld + regionaler Anker + Spannungsfeld-Tabelle.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Dass allein Unternehmenskontext + Zielformulierung den Output-Sprung von V1 auf V3 erklärt.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Der erste Optimierungsversuch war zu lang – zu viele Bedingungen auf einmal, wieder Stichpunkt-Output.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Fasse den Prompt aufs Wesentliche zusammen: Kontext in 3 Sätzen, Ziel in 1 Satz, Struktur als nummerierte Liste, eine Qualitätsanforderung pro Feld.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Direktvergleich Original vs. optimiert: Brigitte Feldkamp (neue Persona) war in einem Durchlauf pitch-reifer als Hildegard nach V1 und V2 zusammen.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude stellte den eigenen optimierten Output gegen den Original-Output und benannte die Qualitätsdifferenz selbst.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Kontext + Ziel + Struktur + Qualitätsanker ergeben zusammen eine andere Antwort als jedes Element allein. Ein guter Prompt ersetzt nicht alle Iterationen, macht aber den ersten Durchlauf verwertbar.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">10</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">19.05.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Logo-Design &amp; Markenregeln (SVG)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Ein SVG-Logo erstellen, das die Kernwerte nah · vernetzt · nachhaltig visualisiert und auf allen Hintergründen nutzbar ist.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">LebensZeit Logo – Pflichtregeln für alle Dokumente, Dashboards &amp; Präsentationen. Das Logo erscheint niemals in Weiß; die Farbe passt sich dem Hintergrund an. Der Schriftzug „LebensZeit“ verwendet immer eine Serifenschrift. [+ vollständige Farbregel]</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">SVG-Logo mit Pentagon-Signet (5 Netzwerkknoten), konzentrischen Ringen und Blattmotiv. Wordmark in Serife, gGmbH darunter, „PFLEGE · GESUNDHEIT · GEMEINSCHAFT“ und „nah · vernetzt · nachhaltig“ zentriert.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Die Tiefe der Symbolik – Claude erklärte selbst, dass die drei Ringe für Nähe, Vernetzung und Nachhaltigkeit stehen, ohne dass das vorgegeben war.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">In der ersten Version fehlte die Schreibweise „LebensZeit“ (großes Z), gGmbH war nicht direkt darunter. Zweimal nachiteriert.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Zentriere die drei Kernwerte unter dem gesamten Logo, setze gGmbH direkt unter LEBENSZEIT. Schreibe „LebensZeit“ zusammen, aber mit großem Z.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Finale Form mit korrekter Typografie, Anordnung und SVG-/PDF-Export.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein – rein gestalterische Iteration.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Präzise Formatierungsregeln vorab (Farbe, Font, Anordnung) sparen Iterationen. Claude denkt Symbolik eigenständig mit – das kann man nutzen.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">11</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">19.05.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Unternehmensanalyse / Skript-Zusammenfassung</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Aufgabenstellung und Unternehmensprofil aus dem Sprint-Skript zusammenfassen, kritisch prüfen und für spätere Sessions verankern.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">In unserem Aufgabenskript erhältst du erste Informationen zu unserer Firma. Schaue bitte kritisch über das Skript, fasse zusammen und notiere die wichtigsten Stichpunkte. Merke sie dir für spätere Aufgabenstellungen.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Strukturierte Zusammenfassung: Profil, 5 Standorte, Kernwerte, Stärken (Vertrauen, Flächendeckung, Ehrenamt), Baustellen (Rüthen/Lippetal defizitär, 8 offene Stellen, fehlende Digitalisierung), Sprint-Aufgaben, Pitch-Termin 15. Juni.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude erkannte ohne Nachfrage die Wechselwirkung der drei Herausforderungen (Förderabhängigkeit, Personal, Digitalisierung) als systemisches Risiko – nicht als drei isolierte Probleme.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Nichts – die Zusammenfassung war vollständig und direkt verwertbar.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – explizit um „kritische“ Prüfung gebeten. Claude identifizierte die Förderabhängigkeit als strukturelles, nicht nur operatives Problem.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Das Wort „kritisch“ im Prompt macht einen messbaren Unterschied: ohne liefert Claude Zusammenfassungen, mit liefert er Einschätzungen.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">12</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">25.05.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Personas neu (V6 – 5 Kritikpunkte behoben)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Iterativer Aufbau</span><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Die in der Selbstkritik gefundenen Schwächen beheben: innere Widersprüche als Muster, konkretes Scheitern-Moment, Kognition zeigen statt nennen.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Schreibe beide Personas neu. Einzubauen: (1) Innere Widersprüche als Muster, nicht als Einzel-Szene. (2) Konkretes Scheitern-Moment mit Datum und Konsequenz. (3) Hildegards Kognition durch Szenen zeigen, nicht benennen. (4) Strategiematrizen differenzieren: Hildegard intern, Markus Angehörigenkommunikation als Produkt.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Hildegard räumt auf, bevor jemand kommt; richtet Tabletten selbst – verwechselt zwei; Nachbarin-Lüge (liegt seit 3 Wochen im Krankenhaus). Markus: Förderantrag 3 Monate zu spät, 125 €/Monat entgangen; Spontanfahrt 68 km nur zum Nachsehen. Widerspruch als strukturelles Muster, nicht als Ausnahme.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">V5 hatte bei Hildegard noch eine Einzel-Szene statt eines Musters – musste nochmals iteriert werden.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Hildegards Widerspruch ist noch eine Szene, kein Muster. Schreib den Abschnitt so, dass klar wird: Das ist nicht eine Ausnahme – das ist, wie sie täglich lebt.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Alle 5 Kritikpunkte aus der Selbstanalyse bereinigt. Pitch-reife Gesamtfassung.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – explizit gefragt: „Bist du mit Hildegard und Markus zufrieden oder würdest du etwas anders machen?“ Claude nannte 5 Schwachstellen, die danach alle behoben wurden.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Iteration endet nicht, wenn das Ergebnis gut ist – sie endet, wenn der Kritiker keine neuen Argumente mehr findet.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">13</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">26.05.2026</span><span class="tg tg-b b-f">Five Forces</span></span>
+            <span class="sx-title">Prompt Creator – Five-Forces-Prompts entwickeln</span>
+            <span class="sx-tags"><span class="tg tg-strat">Meta-Prompting (Prompt Creator)</span><span class="tg tg-strat">Iterativer Aufbau</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Die bestmöglichen Prompts für die Five-Forces-Analyse iterativ entwickeln – durch gezielte Rückfragen von Claude.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Ich brauche einen richtig guten Prompt für Porters Five Forces. Sei mein Prompt Creator. Deine Aufgabe ist es, die bestmöglichen Prompts für meine Zwecke zu generieren. […] Frage mich zunächst, was meine Fragestellung ist, und verfeinere iterativ.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">4-stufiger Frage-Antwort-Dialog (Tiefe, Kritikformat, Skalierung, Outputformat), schrittweise Verfeinerung, am Ende zwei ausgearbeitete Prompts: Prompt 1 (Analyse) + Prompt 2 (kritischer Analyst).</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude schlug eigenständig die 1–5-Bewertungsskala vor und begründete, warum gerade sie für Wettbewerbsanalysen optimal ist.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Der erste Entwurf war zu generisch – erst nach Einspielung konkreter Wettbewerbsdaten aus den Projektdateien wurden die Prompts pitch-tauglich.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Iteration: Kontext aus Projektdateien (Wettbewerbsanalyse, Marktdaten) + Zeithorizont 1–5 Jahre + Investitionsfelder (Digitalisierung, Personal, Stabilität) ergänzt.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Zwei pitch-ready Prompts mit vollständigem Kontext, klarer Skalendefinition und investorentauglicher Formulierung.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Indirekt – hier wurde der Kritiker-Prompt (Prompt 2) erst erzeugt, aber noch nicht angewendet. Die eigentliche Gegenanalyse folgt zwei Sessions später.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Prompt Creator ist hochwirksam: Statt zu schreiben und zu hoffen, entwickelt man den Prompt gemeinsam mit Claude. Das Ergebnis ist spürbar schärfer.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">14</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">26.05.2026</span><span class="tg tg-b b-f">Five Forces</span></span>
+            <span class="sx-title">Five-Forces-Analyse (bewertet 1–5)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Vollständige, bewertete Five-Forces-Analyse mit Übersichtstabelle und strategischer Stoßrichtung (2026–2031).</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Du bist ein erfahrener Strategieberater mit Spezialisierung auf den deutschen Pflegemarkt. […] Analysiere die Wettbewerbssituation der LebensZeit gGmbH vollständig anhand von Porters Five Forces. [+ vollständiger Kontext, Skalendefinition, Outputformat]</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Vollständige Analyse: je Kraft 3–4 Sätze, 2 Argumente, Bewertung 1–5. Neue Wettbewerber 2/5, Lieferantenmacht 4/5, Kundenmacht 2/5, Substitute 3/5, Wettbewerbsintensität 3/5. Strategische Stoßrichtung: „Das Zeitfenster schließt sich bis 2028.“</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Die strategische Stoßrichtung war von Anfang an investorentauglich. Besonders stark: „Das Zeitfenster schließt sich bis 2028“ – knapp, präzise, Druck erzeugend.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Nichts Wesentliches – auf dem ersten Versuch vollständig und pitch-tauglich.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – direkt anschließend mit Prompt 2 (nächste Session). Der Kritiker-Dialog war Teil der geplanten Zwei-Stufen-Strategie.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Ein präzise vorbereiteter Prompt zahlt sich direkt aus. Vorbereitung schlägt Improvisation.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">15</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">26.05.2026</span><span class="tg tg-b b-f">Five Forces</span></span>
+            <span class="sx-title">Kritische Gegenanalyse (Investorenperspektive)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Claude als skeptischen Investor einsetzen: Schwachstellen der eigenen Analyse identifizieren, provokante Fragen + Antwortvorschläge.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Übernimm jetzt die Rolle eines kritischen Analysten, der die soeben erstellte Five-Forces-Analyse von LebensZeit kritisch hinterfragt. Identifiziere drei konkrete Schwachstellen […]. Formuliere provokante Investorenfragen […] und liefere überzeugende Antwortvorschläge.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">3 Blöcke: (1) Förderabhängigkeit – „70 %-Ziel in 6 Jahren nicht erreicht“ + Antwort. (2) Digitalisierungsrückstand – Querschnittswirkung auf alle drei Kräfte (blinder Fleck der eigenen Analyse). (3) Personalengpass – Wachstum strukturell blockiert. Fazit: Alle drei Risiken verstärken sich gegenseitig.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude identifizierte die Querschnittswirkung des Digitalisierungsrückstands als blinden Fleck – dieser Zusammenhang fehlte in der eigenen Analyse tatsächlich. Eine echte Erkenntnis, keine Wiederholung.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Die Kritik an der Förderabhängigkeit war etwas zu wohlwollend – im echten Pitch würde härter nachgebohrt.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – diese Session war vollständig als Kritiker-Modus konzipiert.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Den Kritiker-Modus erst NACH der eigenen Analyse zu starten (Zwei-Stufen-Strategie) ist deutlich wirksamer als gleichzeitig. Zuerst Position aufbauen, dann angreifen lassen.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">16</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">28.05.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Pitch-Dashboard (interaktives HTML)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Interaktives browserbasiertes Pitch-Dashboard erstellen – mit Logo, KPI-Kacheln, aufklappbaren Five-Forces-Karten und kritischer Analyse.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Bereite mir für den Pitch eine gute Präsentationsmöglichkeit vor. Nichts Alltägliches, etwas, womit ich überzeugen kann. Visuell gut aufgebaut, nicht kompliziert, einfach händelbar, mit unserem erarbeiteten Logo aus den Dateien.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Einseitiges HTML-Dashboard: Tab-Navigation (Five Forces / Kritische Analyse), KPI-Kacheln, aufklappbare Karten mit Ampelbewertung, dreispaltiger Kritikblock, Stoßrichtung im dunkelgrünen Abschlussblock. Downloadbar, offline-fähig.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Der erste Entwurf hatte einen kritischen Bug: UTF-8-Sonderzeichen (Umlaute, Gedankenstriche) wurden durch das Bash-Heredoc korrumpiert und machten den JavaScript-Code ungültig. Claude diagnostizierte das selbst und löste es über Python-basierte Dateiausgabe.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Beim ersten Export war das Dashboard nicht bedienbar – keine aufklappbaren Elemente. Ursache: korrumpierte UTF-8-Zeichen im JavaScript.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Da scheint etwas schiefgelaufen zu sein – das Dashboard ist nicht bedienbar, keine aufklappbaren Elemente. Kannst du das bitte überprüfen?</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Voll funktionierendes HTML-Dashboard mit validiertem JavaScript und korrekter UTF-8-Kodierung.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude wurde gebeten, den eigenen Code zu debuggen und die Fehlerursache zu benennen, nicht nur zu reparieren.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Technische Outputs immer testen, bevor man sie abliefert. Claude kann Bugs selbst diagnostizieren – aber nur, wenn man ihn auf das Problem hinweist.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">17</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">28.05.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Redeskript (3–4 Minuten)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span><span class="tg tg-strat">Iterativer Aufbau</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Getaktetes Redeskript für den Pitch – mit Timing, Dashboard-Aktionen, Sprechtexten, Investorenfragen und Antworten.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Baue mir jetzt bitte ein Redeskript zum Pitch. Insgesamt sollte die Präsentation nicht länger als 3–4 Minuten dauern!</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">6 Blöcke mit Timing (Eröffnung 0:00 → Abschluss 4:00), je Block Dashboard-Aktion, Sprechtext, Investorenfragen (rot) und Antworten (grün), plus Spicker-Tabelle und Kernsatz.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude integrierte die drei Investorenfragen aus der kritischen Analyse direkt in Block 4 – farbcodiert (rot Frage, grün Antwort). Kohärent über alle Sessions hinweg.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Nichts – auf Anhieb vollständig und im richtigen Zeitfenster.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja (indirekt) – das Skript integriert die Kritiker-Antworten aus der Gegenanalyse als Pitch-Sequenz.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Claude baut auf frühere Sessions auf, wenn man ihn in einem kohärenten Verlauf führt. Ohne die Kritiker-Session wäre das Skript deutlich schwächer.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">18</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">10.06.2026</span><span class="tg tg-b b-p">Personas</span></span>
+            <span class="sx-title">Investoren-Simulation Dr. Lehnert (Zwischen-Check B3)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Pitch-Schärfe der Personas durch simulierten Investoren-Check testen – Claude als Dr. Markus Lehnert (CEO &amp; Investor), Modus A.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">[Rollen-Prompt Dr. Markus Lehnert, Modus A – Zwischen-Check Baustein 3. Vollständiger Rollen-Prompt siehe Session „CEO-Kritiker bauen“.]</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Dr. Lehnert: „Baustein 3 ist der stärkste Einzelbaustein.“ Kritik: (1) Keine sichtbare Stelle, wo Claude falsch lag und das Team korrigiert hat. (2) Ehrenamtsnetzwerk als Lösung – 45 Ehrenamtliche für 180 Fälle, rechnet das? (3) Hildegards Dokumentationslücke muss als 90-Tage-Maßnahme in B4 auftauchen, sonst hängt der stärkste Satz in der Luft.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Die Haftungsfrage: „Kognitive Verschlechterung, niemand dokumentiert sie, Notfall passiert – war das vermeidbar?“ Das hatte das Team nicht auf dem Schirm.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Die erste Rollen-Antwort war zu weich – Nachschärfung nötig.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Bleib in der Rolle. Bewerte nur, was auf dem Tisch liegt. Keine Bestätigung ohne konkreten Bezug. (Du bist Dr. Lehnert, nicht mein Coach.)</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Drei konkrete Pitch-Lücken identifiziert, die ohne Simulation nicht aufgefallen wären – direkt in die Pitch-Vorbereitung eingeflossen.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude in der Investorenrolle ist die härteste Form der Kritiker-Nutzung in diesem Sprint.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Ein Pitch, der eine simulierte Investorenfrage nicht beantworten kann, wird die echte auch nicht beantworten. Besser jetzt scheitern als vor dem Gremium.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">19</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">12.06.2026</span><span class="tg tg-b b-s">SWOT &amp; Stoßrichtung</span></span>
+            <span class="sx-title">SWOT-Analyse als PDF</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Vollständige SWOT-Analyse aus allen Projektinformationen erstellen und als druckfertiges PDF im Corporate Design ausgeben.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Erstelle mir mit all den Infos, die du aus dem Projekt hast, eine astreine, perfekte SWOT-Analyse für das Unternehmen. Gib sie dann als PDF aus.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Sechsseitiges PDF im LebensZeit-Design: Unternehmensüberblick mit Kennzahlenkarten, farbcodierte SWOT-Matrix (intern/extern), Detailbewertungen, TOWS-Kombinationsstrategien und priorisierte Stoßrichtung 2026–2031.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude zog selbstständig alle Quellen aus dem Projekt zusammen (Steckbrief, Markt- &amp; Wettbewerbsanalyse, Five Forces) und quantifizierte – z. B. 38 % Förderabhängigkeit, ~4,5 % Marktdurchdringung – ohne Zahlenvorgabe.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Nichts – direkt verwertbar. Der bewusst offene Prompt funktionierte nur, weil Projektwissen und Design-Regeln bereits sauber hinterlegt waren.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein – die Qualitätsprüfung erfolgte durch Gegenlesen im Team.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Kurze Prompts reichen, wenn der Kontext stimmt: Die Arbeit steckt in der Pflege des Projektwissens, nicht in der Prompt-Länge.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">20</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">12.06.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Investorpitch 20 Minuten (PPTX)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span><span class="tg tg-strat">Iterativer Aufbau</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Professionellen 20-minütigen Investorpitch erstellen, der alle geforderten Themen aus Sprint 1 + 2 abbildet.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Du hast alle Infos im Projekt. Die Aufgabenstellung findest du in den Dateien Sprint 1 und Sprint 2. Erstelle den Investorpitch mit allen Themen, die enthalten sein sollen. Design findest du auch in den Dateien. Lese, verstehe und setze dann um. Es soll ein professioneller Investorpitch für ca. 20 Minuten sein, in dem alles abgebildet ist, was gefordert ist.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">PPTX im LebensZeit-Design mit allen Pflichtbausteinen beider Sprints – Markt &amp; Wettbewerb, Five Forces, Personas, SWOT &amp; Stoßrichtung, KI-Vorgehensmodell, Roadmap, Förderbedarf – inkl. Zeitbudget pro Abschnitt.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude las beide Aufgabenskripte eigenständig, ordnete jedem Baustein eigene Folien zu und plante die Redezeit mit – ohne vorgegebene Gliederung.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Teile der Daten waren veraltet: Der Pitch griff auf ältere Stände von Personas und SWOT zurück. Bei mehreren Dateiversionen wählt Claude nicht automatisch die aktuellste.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Passe den Investorpitch mit den Infos aus LebensZeit_Handout_Personas_neu.pdf und LebensZeit_SWOT_Analyse.pdf an. Die Daten waren noch falsch.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Aktualisierte Präsentation – Zahlen, Personas und SWOT konsistent. Durch explizite Dateinennung war die Korrektur in einem Schritt erledigt.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein – der Fehler fiel beim Gegenlesen auf; Korrektur durch gezielte Quellenangabe im Folge-Prompt.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">„Lese, verstehe und setze um“ funktioniert als Delegation – aber Versionskontrolle bleibt Teamaufgabe. Maßgebliche Datenquellen müssen im Prompt explizit benannt werden.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">21</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">12.06.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Handout + QR-Code</span>
+            <span class="sx-tags"><span class="tg tg-strat">Expertenkontext &amp; Kontextpflege</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Aus der fertigen Pitch-Präsentation ein kompaktes Investoren-Handout ableiten – plus QR-Code für den digitalen Zugriff.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Erstelle aus der Präsentation ein Handout + QR-Code zum Scannen, um an das Handout zu kommen.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Kompaktes Handout mit den Kernaussagen (Markt, Personas, SWOT, Stoßrichtung, Förderbedarf) im Corporate Design – plus selbst generierter QR-Code.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude erzeugte den QR-Code direkt per Code-Ausführung – kein externes Tool nötig. Aus einem Artefakt (PPTX) entstanden zwei Folgeformate in einem Schritt.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Ein QR-Code kann nur auf eine real erreichbare Adresse zeigen – der Link muss nach dem finalen Upload geprüft/aktualisiert werden.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Fertige Artefakte sind Ausgangspunkte, keine Endpunkte: Präsentation → Handout → QR-Code in einer Kette. Medienbrüche überbrückt ein einziger kurzer Prompt.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">22</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">12.06.2026</span><span class="tg tg-b b-r">Reflexion &amp; Tooling</span></span>
+            <span class="sx-title">Finale Überprüfung der Zusatzaufgaben</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Die Zusatz-Anforderungen aus dem Sprint-Skript prüfen und die Prompttagebücher auf Erledigung der Bausteine abgleichen.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Prüfe die Zusätze und Hinweise aus der Datei KI-Pionierzirkel_Sprint1_Unterlagen und prüfe die Prompttagebücher auf Erledigung der jeweiligen Aufgaben.</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Momentaufnahme auf Basis der damals hochgeladenen Dateien – kein Endstand. B1 ✅ (5 Strategien dokumentiert) · B2 ✅ (Zwei-Stufen-Dialog, im Redeskript integriert) · B3 ⚠️ (Endprodukt vorhanden; die Prozess-Doku im Personas-Tagebuch lag bereits vor, war zum Prüfzeitpunkt aber nicht im Projekt eingelesen) · B4 ❌ (kein dokumentierter Stoßrichtungs-Dialog) · B5 ⚠️ (Reflexion gut, explizites Vorgehensmodell fehlte).</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Nicht alle Dateien waren zum Prüfzeitpunkt im Projekt – der Befund ist eine Momentaufnahme. Das Personas-Tagebuch (B3-Prozess) existierte bereits, war hier aber nicht eingelesen.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – Claude prüfte die eigenen Projektergebnisse kritisch auf Vollständigkeit. Kein Rollen-Kritiker, aber ein echter Soll-Ist-Abgleich gegen die Aufgabenstellung.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Ein Vollständigkeits-Check ist nur so gut wie die bereitgestellten Quellen: B3 war längst dokumentiert – die Lücke lag in der Datei-Bereitstellung, nicht in der Arbeit. Lehre: Prüfquellen vor dem Audit vollständig ins Projekt laden und veraltete Doubletten entfernen.</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">23</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">12.06.2026</span><span class="tg tg-b b-t">Pitch-Material</span></span>
+            <span class="sx-title">Einheitliches Dashboard – finalen Prompt bauen</span>
+            <span class="sx-tags"><span class="tg tg-strat">Meta-Prompting (Prompt Creator)</span><span class="tg tg-strat">Iterativer Aufbau</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit">Produzent</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Einen Prompt entwickeln, der alle Ergebnisse in einem einzigen interaktiven Dashboard im Pitch-Design zusammenfasst.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Wir sind ein fiktives Unternehmen und sollen in einem Investorpitch unterschiedliche Ergebnisse vorstellen. Wesentliches Ziel ist, wie wir mit KI umgehen. Hilf mir, einen Prompt zu bauen, der das Ergebnis in einem einzigen interaktiven Dashboard zusammenfasst. Das Design soll aus der Datei zum Pitch übernommen werden. Die Startseite soll die Aufgaben zeigen; mit Klick auf einen Bereich wird die Erarbeitung eingebunden. Übernimm die Daten genau. [+ alle 5 Bausteine + Pitch-Anforderungen]</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Claude analysierte alle Projektdateien, identifizierte zunächst fehlende Infos und präzisierte über drei Multiple-Choice-Klärungsrunden: Detailtiefe (Ergebnis vs. Prozess), Personenzuordnung (keine), Claude-Dialoge (3 Beispiele + Anhang), Asset-Integration (Wettbewerbs-Dashboard + Standortkarte eingebettet), Inhaltstreue (exakt übernehmen, nur Format anpassen). Ergebnis: vollständig spezifizierter Prompt in Blockstruktur.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Claude fragte in einer Art Mini-Menü nach Details und parallel in langer Textform – das musste in zwei Schritten bearbeitet werden.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Ausführung des finalen Prompts scheiterte zunächst, weil das falsche Modell gewählt wurde, das das gesamte Tokenlimit ausschöpfte. Urlaubsabwesenheiten verhinderten vollständiges Zusammentragen.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Ergänzungen: 1. nicht relevant, wer was erarbeitet hat. 2. an der Präsentation orientieren. 3. drei Beispiele aus den Tagebüchern einbauen. 4. Assets integrieren. 5. Inhalt genau übernehmen, nur Format anpassen. Bei den Personas einen Bereich für zwei manuell einfügbare Videos ergänzen.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Finaler, vollständig spezifizierter Prompt.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Nein.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">In Textform antworten lassen, wenn man es ausführlich will; im Mini-Menü, wenn es schnell gehen soll (vorausgefüllte Antworten).</div></div></div>
+      </details>
+      <details class="sx">
+        <summary>
+          <span class="sx-no">24</span>
+          <span class="sx-main">
+            <span class="sx-meta"><span class="sx-date">12.06.2026</span><span class="tg tg-b b-r">Reflexion &amp; Tooling</span></span>
+            <span class="sx-title">Generalprobe Dr. Lehnert (Modus B)</span>
+            <span class="sx-tags"><span class="tg tg-strat">Claude als Kritiker</span></span>
+          </span>
+          <span class="sx-right"><span class="tg tg-crit yes">Kritiker ✓</span><span class="sx-caret">›</span></span>
+        </summary>
+        <div class="sx-body"><div class="fld"><div class="fld-l">Ziel der Session</div><div class="fld-v ">Gesamtergebnis aller Bausteine durch den konfigurierten CEO/Investor im Modus B prüfen – härteste Kritiker-Session des Sprints.</div></div><div class="fld"><div class="fld-l">Prompt (wortwörtlich)</div><div class="fld-v fv-prompt">Prüfe die Projekt-Anlagen in deiner Rolle als CEO. Modus B. Der Investorpitch dient als Basis. [Vollständiger Rollen-Prompt Dr. Markus Lehnert – siehe Session „CEO-Kritiker bauen“.]</div></div><div class="fld"><div class="fld-l">Claudes Antwort</div><div class="fld-v ">Strukturierte Generalprobe: Gesamteindruck, KI-Vorgehens-Check, Konsistenzprüfung, 7 harte Pitch-Fragen. Befunde: (1) Anlagen widersprechen sich – zwei Persona-Sets (Deck vs. Handout), „1 Stoßrichtung“ im Deck vs. „3 Säulen“ in SWOT/Redeskript; (2) Marktpotenzial-Rechnung inkonsistent (95,5 % unerschlossen nach Fällen vs. 70 % nach Umsatz); (3) dokumentierter Zählfehler „6 von 9“ steht trotz Korrektur-Session noch im Deck; (4) kein Investitionsbetrag im gesamten Pitch; (5) Personalrechnung für Ziel 300 Fälle fehlt; (6) Redeskript (3–4 Min, nur Five Forces) deckt das 20-Min-Format nicht. Positiv: Prompt-Creator + Zwei-Stufen-Kritik als echte Strategien, Roh-Tagebuch mit 10 Dashboard-Fehlern als stärkster KI-Nachweis, ehrliche Grenzen-Reflexion.</div></div><div class="fld"><div class="fld-l">Was hat überrascht?</div><div class="fld-v ">Fehler wurden teils erst im Abgleich der Daten zwischen den Dokumenten erkannt.</div></div><div class="fld"><div class="fld-l">Was hat nicht funktioniert?</div><div class="fld-v ">Noch nicht alle Dateien verfügbar; Anpassungen nur teilweise übernommen, weil eine vollständige Überarbeitung zu umfangreich gewesen wäre.</div></div><div class="fld"><div class="fld-l">Veränderter Prompt</div><div class="fld-v fv-prompt">Nur aktualisiert, nachdem Daten nachgereicht wurden.</div></div><div class="fld"><div class="fld-l">Ergebnis der Verbesserung</div><div class="fld-v fv-iter">Fehler rückläufig. Konkreter To-do-Stack vor dem Pitch: Anlagen konsolidieren, Potenzialrechnung vereinheitlichen, Investitionsbetrag beziffern.</div></div><div class="fld"><div class="fld-l">Claude als Kritiker?</div><div class="fld-v ">Ja – vollständige Generalprobe im konfigurierten CEO/Investor-Modus, härteste Kritiker-Session des Sprints.</div></div><div class="fld"><div class="fld-l">Erkenntnis</div><div class="fld-v fv-insight">Konsistenz zwischen den Dokumenten ist ein eigener Prüfschritt – KI-Outputs einzeln zu prüfen reicht nicht.</div></div></div>
+      </details>
   </div>
 
   <h2 class="sec">Abschluss-Reflexion (vor dem Pitch)</h2>
   <div class="reflect">
-    <div class="r"><div class="n">7</div><div class="l">Claude-Sessions gesamt</div></div>
-    <div class="r"><div class="n">5 / 7</div><div class="l">mit Claude als Kritiker</div></div>
+    <div class="r"><div class="n">24</div><div class="l">Claude-Sessions</div></div>
+    <div class="r"><div class="n">12 / 24</div><div class="l">mit Claude als Kritiker</div></div>
     <div class="r"><div class="n">3</div><div class="l">echte blinde Flecken</div></div>
     <div class="r"><div class="n">2</div><div class="l">Strategie-Änderungen</div></div>
   </div>
   <div class="rlist">
-    <div class="row"><dt>Wirkungsvollster Prompt</dt><dd>Prompt-Creator-Methode — Claude entwickelt den Prompt mit uns, statt ihn fertig zu übernehmen.</dd></div>
-    <div class="row"><dt>Blinde Flecken</dt><dd>Graumarkt · Digital als Querschnittswirkung · fehlende Entscheiderin-Persona (Angehörige).</dd></div>
-    <div class="row"><dt>Strategie-Änderungen</dt><dd>Von drei Säulen zu einer Stoßrichtung · Persona-Fokus auf Angehörige (Option C).</dd></div>
-    <div class="row"><dt>Grenzen von Claude</dt><dd>Ohne verbindliche Datenbasis driften Zahlen; erste Antworten oft zu generisch — erst Kontext-Anker, Iteration und Kritik machen sie pitch-reif.</dd></div>
-    <div class="row"><dt>Nächsten Sprint anders</dt><dd>Geteiltes Tagebuch ab Tag 1 (nicht rückwirkend) · ein App-Owner · Kritik ritualisieren (Investor-Roast, Persona-Kritik).</dd></div>
+    <div class="row"><dt>Wirkungsvollster Prompt</dt><dd>Prompt-Creator-Methode: Der Prompt wird gemeinsam mit Claude über gezielte Rückfragen entwickelt, statt ihn zu schreiben und zu hoffen — spürbar schärfer und wiederverwendbar (Five-Forces-Prompts, CEO- und Organisator-Rolle).</dd></div>
+    <div class="row"><dt>Zweitbester Prompt</dt><dd>Zwei-Stufen-Strategie: erst die eigene Analyse aufbauen, dann Claude als Kritiker dagegenhalten. Die Rollentrennung (Analyst gegen Investor) erzeugt deutlich schärfere Ergebnisse als ein kombinierter Prompt.</dd></div>
+    <div class="row"><dt>Blinde Flecken</dt><dd>Graumarkt als stilles Substitut · Digitalisierung als Querschnittswirkung statt Einzelmaßnahme · fehlende Entscheider-Persona (Angehörige).</dd></div>
+    <div class="row"><dt>Strategie-Änderungen</dt><dd>Von drei Säulen zu einer Stoßrichtung · Persona-Fokus auf die Angehörigen (Option C).</dd></div>
+    <div class="row"><dt>Grenzen von Claude</dt><dd>Ohne verbindliche Datenbasis driften Zahlen; erste Antworten sind oft zu generisch. Erst Kontext-Anker, Iteration und Kritik machen sie pitch-reif.</dd></div>
+    <div class="row"><dt>Nächsten Sprint anders</dt><dd>Geteiltes Tagebuch ab Tag 1 statt rückwirkend · ein Owner für den App-Prototyp · Kritik ritualisieren (Investor-Roast, Persona-Kritik).</dd></div>
   </div>
-
   </section>
 
   <section class="panel on" data-p="2">

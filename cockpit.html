@@ -313,7 +313,7 @@ body.alt #logoutBtn{border-color:#9aa;color:#334;background:#e8eef2;}
       <select id="loginSel" onchange="fillLogin()">
         <option value="disposition">Katrin Brandt · Disposition · Erwitte</option>
         <option value="pdl">Miriam Föcker · Pflegedienstleitung · Erwitte</option>
-        <option value="gf">Dr. Maria Holthaus · Geschäftsführung · Erwitte</option>
+        <option value="gf" selected>Dr. Maria Holthaus · Geschäftsführung · Erwitte</option>
         <option value="pflegekraft">Elif Yilmaz · Pflegekraft (exam.) · Erwitte</option>
         <option value="ehrenamt">Sandra Föcker · Ehrenamtskoordination · Erwitte</option>
         <option value="community">Tanja Middendorf · Mitglieder &amp; Community · Erwitte</option>
@@ -398,7 +398,7 @@ const svgIc=k=>`<svg class="ic" viewBox="0 0 17 17" fill="none" stroke-width="1.
 function logoSVG(c,s){return `<svg width="${s}" height="${s}" viewBox="0 0 200 200"><g stroke="${c}" fill="none" stroke-width="6"><circle cx="100" cy="100" r="88"/><circle cx="100" cy="100" r="72" stroke-width="3" opacity=".7"/></g><g stroke="${c}" stroke-width="2.4" opacity=".8"><line x1="100" y1="28" x2="168.5" y2="77.8"/><line x1="168.5" y1="77.8" x2="142.3" y2="158.3"/><line x1="142.3" y1="158.3" x2="57.7" y2="158.3"/><line x1="57.7" y1="158.3" x2="31.5" y2="77.8"/><line x1="31.5" y1="77.8" x2="100" y2="28"/><line x1="100" y1="28" x2="142.3" y2="158.3"/><line x1="100" y1="28" x2="57.7" y2="158.3"/><line x1="168.5" y1="77.8" x2="31.5" y2="77.8"/><line x1="168.5" y1="77.8" x2="57.7" y2="158.3"/><line x1="31.5" y1="77.8" x2="142.3" y2="158.3"/><line x1="100" y1="28" x2="100" y2="100"/><line x1="168.5" y1="77.8" x2="100" y2="100"/><line x1="142.3" y1="158.3" x2="100" y2="100"/><line x1="57.7" y1="158.3" x2="100" y2="100"/><line x1="31.5" y1="77.8" x2="100" y2="100"/></g><g fill="${c}"><circle cx="100" cy="28" r="9"/><circle cx="168.5" cy="77.8" r="9"/><circle cx="142.3" cy="158.3" r="9"/><circle cx="57.7" cy="158.3" r="9"/><circle cx="31.5" cy="77.8" r="9"/><circle cx="100" cy="106" r="13"/><path d="M100 58 C 90 72, 90 84, 100 94 C 110 84, 110 72, 100 58 Z"/></g></svg>`}
 
 /* ============ State ============ */
-let S={mode:"neu",mod:"home",sel:null,role:"disposition",lastRole:"disposition",ctab:null,exc:{}};
+let S={mode:"neu",mod:"home",sel:null,role:"gf",lastRole:"gf",ctab:null,exc:{}};
 /* ---- Rollen & Berechtigung Ebene A (Navigation) ---- */
 const PW="demo-2026";
 const ROLES={

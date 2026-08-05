@@ -20,15 +20,15 @@
   .popup-name { font-size: 14px; font-weight: 500; color: #1a1917; margin: 0 0 1px; }
   .popup-role { font-size: 11px; color: #888780; margin: 0; }
   .popup-body { padding: 10px 14px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .popup-stat { display: flex; flex-direction: column; }
-  .popup-stat-label { font-size: 10px; color: #888780; margin-bottom: 2px; }
-  .popup-stat-value { font-size: 17px; font-weight: 500; color: #1a1917; line-height: 1.2; }
-  .popup-stat-unit { font-size: 10px; color: #888780; }
-  .popup-bar-row { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 3px; }
-  .popup-bar-label { font-size: 10px; color: #888780; display: flex; justify-content: space-between; }
-  .bar-track { height: 5px; background: #f0ede8; border-radius: 3px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 3px; }
-  .popup-trend { grid-column: 1 / -1; font-size: 11px; padding: 6px 8px; border-radius: 6px; margin-top: 2px; }
+  
+  
+  
+  
+  
+  
+  
+  
+  
   .trend-neg { background: #FCEBEB; color: #791F1F; }
   .trend-pos { background: #EAF3DE; color: #27500A; }
   .trend-neu { background: #F1EFE8; color: #5F5E5A; }
@@ -42,7 +42,7 @@
 
 <div class="info-bar">
   <span style="font-weight: 500; font-size: 13px; color: #2A2820;">LebensZeit gGmbH — Geschäftsgebiet Hellweg/Soest</span>
-  <span style="font-size: 11px; color: #8A8478;">Klick auf Marker für Demografie-Details</span>
+  <span style="font-size: 11px; color: #8A8478;">Klick auf einen Marker zeigt das Leistungsangebot</span>
 </div>
 
 <div style="position: relative;">
@@ -50,7 +50,7 @@
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background: #4A6741;"></div> Hauptstandort</div>
     <div class="legend-item"><div class="legend-dot" style="background: #8AAC85;"></div> Standort</div>
-    <div class="legend-note">Einwohnerzahlen: Kreis Soest 2024<br>Altersquoten: Statistik NRW / IT.NRW</div>
+    <div class="legend-note"><br></div>
   </div>
 </div>
 
@@ -66,64 +66,39 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 const locations = [
   {
     name: "Erwitte",
+    angebot: "Grund- und Behandlungspflege · Beratung · Begegnungsort · Verwaltung",
     role: "Hauptstandort",
     lat: 51.6062, lng: 8.3403,
     color: "#4A6741",
-    einwohner: 16300,
-    anteil65: 23.1,
-    durchschnittsalter: 46.2,
-    trend: "Leicht wachsend (+0,44 %/J.)",
-    trendType: "pos",
-    note: "Kreisstraßenkreuz; Pflegebedarf wächst stetig"
-  },
+    },
   {
     name: "Bad Sassendorf",
+    angebot: "Grund- und Behandlungspflege · Beratung · Begegnungsort",
     role: "Standort",
     lat: 51.5886, lng: 8.1707,
     color: "#8AAC85",
-    einwohner: 12194,
-    anteil65: 33.0,
-    durchschnittsalter: 50.3,
-    trend: "Leicht wachsend (+0,70 %/J.)",
-    trendType: "pos",
-    note: "Älteste Gemeinde NRWs (Ø-Alter 50,3 J.) — höchste Pflegedichte"
-  },
+    },
   {
     name: "Anröchte",
+    angebot: "Grund- und Behandlungspflege · Beratung",
     role: "Standort",
     lat: 51.5622, lng: 8.3256,
     color: "#8AAC85",
-    einwohner: 10304,
-    anteil65: 24.5,
-    durchschnittsalter: 47.1,
-    trend: "Schrumpfend (−1,64 %/J.)",
-    trendType: "neg",
-    note: "Starker Bevölkerungsrückgang bis 2050 erwartet"
-  },
+    },
   {
     name: "Rüthen",
+    angebot: "Grund- und Behandlungspflege · Beratung",
     role: "Standort",
     lat: 51.4925, lng: 8.4370,
     color: "#8AAC85",
-    einwohner: 10290,
-    anteil65: 26.8,
-    durchschnittsalter: 48.4,
-    trend: "Schrumpfend (−3,66 %/J.)",
-    trendType: "neg",
-    note: "Ländlicher Raum — Teil der Flächendeckung"
-  },
+    },
   {
     name: "Lippetal",
+    angebot: "Grund- und Behandlungspflege · Beratung",
     role: "Standort",
     lat: 51.6637, lng: 8.1443,
     color: "#8AAC85",
-    einwohner: 11883,
-    anteil65: 25.6,
-    durchschnittsalter: 47.8,
-    trend: "Schrumpfend (−1,13 %/J.)",
-    trendType: "neg",
-    note: "Anbindung des nördlichen Einzugsgebiets"
-  }
+    }
 ];
 
 function makeIcon(color, isMain) {
@@ -144,35 +119,17 @@ locations.forEach(loc => {
   const isCrit = loc.trendType === "neg" && loc.role.includes("Kritisch");
   const marker = L.marker([loc.lat, loc.lng], { icon: makeIcon(loc.color, isMain) }).addTo(map);
 
-  const barWidth = Math.round((loc.anteil65 / 40) * 100);
-  const barColor = '#4A6741';
-  const trendClass = loc.trendType === 'pos' ? 'trend-pos' : loc.trendType === 'neg' ? 'trend-neg' : 'trend-neu';
+  
+  
+  
 
   const popup = `
-    <div class="popup-header">
-      <p class="popup-name">${loc.name} ${isMain ? '<span class="hs-badge">Hauptstandort</span>' : ''}</p>
-      <p class="popup-role">${loc.role}</p>
+    <div class="popup-head">
+      <div class="popup-title">${loc.name}</div>
+      <div class="popup-role">${loc.role}</div>
     </div>
-    <div class="popup-body">
-      <div class="popup-stat">
-        <span class="popup-stat-label">Einwohner</span>
-        <span class="popup-stat-value">${fmtNum(loc.einwohner)}</span>
-      </div>
-      <div class="popup-stat">
-        <span class="popup-stat-label">Ø-Alter</span>
-        <span class="popup-stat-value">${loc.durchschnittsalter.toFixed(1)} <span class="popup-stat-unit">Jahre</span></span>
-      </div>
-      <div class="popup-bar-row">
-        <div class="popup-bar-label">
-          <span>Anteil über 65 Jahre</span>
-          <span style="font-weight:500;color:#1a1917;">${loc.anteil65.toFixed(1)} %</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:${barWidth}%;background:${barColor};"></div></div>
-      </div>
-      <div class="popup-trend ${trendClass}" style="grid-column:1/-1;">
-        <strong>Trend:</strong> ${loc.trend}
-      </div>
-      <div style="grid-column:1/-1;font-size:11px;color:#5F5E5A;padding-top:2px;">${loc.note}</div>
+    <div style="padding:10px 2px 2px;font-size:12.5px;color:#3d3c38;line-height:1.5;">
+      ${loc.angebot}
     </div>
   `;
 

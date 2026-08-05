@@ -1,0 +1,347 @@
+/* ══════════════════════════════════════════════════════════════════════
+   LebensZeit gGmbH · Designtokens v1.0 · 05.08.2026
+   Eine Quelle für Website, Cockpit und App.
+   Alle Kontrastwerte nach WCAG 2.1 aus diesen Hexwerten gerechnet.
+
+   Aufbau:
+     1. Marken-Rohwerte   --lz-*      nie direkt im Bauteil verwenden
+     2. Semantische Rollen --surface, --text, --accent …   hier greifen Bauteile zu
+     3. Umgebungsklassen  .env-public .env-invest .env-portal .env-intern .env-cockpit
+   Regel: Ein Bauteil liest ausschließlich semantische Rollen.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── 1. Marken-Rohwerte ─────────────────────────────────────────── */
+
+  /* Flächen hell */
+  --lz-cream:        #F5F0E8;   /* Grundfläche öffentlich, Investoren */
+  --lz-cream-2:      #EDE7D9;   /* Karten, leichte Abhebung */
+  --lz-cream-3:      #E2D9C8;   /* dritte Ebene, Warnbalken hell */
+  --lz-cream-warm:   #FBF4E6;   /* Grundfläche Kundenportal */
+  --lz-parchment:    #D6CCBA;   /* Zierlinien, nur Emblem-Untergrund */
+  --lz-white:        #FFFFFF;   /* Grundfläche Planspiel-intern, Karten */
+
+  /* Grün — Markenfarbe, nie Status (Ausnahme siehe --status-ok im Cockpit) */
+  --lz-green:        #4A6741;   /* Primärgrün, Logo auf hell        5,60:1 auf Creme */
+  --lz-green-2:      #3A5233;   /* Labels, Eyebrows                 7,60:1 auf Creme */
+  --lz-green-3:      #2C3D27;   /* Überschriften, dunkle Vollflächen */
+  --lz-mint:         #A8C9A0;   /* Logo auf Dunkelgrün, Titel im Cockpit */
+  --lz-sage:         #8AAC85;   /* Logo auf Dunkel, Akzent im Cockpit */
+  --lz-forest:       #5A6E52;   /* Logo auf warmem Beige            5,07:1 auf Creme-warm */
+
+  /* Signal hell */
+  --lz-amber-ink:    #8C5E14;   /* Amber als Text                   4,97:1 auf Creme */
+  --lz-amber:        #B07A2A;   /* Amber als Fläche/Grafik, NICHT als Text (3,27:1) */
+  --lz-red:          #8C3A2A;   /* Risiko + Fläche des Fiktiv-Balkens */
+  --lz-info:         #33566B;   /* Termin, Petrol                   6,90:1 auf Creme */
+
+  /* Text hell */
+  --lz-ink:          #2A2820;   /* dunkelster Wert, kein Schwarz   13,01:1 auf Creme */
+  --lz-ink-2:        #5A5648;   /* Fließtext, Sekundär              6,47:1 auf Creme */
+  --lz-ink-3:        #8A8478;   /* nur ab 1,19rem oder nicht-Text   3,28:1 auf Creme */
+
+  /* Flächen Cockpit (dunkel, ratifiziert aus LZ Cockpit v2.5.0) */
+  --lz-night:        #151C17;   /* Grundfläche */
+  --lz-night-panel:  #1E2921;   /* Panel, Karte */
+  --lz-night-panel2: #243128;   /* zweite Panelebene, Hover, aktiv */
+  --lz-night-side:   #111813;   /* Seitenleiste, Fußzeile */
+  --lz-night-field:  #141C16;   /* Eingabefelder */
+  --lz-night-ink:    #DFE7DC;   /* Fließtext                       13,72:1 auf Nacht */
+  --lz-night-ink-2:  #93A493;   /* Sekundär, min. 0,8rem            6,59:1 auf Nacht */
+
+  /* Signal Cockpit — genau vier Tinten, keine weiteren */
+  --lz-st-ok:        #7FC389;   /* erledigt, besetzt                8,32:1 auf Nacht */
+  --lz-st-warn:      #E2B56A;   /* Beobachtung, anstehend           9,13:1 auf Nacht */
+  --lz-st-crit:      #F09595;   /* Risiko, Abweichung               7,80:1 auf Nacht */
+  --lz-st-info:      #9CC2CE;   /* Termin, Hinweis                  9,11:1 auf Nacht */
+
+  /* Rahmen — zwei Aufgaben, nicht eine */
+  --lz-hairline:     rgba(74,103,65,.28); /* Zier-Haarlinie, wirkt wie #C5CAB9, 1,48:1
+                                             NUR dekorativ. Nie einziger Rand eines Bedienelements. */
+  --lz-line-ui:      #6E8266;   /* Rand von Bedienelementen hell    3,67:1 auf Creme */
+  --lz-night-line:   #33443A;   /* Zier-Haarlinie dunkel            1,68:1 auf Nacht, dekorativ */
+  --lz-night-line-ui:#5B7666;   /* Rand von Bedienelementen dunkel  3,03:1 auf Panel */
+
+  /* ── 2. Schrift ─────────────────────────────────────────────────── */
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body:    'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mark:    Georgia, 'Times New Roman', serif;     /* ausschließlich Wortmarke */
+  --font-mono:    ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Größenleiter — keine Stufe unter 0,8rem, niemals px */
+  --fs-label:  0.80rem;   /* 12,8px · Label, Eyebrow, Tabellenkopf — absolute Untergrenze */
+  --fs-micro:  0.88rem;   /* 14,1px · Cockpit-Fließtext Desktop, Tabellenzelle */
+  --fs-ui:     0.94rem;   /* 15,0px · Bedienelemente, Nav */
+  --fs-base:   1.00rem;   /* 16,0px · Cockpit-Fließtext mobil, App-Grundwert */
+  --fs-public: 1.03rem;   /* 16,5px · Fließtext öffentlich, Investoren */
+  --fs-intern: 1.06rem;   /* 17,0px · Fließtext Planspiel-intern */
+  --fs-portal: 1.19rem;   /* 19,0px · Fließtext Kundenportal, größte Stufe */
+  --fs-h3:     1.38rem;   /* 22,1px */
+  --fs-h2:     1.75rem;   /* 28,0px · ab hier Displayziffern in Serif erlaubt */
+  --fs-h1:     2.25rem;   /* 36,0px */
+  --fs-display: clamp(2.1rem, 5vw, 3.4rem);
+
+  --lh-tight: 1.2;
+  --lh-dense: 1.45;   /* Cockpit */
+  --lh-body:  1.6;
+  --lh-read:  1.7;    /* Kundenportal */
+
+  --ls-label: .14em;  /* Versalien-Labels */
+  --ls-mark:  .08em;  /* Wortmarke */
+
+  /* ── 3. Abstände, Radien, Ziele ─────────────────────────────────── */
+  --sp-1: .25rem; --sp-2: .5rem;  --sp-3: .75rem; --sp-4: 1rem;
+  --sp-5: 1.5rem; --sp-6: 2rem;   --sp-8: 3rem;   --sp-10: 4rem;
+
+  --r-sm:   4px;    /* Cockpit */
+  --r:      14px;   /* Karten, Panels */
+  --r-lg:   24px;   /* öffentliche und Portalflächen */
+  --r-pill: 999px;
+
+  --tap:        48px;  /* Standard */
+  --tap-portal: 56px;  /* Kundenportal */
+  --tap-dense:  44px;  /* Cockpit am Zeigergerät — Ausnahme, dokumentiert */
+
+  --bp-sm: 600px; --bp-md: 900px; --bp-lg: 1200px;
+
+  /* ── 4. Semantische Standardrollen = Umgebung „öffentlich" ──────── */
+  --surface:   var(--lz-cream);
+  --surface-2: var(--lz-cream-2);
+  --surface-3: var(--lz-cream-3);
+  --panel:     var(--lz-white);
+  --text:      var(--lz-ink);
+  --text-2:    var(--lz-ink-2);
+  --text-3:    var(--lz-ink-3);
+  --accent:    var(--lz-green);
+  --accent-ink:var(--lz-green-2);
+  --heading:   var(--lz-green-3);
+  --logo:      var(--lz-green);
+  --line:      var(--lz-hairline);
+  --line-ui:   var(--lz-line-ui);
+  --status-warn: var(--lz-amber-ink);
+  --status-crit: var(--lz-red);
+  --status-info: var(--lz-info);
+  --radius:    var(--r-lg);
+  --fs-body:   var(--fs-public);
+  --lh-body-env: var(--lh-body);
+  --tap-env:   var(--tap);
+  color-scheme: light;
+}
+
+/* ══ 3. Umgebungsklassen ════════════════════════════════════════════ */
+
+/* 01 Öffentlich — Klienten und Angehörige */
+.env-public{ /* entspricht den Standardwerten oben */ }
+
+/* 02 Investoren — Kapitalgeber und Zuweiser */
+.env-invest{
+  --accent:    var(--lz-amber-ink);
+  --accent-ink:var(--lz-amber-ink);
+  --radius:    var(--r);
+}
+
+/* 03 Kundenportal — eingeloggt, Zielgruppe über 75 */
+.env-portal{
+  --surface:   var(--lz-cream-warm);
+  --surface-2: var(--lz-white);
+  --logo:      var(--lz-forest);      /* warmes Beige → Waldgrün */
+  --fs-body:   var(--fs-portal);
+  --lh-body-env: var(--lh-read);
+  --tap-env:   var(--tap-portal);
+  --radius:    var(--r-lg);
+}
+
+/* 04 Planspiel-intern — Team, Dokumentation, Datenquelle */
+.env-intern{
+  --surface:   var(--lz-white);
+  --surface-2: var(--lz-cream);
+  --accent:    var(--lz-amber-ink);
+  --accent-ink:var(--lz-amber-ink);
+  --fs-body:   var(--fs-intern);
+  --radius:    var(--r);
+}
+
+/* 05 Betriebs-Cockpit — dauerhaft dunkel, kein Hellmodus */
+.env-cockpit{
+  color-scheme: dark;
+  --surface:   var(--lz-night);
+  --surface-2: var(--lz-night-panel);
+  --surface-3: var(--lz-night-panel2);
+  --panel:     var(--lz-night-panel);
+  --side:      var(--lz-night-side);
+  --field:     var(--lz-night-field);
+  --text:      var(--lz-night-ink);
+  --text-2:    var(--lz-night-ink-2);
+  --text-3:    var(--lz-night-ink-2);   /* im Dunkeln fallen 2 und 3 zusammen */
+  --accent:    var(--lz-sage);
+  --accent-ink:var(--lz-sage);
+  --heading:   var(--lz-mint);
+  --logo:      var(--lz-sage);
+  --line:      var(--lz-night-line);
+  --line-ui:   var(--lz-night-line-ui);
+  --status-ok:   var(--lz-st-ok);
+  --status-warn: var(--lz-st-warn);
+  --status-crit: var(--lz-st-crit);
+  --status-info: var(--lz-st-info);
+  --radius:    var(--r-sm);
+  --fs-body:   var(--fs-micro);
+  --lh-body-env: var(--lh-dense);
+  --tap-env:   var(--tap-dense);
+}
+/* Cockpit mobil: Fließtext und Tap-Ziel hoch, Dichte runter */
+@media (max-width: 900px){
+  .env-cockpit{ --fs-body: var(--fs-base); --tap-env: var(--tap); }
+}
+@media (pointer: coarse){
+  .env-cockpit{ --tap-env: var(--tap); }
+}
+
+/* ══ 4. Statustönungen ══════════════════════════════════════════════ */
+.env-cockpit{
+  --tint-ok:   rgba(127,195,137,.16);   /* Tinte darauf 5,19:1 */
+  --tint-warn: rgba(226,181,106,.16);   /* 5,68:1 */
+  --tint-crit: rgba(240,149,149,.16);   /* 5,04:1 */
+  --tint-info: rgba(156,194,206,.16);   /* 5,63:1 */
+}
+.env-public,.env-invest,.env-portal,.env-intern{
+  --tint-warn: rgba(140,94,20,.10);
+  --tint-crit: rgba(140,58,42,.10);
+  --tint-info: rgba(51,86,107,.10);
+  --wash:      rgba(74,103,65,.07);     /* getönte Sektionsfläche, trägt keinen eigenen Text */
+}
+
+/* ══ 4b. Datenvisualisierung ════════════════════════════════════════
+   Serienfarben sind KEINE Markenfarben. Markengrün hat in OKLCH eine
+   Chroma von 0,068 und liest sich als Serienfarbe grau — es ist als
+   Datenfarbe untauglich und wird nur als Hervorhebung verwendet.
+
+   Reihenfolge ist fest und wird nie im Kreis vergeben.
+   Geprüft mit Helligkeitsband, Chroma-Boden, Farbfehlsicht-Abstand
+   (Protanopie/Deuteranopie), Normalsicht-Boden und Flächenkontrast.
+   Auflage: Paar Teal↔Rot liegt im Toleranzband 6–8 → direkte Werte
+   am Balken oder Tabellenansicht sind Pflicht.
+
+   Karten, Streu- und Bubblediagramme: höchstens zwei Serienfarben.
+   Nominale Balken: ein Ton, Wert als Zahl daneben.
+   Status und Serie nie in derselben Rolle — drei Kreuzpaare liegen
+   unter dem Unterscheidungsboden (12,2 bis 14,5). */
+:root{
+  --series-1: #185FA5;  /* Blau    · Marktdaten, Extern */
+  --series-2: #B87A15;  /* Amber   */
+  --series-3: #0A8A66;  /* Teal    · Versorgung */
+  --series-4: #B03A2E;  /* Rot     */
+  --series-5: #6B5BD6;  /* Violett · Digitales */
+  --series-6: #6E9424;  /* Oliv    */
+  --series-highlight: var(--lz-green);  /* LebensZeit-Hervorhebung, keine Serie */
+  --grid: var(--lz-hairline);
+}
+.env-cockpit{
+  --series-1: #3A86CC;
+  --series-2: #B8862C;
+  --series-3: #189A76;
+  --series-4: #D06A62;
+  --series-5: #8172D8;
+  --series-6: #7A9E2E;
+  --series-highlight: var(--lz-sage);
+  --grid: var(--lz-night-line);
+}
+
+/* ══ 5. Grundlagen ═════════════════════════════════════════════════ */
+body{
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body-env);
+}
+h1,h2,h3{ font-family: var(--font-display); color: var(--heading); line-height: var(--lh-tight); font-weight: 400 }
+h1{font-size:var(--fs-h1)} h2{font-size:var(--fs-h2)} h3{font-size:var(--fs-h3);font-weight:500}
+
+.lz-mark{ font-family: var(--font-mark); letter-spacing: var(--ls-mark); font-weight: 400 }
+.lz-label{ font-size: var(--fs-label); letter-spacing: var(--ls-label); text-transform: uppercase;
+           font-weight: 600; color: var(--accent-ink) }
+.lz-figure{ font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2);
+            line-height: 1; color: var(--accent) }        /* Displayziffer, nur ab 1,75rem */
+.lz-num{ font-variant-numeric: tabular-nums }             /* jede Tabellen- und Betriebsziffer */
+
+/* Bedienelemente: Rand ist --line-ui, nie --line */
+button, input, select, textarea, [role="switch"], [role="tab"]{
+  min-height: var(--tap-env);
+  border: 1px solid var(--line-ui);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: var(--fs-ui);
+}
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm) }
+hr{ border:0; border-top:1px solid var(--line) }
+
+/* Logo: Farbe kommt ausschließlich vom Container */
+.lz-logo{ color: var(--logo) }
+.lz-logo svg{ fill: currentColor; stroke: currentColor }
+
+/* ══ 6. Fiktiv-Balken ══════════════════════════════════════════════
+   Rot ist hier Fläche. Rot als Text bleibt Status — beides trifft sich nie. */
+.lz-tick{
+  position: relative; overflow: hidden;
+  background: var(--lz-red); color: var(--lz-cream);
+  border-bottom: 1px solid rgba(245,240,232,.28);
+}
+.env-cockpit .lz-tick{ border-top:1px solid rgba(223,231,220,.5); border-bottom:1px solid rgba(223,231,220,.5) }
+.lz-tick-track{
+  display:flex; gap:3.5rem; white-space:nowrap; padding:.55rem 0;
+  font-size:var(--fs-label); letter-spacing:.16em; text-transform:uppercase; font-weight:600;
+  animation: lz-tick 96s linear infinite;               /* Minimum an Bewegung */
+}
+.lz-tick:hover .lz-tick-track,
+.lz-tick:focus-within .lz-tick-track,
+.lz-tick.is-paused .lz-tick-track{ animation-play-state: paused }
+.lz-tick a{ color: var(--lz-cream-3); text-decoration: underline; text-underline-offset:3px }
+.lz-tick-pause{
+  position:absolute; right:.6rem; top:50%; transform:translateY(-50%);
+  background:var(--lz-red); border:1px solid rgba(245,240,232,.5); color:var(--lz-cream);
+  font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+  padding:.3rem .8rem; border-radius:var(--r-pill); min-height:2.25rem;
+  box-shadow:-10px 0 10px 4px var(--lz-red);
+}
+@media (pointer:coarse){ .lz-tick-pause{ min-height: var(--tap) } }
+@keyframes lz-tick{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+/* Bewegung stoppt bei Systemvorgabe, der Hinweis bleibt sichtbar */
+@media (prefers-reduced-motion:reduce){
+  .lz-tick-track{ animation:none; transform:none }
+  *{ transition:none !important }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   7. KOMPATIBILITÄTSBRÜCKE — Altnamen auf semantische Rollen
+   ──────────────────────────────────────────────────────────────────────
+   ÜBERGANGSWEISE. Die Seiten der ersten Ausbaustufe lesen noch Altnamen
+   (--cream, --green, --text2 …). Diese Brücke bildet sie auf die neuen
+   Rollen ab, damit die Migration seitenweise erfolgen kann, ohne dass
+   zwei Farbquellen entstehen. Neue Bauteile lesen ausschließlich Rollen.
+   Wird entfernt, sobald alle Seiten umgestellt sind.
+   ══════════════════════════════════════════════════════════════════════ */
+:root{
+  --cream:      var(--surface);
+  --cream2:     var(--surface-2);
+  --cream3:     var(--surface-3);
+  --cream-warm: var(--lz-cream-warm);
+  --parchment:  var(--lz-parchment);
+  --green:      var(--accent);
+  --green2:     var(--lz-green-2);
+  --green3:     var(--heading);
+  --green-deep: #243120;            /* nicht in der neuen Palette — nur Gradient-Basis */
+  --mint:       var(--lz-mint);
+  --mint-soft:  #cfe0cb;            /* nicht in der neuen Palette — helle Schrift auf Dunkel */
+  --sage:       var(--lz-sage);
+  --forest:     var(--lz-forest);
+  --amber:      var(--lz-amber);
+  --amber-ink:  var(--lz-amber-ink);
+  --amber-deep: #6B4A12;            /* nicht in der neuen Palette — Hinweis-Titel */
+  --red:        var(--lz-red);
+  --red-err:    var(--lz-red);
+  --text2:      var(--text-2);
+  --text3:      var(--text-3);
+  --border:     var(--line);
+  --r:          var(--radius);
+  --maxw:       1180px;
+}

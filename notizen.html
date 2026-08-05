@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{ --red: var(--red, #8C3A2A); --red-err: var(--red-err, #A23); --cream-warm: var(--cream-warm, #FBF4E6); --amber-deep: var(--amber-deep, #6B4A12); --green-deep: var(--green-deep, #243120); --mint-soft: var(--mint-soft, #cfe0cb);
+:root{ --red: #8C3A2A; --red-err: #A23; --cream-warm: #FBF4E6; --amber-deep: #6B4A12; --green-deep: #243120; --mint-soft: #cfe0cb;
   --cream:#F5F0E8; --cream2:#EDE7D9; --green:#4A6741; --green2:#3A5233; --green3:#2C3D27;
-  --mint:#A8C9A0; --forest: #5A6E52; --sage:#8AAC85; --amber:#B07A2A; --amber-ink: #8F6318; --red:var(--red, #8C3A2A);
+  --mint:#A8C9A0; --forest: #5A6E52; --sage:#8AAC85; --amber:#B07A2A; --amber-ink: #8F6318; --red: #8C3A2A;
   --text:#2A2820; --text2:#5A5648; --text3:#8A8478; --border:rgba(74,103,65,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -73,6 +73,9 @@ header.page p.lead{font-size:17px;color:var(--text2);max-width:62ch;margin-top:8
 .b-offen{background:var(--red);} .b-auszubauen{background:var(--amber-ink);} .b-spaeter{background:var(--green);}
 .note-top{grid-column:1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
 .note-top .badge{margin-bottom:0;}
+.sp-chip{font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;font-weight:600;color:var(--green3);background:rgba(74,103,65,.10);border:1px solid var(--border);border-radius:20px;padding:3px 9px;}
+.sp-chip.sp-none{color:var(--text3);background:transparent;font-weight:500;}
+.cat-chip{font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;font-weight:600;color:var(--amber-ink);background:rgba(176,122,42,.10);border:1px solid rgba(176,122,42,.30);border-radius:20px;padding:3px 9px;}
 .prio{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;}
 .prio i{width:7px;height:7px;border-radius:50%;display:inline-block;}
 .prio.p1{color:#a5291a;border-color:rgba(192,57,43,.4);background:rgba(192,57,43,.08);}
@@ -158,11 +161,30 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
   var selStatus = new Set();
   var selSprint = new Set();
   var selPrio = new Set();
-  var SPRINTMAP = {"n-index-usp":2,"n-preise-rechner":2,"n-sprints-kampagne":2,"n-sprints-app":2,"n-sprints-reflexion":2,"n-done-baustein-board":2,"n-done-prompt-tagebuch":1};
+  var selCat = new Set();
+  var CATMAP = {
+    index:"haupt", "ueber-uns":"haupt", leistungen:"haupt", preise:"haupt", einzugsgebiet:"haupt",
+    mitgliedschaft:"haupt", aktuelles:"haupt", pflegeberatung:"haupt", karriere:"haupt", kontakt:"haupt",
+    sprints:"planspiel", unternehmensdaten:"planspiel", "website-status":"planspiel", "prompt-tagebuch":"planspiel", notizen:"planspiel",
+    cockpit:"betrieb",
+    investoren:"zugang", "investoren-markt":"zugang", "investoren-kennzahlen":"zugang",
+    "investoren-finanzierung":"zugang", "investoren-swot":"zugang", "investoren-kontakt":"zugang", kundenportal:"zugang",
+    allgemein:"technik"
+  };
+  var CATLABEL = {haupt:"Hauptseite", planspiel:"Planspiel", betrieb:"Betriebs-Cockpit", zugang:"Zugänge", technik:"Technik & Übergreifend"};
+  var CATORDER = ["haupt","zugang","planspiel","betrieb","technik"];
+  function catOf(n){ return CATMAP[n.page] || "technik"; }
+  var SPRINTMAP = {
+    "n-index-usp":2,"n-preise-rechner":2,"n-sprints-kampagne":2,"n-sprints-app":2,"n-sprints-reflexion":2,
+    "n-done-baustein-board":2,"n-done-prompt-tagebuch":1,"n-aktuelles-grammatik":2,"n-eg-einwohner":2,
+    "n-inv-umsatz-je-fall":2,"n-inv-175mio":2,"n-inv-zieljahre":2,"n-inv-branchenschnitt":2,"n-markt-pg1":2,
+    "n-ueberuns-oton":2,"n-ueberuns-chronik":2,"n-cockpit-roster":2,"n-cockpit-medifox":2,"n-cockpit-stufe4":4,
+    "n-asset-bibliothek":2,"n-review-report":2,"n-quellen-registry":2,"n-kundenportal-stub":3,"n-gate-optisch":3
+  };
   function sprintOf(n){ return SPRINTMAP[n.id] || null; }
   var PRIOMAP = {"n-index-247":1,"n-eg-einwohner":1,"n-index-usp":1,"n-sprints-kampagne":1,"n-aktuelles-grammatik":1,"n-mobile-investor":1,
                  "n-ueberuns-oton":3,"n-sprints-reflexion":3,"n-gate-optisch":3,"n-markt-pg1":3,
-                 "n-cockpit-1b":1,"n-cockpit-roster":1,"n-cockpit-stufe4":3,"n-quellen-registry":2,"n-ueberuns-chronik":2,"n-typo-entscheidung":1,"n-logo-geometrie":3,"n-trust-vierte-kachel":2,"n-skript-tokens":3,"n-inv-umsatz-je-fall":1,"n-inv-175mio":1,"n-inv-zieljahre":1,"n-inv-branchenschnitt":2};
+                 "n-cockpit-1b":1,"n-cockpit-roster":1,"n-cockpit-stufe4":3,"n-quellen-registry":2,"n-ueberuns-chronik":2,"n-persona-alter":1,"n-tokens-weitere-umgebungen":1,"n-tick-pause-groesse":3,"n-logo-kompaktvariante":2,"n-typo-entscheidung":1,"n-logo-geometrie":3,"n-trust-vierte-kachel":2,"n-skript-tokens":3,"n-inv-umsatz-je-fall":1,"n-inv-175mio":1,"n-inv-zieljahre":1,"n-inv-branchenschnitt":2};
   var PRIOLABEL = {1:"Hoch",2:"Mittel",3:"Niedrig"};
   function prioOf(n){ return PRIOMAP[n.id] || 2; }
   var pageFilter = (new URLSearchParams(location.search)).get("page") || null;
@@ -191,6 +213,7 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
       if(pageFilter && n.page!==pageFilter) return false;
       if(selSprint.size>0){ var sp=sprintOf(n); if(!(sp && selSprint.has(String(sp)))) return false; }
       if(selPrio.size>0 && !selPrio.has(String(prioOf(n)))) return false;
+      if(selCat.size>0 && !selCat.has(catOf(n))) return false;
       var done = LZ.isDone(n.id);
       if(selStatus.size===0) return !done;
       if(done) return selStatus.has("erledigt");
@@ -203,7 +226,13 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
     var groups = {};
     shown.forEach(function(n){ (groups[n.page]=groups[n.page]||[]).push(n); });
 
-    Object.keys(groups).forEach(function(slug){
+    // Sortierung: erst Kategorie (Hauptseite, Zugänge, Planspiel, Cockpit, Technik), dann Seitenname
+    var sortedPages = Object.keys(groups).sort(function(a,b){
+      var ca=CATORDER.indexOf(CATMAP[a]||"technik"), cb=CATORDER.indexOf(CATMAP[b]||"technik");
+      if(ca!==cb) return ca-cb;
+      return info(a).name.localeCompare(info(b).name);
+    });
+    sortedPages.forEach(function(slug){
       var gi = info(slug);
       var g = document.createElement("section");
       g.className = "pagegroup";
@@ -220,6 +249,8 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
           '<div class="note-top">'+
             '<span class="badge b-'+n.status+'">'+esc(meta.label)+'</span>'+
             '<span class="prio p'+prio+'"><i></i>'+PRIOLABEL[prio]+'</span>'+
+            (sprintOf(n) ? '<span class="sp-chip">Sprint '+sprintOf(n)+'</span>' : '<span class="sp-chip sp-none">ohne Sprint</span>')+
+            '<span class="cat-chip">'+esc(CATLABEL[catOf(n)])+'</span>'+
           '</div>'+
           '<h3>'+esc(n.title)+'</h3>'+
           '<p>'+esc(n.text)+'</p>'+
@@ -263,6 +294,8 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:13px;text-align:center;}
   fbar.appendChild(makeGroup([["1","S1"],["2","S2"]], selSprint));
   fbar.appendChild(fsep());
   fbar.appendChild(makeGroup([["1","Hoch"],["2","Mittel"],["3","Niedrig"]], selPrio));
+  fbar.appendChild(fsep());
+  fbar.appendChild(makeGroup(CATORDER.map(function(c){return [c, CATLABEL[c]];}), selCat));
   // Zurücksetzen-Symbol hinter den Filtern
   var resetBtn=document.createElement("button");
   resetBtn.className="freset"; resetBtn.title="Filter zurücksetzen"; resetBtn.setAttribute("aria-label","Filter zurücksetzen");
