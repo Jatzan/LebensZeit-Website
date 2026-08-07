@@ -112,9 +112,17 @@
       dok: BD, seite: "5", absch: "C.3 Schichtmodell", stand: "Sprint 1", guete: "A",
       hinweis: "Fr\u00fchdienst 6\u201314, Sp\u00e4tdienst 14\u201322, kein Nachtdienst, Wochenende \u00fcber rotierende Bereitschaft. Die Pflegezeit 6\u201322 Uhr folgt daraus direkt. B\u00fcrozeiten und Rufbereitschaft sind erg\u00e4nzt und in keiner Unterlage belegt." },
 
-    { page: "kundenportal", sel: ".mitglied", idx: 0, wert: "Mitgliedsstufen", kat: "basis", ud: "mitglieder",
+    { page: "kundenportal", sel: ".stufen", idx: 0, wert: "Mitgliedsstufen", kat: "basis", ud: "mitglieder",
       dok: BD, seite: "3, 5", absch: "B \u00b7 Mitgliedschaftsmodell", stand: "Sprint 1", guete: "A",
       hinweis: "Basis 48 \u20ac \u00b7 Aktiv 120 \u20ac \u00b7 Premium 360 \u20ac im Jahr, nie \u201eFamilie\u201c. Das Portal selbst ist eine Leistung ab Aktiv (Angeh\u00f6rigen-App), Premium enth\u00e4lt zus\u00e4tzlich festen Ansprechpartner und Hausnotruf \u2014 daher tr\u00e4gt Hildegard Stemmer Premium, Markus D\u00f6rre Aktiv." },
+
+    { page: "kundenportal", sel: ".brett", idx: 0, wert: "Nachbarschaftsbrett", kat: "synth", ud: "betrieb", todo: "kundenportal",
+      dok: "\u2014 Muster aus dem App-Prototyp \u00fcbernommen", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Kategorien und Aufbau stammen aus dem Brett des App-Prototyps (Veranstaltung, Kurs, Angebot, Nachbarschaft). Die vier Eintr\u00e4ge sind erfunden, kn\u00fcpfen aber an belegte Angebote an: Begegnungsorte und Angeh\u00f6rigen-Caf\u00e9 stehen im Steckbrief Teil 1, der Pflegekurs f\u00fcr Angeh\u00f6rige ist eine Aktiv-Leistung." },
+
+    { page: "kundenportal", sel: ".rechnung", idx: 1, wert: "Selbstzahler-Stundens\u00e4tze", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "4", absch: "A.4 Selbstzahler-Stundensatz", stand: "Sprint 1", guete: "A",
+      hinweis: "38 \u20ac je Stunde Hilfskraft, 52 \u20ac je Stunde examinierte Fachkraft. Der Rabatt von 10 % auf Entlastungsleistungen ab Stufe Aktiv steht im Mitgliedschaftsmodell, Teil B." },
 
     /* --- App-Prototyp --- */
     { page: "app", sel: ".buehne", idx: 0, wert: "LebensZeit OS \u2014 Prototyp", kat: "synth", ud: "betrieb", todo: "app",

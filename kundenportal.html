@@ -5,41 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Kundenportal — LebensZeit gGmbH</title>
-<meta name="description" content="Kundenportal der LebensZeit gGmbH — Termine, Unterlagen und Kontakt. Fiktives Schulungsprojekt.">
+<meta name="description" content="Kundenportal der LebensZeit gGmbH — Termine, Unterlagen, Mitgliedschaft und Kontakt. Fiktives Schulungsprojekt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/lz-tokens.css">
 <style>
 /* Kundenportal · JO · 07.08.2026
-   Umgebung 03 nach der Designgrundlage: Flaeche Creme-warm, Akzent Gruen,
-   Logo Waldgruen (5,07:1), Fliesstext 1,19rem, Radius 24px, Tippziel 56px.
-   Zielgruppe ueber 75 — daher Person vor Leistung, Status immer als Wort mit
-   Zeichen (nie Punkt allein), keine Emojis, viel Weissraum.
-   Anmeldung nach demselben Muster wie das Betriebs-Cockpit: Rollenauswahl
-   fuellt Kennung und Passwort, ein Knopf. */
+   Umgebung 03: Creme-warm, Akzent Gruen, Logo Waldgruen, 1,19rem, Radius 24,
+   Tippziel 56. Zielgruppe ueber 75 — Person vor Leistung, Status immer als
+   Wort mit Zeichen, keine Emojis, viel Weissraum.
+   Acht Bereiche. Ab 860px liegen sie offen und brechen in zwei Zeilen um,
+   darunter kommt der Hamburger — eine Zielgruppe ueber 75 sollte die
+   Navigation sehen, solange der Platz reicht. */
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:'Jost',sans-serif; background:var(--surface); color:var(--text);
-  font-size:var(--fs-body); line-height:var(--lh-body-env);
-  -webkit-font-smoothing:antialiased;
-}
+body{font-family:'Jost',sans-serif;background:var(--surface);color:var(--text);
+  font-size:var(--fs-body);line-height:var(--lh-body-env);-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--lz-green-3);line-height:1.18}
-.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
 button{font:inherit}
+a{color:var(--lz-green)}
 :focus-visible{outline:3px solid var(--lz-forest);outline-offset:3px;border-radius:8px}
 
-/* ── Logo ─────────────────────────────────────────────── */
-.lockup{display:inline-flex;align-items:center;gap:13px;color:var(--logo)}
+.lockup{display:inline-flex;align-items:center;gap:13px;color:var(--logo);text-decoration:none}
 .lockup .sym{width:38px;height:38px;flex:0 0 38px}
 .lockup .name{font-family:Georgia,'Times New Roman',serif;font-size:1.44rem;line-height:1}
 .lockup .name sup{font-family:'Jost',sans-serif;font-size:.52em;letter-spacing:.06em;vertical-align:super}
+a.lockup:hover .name{text-decoration:underline;text-underline-offset:4px}
 
-/* ── Anmeldung ────────────────────────────────────────── */
+/* ── Anmeldung ──────────────────────────────────────── */
 #gate{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;z-index:200;background:var(--surface);
   display:flex;align-items:center;justify-content:center;padding:24px 18px;overflow-y:auto}
 #gate.weg{display:none}
-.gatecard{width:100%;max-width:460px;background:var(--surface-2);border:1px solid var(--line);
+.gatecard{width:100%;max-width:470px;background:var(--surface-2);border:1px solid var(--line);
   border-radius:var(--radius);padding:38px 32px 32px;box-shadow:0 18px 48px rgba(74,103,65,.10)}
 .gatecard .kopf{text-align:center;margin-bottom:26px}
 .gatecard h1{font-size:1.75rem;margin-top:16px}
@@ -48,35 +46,53 @@ button{font:inherit}
 .feld label{display:block;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
   color:var(--text-2);font-weight:600;margin-bottom:7px}
 .feld select,.feld input{width:100%;min-height:var(--tap-env);padding:12px 15px;font:inherit;
-  font-size:1rem;color:var(--text);background:var(--lz-white);
-  border:1px solid var(--line-ui);border-radius:14px}
+  font-size:1rem;color:var(--text);background:var(--lz-white);border:1px solid var(--line-ui);border-radius:14px}
 .gatehinweis{font-size:.88rem;color:var(--text-2);margin:2px 0 20px;line-height:1.5}
 .knopf{display:block;width:100%;min-height:var(--tap-env);border:0;border-radius:var(--radius);
   background:var(--lz-green);color:var(--lz-cream);font-size:1.06rem;font-weight:500;cursor:pointer}
 .knopf:hover{background:var(--lz-green-2)}
 .gatefuss{text-align:center;font-size:.88rem;color:var(--text-3);margin-top:20px}
 
-/* ── Portal ───────────────────────────────────────────── */
+/* ── Kopf ───────────────────────────────────────────── */
 #portal[hidden]{display:none}
 header.portal{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
-header .oben{max-width:820px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:16px}
+header .oben{max-width:860px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:16px}
 header .oben .rechts{margin-left:auto;display:flex;align-items:center;gap:12px}
 .person{display:inline-flex;align-items:center;gap:10px;font-size:.94rem;color:var(--text-2)}
 .avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:inline-flex;align-items:center;
   justify-content:center;background:var(--lz-green);color:var(--lz-cream);font-size:.94rem;font-weight:600;letter-spacing:.5px}
 .avatar.wald{background:var(--lz-forest)}
-.abmelden{min-height:var(--tap-env);padding:0 20px;border-radius:var(--radius);
-  border:1px solid var(--line-ui);background:transparent;color:var(--text-2);cursor:pointer;font-size:.94rem}
-.abmelden:hover{border-color:var(--lz-forest);color:var(--lz-green-3)}
+/* Knopffarben: gefuellt = Markengruen mit Creme (5,60:1), umrandet = Gruen auf
+   Weiss (6,35:1). Vorher stand der Abmeldeknopf auf --text-2 mit Rahmen in
+   --line-ui, was ihn wie eine deaktivierte Flaeche aussehen liess. */
+.knopf-rand{min-height:var(--tap-env);padding:0 20px;border-radius:var(--radius);
+  border:1px solid var(--lz-green);background:transparent;color:var(--lz-green);cursor:pointer;font-size:.94rem}
+.knopf-rand:hover{background:rgba(74,103,65,.10)}
+#burger{display:none;align-items:center;justify-content:center;gap:10px;
+  min-height:var(--tap-env);padding:0 18px;border-radius:var(--radius);
+  border:1px solid var(--lz-green);background:transparent;color:var(--lz-green);cursor:pointer;font-size:1rem}
+#burger svg{width:24px;height:24px}
 
+/* ── Navigation ─────────────────────────────────────── */
 nav.reiter{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:55}
-nav.reiter .in{max-width:820px;margin:0 auto;padding:0 22px;display:flex;gap:6px;overflow-x:auto}
+nav.reiter .in{max-width:860px;margin:0 auto;padding:4px 22px;display:flex;flex-wrap:wrap;gap:2px}
 nav.reiter button{display:inline-flex;align-items:center;gap:9px;min-height:var(--tap-env);
-  padding:0 18px;border:0;background:none;color:var(--text-2);cursor:pointer;font-size:1rem;
-  white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+  padding:0 15px;border:0;background:none;color:var(--text-2);cursor:pointer;font-size:1rem;
+  white-space:nowrap;border-bottom:3px solid transparent}
 nav.reiter button svg{width:26px;height:26px;flex:0 0 26px}
 nav.reiter button[aria-current="page"]{color:var(--lz-green-3);border-bottom-color:var(--lz-green);font-weight:500}
 nav.reiter button:hover{color:var(--lz-green-3)}
+
+#schublade{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;z-index:150;background:var(--surface);
+  display:none;flex-direction:column;overflow-y:auto}
+#schublade.offen{display:flex}
+#schublade .kopfz{display:flex;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line)}
+#schublade .kopfz .zu{margin-left:auto}
+#schublade ul{list-style:none;padding:8px 0}
+#schublade li button{display:flex;align-items:center;gap:16px;width:100%;min-height:64px;
+  padding:0 24px;border:0;background:none;color:var(--text);font-size:1.19rem;text-align:left;cursor:pointer}
+#schublade li button svg{width:28px;height:28px;flex:0 0 28px;color:var(--lz-forest)}
+#schublade li button[aria-current="page"]{background:rgba(74,103,65,.10);color:var(--lz-green-3);font-weight:500}
 
 main{padding:30px 0 70px}
 .anrede{font-size:2rem;font-family:'Cormorant Garamond',serif;color:var(--lz-green-3);font-weight:500}
@@ -95,33 +111,31 @@ section.karte{background:var(--lz-white);border:1px solid var(--line);border-rad
 section.karte > h2{font-size:1.38rem;margin-bottom:4px}
 section.karte > p.unter{color:var(--text-2);font-size:.94rem;margin-bottom:16px}
 
-/* Zeitleiste — Uhrzeit links, Leistung darunter, Status rechts */
-.woche{list-style:none;display:flex;flex-direction:column}
+.woche{list-style:none}
 .woche li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:start;
   padding:18px 0;border-bottom:1px solid rgba(74,103,65,.12)}
 .woche li:last-child{border-bottom:0}
 .woche .tag{grid-column:1;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);font-weight:600}
 .woche .zeile{grid-column:1;font-size:1.19rem;color:var(--text);font-variant-numeric:tabular-nums;margin-top:3px}
 .woche .leistung{grid-column:1;font-size:.94rem;color:var(--text-2);margin-top:2px}
-.woche .status{grid-column:2;grid-row:1 / span 3;justify-self:end;align-self:center;
-  display:inline-flex;align-items:center;gap:8px;font-size:.94rem;font-weight:500;white-space:nowrap}
+.woche .status{grid-column:2;grid-row:1 / span 3;justify-self:end;align-self:center}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.94rem;font-weight:500;white-space:nowrap}
 .status .zeichen{font-size:1.06rem;line-height:1}
 .st-erledigt{color:var(--lz-green)}
 .st-geplant{color:var(--text-2)}
 .st-unterwegs{color:var(--lz-amber-ink)}
 .st-offen{color:var(--lz-info)}
 
-/* Rueckfrage — zwei Knoepfe, 56px, untereinander */
 .rueck{background:rgba(74,103,65,.06);border:1px solid var(--line);border-radius:var(--radius);
   padding:26px 30px;margin-top:22px}
 .rueck h2{font-size:1.38rem}
 .rueck p{margin:8px 0 20px;color:var(--text-2)}
-.rueck .antworten{display:flex;flex-direction:column;gap:12px;max-width:440px}
-.rueck .antwort{min-height:var(--tap-env);padding:14px 22px;border-radius:var(--radius);
+.antworten{display:flex;flex-direction:column;gap:12px;max-width:460px}
+.antwort{min-height:var(--tap-env);padding:14px 22px;border-radius:var(--radius);
   border:1px solid var(--lz-green);background:var(--lz-white);color:var(--lz-green-3);
   cursor:pointer;font-size:1.06rem;text-align:left}
-.rueck .antwort:hover{background:rgba(74,103,65,.10)}
-.rueck .danke{color:var(--lz-green);font-weight:500;display:flex;align-items:center;gap:9px}
+.antwort:hover{background:rgba(74,103,65,.10)}
+.danke{color:var(--lz-green);font-weight:500;display:flex;align-items:center;gap:9px}
 
 .liste{list-style:none}
 .liste li{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
@@ -134,6 +148,52 @@ section.karte > p.unter{color:var(--text-2);font-size:.94rem;margin-bottom:16px}
   color:var(--text-2);border:1px solid var(--line);border-radius:20px;padding:3px 11px}
 .betrag{font-size:1.19rem;font-variant-numeric:tabular-nums;color:var(--text)}
 
+/* Brett */
+.brett{list-style:none;display:flex;flex-direction:column;gap:16px}
+.brett li{background:var(--lz-white);border:1px solid var(--line);border-radius:var(--radius);padding:24px 28px}
+.brett li.gepinnt{border-left:5px solid var(--lz-amber)}
+.brett .kat{font-size:.8rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--lz-forest)}
+.brett h3{font-size:1.38rem;margin:8px 0 6px}
+.brett p{color:var(--text-2);font-size:1rem}
+.brett .wann{margin-top:12px;font-size:1rem;color:var(--text);font-variant-numeric:tabular-nums}
+.brett .ort{font-size:.94rem;color:var(--text-2)}
+
+/* Mitgliedschaft */
+.stufen{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.stufe{background:var(--lz-white);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;
+  display:flex;flex-direction:column}
+.stufe.aktuell{border:2px solid var(--lz-green);background:rgba(74,103,65,.05)}
+.stufe .name{font-family:'Cormorant Garamond',serif;font-size:1.38rem;color:var(--lz-green-3)}
+.stufe .preis{font-family:'Cormorant Garamond',serif;font-size:1.75rem;color:var(--lz-green);
+  margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.stufe .je{font-size:.88rem;color:var(--text-2)}
+.stufe ul{list-style:none;margin:16px 0 20px;display:flex;flex-direction:column;gap:10px;font-size:.94rem;color:var(--text-2)}
+.stufe li{padding-left:22px;position:relative}
+.stufe li::before{content:"\2713";position:absolute;left:0;color:var(--lz-green);font-size:1rem}
+.stufe .fuss{margin-top:auto}
+.jetzt{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;letter-spacing:1.5px;
+  text-transform:uppercase;font-weight:600;color:var(--lz-green);
+  background:rgba(74,103,65,.12);border-radius:20px;padding:6px 14px}
+
+/* Services */
+.dienste{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.dienst{display:flex;align-items:flex-start;gap:16px;width:100%;min-height:var(--tap-env);
+  background:var(--lz-white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;cursor:pointer;text-align:left;color:var(--text);text-decoration:none}
+.dienst:hover{border-color:var(--lz-green);background:rgba(74,103,65,.05)}
+.dienst svg{width:28px;height:28px;flex:0 0 28px;color:var(--lz-forest);margin-top:2px}
+.dienst b{display:block;font-size:1.06rem;font-weight:500;color:var(--lz-green-3)}
+.dienst span{font-size:.94rem;color:var(--text-2)}
+
+/* Eigenanteil */
+.rechnung{list-style:none;margin-top:8px}
+.rechnung li{display:flex;justify-content:space-between;gap:18px;padding:14px 0;
+  border-bottom:1px solid rgba(74,103,65,.12);font-variant-numeric:tabular-nums}
+.rechnung li:last-child{border-bottom:0;border-top:2px solid var(--lz-green);
+  margin-top:6px;padding-top:16px;font-size:1.19rem;color:var(--lz-green-3);font-weight:500}
+.rechnung .pos{color:var(--text-2)}
+.rechnung li:last-child .pos{color:var(--lz-green-3)}
+
 .zeiten{display:flex;flex-direction:column;gap:14px;margin-top:6px}
 .zeiten div{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;
   padding-bottom:14px;border-bottom:1px solid rgba(74,103,65,.12)}
@@ -142,24 +202,43 @@ section.karte > p.unter{color:var(--text-2);font-size:.94rem;margin-bottom:16px}
 .zeiten span{color:var(--text-2);font-variant-numeric:tabular-nums}
 .telefon{display:inline-flex;align-items:center;justify-content:center;gap:10px;
   min-height:var(--tap-env);padding:0 26px;border-radius:var(--radius);
-  background:var(--lz-green);color:var(--lz-cream);text-decoration:none;font-size:1.19rem;margin-top:6px}
+  background:var(--lz-green);color:var(--lz-cream);text-decoration:none;font-size:1.06rem;margin-top:4px}
 .telefon:hover{background:var(--lz-green-2)}
+.kontaktliste{list-style:none}
+.kontaktliste li{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 0;
+  border-bottom:1px solid rgba(74,103,65,.12)}
+.kontaktliste li:last-child{border-bottom:0}
+.kontaktliste .rechts{margin-left:auto}
 
-.mitglied{display:inline-flex;align-items:center;gap:9px;font-size:.88rem;letter-spacing:1px;
-  text-transform:uppercase;font-weight:600;color:var(--lz-forest);
-  background:rgba(90,110,82,.12);border:1px solid rgba(90,110,82,.35);border-radius:20px;padding:5px 14px}
+.mitglied{display:inline-flex;align-items:center;gap:9px;min-height:var(--tap-env);font-size:.88rem;
+  letter-spacing:1px;text-transform:uppercase;font-weight:600;color:var(--lz-forest);
+  background:rgba(90,110,82,.12);border:1px solid rgba(90,110,82,.35);border-radius:var(--radius);
+  padding:0 20px;text-decoration:none}
+a.mitglied:hover{background:rgba(90,110,82,.20)}
 
-footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40px;
-  font-size:.88rem;color:var(--text-2)}
-footer.portal a{color:var(--lz-green)}
+footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40px;font-size:.88rem;color:var(--text-2)}
 
+@media(max-width:860px){
+  nav.reiter{display:none}
+  #burger{display:inline-flex}
+  header .oben .person > span:not(.avatar){display:none}
+  .stufen,.dienste{grid-template-columns:1fr}
+}
+/* Unter 860px messen Logo, Men\u00fc, Person und Abmelden zusammen 473px \u2014 mehr als
+   der Viewport. Der Browser weitet daraufhin die gesamte Seite auf, nicht nur die
+   Kopfzeile. Deshalb: Hamburger nur als Zeichen, Abmelden wandert in die
+   Schublade, wo es als seltene Aktion ohnehin besser aufgehoben ist. */
+@media(max-width:560px){
+  #burger{padding:0;width:var(--tap-env);gap:0}
+  #burger .wort{display:none}
+  header .rechts > .knopf-rand{display:none}
+}
+#schublade .fussz{margin-top:auto;padding:20px 24px 32px;border-top:1px solid var(--line)}
+#schublade .fussz .knopf-rand{width:100%}
 @media(max-width:640px){
   .wrap{padding:0 16px}
   header .oben{padding:12px 16px}
-  header .oben .person > span:not(.avatar){display:none}
-  nav.reiter{top:69px}
-  nav.reiter button{padding:0 12px;font-size:.94rem}
-  .naechst,section.karte,.rueck{padding:22px 20px}
+  .naechst,section.karte,.rueck,.brett li{padding:22px 20px}
   .woche li{grid-template-columns:1fr}
   .woche .status{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}
 }
@@ -171,14 +250,14 @@ footer.portal a{color:var(--lz-green)}
 <div id="gate">
   <div class="gatecard">
     <div class="kopf">
-      <div class="lockup" style="justify-content:center">
+      <span class="lockup" style="justify-content:center">
         <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
           <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
           <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
           <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
         </svg>
-      </div>
+      </span>
       <h1>Kundenportal</h1>
       <p>Ihre Termine, Unterlagen und der Draht zum Pflegeteam.</p>
     </div>
@@ -186,8 +265,15 @@ footer.portal a{color:var(--lz-green)}
     <div class="feld">
       <label for="rolle">Anmelden als</label>
       <select id="rolle">
-        <option value="stemmer">Hildegard Stemmer · Pflegekundin · Rüthen</option>
-        <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
+        <optgroup label="Kundenportal">
+          <option value="stemmer">Hildegard Stemmer · Pflegekundin · Rüthen</option>
+          <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
+        </optgroup>
+        <optgroup label="Dieselben Inhalte in der App">
+          <option value="app-senior">Marlene Vossenkuhl · Seniorin · App-Ansicht</option>
+          <option value="app-ang">Sabine Koch · Angehörige · App-Ansicht</option>
+          <option value="app-pflege">Sandra Meier · Pflegekraft · App-Ansicht</option>
+        </optgroup>
       </select>
     </div>
     <div class="feld">
@@ -198,16 +284,15 @@ footer.portal a{color:var(--lz-green)}
       <label for="passwort">Passwort</label>
       <input id="passwort" type="password" autocomplete="current-password" value="Beispiel2026" readonly>
     </div>
-    <p class="gatehinweis">Zwei Demo-Zugänge — die Auswahl füllt Kennung und Passwort.
-      Beispieldaten, keine echten Personen.</p>
-    <button type="button" class="knopf" onclick="anmelden()">Anmelden</button>
+    <p class="gatehinweis" id="gatehinweis"></p>
+    <button type="button" class="knopf" id="anmeldeknopf" onclick="anmelden()">Anmelden</button>
     <p class="gatefuss">LebensZeit gGmbH · Erwitte, Kreis Soest</p>
   </div>
 </div>
 
 <div id="portal" hidden>
   <header class="portal"><div class="oben">
-    <div class="lockup">
+    <a class="lockup" href="/" title="Zur Startseite">
       <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
         <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
@@ -215,252 +300,420 @@ footer.portal a{color:var(--lz-green)}
         <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
       </svg>
       <span class="name">LebensZeit <sup>gGmbH</sup></span>
-    </div>
+    </a>
     <div class="rechts">
+      <button type="button" id="burger" aria-expanded="false" aria-controls="schublade" onclick="schublade(true)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7" stroke-linecap="round"/>
+          <line x1="4" y1="12" x2="20" y2="12" stroke-linecap="round"/>
+          <line x1="4" y1="17" x2="20" y2="17" stroke-linecap="round"/>
+        </svg><span class="wort">Menü</span></button>
       <span class="person"><span class="avatar" id="avatar">HS</span><span id="personName">Hildegard Stemmer</span></span>
-      <button type="button" class="abmelden" onclick="abmelden()">Abmelden</button>
+      <button type="button" class="knopf-rand" onclick="abmelden()">Abmelden</button>
     </div>
   </div></header>
 
-  <nav class="reiter" aria-label="Portalbereiche"><div class="in">
-    <button type="button" data-ans="heute" aria-current="page">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Heute</button>
-    <button type="button" data-ans="woche">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M7 14h4M7 18h10"/></svg>Meine Woche</button>
-    <button type="button" data-ans="unterlagen">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Unterlagen</button>
-    <button type="button" data-ans="kontakt">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l4-4h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/></svg>Kontakt</button>
-  </div></nav>
+  <nav class="reiter" aria-label="Portalbereiche"><div class="in" id="reiter"></div></nav>
+
+  <div id="schublade" aria-label="Menü">
+    <div class="kopfz">
+      <span class="lockup" style="pointer-events:none">
+        <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
+          <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+          <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+          <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
+        </svg>
+      </span>
+      <button type="button" class="knopf-rand zu" onclick="schublade(false)">Schließen</button>
+    </div>
+    <ul id="schubladeListe"></ul>
+    <div class="fussz">
+      <button type="button" class="knopf-rand" onclick="abmelden()">Abmelden</button>
+    </div>
+  </div>
 
   <main class="wrap" id="inhalt"></main>
 
   <footer class="portal"><div class="wrap">
     LebensZeit gGmbH · Fiktives Unternehmen im KI-Pionierzirkel ·
-    <a href="/leistungen">Leistungen</a> · <a href="/preise">Preise &amp; Eigenanteil</a> ·
-    <a href="/kontakt">Kontakt</a> · <a href="/app">Angehörigen-App</a>
+    <a href="/leistungen">Leistungen</a> · <a href="/kontakt">Kontakt</a>
   </div></footer>
 </div>
 
 <script>
-/* Beide Personen stammen aus dem Personas-Handout des Sprints 1. Sandra Köhler
-   fährt im Cockpit die Tour R-F1 in Rüthen — dieselbe Person in beiden Systemen,
-   statt eines weiteren Namensraums. Hildegard Stemmer steht hier mit Pflegegrad 3
-   wie im Cockpit; das Handout nennt Pflegegrad 2, der Widerspruch ist offen. */
+/* ── Symbole: Haarlinien, 26px, currentColor — so gilt automatisch die
+      Logo-Farbregel. Keine Emojis, wie in der Designgrundlage festgelegt. ── */
+var IC = {
+  heute:   '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  woche:   '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M7 14h4M7 18h10"/>',
+  brett:   '<rect x="3" y="4" width="18" height="15" rx="2"/><path d="M12 19v2M8 8h8M8 12h5"/>',
+  unterlagen:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+  eigenanteil:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
+  mitglied:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+  services:'<circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6"/>',
+  kontakt: '<path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l4-4h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/>'
+};
+function svg(k, groesse){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
+    (groesse ? 'width="'+groesse+'" height="'+groesse+'" ' : '') + 'aria-hidden="true">' + IC[k] + '</svg>';
+}
+var BEREICHE = [
+  ["heute","Heute"], ["woche","Meine Woche"], ["brett","Nachbarschaft"],
+  ["unterlagen","Unterlagen"], ["eigenanteil","Eigenanteil"],
+  ["mitglied","Mitgliedschaft"], ["services","Services"], ["kontakt","Kontakt"]
+];
+
+/* ── Zugänge. Portalkonten führen ins Portal, App-Konten springen in den
+      Prototyp — deshalb steht der Verweis nicht mehr in der Fußzeile. ── */
+var APP = {
+  "app-senior": "Marlene Vossenkuhl", "app-ang": "Sabine Koch", "app-pflege": "Sandra Meier"
+};
 var KONTEN = {
   stemmer: {
     kennung: "h.stemmer@beispiel.de", anrede: "Guten Tag, Frau Stemmer",
-    name: "Hildegard Stemmer", initialen: "HS", stufe: "Premium-Mitglied",
-    ort: "Rüthen-Meiste", pflegegrad: "Pflegegrad 3",
+    name: "Hildegard Stemmer", initialen: "HS", stufe: "Premium", stufeText: "Premium-Mitglied",
+    ort: "Rüthen-Meiste", pflegegrad: "Pflegegrad 3", cap: 1432, abgerufen: 587,
     kraft: "Sandra Köhler", kraftInitialen: "SK", kraftRolle: "Pflegefachkraft · Tour Rüthen",
     satz: "Sandra ist auf dem Weg zu Ihnen.", zeit: "Gegen 15:10 Uhr",
     woche: [
-      ["Montag",     "08:30", "Grundpflege", "erledigt"],
-      ["Dienstag",   "08:30", "Grundpflege", "erledigt"],
-      ["Mittwoch",   "08:30", "Grund- und Behandlungspflege", "erledigt"],
-      ["Donnerstag", "15:10", "Behandlungspflege", "unterwegs"],
-      ["Freitag",    "08:30", "Grundpflege", "geplant"],
-      ["Samstag",    "10:00", "Begleitung zum Einkauf · Ehrenamt", "geplant"],
-      ["Sonntag",    "08:30", "Grundpflege", "geplant"]
+      ["Montag","08:30","Grundpflege","erledigt"],
+      ["Dienstag","08:30","Grundpflege","erledigt"],
+      ["Mittwoch","08:30","Grund- und Behandlungspflege","erledigt"],
+      ["Donnerstag","15:10","Behandlungspflege","unterwegs"],
+      ["Freitag","08:30","Grundpflege","geplant"],
+      ["Samstag","10:00","Begleitung zum Einkauf · Ehrenamt","geplant"],
+      ["Sonntag","08:30","Grundpflege","geplant"]
+    ],
+    verlauf: [
+      ["Heute, 9:12","Medikamente gegeben","erledigt"],
+      ["Heute, 8:45","Blutdruck 135/82 — im Rahmen","erledigt"],
+      ["Gestern, 18:30","Abendbesuch, alles in Ordnung","erledigt"],
+      ["Montag, 14:20","Hinweis: Trinkmenge unter dem Ziel","offen"]
     ],
     frage: "Am Samstag begleitet Sie jemand vom Ehrenamt zum Einkauf. Passt 10 Uhr?",
-    antworten: ["Ja, 10 Uhr passt", "Lieber später am Tag", "Diese Woche nicht"],
-    dokumente: [
-      ["Pflegevertrag", "Stand 03/2024", "PDF"],
-      ["Leistungsnachweis Juli 2026", "Stand 01.08.2026", "PDF"],
-      ["Pflegegrad-Bescheid", "Stand 11/2023", "PDF"]
-    ],
-    rechnungen: [
-      ["Juli 2026", "Eigenanteil", "142,80 €", "beglichen"],
-      ["Juni 2026", "Eigenanteil", "142,80 €", "beglichen"],
-      ["Mai 2026",  "Eigenanteil", "138,20 €", "beglichen"]
-    ]
+    antworten: ["Ja, 10 Uhr passt","Lieber später am Tag","Diese Woche nicht"],
+    dokumente: [["Pflegevertrag","Stand 03/2024","PDF"],
+                ["Leistungsnachweis Juli 2026","Stand 01.08.2026","PDF"],
+                ["Pflegegrad-Bescheid","Stand 11/2023","PDF"]],
+    rechnungen: [["Juli 2026","Eigenanteil","142,80 €","beglichen"],
+                 ["Juni 2026","Eigenanteil","142,80 €","beglichen"],
+                 ["Mai 2026","Eigenanteil","138,20 €","beglichen"]],
+    kontakte: [["Sandra Köhler","SK","Bezugspflegekraft · Tour Rüthen","02943 000000"],
+               ["Zentrale Erwitte","LZ","Büro und Abrechnung","02943 000000"],
+               ["Rufbereitschaft","RB","außerhalb der Bürozeiten","02943 000000"],
+               ["Praxis Dr. Kühn","DK","Hausarzt","02952 000000"],
+               ["Apotheke Rüthen","AP","Lieferdienst nach Meiste","02952 000000"]]
   },
   doerre: {
     kennung: "m.doerre@beispiel.de", anrede: "Guten Tag, Herr Dörre",
-    name: "Markus Dörre", initialen: "MD", stufe: "Aktiv-Mitglied",
-    ort: "für Frau Dörre · Lippetal", pflegegrad: "Pflegegrad 2",
+    name: "Markus Dörre", initialen: "MD", stufe: "Aktiv", stufeText: "Aktiv-Mitglied",
+    ort: "für Frau Dörre · Lippetal", pflegegrad: "Pflegegrad 2", cap: 761, abgerufen: 236,
     kraft: "Jana Brinkmann", kraftInitialen: "JB", kraftRolle: "Pflegefachkraft · Tour Lippetal",
     satz: "Jana war heute bei Ihrer Mutter.", zeit: "Um 09:20 Uhr, alles in Ordnung",
     woche: [
-      ["Montag",     "09:20", "Grundpflege", "erledigt"],
-      ["Mittwoch",   "09:20", "Grundpflege", "erledigt"],
-      ["Donnerstag", "09:20", "Grundpflege", "erledigt"],
-      ["Freitag",    "14:00", "Beratungsbesuch nach §37.3", "geplant"],
-      ["Samstag",    "—",     "Hauswirtschaft — noch nicht vergeben", "offen"]
+      ["Montag","09:20","Grundpflege","erledigt"],
+      ["Mittwoch","09:20","Grundpflege","erledigt"],
+      ["Donnerstag","09:20","Grundpflege","erledigt"],
+      ["Freitag","14:00","Beratungsbesuch nach §37.3","geplant"],
+      ["Samstag","—","Hauswirtschaft — noch nicht vergeben","offen"]
+    ],
+    verlauf: [
+      ["Heute, 9:20","Besuch abgeschlossen","erledigt"],
+      ["Gestern, 16:00","Rezept in der Apotheke eingelöst","erledigt"],
+      ["Dienstag, 11:00","Hausarzttermin bestätigt","erledigt"]
     ],
     frage: "Für Samstag ist die Hauswirtschaft noch nicht vergeben. Sollen wir sie einplanen?",
-    antworten: ["Ja, bitte einplanen", "Diesmal übernehme ich das", "Bitte rufen Sie mich an"],
-    dokumente: [
-      ["Vollmacht Angehörige", "Stand 05/2025", "PDF"],
-      ["Pflegevertrag", "Stand 09/2023", "PDF"],
-      ["Leistungsnachweis Juli 2026", "Stand 01.08.2026", "PDF"]
-    ],
-    rechnungen: [
-      ["Juli 2026", "Eigenanteil", "96,40 €", "beglichen"],
-      ["Juni 2026", "Eigenanteil", "96,40 €", "offen"]
-    ]
+    antworten: ["Ja, bitte einplanen","Diesmal übernehme ich das","Bitte rufen Sie mich an"],
+    dokumente: [["Vollmacht Angehörige","Stand 05/2025","PDF"],
+                ["Pflegevertrag","Stand 09/2023","PDF"],
+                ["Leistungsnachweis Juli 2026","Stand 01.08.2026","PDF"]],
+    rechnungen: [["Juli 2026","Eigenanteil","96,40 €","beglichen"],
+                 ["Juni 2026","Eigenanteil","96,40 €","offen"]],
+    kontakte: [["Jana Brinkmann","JB","Bezugspflegekraft · Tour Lippetal","02943 000000"],
+               ["Zentrale Erwitte","LZ","Büro und Abrechnung","02943 000000"],
+               ["Rufbereitschaft","RB","außerhalb der Bürozeiten","02943 000000"],
+               ["Praxis Dr. Kühn","DK","Hausarzt der Mutter","02923 000000"],
+               ["Apotheke Lippetal","AP","Botendienst","02923 000000"]]
   }
 };
 
-/* Status trägt immer Wort UND Zeichen — ein Punkt allein ist bei Farbfehlsicht
-   und nachlassender Kontrastempfindlichkeit nicht lesbar. */
+/* Brett — Kategorien und Muster aus dem App-Prototyp übernommen. */
+var BRETT = [
+  ["Veranstaltung","Tag der offenen Tür",
+   "Pflegeberatung, Hausführung, Kaffee und Kuchen. Lernen Sie das Team kennen, das Sie betreut.",
+   "Samstag, 12.09. · 14 bis 17 Uhr","Standort Erwitte, Kallenhardter Straße 3","Platz reservieren", true],
+  ["Kurs","Pflegekurs für Angehörige",
+   "Vier Abende: rückenschonendes Heben, Medikamentengabe, Umgang mit Demenz, Entlastungsangebote. Für Angehörige kostenfrei — die Pflegekasse übernimmt.",
+   "ab Dienstag, 05.09. · 18:30 Uhr","Begegnungsort Bad Sassendorf","Anmelden", false],
+  ["Angebot","Neu: Fahrdienst zu Arztterminen",
+   "Wir holen ab, begleiten in die Praxis und bringen zurück — auch nach Rüthen-Meiste und Lippetal.",
+   "ab sofort","alle fünf Standorte","Mehr erfahren", false],
+  ["Nachbarschaft","Angehörigen-Café",
+   "Offener Treff für pflegende Angehörige. Ohne Anmeldung, ohne Programm — reden, zuhören, Luft holen.",
+   "jeden ersten Donnerstag · 16 Uhr","Begegnungsort Anröchte","Vormerken", false]
+];
+
+/* Mitgliedsstufen — Beiträge und Leistungen aus dem Steckbrief, Teil B. */
+var STUFEN = [
+  ["Basis", 48, ["Newsletter","Zugang zu den Begegnungsorten","kostenlose Erstberatung"]],
+  ["Aktiv", 120, ["alles aus Basis","priorisierte Beratung","Angehörigen-App","10 % auf Entlastungsleistungen","freie Kurse"]],
+  ["Premium", 360, ["alles aus Aktiv","garantierte Versorgungskapazität","fester Ansprechpartner","Hausnotruf inklusive","volle App"]]
+];
+
 var STATUS = {
-  erledigt:  ["\u2713", "erledigt",  "st-erledigt"],
-  unterwegs: ["\u2192", "unterwegs", "st-unterwegs"],
-  geplant:   ["\u00b7", "geplant",   "st-geplant"],
-  offen:     ["?",      "offen",     "st-offen"]
+  erledigt:  ["\u2713","erledigt","st-erledigt"],
+  unterwegs: ["\u2192","unterwegs","st-unterwegs"],
+  geplant:   ["\u00b7","geplant","st-geplant"],
+  offen:     ["?","offen","st-offen"]
 };
 
 var konto = null, ansicht = "heute";
-
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
   return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
-
+function eur(n){ return n.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}) + " \u20ac"; }
 function heuteText(){
-  var w = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
-  var d = new Date();
-  return w[d.getDay()] + ", " + d.toLocaleDateString("de-DE",
-    {day:"2-digit", month:"long", year:"numeric"});
+  var w=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"], d=new Date();
+  return w[d.getDay()] + ", " + d.toLocaleDateString("de-DE",{day:"2-digit",month:"long",year:"numeric"});
 }
-
 function statusHTML(key){
-  var s = STATUS[key] || STATUS.geplant;
-  return '<span class="status ' + s[2] + '"><span class="zeichen" aria-hidden="true">' +
-    s[0] + '</span>' + s[1] + '</span>';
+  var s=STATUS[key]||STATUS.geplant;
+  return '<span class="status '+s[2]+'"><span class="zeichen" aria-hidden="true">'+s[0]+'</span>'+s[1]+'</span>';
 }
 
-function ansichtHeute(k){
-  return '<p class="anrede">' + esc(k.anrede) + '</p>' +
-    '<p class="datum">' + heuteText() + '</p>' +
-    '<div class="naechst">' +
-      '<span class="label">Als Nächstes</span>' +
-      '<p class="satz">' + esc(k.satz) + '</p>' +
-      '<p class="zeit">' + esc(k.zeit) + '</p>' +
-      '<div class="wer"><span class="avatar wald">' + esc(k.kraftInitialen) + '</span>' +
-        '<span><b>' + esc(k.kraft) + '</b><br><span class="rolle">' + esc(k.kraftRolle) + '</span></span>' +
-      '</div>' +
-    '</div>' +
-    '<div class="rueck" id="rueck">' +
-      '<h2>Eine kurze Frage</h2>' +
-      '<p>' + esc(k.frage) + '</p>' +
-      '<div class="antworten">' +
-        k.antworten.map(function(a,i){
-          return '<button type="button" class="antwort" data-a="' + i + '">' + esc(a) + '</button>';
-        }).join("") +
-      '</div>' +
-    '</div>' +
-    '<section class="karte">' +
-      '<h2>Ihre Versorgung</h2>' +
-      '<p class="unter">' + esc(k.ort) + ' \u00b7 ' + esc(k.pflegegrad) + '</p>' +
-      '<span class="mitglied">' + esc(k.stufe) + '</span>' +
-    '</section>';
-}
-
-function ansichtWoche(k){
-  return '<p class="anrede">Meine Woche</p>' +
-    '<p class="datum">Ein Eintrag je Termin \u2014 Status als Wort.</p>' +
-    '<section class="karte"><ul class="woche">' +
-      k.woche.map(function(z){
-        return '<li><span class="tag">' + esc(z[0]) + '</span>' +
-          '<span class="zeile">' + esc(z[1]) + '</span>' +
-          '<span class="leistung">' + esc(z[2]) + '</span>' +
-          statusHTML(z[3]) + '</li>';
-      }).join("") +
-    '</ul></section>';
-}
-
-function ansichtUnterlagen(k){
-  return '<p class="anrede">Unterlagen</p>' +
-    '<p class="datum">Dokumente und Rechnungen an einem Ort.</p>' +
-    '<section class="karte"><h2>Dokumente</h2><ul class="liste">' +
-      k.dokumente.map(function(d){
-        return '<li><span><span class="titel">' + esc(d[0]) + '</span><br>' +
-          '<span class="meta">' + esc(d[1]) + '</span></span>' +
-          '<span class="rechts"><span class="format">' + esc(d[2]) + '</span></span></li>';
-      }).join("") +
+function vHeute(k){
+  return '<p class="anrede">'+esc(k.anrede)+'</p><p class="datum">'+heuteText()+'</p>' +
+    '<div class="naechst"><span class="label">Als N\u00e4chstes</span>' +
+      '<p class="satz">'+esc(k.satz)+'</p><p class="zeit">'+esc(k.zeit)+'</p>' +
+      '<div class="wer"><span class="avatar wald">'+esc(k.kraftInitialen)+'</span>' +
+      '<span><b>'+esc(k.kraft)+'</b><br><span class="rolle">'+esc(k.kraftRolle)+'</span></span></div></div>' +
+    '<div class="rueck" id="rueck"><h2>Eine kurze Frage</h2><p>'+esc(k.frage)+'</p>' +
+      '<div class="antworten">'+k.antworten.map(function(a){
+        return '<button type="button" class="antwort">'+esc(a)+'</button>'; }).join("")+'</div></div>' +
+    '<section class="karte"><h2>Was zuletzt geschah</h2><ul class="woche">' +
+      k.verlauf.map(function(v){
+        return '<li><span class="zeile" style="font-size:1rem">'+esc(v[0])+'</span>' +
+          '<span class="leistung">'+esc(v[1])+'</span>'+statusHTML(v[2])+'</li>'; }).join("") +
     '</ul></section>' +
-    '<section class="karte"><h2>Rechnungen</h2>' +
-      '<p class="unter">Der Eigenanteil ist der Betrag, der nach den Leistungen der Pflegekasse bleibt.</p>' +
-      '<ul class="liste">' +
-      k.rechnungen.map(function(r){
-        return '<li><span><span class="titel">' + esc(r[0]) + '</span><br>' +
-          '<span class="meta">' + esc(r[1]) + '</span></span>' +
-          '<span class="rechts"><span class="betrag">' + esc(r[2]) + '</span>' +
-          statusHTML(r[3] === "beglichen" ? "erledigt" : "offen") + '</span></li>';
-      }).join("") +
-    '</ul></section>';
+    '<section class="karte"><h2>Ihre Versorgung</h2>' +
+      '<p class="unter">'+esc(k.ort)+' \u00b7 '+esc(k.pflegegrad)+'</p>' +
+      '<a class="mitglied" href="#" onclick="geh(\'mitglied\');return false;">' +
+      esc(k.stufeText)+' \u00b7 ansehen und vergleichen</a></section>';
 }
 
-function ansichtKontakt(k){
-  return '<p class="anrede">Kontakt</p>' +
-    '<p class="datum">Rufen Sie an \u2014 ein Mensch geht ran.</p>' +
-    '<section class="karte">' +
-      '<h2>Ihre Ansprechpartnerin</h2>' +
-      '<div class="wer">' +
-        '<span class="avatar wald">' + esc(k.kraftInitialen) + '</span>' +
-        '<span><b>' + esc(k.kraft) + '</b><br><span class="rolle">' + esc(k.kraftRolle) + '</span></span>' +
+function vWoche(k){
+  return '<p class="anrede">Meine Woche</p><p class="datum">Ein Eintrag je Termin \u2014 Status als Wort.</p>' +
+    '<section class="karte"><ul class="woche">'+k.woche.map(function(z){
+      return '<li><span class="tag">'+esc(z[0])+'</span><span class="zeile">'+esc(z[1])+'</span>' +
+        '<span class="leistung">'+esc(z[2])+'</span>'+statusHTML(z[3])+'</li>'; }).join("")+'</ul></section>' +
+    '<div class="rueck" id="rueck"><h2>Termin anfragen</h2>' +
+      '<p>Sie brauchen einen zus\u00e4tzlichen Besuch oder wollen einen verschieben? Sagen Sie uns, worum es geht \u2014 wir melden uns am selben Werktag.</p>' +
+      '<div class="antworten">' +
+        '<button type="button" class="antwort">Zus\u00e4tzlichen Besuch anfragen</button>' +
+        '<button type="button" class="antwort">Einen Termin verschieben</button>' +
+        '<button type="button" class="antwort">Besuch f\u00fcr eine Woche aussetzen</button>' +
+      '</div></div>';
+}
+
+function vBrett(){
+  return '<p class="anrede">Nachbarschaft</p>' +
+    '<p class="datum">Was in Ihrer N\u00e4he stattfindet \u2014 Kurse, Treffs und neue Angebote.</p>' +
+    '<ul class="brett">'+BRETT.map(function(b){
+      return '<li'+(b[6]?' class="gepinnt"':'')+'><span class="kat">'+esc(b[0])+'</span>' +
+        '<h3>'+esc(b[1])+'</h3><p>'+esc(b[2])+'</p>' +
+        '<p class="wann">'+esc(b[3])+'</p><p class="ort">'+esc(b[4])+'</p>' +
+        '<div class="antworten" style="margin-top:16px"><button type="button" class="antwort" style="max-width:280px">'+esc(b[5])+'</button></div></li>';
+    }).join("")+'</ul>';
+}
+
+function vUnterlagen(k){
+  return '<p class="anrede">Unterlagen</p><p class="datum">Dokumente und Rechnungen an einem Ort.</p>' +
+    '<section class="karte"><h2>Dokumente</h2><ul class="liste">'+k.dokumente.map(function(d){
+      return '<li><span><span class="titel">'+esc(d[0])+'</span><br><span class="meta">'+esc(d[1])+'</span></span>' +
+        '<span class="rechts"><span class="format">'+esc(d[2])+'</span></span></li>'; }).join("")+'</ul></section>' +
+    '<section class="karte"><h2>Rechnungen</h2>' +
+      '<p class="unter">Wie sich der Betrag zusammensetzt, steht unter <a href="#" onclick="geh(\'eigenanteil\');return false;">Eigenanteil</a>.</p>' +
+      '<ul class="liste">'+k.rechnungen.map(function(r){
+        return '<li><span><span class="titel">'+esc(r[0])+'</span><br><span class="meta">'+esc(r[1])+'</span></span>' +
+          '<span class="rechts"><span class="betrag">'+esc(r[2])+'</span>' +
+          statusHTML(r[3]==="beglichen"?"erledigt":"offen")+'</span></li>'; }).join("")+'</ul>' +
+      '<div class="antworten" style="margin-top:20px">' +
+        '<button type="button" class="antwort">SEPA-Lastschriftmandat erteilen \u2014 Rechnungen automatisch einziehen lassen</button>' +
       '</div>' +
-      '<a class="telefon" href="tel:+4929430000000">02943 000000</a>' +
-    '</section>' +
-    '<section class="karte"><h2>Wann Sie uns erreichen</h2>' +
-      '<div class="zeiten">' +
-        '<div><b>Pflege</b><span>t\u00e4glich 6:00 bis 22:00 Uhr</span></div>' +
-        '<div><b>B\u00fcro</b><span>Montag bis Freitag, 8:00 bis 17:00 Uhr</span></div>' +
-        '<div><b>Rufbereitschaft</b><span>au\u00dferhalb der B\u00fcrozeiten, f\u00fcr dringende F\u00e4lle</span></div>' +
-      '</div>' +
-      '<p style="margin-top:16px;color:var(--text-2);font-size:.94rem">' +
-      'Einen Nachtdienst gibt es nicht \u2014 die Rufbereitschaft ist der Weg au\u00dferhalb der Zeiten.</p>' +
+      '<p style="margin-top:12px;font-size:.94rem;color:var(--text-2)">' +
+      'Mit einem Mandat brauchen Sie nichts mehr zu \u00fcberweisen. Sie k\u00f6nnen es jederzeit widerrufen; ' +
+      'jede Abbuchung ist acht Wochen lang r\u00fcckbuchbar.</p>' +
     '</section>';
 }
+
+function vEigenanteil(k){
+  var abgerufen = k.abgerufen, cap = k.cap, offen = cap - abgerufen;
+  return '<p class="anrede">Eigenanteil</p>' +
+    '<p class="datum">Was die Pflegekasse tr\u00e4gt \u2014 und was bei Ihnen bleibt.</p>' +
+    '<section class="karte"><h2>Ihr Monat</h2>' +
+      '<p class="unter">'+esc(k.pflegegrad)+' \u00b7 Sachleistungsbetrag '+eur(cap)+' im Monat</p>' +
+      '<ul class="rechnung">' +
+        '<li><span class="pos">Anspruch der Pflegekasse</span><span>'+eur(cap)+'</span></li>' +
+        '<li><span class="pos">davon abgerufen</span><span>'+eur(abgerufen)+'</span></li>' +
+        '<li><span class="pos">nicht genutzt \u2014 verf\u00e4llt am Monatsende</span><span>'+eur(offen)+'</span></li>' +
+      '</ul>' +
+      '<p style="margin-top:18px;color:var(--text-2);font-size:1rem">' +
+      'Nicht abgerufene Leistungen verfallen. Wenn Sie mehr in Anspruch nehmen m\u00f6chten, ' +
+      'sagen Sie uns Bescheid \u2014 <a href="#" onclick="geh(\'services\');return false;">unter Services</a> ' +
+      'k\u00f6nnen Sie das direkt anst\u00f6\u00dfen.</p>' +
+    '</section>' +
+    '<section class="karte"><h2>Leistungen au\u00dferhalb der Kasse</h2>' +
+      '<p class="unter">Selbstzahlerleistungen, wenn der Anspruch ausgesch\u00f6pft ist oder etwas nicht abgedeckt wird.</p>' +
+      '<ul class="rechnung">' +
+        '<li><span class="pos">Hilfskraft \u00b7 Hauswirtschaft, Begleitung</span><span>38,00 \u20ac je Stunde</span></li>' +
+        '<li><span class="pos">Examinierte Fachkraft \u00b7 Behandlungspflege</span><span>52,00 \u20ac je Stunde</span></li>' +
+      '</ul>' +
+      (k.stufe === "Basis" ? '' :
+      '<p style="margin-top:18px;color:var(--text-2);font-size:1rem">Als ' + esc(k.stufeText) +
+      ' erhalten Sie 10 % auf Entlastungsleistungen nach \u00a745b.</p>') +
+    '</section>' +
+    '<section class="karte"><h2>Entlastungsbetrag \u00a745b</h2>' +
+      '<p class="unter">Monatlich zweckgebunden f\u00fcr Betreuung und Hauswirtschaft, unabh\u00e4ngig vom Sachleistungsbetrag.</p>' +
+      '<p style="color:var(--text-2)">Nicht genutzte Betr\u00e4ge k\u00f6nnen bis zum Juni des Folgejahres nachgeholt werden \u2014 ' +
+      'anders als beim Sachleistungsbetrag verfallen sie nicht sofort.</p>' +
+    '</section>';
+}
+
+function vMitglied(k){
+  return '<p class="anrede">Mitgliedschaft</p>' +
+    '<p class="datum">Ihre Stufe im Vergleich \u2014 ein Wechsel ist jederzeit m\u00f6glich.</p>' +
+    '<div class="stufen">'+STUFEN.map(function(s){
+      var aktuell = s[0] === k.stufe;
+      return '<div class="stufe'+(aktuell?' aktuell':'')+'">' +
+        '<span class="name">'+esc(s[0])+'</span>' +
+        '<span class="preis">'+eur(s[1])+'</span><span class="je">im Jahr</span>' +
+        '<ul>'+s[2].map(function(l){ return '<li>'+esc(l)+'</li>'; }).join("")+'</ul>' +
+        '<div class="fuss">' + (aktuell
+          ? '<span class="jetzt">Ihre Stufe</span>'
+          : '<button type="button" class="antwort" style="width:100%;text-align:center">' +
+            (s[1] > STUFEN.filter(function(x){return x[0]===k.stufe;})[0][1]
+              ? 'Auf '+esc(s[0])+' wechseln' : 'Zu '+esc(s[0])+' wechseln') + '</button>') +
+        '</div></div>';
+    }).join("")+'</div>' +
+    '<section class="karte"><h2>Was der Wechsel bedeutet</h2>' +
+      '<p style="color:var(--text-2)">Ein Wechsel gilt ab dem folgenden Monat. Der Beitrag wird anteilig ' +
+      'abgerechnet; bereits gezahlte Betr\u00e4ge werden angerechnet. Eine K\u00fcndigung ist zum Jahresende ' +
+      'm\u00f6glich, die Versorgung selbst ist davon nicht ber\u00fchrt \u2014 sie l\u00e4uft \u00fcber den Pflegevertrag.</p>' +
+    '</section>';
+}
+
+function vServices(k){
+  var punkte = [
+    ["mitglied","Mitgliedschaft wechseln","Stufen vergleichen und wechseln", "geh('mitglied')"],
+    ["unterlagen","SEPA-Lastschriftmandat","Rechnungen automatisch einziehen lassen", "geh('unterlagen')"],
+    ["woche","Termin anfragen","Zus\u00e4tzlicher Besuch, verschieben oder aussetzen", "geh('woche')"],
+    ["eigenanteil","Leistungen ausweiten","Wenn der Anspruch nicht ausgesch\u00f6pft ist", "geh('eigenanteil')"],
+    ["brett","Zu einem Kurs anmelden","Pflegekurse und Veranstaltungen", "geh('brett')"],
+    ["unterlagen","Adresse oder Bankverbindung \u00e4ndern","Wir rufen zur\u00fcck und best\u00e4tigen schriftlich", ""]
+  ];
+  return '<p class="anrede">Services</p>' +
+    '<p class="datum">Alles, was Sie hier selbst erledigen k\u00f6nnen \u2014 an einer Stelle.</p>' +
+    '<ul class="dienste">'+punkte.map(function(p){
+      return '<li><button type="button" class="dienst" onclick="'+p[3]+'">'+svg(p[0],28) +
+        '<span><b>'+esc(p[1])+'</b><span>'+esc(p[2])+'</span></span></button></li>';
+    }).join("")+'</ul>' +
+    '<section class="karte"><h2>Lieber am Telefon?</h2>' +
+      '<p class="unter">Jeder dieser Punkte geht auch im Gespr\u00e4ch \u2014 nichts davon muss \u00fcber das Portal laufen.</p>' +
+      '<a class="telefon" href="tel:+4929430000000">02943 000000 anrufen</a></section>';
+}
+
+function vKontakt(k){
+  return '<p class="anrede">Kontakt</p><p class="datum">Rufen Sie an \u2014 ein Mensch geht ran.</p>' +
+    '<section class="karte"><h2>Ihre Ansprechpartner</h2><ul class="kontaktliste">' +
+      k.kontakte.map(function(c){
+        return '<li><span class="avatar wald">'+esc(c[1])+'</span>' +
+          '<span><span class="titel">'+esc(c[0])+'</span><br><span class="meta">'+esc(c[2])+'</span></span>' +
+          '<span class="rechts"><a class="telefon" style="font-size:1rem;padding:0 20px" href="tel:+4929430000000">'+esc(c[3])+'</a></span></li>';
+      }).join("")+'</ul></section>' +
+    '<section class="karte"><h2>Wann Sie uns erreichen</h2><div class="zeiten">' +
+      '<div><b>Pflege</b><span>t\u00e4glich 6:00 bis 22:00 Uhr</span></div>' +
+      '<div><b>B\u00fcro</b><span>Montag bis Freitag, 8:00 bis 17:00 Uhr</span></div>' +
+      '<div><b>Rufbereitschaft</b><span>au\u00dferhalb der B\u00fcrozeiten, f\u00fcr dringende F\u00e4lle</span></div>' +
+    '</div><p style="margin-top:16px;color:var(--text-2);font-size:.94rem">' +
+    'Einen Nachtdienst gibt es nicht \u2014 die Rufbereitschaft ist der Weg au\u00dferhalb der Zeiten.</p></section>';
+}
+
+var VIEWS = {heute:vHeute, woche:vWoche, brett:vBrett, unterlagen:vUnterlagen,
+             eigenanteil:vEigenanteil, mitglied:vMitglied, services:vServices, kontakt:vKontakt};
 
 function zeichne(){
   var k = KONTEN[konto];
-  var f = {heute:ansichtHeute, woche:ansichtWoche, unterlagen:ansichtUnterlagen, kontakt:ansichtKontakt}[ansicht];
-  document.getElementById("inhalt").innerHTML = f(k);
-  var r = document.getElementById("rueck");
-  if (r) r.addEventListener("click", function(e){
-    var b = e.target.closest(".antwort"); if(!b) return;
-    r.querySelector(".antworten").innerHTML =
-      '<p class="danke"><span aria-hidden="true">\u2713</span>Danke \u2014 wir haben es notiert und melden uns.</p>';
+  document.getElementById("inhalt").innerHTML = VIEWS[ansicht](k);
+  document.querySelectorAll("#reiter button, #schubladeListe button").forEach(function(b){
+    if (b.dataset.ans === ansicht) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
   });
+  var r = document.getElementById("inhalt");
+  r.addEventListener("click", function(e){
+    var b = e.target.closest(".antwort"); if(!b) return;
+    var box = b.closest(".antworten"); if(!box) return;
+    box.innerHTML = '<p class="danke"><span aria-hidden="true">\u2713</span>Danke \u2014 wir haben es notiert und melden uns.</p>';
+  }, {once:false});
   if (window.LZQuellen && window.LZQuellen.isOn()) window.LZQuellen.rebuild();
   window.scrollTo(0,0);
 }
+function geh(a){ ansicht = a; schublade(false); zeichne(); }
 
-document.querySelector("nav.reiter .in").addEventListener("click", function(e){
-  var b = e.target.closest("button[data-ans]"); if(!b) return;
-  ansicht = b.dataset.ans;
-  document.querySelectorAll("nav.reiter button").forEach(function(x){
-    if (x === b) x.setAttribute("aria-current","page"); else x.removeAttribute("aria-current");
+function bauNavigation(){
+  document.getElementById("reiter").innerHTML = BEREICHE.map(function(b){
+    return '<button type="button" data-ans="'+b[0]+'">'+svg(b[0])+esc(b[1])+'</button>';
+  }).join("");
+  document.getElementById("schubladeListe").innerHTML = BEREICHE.map(function(b){
+    return '<li><button type="button" data-ans="'+b[0]+'">'+svg(b[0],28)+esc(b[1])+'</button></li>';
+  }).join("");
+  ["reiter","schubladeListe"].forEach(function(id){
+    document.getElementById(id).addEventListener("click", function(e){
+      var b = e.target.closest("button[data-ans]"); if(!b) return; geh(b.dataset.ans);
+    });
   });
-  zeichne();
-});
-
-function fuelleKennung(){
-  document.getElementById("kennung").value = KONTEN[document.getElementById("rolle").value].kennung;
 }
-document.getElementById("rolle").addEventListener("change", fuelleKennung);
-fuelleKennung();
+
+function schublade(auf){
+  var s = document.getElementById("schublade"), b = document.getElementById("burger");
+  s.classList.toggle("offen", auf);
+  b.setAttribute("aria-expanded", auf ? "true" : "false");
+  document.body.style.overflow = auf ? "hidden" : "";
+  if (auf) { var f = s.querySelector("li button"); if (f) f.focus(); }
+}
+document.addEventListener("keydown", function(e){ if (e.key === "Escape") schublade(false); });
+window.addEventListener("resize", function(){ if (innerWidth > 860) schublade(false); });
+
+function waehlen(){
+  var v = document.getElementById("rolle").value;
+  var app = APP[v];
+  document.getElementById("kennung").value = app
+    ? v.replace("app-","") + "@app-prototyp" : KONTEN[v].kennung;
+  document.getElementById("anmeldeknopf").textContent = app ? "Zum App-Prototyp" : "Anmelden";
+  document.getElementById("gatehinweis").textContent = app
+    ? "Diese Auswahl öffnet den App-Prototyp — dieselben Inhalte auf einem Telefon."
+    : "Beispieldaten, keine echten Personen. Die Auswahl füllt Kennung und Passwort.";
+}
+document.getElementById("rolle").addEventListener("change", waehlen);
+waehlen();
 
 function anmelden(){
-  konto = document.getElementById("rolle").value;
+  var v = document.getElementById("rolle").value;
+  if (APP[v]) { location.href = "/app"; return; }
+  konto = v;
   var k = KONTEN[konto];
   document.getElementById("personName").textContent = k.name;
   document.getElementById("avatar").textContent = k.initialen;
   document.getElementById("gate").classList.add("weg");
   document.getElementById("portal").hidden = false;
   ansicht = "heute";
-  document.querySelectorAll("nav.reiter button").forEach(function(x,i){
-    if (i === 0) x.setAttribute("aria-current","page"); else x.removeAttribute("aria-current");
-  });
   zeichne();
 }
 function abmelden(){
+  schublade(false);
   document.getElementById("portal").hidden = true;
   document.getElementById("gate").classList.remove("weg");
   window.scrollTo(0,0);
 }
+bauNavigation();
 </script>
 <script src="/lz-notes.js" defer></script>
 <script src="/lz-quellen.js" defer></script>

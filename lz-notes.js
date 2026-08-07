@@ -229,6 +229,22 @@
       title: "Hausnotruf und Nachrichten fehlen im Portal",
       text: "Premium enthält laut Steckbrief den Hausnotruf, das Portal zeigt ihn nicht. Ebenso fehlt der Bereich Nachrichten, den die alte Platzhalterseite versprochen hat — die Rückfrage auf der Startansicht deckt nur eine Richtung ab. Beides erst nach dem Abgleich mit der App bauen, damit es nicht zweimal unterschiedlich erfunden wird." },
 
+    { id: "n-done-portal-erweitert", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
+      title: "Kundenportal auf acht Bereiche erweitert",
+      text: "Neu gegenüber dem App-Prototyp abgeglichen: Nachbarschaftsbrett (Kategorien und Aufbau aus dem Brett der App), Kontakte um Zentrale, Rufbereitschaft, Hausarzt und Apotheke erweitert, Verlauf „Was zuletzt geschah\\\", Termin selbst anfragen. Dazu Mitgliedschaft mit Stufenvergleich und Wechsel, Eigenanteil getrennt von den Rechnungen, SEPA-Lastschriftmandat, Services als Sammelstelle. Logo verlinkt jetzt auf die Startseite. Weitere Zugänge in der Anmeldung springen in den App-Prototyp — der Verweis ist dafür aus der Fußzeile entfernt." },
+
+    { id: "n-done-portal-kopfzeile", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Kopfzeile weitete den mobilen Viewport auf",
+      text: "Logo, Menü, Person und Abmelden maßen zusammen 473px auf einem 390px-Gerät. Der Browser weitet in dem Fall nicht nur die Kopfzeile, sondern die gesamte Seite auf — alle acht Bereiche waren betroffen, ohne dass irgendwo sichtbar etwas überstand. Unter 560px trägt der Hamburger nur noch das Zeichen, Abmelden steht in der Schublade." },
+
+    { id: "n-done-menue-knopffarbe", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Knopffarbe im Menü geprüft",
+      text: "Der Abmeldeknopf stand auf --text-2 mit Rahmen in --line-ui und las sich wie eine deaktivierte Fläche. Jetzt Markengrün auf transparent, 5,80:1; gefüllte Knöpfe Markengrün mit Creme, 5,60:1. Alle Bedienelemente im Portal erreichen die 56px der Portal-Umgebung." },
+
+    { id: "n-portal-brett-quelle", page: "kundenportal", selector: "main", status: "auszubauen",
+      title: "Brett-Einträge brauchen echte Termine",
+      text: "Die vier Einträge im Nachbarschaftsbrett sind erfunden, knüpfen aber an belegte Angebote an (Begegnungsorte, Angehörigen-Café, Pflegekurs als Aktiv-Leistung). Vor dem Pitch entweder mit den tatsächlich geplanten Terminen füllen oder als Beispiel kennzeichnen." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
