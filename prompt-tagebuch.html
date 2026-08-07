@@ -31,7 +31,7 @@ header.page h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.875rem, 
 header.page p.lead{font-size:1.19rem;color:var(--text2);max-width:62ch;margin-top:12px;}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 4px;}
 .badge{font-size:0.8rem;border-radius:20px;padding:5px 12px;letter-spacing:.3px;}
-.badge.done{background:rgba(74,138,84,.14);color:#276b31;border:1px solid rgba(74,138,84,.4);}
+.badge.done{background:rgba(74,138,84,.14);color:var(--status-ok);border:1px solid rgba(74,138,84,.4);}
 .badge.info{background:#fff;color:var(--text2);border:1px solid var(--border);}
 h2.sec{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:34px 0 12px;font-weight:500;}
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:14px;}
@@ -61,10 +61,10 @@ h2.sec{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 16px;}
 .tab{background:#fff;border:1px solid var(--border);color:var(--text2);border-radius:30px;padding:9px 18px;font:inherit;font-size:0.88rem;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .12s;}
 .tab:hover{border-color:var(--forest);color:var(--text);}
-.tab.on{background:var(--mint);color:#16201a;border-color:var(--mint);font-weight:500;}
+.tab.on{background:var(--mint);color:var(--green3);border-color:var(--mint);font-weight:500;}
 .tab .dot{width:8px;height:8px;border-radius:50%;}
-.tab .dot.done{background:#2E7038;}.tab .dot.active{background:var(--amber);}
-.tab.on .dot.active{background:#7a5e12;}
+.tab .dot.done{background:var(--status-ok);}.tab .dot.active{background:var(--amber);}
+.tab.on .dot.active{background:var(--amber-ink);}
 .panel{display:none;}.panel.on{display:block;}
 footer{padding:26px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center;}
 @media(max-width:600px){.reflect{grid-template-columns:repeat(2,1fr)}.session .kv,.rlist .row,.tmpl .row{grid-template-columns:1fr}}
@@ -455,7 +455,7 @@ footer{padding:26px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
 
   <section class="panel on" data-p="2">
   <div class="meta">
-    <span class="badge info" style="background:rgba(176,122,42,.12);border-color:rgba(176,122,42,.4);color:#8a5a12;">Sprint 2 · läuft</span>
+    <span class="badge info" style="background:rgba(176,122,42,.12);border-color:rgba(176,122,42,.4);color:var(--amber-ink);">Sprint 2 · läuft</span>
   </div>
   <p class="lead" style="font-size:1.06rem;color:var(--text2);margin:6px 0 4px;">Sprint 2 „Vertrieb &amp; Marketing" wird ab Tag 1 dokumentiert — gleiche Struktur wie Sprint 1. Für jede Claude-Session einen Eintrag anlegen.</p>
 

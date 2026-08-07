@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lz-tokens.css">
 
 <!-- ============================================================
      MASTERTEMPLATE · LebensZeit gGmbH
@@ -15,25 +16,11 @@
      Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
      ============================================================ -->
 <style>
-:root { --red: #8C3A2A; --red-err: #A23; --cream-warm: #FBF4E6; --amber-deep: #6B4A12; --green-deep: #243120; --mint-soft: #cfe0cb;
-  /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
-  --cream:    #F5F0E8;
-  --cream2:   #EDE7D9;
-  --cream3:   #E2D9C8;
-  --parchment:#D6CCBA;
-  --green:    #4A6741;
-  --green2:   #3A5233;
-  --green3:   #2C3D27;
-  --mint:     #A8C9A0; --forest: #5A6E52;
-  --sage:     #8AAC85;
-  --amber:    #B07A2A; --amber-ink: #8F6318;
-  --text:     #2A2820;
-  --text2:    #5A5648;
-  --text3:    #8A8478;
-  --border:   rgba(74,103,65,0.18);
-  --r:        14px;
-  --maxw:     1180px;
-}
+/* Farb- und Masstokens: siehe /lz-tokens.css (Einzelquelle).
+   Der frueher hier stehende eigene :root-Block war eine zweite Farbquelle und
+   wich an drei Stellen ab: --amber-ink #8F6318 statt #8C5E14, --border 0,18
+   statt 0,28 Deckung, --red-err #A23 statt Marken-Rot. Die Kompatibilitaets-
+   bruecke in lz-tokens.css liefert alle Altnamen auf Rohwerte. */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -241,7 +228,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 /* ---- Mock-Login-Gate ---- */
 .gate {
-  position: fixed; inset: 0; z-index: 200;
+  position: fixed; inset: var(--tick-h, 2.375rem) 0 0 0; z-index: 200;
   background: linear-gradient(135deg, #2C3D27, #4A6741);
   display: flex; align-items: center; justify-content: center; padding: 24px;
 }
@@ -376,7 +363,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   content:''; position:absolute; right:-140px; top:-90px; width:460px; height:460px; border-radius:50%;
   background: radial-gradient(circle, rgba(168,201,160,.16), transparent 68%); pointer-events:none;
 }
-.inv-theme .inv-hero .eyebrow { color: var(--amber-ink); }
+.inv-theme .inv-hero .eyebrow { color: var(--accent-ink); }
 .inv-theme .inv-hero h1 { color: var(--cream); }
 .inv-theme .inv-hero h1 em { color: var(--mint); }
 .inv-theme .inv-hero .lead { color: rgba(245,240,232,.92); }
@@ -387,7 +374,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .inv-theme .kpi-item .lbl { color: rgba(245,240,232,.62); }
 
 /* Content-Akzent: Amber statt Sage */
-.inv-theme section.block .section-head .eyebrow { color: var(--amber-ink); }
+.inv-theme section.block .section-head .eyebrow { color: var(--accent-ink); }
 
 /* Sektion-Karten: feine Gold-Oberkante */
 .inv-theme .sec-card { border-top: 2px solid var(--amber); }
@@ -402,10 +389,10 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 
 /* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
-.fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
-.fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
-@keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* Laufband: .lz-tick / .lz-tick-track stehen in lz-tokens.css. Die frueheren
+   .track-Regeln liefen mit fester 60s-Dauer und translateX(-50%) der
+   Containerbreite — dieselbe Ursache fuer weiche Schrift und Sprung wie
+   auf den uebrigen Seiten. */
 
 
 /* INVESTOR-KACHELN gleichmaessig (5 -> 3+2) */
@@ -449,12 +436,15 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
-<body class="inv-theme">
+<body class="env-invest inv-theme">
 <!-- FIKTIV-LAUFBAND + Planspiel-Menü (schwebend) -->
 <div class="fiktiv-bar">
-  <button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()">
-    <div class="track"><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span></div>
-  </button>
+  <div class="lz-tick" id="lzTick">
+    <button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()">
+      <div class="lz-tick-track"><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span></div>
+    </button>
+    <button type="button" class="lz-tick-pause" id="lzTickPause" aria-pressed="false" onclick="lzTickPause(event,this)">Pause</button>
+  </div>
   <div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>
     <span class="fiktiv-menu-h">Planspiel-intern</span>
     <a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>
@@ -582,7 +572,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-col">
-        <a class='logo-lockup' href='/website-status' style='text-decoration:none;' title='Zur Seitenübersicht'>
+        <div class="logo-lockup">
           <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
           <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
@@ -596,7 +586,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <span class="name">LebensZeit <sup>gGmbH</sup></span>
             <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
           </span>
-        </a>
+        </div>
         <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, in der Nachbarschaft verwurzelt, digital vernetzt.</p>
       </div>
 

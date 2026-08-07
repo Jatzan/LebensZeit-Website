@@ -38,7 +38,7 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
 .sum-card.total .n{color:var(--green);}
 .sum-card.y .n{color: var(--amber-ink);}
 .sum-card.s .n{color:var(--forest);}
-.sum-card.g .n{color:#2f7d3a;}
+.sum-card.g .n{color:var(--status-ok);}
 .progress{height:8px;border-radius:6px;background:var(--surface-2);overflow:hidden;display:flex;margin:4px 0 8px;}
 .progress i{display:block;height:100%;}
 .filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 4px;}
@@ -75,15 +75,15 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
 .cat-chip{font-size:0.8rem;letter-spacing:.4px;text-transform:uppercase;font-weight:600;color:var(--amber-ink);background:rgba(176,122,42,.10);border:1px solid rgba(176,122,42,.30);border-radius:20px;padding:3px 9px;}
 .prio{display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;}
 .prio i{width:7px;height:7px;border-radius:50%;display:inline-block;}
-.prio.p1{color:#a5291a;border-color:rgba(192,57,43,.4);background:rgba(192,57,43,.08);}
-.prio.p1 i{background:#C0392B;}
-.prio.p2{color:#8a5a12;border-color:rgba(176,122,42,.4);background:rgba(176,122,42,.08);}
-.prio.p2 i{background:#B07A2A;}
-.prio.p3{color:#4a6741;border-color:rgba(74,103,65,.3);background:rgba(74,103,65,.06);}
-.prio.p3 i{background:#8AAC85;}
-.note.prio-1{border-left:3px solid #C0392B;padding-left:14px;}
-.note.prio-2{border-left:3px solid #B07A2A;padding-left:14px;}
-.note.prio-3{border-left:3px solid #8AAC85;padding-left:14px;}
+.prio.p1{color:var(--red);border-color:rgba(192,57,43,.4);background:rgba(192,57,43,.08);}
+.prio.p1 i{background:var(--red);}
+.prio.p2{color:var(--amber-ink);border-color:rgba(176,122,42,.4);background:rgba(176,122,42,.08);}
+.prio.p2 i{background:var(--amber);}
+.prio.p3{color:var(--green);border-color:rgba(74,103,65,.3);background:rgba(74,103,65,.06);}
+.prio.p3 i{background:var(--sage);}
+.note.prio-1{border-left:3px solid var(--red);padding-left:14px;}
+.note.prio-2{border-left:3px solid var(--amber);padding-left:14px;}
+.note.prio-3{border-left:3px solid var(--sage);padding-left:14px;}
 .note.done{border-left-color:rgba(74,103,65,.2);}
 
 .empty{color:var(--text3);font-style:italic;padding:28px 0;}
@@ -200,7 +200,7 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
       card(counts.spaeter,"Späterer Sprint","s") + card(counts.done,"Erledigt","g");
     var tot = (open + counts.done) || 1;
     document.getElementById("progress").innerHTML =
-      '<i style="width:'+(counts.done/tot*100)+'%;background:#2f7d3a"></i>'+
+      '<i style="width:'+(counts.done/tot*100)+'%;background:var(--status-ok)"></i>'+
       '<i style="width:'+(counts.spaeter/tot*100)+'%;background:var(--sage)"></i>'+
       '<i style="width:'+(counts.auszubauen/tot*100)+'%;background:var(--amber)"></i>'+
       '<i style="width:'+(counts.offen/tot*100)+'%;background:var(--red)"></i>';

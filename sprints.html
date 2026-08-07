@@ -17,7 +17,7 @@ a{color:var(--mint);text-decoration:none}
 .wrap{max-width:960px;margin:0 auto;padding:0 18px}
 
 /* Header */
-header{background:#121812;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+header{background:var(--green3);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
 .hbar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--mint)}
 .brand svg{width:30px;height:30px}
@@ -28,7 +28,7 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 
 /* Title */
 .title{padding:26px 0 6px}
-.title h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.875rem, 4.5vw, 2.5rem);color:#2C3D27;font-weight:600}
+.title h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.875rem, 4.5vw, 2.5rem);color:var(--green3);font-weight:600}
 .title p{color:var(--text2);font-size:1.06rem;margin-top:8px;max-width:62ch}
 
 /* Tabs */
@@ -36,37 +36,37 @@ header{background:#121812;border-bottom:1px solid var(--line);position:sticky;to
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:30px;padding:9px 16px;font-size:0.88rem;cursor:pointer;font-family:inherit;white-space:nowrap;display:flex;align-items:center;gap:8px;transition:all .12s}
 .tab:hover{border-color:var(--forest);color:var(--text)}
-.tab.on{background:var(--mint);color:#16201a;border-color:var(--mint);font-weight:500}
+.tab.on{background:var(--mint);color:var(--green3);border-color:var(--mint);font-weight:500}
 .tab .dot{width:8px;height:8px;border-radius:50%}
-.tab .dot.done{background:#2E7038} .tab .dot.active{background:var(--amber)} .tab .dot.plan{background:var(--dim)}
-.tab.on .dot.active{background:#7a5e12}
+.tab .dot.done{background:var(--status-ok)} .tab .dot.active{background:var(--amber)} .tab .dot.plan{background:var(--dim)}
+.tab.on .dot.active{background:var(--amber-ink)}
 
 /* Panels */
 .panel{display:none;padding:20px 0 60px}
 .panel.on{display:block}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .badge{font-size:0.8rem;border-radius:20px;padding:5px 12px;letter-spacing:.3px}
-.badge.done{background:rgba(74,138,84,.14);color:#276b31;border:1px solid rgba(74,138,84,.4)}
-.badge.active{background:rgba(201,154,46,.15);color: #7E5410;border:1px solid rgba(201,154,46,.4)}
+.badge.done{background:rgba(74,138,84,.14);color:var(--status-ok);border:1px solid rgba(74,138,84,.4)}
+.badge.active{background:rgba(201,154,46,.15);color: var(--amber-ink);border:1px solid rgba(201,154,46,.4)}
 .badge.plan{background:rgba(147,164,147,.12);color:var(--dim);border:1px solid var(--line)}
 .badge.date{background:var(--panel);color:var(--text);border:1px solid var(--line)}
 
-.lead{font-size:1.06rem;color:#5A5648;font-weight:400;margin-bottom:8px}
+.lead{font-size:1.06rem;color:var(--text2);font-weight:400;margin-bottom:8px}
 .hl{background:var(--panel);border-left:3px solid var(--sage);border-radius:8px;padding:14px 16px;margin:14px 0;color:var(--text);font-weight:300}
-.hl b{color:#3A5233;font-weight:600}
+.hl b{color:var(--green2);font-weight:600}
 
 h2.sec{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin:28px 0 12px;font-weight:500}
 
 /* Baustein-Karten */
 .bst{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px;margin-bottom:12px}
 .bst .no{font-family:'Cormorant Garamond',serif;font-size:1.38rem;color:var(--forest)}
-.bst h3{font-size:1.19rem;color:#2C3D27;font-weight:600;margin:2px 0 8px}
+.bst h3{font-size:1.19rem;color:var(--green3);font-weight:600;margin:2px 0 8px}
 .bst p{font-size:0.88rem;color:var(--text);font-weight:300;margin-bottom:8px}
 .bst ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:6px}
 .bst li{position:relative;padding-left:18px;font-size:0.88rem;color:var(--text);font-weight:300}
 .bst li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--sage)}
-.req{margin-top:10px;font-size:0.88rem;color:#3A5233;background:rgba(74,103,65,.06);border-radius:8px;padding:8px 12px}
-.req b{color:#2C3D27}
+.req{margin-top:10px;font-size:0.88rem;color:var(--green2);background:rgba(74,103,65,.06);border-radius:8px;padding:8px 12px}
+.req b{color:var(--green3)}
 
 /* Listen */
 .checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:6px}
@@ -76,7 +76,7 @@ h2.sec{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--
 /* Kriterien-Grid */
 .crit{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px}
 .crit div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:0.88rem;color:var(--text);font-weight:300}
-.crit div b{display:block;color:#2C3D27;font-weight:600;margin-bottom:2px;font-size:0.88rem}
+.crit div b{display:block;color:var(--green3);font-weight:600;margin-bottom:2px;font-size:0.88rem}
 
 .soon{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--dim);text-align:center;font-weight:300}
 .soon b{color:var(--text);display:block;margin-bottom:4px;font-weight:500}
@@ -90,12 +90,12 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:0.8rem;col
 }
 
 /* Einheitlicher interner Kopf (Planspiel) */
-.lz-intbar{background:#2C3D27;color:#F5F0E8;}
+.lz-intbar{background:var(--green3);color:var(--cream);}
 .lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
-.lz-intbar .badge{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:#8AAC85;font-weight:600;margin-right:6px;}
+.lz-intbar .badge{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:600;margin-right:6px;}
 .lz-intbar a{color:rgba(245,240,232,.92);font-size:0.88rem;letter-spacing:.3px;text-decoration:none;}
 .lz-intbar a:hover{color:#fff;}
-.lz-intbar a.here{color:#fff;border-bottom:2px solid #8AAC85;padding-bottom:2px;}
+.lz-intbar a.here{color:#fff;border-bottom:2px solid var(--sage);padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
 
 /* Baustein-Board (Sprint 2) */
@@ -107,7 +107,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:0.8rem;col
 .bboard .bt{font-weight:500;color:var(--green3);}
 .amp{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
 .amp .d{width:11px;height:11px;border-radius:50%;flex:0 0 auto;}
-.amp.gruen .d{background:#2E7038;} .amp.gelb .d{background:#C99A2E;} .amp.rot .d{background:#C0603A;}
+.amp.gruen .d{background:var(--status-ok);} .amp.gelb .d{background:var(--amber);} .amp.rot .d{background:var(--red);}
 .bboard .resp{color:var(--dim);}
 @media(max-width:640px){.bboard,.bboard tbody,.bboard tr,.bboard td{display:block;width:100%}.bboard thead{display:none}.bboard td{border:0;padding:3px 0}.bboard tr{border-bottom:1px solid var(--line);padding:12px 0}}
 .env-intern{ --bg:var(--surface); --dim:var(--text-2); }

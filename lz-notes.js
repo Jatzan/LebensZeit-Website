@@ -157,6 +157,34 @@
       title: "Entlastungsbetrag: 131 € vs. 125 €",
       text: "leistungen.html nennt 131 €/Monat nach §45b, das Personas-Handout rechnet Markus Dörre 125 €/Monat entgangenen Betrag vor. Der Steckbrief nennt keinen Monatsbetrag. Die übrigen SGB-XI-Werte der Website stehen laut Markt- und Wettbewerbsanalyse auf Stand 2024. Auf ein Jahr festlegen und belegen." },
 
+    { id: "n-cockpit-notizen-anker", page: "cockpit", selector: "main", status: "offen",
+      title: "To-Do-Pins im Cockpit ohne sichtbaren Anker",
+      text: "Die Notiz-Pins hängen an Selektoren, die im Cockpit entweder nicht existieren oder in einem Bereich liegen, den render() neu schreibt — sie erscheinen nicht sichtbar verankert. Analog zum Quellen-Overlay lösen: Selektoren je Modul verengen (#main[data-mod=…]) und buildPins() nach jedem render() erneut aufrufen. Josh gemeldet 07.08.2026." },
+
+    { id: "n-quellen-popover-rand", page: "allgemein", selector: "main", status: "offen",
+      title: "Quellen-Popover laufen über den Rand",
+      text: "Das Popover steht fest auf top:26px, right:0 relativ zum Trägerelement. Bei Bauteilen am rechten oder unteren Rand ragt es aus dem sichtbaren Bereich — im Cockpit besonders, weil #main eigenständig scrollt und body auf overflow:hidden steht. Position vor dem Öffnen gegen den Viewport prüfen und bei Bedarf nach links oder oben kippen. Josh gemeldet 07.08.2026." },
+
+    { id: "n-done-env-invest", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "env-invest ausgerollt",
+      text: "Die sechs Investorenseiten trugen einen eigenen :root-Block — eine zweite Farbquelle, die an drei Stellen abwich: --amber-ink #8F6318 statt #8C5E14, --border 0,18 statt 0,28 Deckung, --red-err #A23 statt Marken-Rot. Block entfernt, lz-tokens.css eingebunden, body auf env-invest, Gate auf var(--tick-h), Eyebrows von var(--amber-ink) auf var(--accent-ink) umgestellt — die Umgebung treibt jetzt den Akzent, nicht der Rohwert. Vorher/Nachher über 300 Messpunkte verglichen: alle 229 Abweichungen erklärbar (Fließtext 16 → 16,48px nach --fs-public, Amber-Ink auf den kanonischen Wert, Formularfelder auf 14px Radius und 48px Tippziel)." },
+
+    { id: "n-done-invest-laufband", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Warnbalken der Investorenseiten vereinheitlicht",
+      text: "Die sechs Seiten liefen noch mit der alten .track-Spur und fester 60s-Dauer — dieselbe Ursache für weiche Schrift und Sprung, die auf den übrigen Seiten schon behoben war. Markup auf .lz-tick / .lz-tick-track umgestellt, eigene @keyframes fiktivscroll entfernt, Pause-Knopf ergänzt. Alle 27 Seiten laufen jetzt mit 1.988px Verschiebung und 7,5 px/s." },
+
+    { id: "n-bruecke-entfernen", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "Kompatibilitätsbrücke kann noch nicht weg",
+      text: "Abschnitt 7 in lz-tokens.css bildet 22 Altnamen auf Rohwerte ab und sollte entfallen, sobald alle Seiten Rollen lesen. Nach dem env-invest-Rollout binden nur noch kundenportal.html, standortkarte.html und typo-vergleich.html die Tokendatei nicht ein; die übrigen lesen weiterhin Altnamen im Seiten-CSS. Erst env-portal abschließen, dann seitenweise auf Rollen umstellen, dann die Brücke ziehen." },
+
+    { id: "n-done-footer-logo-entlinkt", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Fußzeilen-Logo entlinkt",
+      text: "Der Lockup in der Fußzeile führte auf /website-status — eine Planspiel-interne Seite, erreichbar aus jedem öffentlichen Footer. Auf 21 Seiten vom <a> zum <div> umgestellt; die 22. Fundstelle lag nicht in der Fußzeile, sondern in der Anmeldekarte des Investoren-Gates und ist dort ebenfalls entlinkt. investoren.html trug im Footer bereits ein <span>. Darstellung unverändert geprüft: Farbe, Maße und Umbruch identisch, kein Zeigerwechsel mehr." },
+
+    { id: "n-done-farbliterale-intern", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Farbliterale der internen Seiten auf Rollen",
+      text: "notizen, sprints, website-status und prompt-tagebuch tragen keine Hexwerte mehr im CSS. Erledigt-Ton überall auf --status-ok (= --lz-green, Festlegung 07.08.2026), Prioritätsstufen auf --red / --amber-ink / --green, deren Punkte auf --red / --amber / --sage. Auf unternehmensdaten.html bleiben 17 Hexwerte stehen — sie sind Inhalt, nicht Gestaltung: die Seite dokumentiert die Palette im Text. Dabei fiel auf, dass sie den Amber-Ink mit #8F6318 auswies, also dem alten Wert, der mit dem env-invest-Rollout aus dem System verschwunden ist; korrigiert auf #8C5E14." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
@@ -423,7 +451,14 @@
       ".lz-note-pin.s-offen{background:var(--red, #8C3A2A);}.lz-note-pin.s-auszubauen{background:var(--amber, #B07A2A);}.lz-note-pin.s-spaeter{background:var(--green, #4A6741);}" +
       "body.lz-notes-active .lz-note-pin{display:flex;animation:lzPinPulse 2.2s ease-in-out infinite;}" +
       "@keyframes lzPinPulse{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 0 rgba(176,122,42,.4);}50%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 7px rgba(176,122,42,0);}}" +
-      ".lz-note-pop{position:absolute;top:48px;right:10px;z-index:41;width:300px;max-width:calc(100vw - 40px);background:#fff;color:var(--text, #2A2820);border:1px solid rgba(74,103,65,.18);border-radius:12px;padding:16px 18px 16px;box-shadow:0 20px 48px rgba(0,0,0,.22);text-align:left;font-family:'Jost',sans-serif;}" +
+      ".lz-note-pop{position:absolute;top:48px;right:10px;z-index:41;width:300px;max-width:calc(100vw - 40px);background:var(--panel, #fff);color:var(--text, #2A2820);border:1px solid var(--line, rgba(74,103,65,.18));border-radius:12px;padding:16px 18px 16px;box-shadow:0 20px 48px rgba(0,0,0,.22);text-align:left;font-family:'Jost',sans-serif;}" +
+      /* Dieselbe Falle wie beim Quellen-Popover: die Flaeche stand fest auf Weiss,
+         waehrend --text im Cockpit die Nachtinte #DFE7DC ist — 1,26:1. Ueber
+         var(--panel) folgt die Flaeche jetzt der Umgebung: 11,91:1 im Cockpit. */
+      ".env-cockpit .lz-note-pop{box-shadow:0 20px 48px rgba(0,0,0,.5);}" +
+      ".env-cockpit .lz-note-pop h4{color:var(--heading);}" +
+      ".env-cockpit .lz-note-pop p,.env-cockpit .lz-note-pop .lz-note-close{color:var(--text-2);}" +
+      ".env-cockpit .lz-note-done-btn{color:var(--accent);background:rgba(138,172,133,.12);border-color:var(--line-ui);}" +
       ".lz-note-pop[hidden]{display:none;}" +
       ".lz-note-badge{display:inline-block;font-size:0.8rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px;color:#fff;}" +
       ".lz-note-pop h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--green3, #2C3D27);font-size:1.25rem;margin:0 0 4px;line-height:1.2;}" +

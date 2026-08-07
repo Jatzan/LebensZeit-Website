@@ -50,8 +50,8 @@ header{background:rgba(245,240,232,.9);backdrop-filter:blur(8px);border-bottom:.
 .reset{margin-left:auto;font-size:0.8rem;color:var(--green);cursor:pointer;background:none;border:none;font-family:inherit}
 
 /* Notiz-Badge */
-.nbadge{font-size:0.8rem;font-weight:600;letter-spacing:.3px;color:#8c3a2a;background:#F7E4DF;border:1px solid #EDCFCA;border-radius:20px;padding:2px 9px;text-decoration:none;line-height:1.4}
-.nbadge:hover{background:#f2d6cf}
+.nbadge{font-size:0.8rem;font-weight:600;letter-spacing:.3px;color:var(--red);background:var(--tint-crit);border:1px solid rgba(140,58,42,.30);border-radius:20px;padding:2px 9px;text-decoration:none;line-height:1.4}
+.nbadge:hover{background:var(--tint-crit)}
 /* Areas + tiles */
 .area{margin-top:30px}
 .area h2{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:10px}
@@ -59,13 +59,13 @@ header{background:rgba(245,240,232,.9);backdrop-filter:blur(8px);border-bottom:.
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
 .tile{position:relative;border-radius:12px;padding:16px 16px 14px;border:1px solid;cursor:pointer;transition:transform .12s,box-shadow .12s;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
 .tile:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(44,61,39,.10)}
-.tile.g{background:var(--greenbg);border-color:#BFDDC3}
-.tile.y{background:var(--yellowbg);border-color:#E7D9AE}
-.tile.r{background:var(--redbg);border-color:#EDCFCA}
+.tile.g{background:var(--greenbg);border-color:rgba(74,103,65,.30)}
+.tile.y{background:var(--yellowbg);border-color:rgba(140,94,20,.30)}
+.tile.r{background:var(--redbg);border-color:rgba(140,58,42,.30)}
 .tile .nm{font-size:0.94rem;font-weight:500;color:var(--green3);padding-right:26px;line-height:1.25}
 .tile .meta{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
 .tile .st{font-size:0.8rem;letter-spacing:.4px;text-transform:uppercase;font-weight:500;display:inline-flex;align-items:center;gap:6px}
-.tile.g .st{color:var(--greenC)} .tile.y .st{color:#7E5410} .tile.r .st{color:var(--red)}
+.tile.g .st{color:var(--greenC)} .tile.y .st{color:var(--amber-ink)} .tile.r .st{color:var(--red)}
 .tile .st::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
 .sprint{margin-left:auto;font-size:0.8rem;font-weight:600;letter-spacing:.5px;background:var(--green3);color:var(--mint);border-radius:20px;padding:3px 9px}
 .ext{position:absolute;top:12px;right:12px;color:var(--text2);font-size:0.8rem}
@@ -78,12 +78,12 @@ footer{margin:44px 0 30px;padding-top:18px;border-top:.5px solid var(--border);f
 @media(max-width:560px){ .head h1{font-size:1.875rem} .grid{grid-template-columns:1fr 1fr} }
 
 /* Einheitlicher interner Kopf (Planspiel) */
-.lz-intbar{background:#2C3D27;color:#F5F0E8;}
+.lz-intbar{background:var(--green3);color:var(--cream);}
 .lz-intbar .lz-intbar-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;padding:11px 24px;max-width:1100px;margin:0 auto;}
-.lz-intbar .badge{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:#8AAC85;font-weight:600;margin-right:6px;}
+.lz-intbar .badge{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:600;margin-right:6px;}
 .lz-intbar a{color:rgba(245,240,232,.92);font-size:0.88rem;letter-spacing:.3px;text-decoration:none;}
 .lz-intbar a:hover{color:#fff;}
-.lz-intbar a.here{color:#fff;border-bottom:2px solid #8AAC85;padding-bottom:2px;}
+.lz-intbar a.here{color:#fff;border-bottom:2px solid var(--sage);padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
 .env-intern{ --yellow:var(--status-warn); --yellowbg:var(--tint-warn); --greenbg:rgba(74,103,65,.10); --redbg:var(--tint-crit); }
 </style>
