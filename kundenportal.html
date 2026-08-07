@@ -197,6 +197,7 @@ section.karte > p.unter{color:var(--text-2);font-size:.94rem;margin-bottom:16px}
 
 /* Services */
 .dienste{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.dienste > section.karte,.stufen > section.karte{grid-column:1/-1;margin-top:0}
 .dienst{display:flex;align-items:flex-start;gap:16px;width:100%;min-height:var(--tap-env);
   background:var(--lz-white);border:1px solid var(--line);border-radius:var(--radius);
   padding:22px 24px;cursor:pointer;text-align:left;color:var(--text);text-decoration:none}
@@ -461,20 +462,24 @@ var KONTEN = {
   }
 };
 
-/* Brett — Kategorien und Muster aus dem App-Prototyp übernommen. */
+/* Brett — Kategorien und Muster aus dem App-Prototyp. Das letzte Feld nennt die
+   Zielgruppe: nur wo beide gemeint sein koennen, wird zurueckgefragt. */
 var BRETT = [
   ["Veranstaltung","Tag der offenen Tür",
    "Pflegeberatung, Hausführung, Kaffee und Kuchen. Lernen Sie das Team kennen, das Sie betreut.",
-   "Samstag, 12.09. · 14 bis 17 Uhr","Standort Erwitte, Kallenhardter Straße 3","Platz reservieren", true],
+   "Samstag, 12.09. · 14 bis 17 Uhr","Standort Erwitte, Kallenhardter Straße 3","Platz reservieren", true, "beide"],
   ["Kurs","Pflegekurs für Angehörige",
    "Vier Abende: rückenschonendes Heben, Medikamentengabe, Umgang mit Demenz, Entlastungsangebote. Für Angehörige kostenfrei — die Pflegekasse übernimmt.",
-   "ab Dienstag, 05.09. · 18:30 Uhr","Begegnungsort Bad Sassendorf","Anmelden", false],
+   "ab Dienstag, 05.09. · 18:30 Uhr","Begegnungsort Bad Sassendorf","Anmelden", false, "angehoerige"],
   ["Angebot","Neu: Fahrdienst zu Arztterminen",
    "Wir holen ab, begleiten in die Praxis und bringen zurück — auch nach Rüthen-Meiste und Lippetal.",
-   "ab sofort","alle fünf Standorte","Mehr erfahren", false],
+   "ab sofort","alle fünf Standorte","Mehr erfahren", false, "info"],
   ["Nachbarschaft","Angehörigen-Café",
    "Offener Treff für pflegende Angehörige. Ohne Anmeldung, ohne Programm — reden, zuhören, Luft holen.",
-   "jeden ersten Donnerstag · 16 Uhr","Begegnungsort Anröchte","Vormerken", false]
+   "jeden ersten Donnerstag · 16 Uhr","Begegnungsort Anröchte","Vormerken", false, "angehoerige"],
+  ["Kurs","Bewegungstreff im Sitzen",
+   "Sanfte Gymnastik für Pflegekundinnen und Pflegekunden — auch mit Rollator oder im Rollstuhl möglich.",
+   "jeden Mittwoch · 10:30 Uhr","Begegnungsort Rüthen","Vormerken", false, "klient"]
 ];
 
 /* Mitgliedsstufen — Beiträge und Leistungen aus dem Steckbrief, Teil B. */
@@ -545,7 +550,7 @@ function fuerWen(k){
     ? ["F\u00fcr mich", "F\u00fcr meine Angeh\u00f6rigen", "F\u00fcr uns beide"]
     : ["F\u00fcr meine Mutter", "F\u00fcr mich", "F\u00fcr uns beide"];
 }
-var BESTAETIGUNG = "Vorgemerkt. Die Anmeldebest\u00e4tigung kommt per E-Mail.";
+var BESTAETIGUNG = "Die Anmeldebest\u00e4tigung kommt per E-Mail.";
 
 function bankFormular(k, titel, senden, text){
   return { titel: titel,
@@ -615,16 +620,24 @@ function vBrett(k){
     }).join("")+'</ul>';
 }
 
-/* Anmeldungen fragen zurueck, fuer wen sie gelten. Beim Fahrdienst waere das
-   sinnlos — dort geht es um Unterlagen, nicht um Plaetze. */
+/* Nur wenn beide Seiten gemeint sein koennen, wird zurueckgefragt. Bei einem
+   Kurs fuer Angehoerige gibt es nichts zu waehlen — dann steht direkt da, fuer
+   wen vorgemerkt wurde, aus der Sicht des angemeldeten Kontos. */
 function brettSchritt(k, i){
-  var b = BRETT[i];
-  if (b[5] === "Mehr erfahren") {
-    return { text: "Wir schicken Ihnen die Unterlagen zum Fahrdienst per E-Mail." };
+  var b = BRETT[i], ziel = b[7];
+  if (ziel === "info") return { text: "Wir schicken Ihnen die Unterlagen zum Fahrdienst per E-Mail." };
+
+  var istKlient = konto === "stemmer";
+  if (ziel === "beide") {
+    return { titel: "F\u00fcr wen soll die Anmeldung gelten?",
+      optionen: fuerWen(k).map(function(w){
+        return { label: w, dann: { text: w + " vorgemerkt. " + BESTAETIGUNG } }; }) };
   }
-  var wen = fuerWen(k);
-  return { titel: "F\u00fcr wen soll die Anmeldung gelten?",
-    optionen: wen.map(function(w){ return { label: w, dann: { text: BESTAETIGUNG } }; }) };
+  var wen = (ziel === "klient")
+    ? (istKlient ? "F\u00fcr Sie" : "F\u00fcr Ihre Mutter")
+    : (istKlient ? "F\u00fcr Ihre Angeh\u00f6rigen" : "F\u00fcr Sie");
+  return { text: wen + " vorgemerkt \u2014 dieses Angebot richtet sich nur an " +
+    (ziel === "klient" ? "Pflegekundinnen und Pflegekunden" : "Angeh\u00f6rige") + ". " + BESTAETIGUNG };
 }
 
 function vUnterlagen(k){
@@ -637,14 +650,16 @@ function vUnterlagen(k){
       '<ul class="liste">'+k.rechnungen.map(function(r){
         return '<li><span><span class="titel">'+esc(r[0])+'</span><br><span class="meta">'+esc(r[1])+'</span></span>' +
           '<span class="rechts"><span class="betrag">'+esc(r[2])+'</span>' +
-          statusHTML(r[3]==="beglichen"?"erledigt":"offen")+'</span></li>'; }).join("")+'</ul>' +
-      '<div class="antworten" style="margin-top:20px">' +
-        '<button type="button" class="antwort" data-sepa="1">SEPA-Lastschriftmandat erteilen \u2014 Rechnungen automatisch einziehen lassen</button>' +
-      '</div>' +
-      '<p style="margin-top:12px;font-size:.94rem;color:var(--text-2)">' +
-      'Mit einem Mandat brauchen Sie nichts mehr zu \u00fcberweisen. Sie k\u00f6nnen es jederzeit widerrufen; ' +
-      'jede Abbuchung ist acht Wochen lang r\u00fcckbuchbar.</p>' +
-    '</section>';
+          statusHTML(r[3]==="beglichen"?"erledigt":"offen")+'</span></li>'; }).join("")+'</ul></section>' +
+    /* Eigener Kasten: solange der Knopf in der Rechnungskarte stand, ersetzte
+       das Formular beim Absenden die gesamte Karte samt Rechnungsliste. */
+    '<section class="karte" id="sepabox"><div id="sepafeld">' +
+      '<h2>Lastschriftmandat</h2>' +
+      '<p class="unter">Rechnungen automatisch einziehen lassen \u2014 dann brauchen Sie nichts mehr zu \u00fcberweisen.</p>' +
+      '<div class="antworten"><button type="button" class="antwort" data-sepa="1">Mandat erteilen</button></div>' +
+      '<p style="margin-top:14px;font-size:.94rem;color:var(--text-2)">' +
+      'Sie k\u00f6nnen es jederzeit widerrufen; jede Abbuchung ist acht Wochen lang r\u00fcckbuchbar.</p>' +
+    '</div></section>';
 }
 
 function vEigenanteil(k){
@@ -673,6 +688,13 @@ function vEigenanteil(k){
       '<p style="margin-top:18px;color:var(--text-2);font-size:1rem">Als ' + esc(k.stufeText) +
       ' erhalten Sie 10 % auf Entlastungsleistungen nach \u00a745b.</p>') +
     '</section>' +
+    '<section class="karte" id="beratungbox"><div id="beratungfeld">' +
+      '<h2>Unklar, was davon bei Ihnen bleibt?</h2>' +
+      '<p class="unter">Wir gehen die Abrechnung mit Ihnen durch \u2014 Zeile f\u00fcr Zeile, ohne Termindruck. ' +
+      'Die Beratung ist f\u00fcr Mitglieder kostenfrei.</p>' +
+      '<div class="antworten"><button type="button" class="antwort" data-beratung="1">' +
+      'Beratung zum Eigenanteil vereinbaren</button></div>' +
+    '</div></section>' +
     '<section class="karte"><h2>Entlastungsbetrag \u00a745b</h2>' +
       '<p class="unter">Monatlich zweckgebunden f\u00fcr Betreuung und Hauswirtschaft, unabh\u00e4ngig vom Sachleistungsbetrag.</p>' +
       '<p style="color:var(--text-2)">Nicht genutzte Betr\u00e4ge k\u00f6nnen bis zum Juni des Folgejahres nachgeholt werden \u2014 ' +
@@ -775,14 +797,31 @@ function dienstSchritt(k, i){
   ] };
 
   return { titel: "Was m\u00f6chten Sie \u00e4ndern?", optionen: [
-    { label: "Adresse", dann: { mailto: "mailto:portal@lebenszeit-ggmbh.example" +
-        "?subject=" + encodeURIComponent("Adress\u00e4nderung \u00b7 " + k.name) +
-        "&body=" + encodeURIComponent(
-          "Guten Tag,\n\nbitte \u00e4ndern Sie meine Anschrift.\n\n" +
-          "Name: " + k.name + "\nBisherige Anschrift: " + k.adresse + "\nNeue Anschrift: \n\n" +
-          "Mit freundlichen Gr\u00fc\u00dfen\n" + k.name),
-        text: "Ihr E-Mail-Programm \u00f6ffnet sich mit einer vorbereiteten Nachricht. " +
-              "\u00d6ffnet es sich nicht, rufen Sie uns an \u2014 02943 000000." } },
+    { label: "Adresse", dann: {
+        titel: "Adress\u00e4nderung",
+        formular: [["Bisherige Anschrift", k.adresse], ["Neue Anschrift", ""]],
+        hinweis: "Achtung: Dies ist ein Schulungsprojekt. Die E-Mail geht an eine erfundene " +
+                 "Adresse und kommt nirgends an \u2014 sie \u00f6ffnet nur Ihr E-Mail-Programm zur Ansicht. " +
+                 "Eine echte \u00c4nderung nehmen wir telefonisch entgegen: 02943 000000.",
+        senden: "E-Mail zur Ansicht \u00f6ffnen",
+        dann: { tun: function(){
+          var alt = document.getElementById("fv0").value, neu = document.getElementById("fv1").value;
+          var host = document.getElementById("dienstfeld");
+          location.href = "mailto:portal@lebenszeit-ggmbh.example" +
+            "?subject=" + encodeURIComponent("Adress\u00e4nderung \u00b7 " + k.name) +
+            "&body=" + encodeURIComponent(
+              "Guten Tag,\n\nbitte \u00e4ndern Sie meine Anschrift.\n\n" +
+              "Name: " + k.name + "\n" +
+              "Bisherige Anschrift: " + alt + "\n" +
+              "Neue Anschrift: " + (neu || "\u2014 bitte eintragen \u2014") + "\n\n" +
+              "Mit freundlichen Gr\u00fc\u00dfen\n" + k.name);
+          zeigeSchritt(host, { titel: "Adress\u00e4nderung",
+            text: "Ihr E-Mail-Programm sollte sich mit der vorbereiteten Nachricht \u00f6ffnen.",
+            warnung: { titel: "Diese Nachricht kommt nirgends an",
+              punkte: ["Empf\u00e4nger ist eine erfundene Adresse des Schulungsprojekts",
+                       "\u00d6ffnet sich kein E-Mail-Programm, passiert gar nichts",
+                       "Eine echte \u00c4nderung nehmen wir telefonisch entgegen: 02943 000000"] } });
+        } } } },
     { label: "Bankverbindung", dann: bankFormular(k, "Bankverbindung \u00e4ndern", "\u00c4nderung absenden",
         "\u00c4nderung aufgenommen. Wir best\u00e4tigen sie Ihnen schriftlich, bevor sie wirksam wird.") }
   ] };
@@ -818,17 +857,36 @@ function zeichne(){
 /* Ein Zuhörer für alle Bereiche. Vorher hing an jedem .antwort dieselbe
    Sammelroutine, die immer nur „Danke" ausgab — die Knöpfe in Mitgliedschaft
    und Services taten damit sichtbar nichts. */
+/* Das Antwortfeld steht im Markup unter der ganzen Liste. Wird oben eine Kachel
+   geklickt, oeffnet es sich mobil ausserhalb des Sichtfelds — man tippt und
+   scheinbar passiert nichts. Es wandert deshalb direkt hinter die geklickte
+   Kachel und spannt die volle Rasterbreite. */
+function feldNeben(box, kachel){
+  if (!box || !kachel) return;
+  var raster = kachel.closest("ul, .stufen");
+  if (raster && raster.contains(kachel)) {
+    box.style.gridColumn = "1 / -1";
+    box.style.marginTop = "0";
+    kachel.insertAdjacentElement("afterend", box);
+    if (!raster.contains(box)) raster.insertBefore(box, kachel.nextSibling);
+  }
+}
+
 document.getElementById("inhalt").addEventListener("click", function(e){
   var k = KONTEN[konto];
 
   var stufe = e.target.closest("[data-stufe]");
   if (stufe) {
     var schritt = stufenSchritt(k, stufe.dataset.stufe);
-    if (schritt) zeigeSchritt(document.getElementById("stufenfeld"), schritt);
+    if (schritt) {
+      feldNeben(document.getElementById("stufenfeldbox"), stufe.closest(".stufe"));
+      zeigeSchritt(document.getElementById("stufenfeld"), schritt);
+    }
     return;
   }
   var dienst = e.target.closest("[data-dienst]");
   if (dienst) {
+    feldNeben(document.getElementById("dienstbox"), dienst.closest("li"));
     zeigeSchritt(document.getElementById("dienstfeld"), dienstSchritt(k, +dienst.dataset.dienst));
     return;
   }
@@ -838,18 +896,29 @@ document.getElementById("inhalt").addEventListener("click", function(e){
     zeigeSchritt(feld, brettSchritt(k, +brett.dataset.start));
     return;
   }
-  /* Rückfrage auf „Heute", Terminanfrage, SEPA-Knopf unter Rechnungen */
+  if (e.target.closest("[data-sepa]")) {
+    zeigeSchritt(document.getElementById("sepafeld"),
+      bankFormular(k, "Lastschriftmandat", "Mandat erteilen",
+        "Mandat erteilt. Die n\u00e4chste Rechnung wird eingezogen; Sie k\u00f6nnen jederzeit widerrufen."));
+    return;
+  }
+  if (e.target.closest("[data-beratung]")) {
+    zeigeSchritt(document.getElementById("beratungfeld"), {
+      titel: "Wie m\u00f6chten Sie die Beratung f\u00fchren?", optionen: [
+        { label: "Jetzt anrufen", dann: { tun: function(){ location.href = "tel:+4929430000000"; } } },
+        { label: "Um R\u00fcckruf bitten", dann: { text: "Notiert. Wir rufen am n\u00e4chsten Werktag zur\u00fcck." } },
+        { label: "Beim n\u00e4chsten Hausbesuch besprechen",
+          dann: { text: "Notiert. " + k.kraft.split(" ")[0] + " bringt die Abrechnung zum n\u00e4chsten Besuch mit." } }
+      ] });
+    return;
+  }
+  /* Rueckfrage auf „Heute" und Terminanfrage */
   var a = e.target.closest(".antwort");
-  if (a) {
+  if (a && !a.dataset.o) {
     var box = a.closest(".antworten");
-    if (box && !box.closest(".aktionsfeld") && !a.dataset.o) {
-      if (a.dataset.sepa !== undefined) {
-        zeigeSchritt(box.parentElement, bankFormular(k, "SEPA-Lastschriftmandat", "Mandat erteilen",
-          "Mandat erteilt. Die n\u00e4chste Rechnung wird eingezogen; Sie k\u00f6nnen jederzeit widerrufen."));
-      } else {
-        box.innerHTML = '<p class="danke"><span aria-hidden="true">\u2713</span>' +
-          'Danke \u2014 wir haben es notiert und melden uns.</p>';
-      }
+    if (box && !box.closest(".aktionsfeld")) {
+      box.innerHTML = '<p class="danke"><span aria-hidden="true">\u2713</span>' +
+        'Danke \u2014 wir haben es notiert und melden uns.</p>';
     }
   }
 });

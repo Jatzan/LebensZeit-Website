@@ -261,6 +261,30 @@
       title: "Portalformulare prüfen nichts",
       text: "SEPA-Mandat und Bankverbindung nehmen jede Eingabe an — keine IBAN-Prüfziffer, keine Pflichtfeldkontrolle, kein Schutz gegen doppeltes Absenden. Für die Vorführung ausreichend, vor einer echten Nutzung nicht. Ebenso ist die Adressänderung eine mailto-Verknüpfung; ohne eingerichtetes E-Mail-Programm passiert nichts, der Hinweistext nennt deshalb die Telefonnummer." },
 
+    { id: "n-done-portal-feldposition", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Antwortfeld erschien mobil außerhalb des Sichtfelds",
+      text: "Das Feld für Mitgliedschaftswechsel und Lastschriftmandat stand im Markup unter der gesamten Liste. Wer mobil oben eine Kachel antippte, sah nichts passieren — die Antwort öffnete sich weit darunter. Das Feld wandert jetzt direkt hinter die angeklickte Kachel und spannt die volle Rasterbreite; gilt für Services und Mitgliedschaft gleichermaßen." },
+
+    { id: "n-done-sepa-eigener-block", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Lastschriftmandat löschte die Rechnungsliste",
+      text: "Der Knopf stand innerhalb der Rechnungskarte; beim Absenden ersetzte das Formular die gesamte Karte samt Rechnungen. Das Mandat hat jetzt einen eigenen Kasten unter den Rechnungen. Nachgemessen: sechs Listenzeilen vor und nach dem Absenden." },
+
+    { id: "n-done-brett-zielgruppe", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
+      title: "Brett fragte auch bei eindeutiger Zielgruppe",
+      text: "Der Pflegekurs richtet sich nur an Angehörige, der Bewegungstreff nur an Pflegekundinnen und Pflegekunden — die Rückfrage „für wen\\\" war dort sinnlos. Jede Brett-Zeile trägt jetzt eine Zielgruppe; gefragt wird nur, wo beide gemeint sein können. Sonst steht direkt da, für wen vorgemerkt wurde, formuliert aus Sicht des angemeldeten Kontos." },
+
+    { id: "n-done-eigenanteil-beratung", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Beratungsweg beim Eigenanteil",
+      text: "Der Eigenanteil ist laut Designgrundlage der emotional wichtigste Punkt der Zielgruppe, hatte aber keinen Ausgang. Jetzt drei Wege: sofort anrufen, um Rückruf bitten, beim nächsten Hausbesuch besprechen." },
+
+    { id: "n-done-adresse-ehrlich", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Adressänderung sagt jetzt, dass nichts ankommt",
+      text: "Vorher öffnete sich eine vorbereitete E-Mail an eine erfundene Adresse, ohne das zu sagen. Jetzt zuerst ein Formular mit bisheriger Anschrift vorbelegt und einem Feld für die neue; beide gehen in den Mailtext. Danach steht ausdrücklich da, dass die Nachricht an eine erfundene Adresse geht, nirgends ankommt und eine echte Änderung telefonisch läuft." },
+
+    { id: "n-done-logo-login-links", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Logos auf den Anmeldeflächen verlinkt",
+      text: "Investoren-Gate und Cockpit-Anmeldung trugen das Logo ohne Verweis. Beide führen jetzt auf die Startseite, ohne Unterstrich; geprüft, dass der Klick tatsächlich navigiert." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",

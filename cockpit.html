@@ -33,6 +33,8 @@ button{cursor:pointer;font-family:inherit}
 /* Fest verdrahtete 22px lagen ueber einer 38px hohen Leiste — der untere Teil des
    Warnbalkens war verdeckt. --tick-h misst lz-notes.js auf allen Seiten. */
 #login{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 700px at 70% 20%,#24312a 0%,var(--n-bg) 60%);z-index:50;overflow-y:auto;padding:20px 0}
+a#loginLogo{display:block;text-decoration:none}
+a#loginLogo:hover{opacity:.82}
 .login-card{width:400px;background:var(--n-panel);border:1px solid var(--n-line);border-radius:14px;padding:34px 36px;color:var(--n-text);box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .login-card .lg{text-align:center;margin-bottom:14px}
 .login-card h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.625rem;color:var(--mint);text-align:center}
@@ -357,7 +359,7 @@ body.alt #logoutBtn{border-color:#9aa;color:#334;background:#e8eef2;}
 </style>
 <div id="login">
   <div class="login-card">
-    <div class="lg" id="loginLogo"></div>
+    <a class="lg" id="loginLogo" href="/" title="Zur Startseite" aria-label="LebensZeit — zur Startseite"></a>
     <h1><span class="serif">LebensZeit</span> · LZ Cockpit</h1>
     <div class="sub">Betriebs-Cockpit · Beispielumgebung</div>
     <div class="login-era" id="loginEra">

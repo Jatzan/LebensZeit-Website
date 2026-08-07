@@ -238,7 +238,8 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   width: 100%; max-width: 420px; box-shadow: 0 30px 80px rgba(0,0,0,.35);
   text-align: center;
 }
-.gate-card .logo-lockup { color: var(--green); justify-content: center; margin-bottom: 8px; }
+.gate-card .logo-lockup { color: var(--green); justify-content: center; margin-bottom: 8px; text-decoration: none; }
+.gate-card a.logo-lockup:hover { opacity: .82; }
 .gate-card h1 { font-size: 30px; margin: 16px 0 6px; }
 .gate-card .gate-sub { font-size: 14px; color: var(--text2); font-weight: 300; margin-bottom: 26px; }
 .gate-field { text-align: left; margin-bottom: 16px; }
@@ -470,7 +471,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 <!-- MOCK-LOGIN-GATE -->
 <div class="gate" id="gate">
   <div class="gate-card">
-    <div class="logo-lockup">
+    <a class="logo-lockup" href="/" title="Zur Startseite">
       <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
           <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
@@ -481,7 +482,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
         </svg>
       <span class="txt"><span class="name">LebensZeit <sup>gGmbH</sup></span></span>
-    </div>
+    </a>
     <h1>Investorenbereich</h1>
     <p class="gate-sub">Vertraulicher Zugang — bitte anmelden.</p>
 
