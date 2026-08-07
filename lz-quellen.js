@@ -103,6 +103,19 @@
       dok: BD, seite: "5", absch: "C.2 Software-Stack", stand: "Sprint 1", guete: "C",
       hinweis: "Der Steckbrief nennt MediFox DAN als f\u00fchrendes System und Excel plus Telefon f\u00fcr die Tourenplanung. Das dargestellte \u201ePflegeVerwaltung 2024\u201c samt Makrowarnung, Netzlaufwerk und Ladezeiten ist eine Veranschaulichung dieses R\u00fcckstands, kein reales Produkt." },
 
+    /* --- Kundenportal --- */
+    { page: "kundenportal", sel: ".naechst", idx: 0, wert: "Beispielverl\u00e4ufe im Portal", kat: "synth", ud: "betrieb", todo: "kundenportal",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Termine, Dokumente, Rechnungsbetr\u00e4ge und die R\u00fcckfrage sind erfunden. Die Personen sind es nicht: Hildegard Stemmer und Markus D\u00f6rre stammen aus dem Personas-Handout, Sandra K\u00f6hler f\u00e4hrt im Cockpit die Tour R-F1 in R\u00fcthen. Hildegard Stemmer steht hier mit Pflegegrad 3 wie im Cockpit; das Handout nennt Pflegegrad 2 und Alter 79 statt 82 \u2014 der Widerspruch ist offen. Die Mutter von Markus D\u00f6rre hat in keiner Unterlage einen Vornamen, daher \u201eFrau D\u00f6rre\u201c." },
+
+    { page: "kundenportal", sel: ".zeiten", idx: 0, wert: "Erreichbarkeitszeiten", kat: "basis", ud: "betrieb",
+      dok: BD, seite: "5", absch: "C.3 Schichtmodell", stand: "Sprint 1", guete: "A",
+      hinweis: "Fr\u00fchdienst 6\u201314, Sp\u00e4tdienst 14\u201322, kein Nachtdienst, Wochenende \u00fcber rotierende Bereitschaft. Die Pflegezeit 6\u201322 Uhr folgt daraus direkt. B\u00fcrozeiten und Rufbereitschaft sind erg\u00e4nzt und in keiner Unterlage belegt." },
+
+    { page: "kundenportal", sel: ".mitglied", idx: 0, wert: "Mitgliedsstufen", kat: "basis", ud: "mitglieder",
+      dok: BD, seite: "3, 5", absch: "B \u00b7 Mitgliedschaftsmodell", stand: "Sprint 1", guete: "A",
+      hinweis: "Basis 48 \u20ac \u00b7 Aktiv 120 \u20ac \u00b7 Premium 360 \u20ac im Jahr, nie \u201eFamilie\u201c. Das Portal selbst ist eine Leistung ab Aktiv (Angeh\u00f6rigen-App), Premium enth\u00e4lt zus\u00e4tzlich festen Ansprechpartner und Hausnotruf \u2014 daher tr\u00e4gt Hildegard Stemmer Premium, Markus D\u00f6rre Aktiv." },
+
     /* --- App-Prototyp --- */
     { page: "app", sel: ".buehne", idx: 0, wert: "LebensZeit OS \u2014 Prototyp", kat: "synth", ud: "betrieb", todo: "app",
       dok: "\u2014 eigenst\u00e4ndige Entwicklung, keine Sprint-Unterlage", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",

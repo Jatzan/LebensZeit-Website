@@ -3,473 +3,463 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Kundenportal — LebensZeit gGmbH</title>
-<meta name="description" content="Das Kundenportal der LebensZeit gGmbH — Termine, Dokumente und Rechnungen an einem Ort. Derzeit im Aufbau.">
+<meta name="description" content="Kundenportal der LebensZeit gGmbH — Termine, Unterlagen und Kontakt. Fiktives Schulungsprojekt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-
-<!-- ============================================================
-     MASTERTEMPLATE · LebensZeit gGmbH
-     Zentrales Stylesheet — gilt fuer alle Seiten.
-     Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
-     ============================================================ -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lz-tokens.css">
 <style>
-:root { --red: #8C3A2A; --red-err: #A23; --cream-warm: #FBF4E6; --amber-deep: #6B4A12; --green-deep: #243120; --mint-soft: #cfe0cb;
-  /* ---- Farbpalette (1:1 aus PitchDeck) ---- */
-  --cream:    #F5F0E8;
-  --cream2:   #EDE7D9;
-  --cream3:   #E2D9C8;
-  --parchment:#D6CCBA;
-  --green:    #4A6741;
-  --green2:   #3A5233;
-  --green3:   #2C3D27;
-  --mint:     #A8C9A0; --forest: #5A6E52;
-  --sage:     #8AAC85;
-  --amber:    #B07A2A; --amber-ink: #8F6318;
-  --text:     #2A2820;
-  --text2:    #5A5648;
-  --text3:    #8A8478;
-  --border:   rgba(74,103,65,0.18);
-  --r:        14px;
-  --maxw:     1180px;
+/* Kundenportal · JO · 07.08.2026
+   Umgebung 03 nach der Designgrundlage: Flaeche Creme-warm, Akzent Gruen,
+   Logo Waldgruen (5,07:1), Fliesstext 1,19rem, Radius 24px, Tippziel 56px.
+   Zielgruppe ueber 75 — daher Person vor Leistung, Status immer als Wort mit
+   Zeichen (nie Punkt allein), keine Emojis, viel Weissraum.
+   Anmeldung nach demselben Muster wie das Betriebs-Cockpit: Rollenauswahl
+   fuellt Kennung und Passwort, ein Knopf. */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Jost',sans-serif; background:var(--surface); color:var(--text);
+  font-size:var(--fs-body); line-height:var(--lh-body-env);
+  -webkit-font-smoothing:antialiased;
 }
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--lz-green-3);line-height:1.18}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--lz-forest);outline-offset:3px;border-radius:8px}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Logo ─────────────────────────────────────────────── */
+.lockup{display:inline-flex;align-items:center;gap:13px;color:var(--logo)}
+.lockup .sym{width:38px;height:38px;flex:0 0 38px}
+.lockup .name{font-family:Georgia,'Times New Roman',serif;font-size:1.44rem;line-height:1}
+.lockup .name sup{font-family:'Jost',sans-serif;font-size:.52em;letter-spacing:.06em;vertical-align:super}
 
-html { scroll-behavior: smooth; }
+/* ── Anmeldung ────────────────────────────────────────── */
+#gate{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;z-index:200;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;padding:24px 18px;overflow-y:auto}
+#gate.weg{display:none}
+.gatecard{width:100%;max-width:460px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:var(--radius);padding:38px 32px 32px;box-shadow:0 18px 48px rgba(74,103,65,.10)}
+.gatecard .kopf{text-align:center;margin-bottom:26px}
+.gatecard h1{font-size:1.75rem;margin-top:16px}
+.gatecard .kopf p{color:var(--text-2);font-size:.94rem;margin-top:6px}
+.feld{margin-bottom:18px}
+.feld label{display:block;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-2);font-weight:600;margin-bottom:7px}
+.feld select,.feld input{width:100%;min-height:var(--tap-env);padding:12px 15px;font:inherit;
+  font-size:1rem;color:var(--text);background:var(--lz-white);
+  border:1px solid var(--line-ui);border-radius:14px}
+.gatehinweis{font-size:.88rem;color:var(--text-2);margin:2px 0 20px;line-height:1.5}
+.knopf{display:block;width:100%;min-height:var(--tap-env);border:0;border-radius:var(--radius);
+  background:var(--lz-green);color:var(--lz-cream);font-size:1.06rem;font-weight:500;cursor:pointer}
+.knopf:hover{background:var(--lz-green-2)}
+.gatefuss{text-align:center;font-size:.88rem;color:var(--text-3);margin-top:20px}
 
-body {
-  font-family: 'Jost', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+/* ── Portal ───────────────────────────────────────────── */
+#portal[hidden]{display:none}
+header.portal{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
+header .oben{max-width:820px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:16px}
+header .oben .rechts{margin-left:auto;display:flex;align-items:center;gap:12px}
+.person{display:inline-flex;align-items:center;gap:10px;font-size:.94rem;color:var(--text-2)}
+.avatar{width:44px;height:44px;flex:0 0 44px;border-radius:50%;display:inline-flex;align-items:center;
+  justify-content:center;background:var(--lz-green);color:var(--lz-cream);font-size:.94rem;font-weight:600;letter-spacing:.5px}
+.avatar.wald{background:var(--lz-forest)}
+.abmelden{min-height:var(--tap-env);padding:0 20px;border-radius:var(--radius);
+  border:1px solid var(--line-ui);background:transparent;color:var(--text-2);cursor:pointer;font-size:.94rem}
+.abmelden:hover{border-color:var(--lz-forest);color:var(--lz-green-3)}
+
+nav.reiter{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:55}
+nav.reiter .in{max-width:820px;margin:0 auto;padding:0 22px;display:flex;gap:6px;overflow-x:auto}
+nav.reiter button{display:inline-flex;align-items:center;gap:9px;min-height:var(--tap-env);
+  padding:0 18px;border:0;background:none;color:var(--text-2);cursor:pointer;font-size:1rem;
+  white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+nav.reiter button svg{width:26px;height:26px;flex:0 0 26px}
+nav.reiter button[aria-current="page"]{color:var(--lz-green-3);border-bottom-color:var(--lz-green);font-weight:500}
+nav.reiter button:hover{color:var(--lz-green-3)}
+
+main{padding:30px 0 70px}
+.anrede{font-size:2rem;font-family:'Cormorant Garamond',serif;color:var(--lz-green-3);font-weight:500}
+.datum{color:var(--text-2);font-size:1rem;margin-top:4px;font-variant-numeric:tabular-nums}
+
+.naechst{margin:26px 0 0;background:var(--lz-white);border:1px solid var(--line);
+  border-left:5px solid var(--lz-green);border-radius:var(--radius);padding:28px 30px}
+.naechst .label{font-size:.8rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--lz-green);font-weight:600}
+.naechst .satz{font-size:1.44rem;font-family:'Cormorant Garamond',serif;color:var(--lz-green-3);margin:12px 0 4px;line-height:1.3}
+.naechst .zeit{font-size:1.19rem;color:var(--text);font-variant-numeric:tabular-nums}
+.wer{display:flex;align-items:center;gap:14px;margin-top:20px}
+.wer .rolle{font-size:.94rem;color:var(--text-2)}
+
+section.karte{background:var(--lz-white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 30px;margin-top:22px}
+section.karte > h2{font-size:1.38rem;margin-bottom:4px}
+section.karte > p.unter{color:var(--text-2);font-size:.94rem;margin-bottom:16px}
+
+/* Zeitleiste — Uhrzeit links, Leistung darunter, Status rechts */
+.woche{list-style:none;display:flex;flex-direction:column}
+.woche li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:start;
+  padding:18px 0;border-bottom:1px solid rgba(74,103,65,.12)}
+.woche li:last-child{border-bottom:0}
+.woche .tag{grid-column:1;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);font-weight:600}
+.woche .zeile{grid-column:1;font-size:1.19rem;color:var(--text);font-variant-numeric:tabular-nums;margin-top:3px}
+.woche .leistung{grid-column:1;font-size:.94rem;color:var(--text-2);margin-top:2px}
+.woche .status{grid-column:2;grid-row:1 / span 3;justify-self:end;align-self:center;
+  display:inline-flex;align-items:center;gap:8px;font-size:.94rem;font-weight:500;white-space:nowrap}
+.status .zeichen{font-size:1.06rem;line-height:1}
+.st-erledigt{color:var(--lz-green)}
+.st-geplant{color:var(--text-2)}
+.st-unterwegs{color:var(--lz-amber-ink)}
+.st-offen{color:var(--lz-info)}
+
+/* Rueckfrage — zwei Knoepfe, 56px, untereinander */
+.rueck{background:rgba(74,103,65,.06);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 30px;margin-top:22px}
+.rueck h2{font-size:1.38rem}
+.rueck p{margin:8px 0 20px;color:var(--text-2)}
+.rueck .antworten{display:flex;flex-direction:column;gap:12px;max-width:440px}
+.rueck .antwort{min-height:var(--tap-env);padding:14px 22px;border-radius:var(--radius);
+  border:1px solid var(--lz-green);background:var(--lz-white);color:var(--lz-green-3);
+  cursor:pointer;font-size:1.06rem;text-align:left}
+.rueck .antwort:hover{background:rgba(74,103,65,.10)}
+.rueck .danke{color:var(--lz-green);font-weight:500;display:flex;align-items:center;gap:9px}
+
+.liste{list-style:none}
+.liste li{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:18px 0;border-bottom:1px solid rgba(74,103,65,.12)}
+.liste li:last-child{border-bottom:0}
+.liste .titel{font-size:1.06rem;color:var(--text)}
+.liste .meta{font-size:.88rem;color:var(--text-2);font-variant-numeric:tabular-nums}
+.liste .rechts{margin-left:auto;display:flex;align-items:center;gap:14px}
+.format{font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+  color:var(--text-2);border:1px solid var(--line);border-radius:20px;padding:3px 11px}
+.betrag{font-size:1.19rem;font-variant-numeric:tabular-nums;color:var(--text)}
+
+.zeiten{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+.zeiten div{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;
+  padding-bottom:14px;border-bottom:1px solid rgba(74,103,65,.12)}
+.zeiten div:last-child{border-bottom:0;padding-bottom:0}
+.zeiten b{min-width:11ch;font-weight:500;color:var(--lz-green-3)}
+.zeiten span{color:var(--text-2);font-variant-numeric:tabular-nums}
+.telefon{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:var(--tap-env);padding:0 26px;border-radius:var(--radius);
+  background:var(--lz-green);color:var(--lz-cream);text-decoration:none;font-size:1.19rem;margin-top:6px}
+.telefon:hover{background:var(--lz-green-2)}
+
+.mitglied{display:inline-flex;align-items:center;gap:9px;font-size:.88rem;letter-spacing:1px;
+  text-transform:uppercase;font-weight:600;color:var(--lz-forest);
+  background:rgba(90,110,82,.12);border:1px solid rgba(90,110,82,.35);border-radius:20px;padding:5px 14px}
+
+footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40px;
+  font-size:.88rem;color:var(--text-2)}
+footer.portal a{color:var(--lz-green)}
+
+@media(max-width:640px){
+  .wrap{padding:0 16px}
+  header .oben{padding:12px 16px}
+  header .oben .person > span:not(.avatar){display:none}
+  nav.reiter{top:69px}
+  nav.reiter button{padding:0 12px;font-size:.94rem}
+  .naechst,section.karte,.rueck{padding:22px 20px}
+  .woche li{grid-template-columns:1fr}
+  .woche .status{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}
 }
-
-h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--green3); line-height: 1.15; }
-
-a { color: var(--green); text-decoration: none; transition: color .15s; }
-a:hover { color: var(--green2); }
-
-img { max-width: 100%; display: block; }
-
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
-
-/* ---- Sichtbarer Fokus (Barrierefreiheit) ---- */
-a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* ============================================================
-   LOGO — Horizontales Lockup, faerbt sich ueber currentColor.
-   Regel: niemals weiss. Heller HG -> dunkles Logo, dunkler HG -> helles.
-   ============================================================ */
-.logo-lockup { display: inline-flex; align-items: center; gap: 12px; color: var(--green); }
-.logo-lockup .sym { width: 38px; height: 38px; flex-shrink: 0; }
-.logo-lockup .txt { display: flex; flex-direction: column; line-height: 1; }
-.logo-lockup .name {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 22px; letter-spacing: 2px; color: currentColor;
-}
-.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .9; }
-.logo-lockup .tag {
-  font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 2px;
-  text-transform: uppercase; color: currentColor; opacity: .9; margin-top: 4px;
-}
-
-/* ============================================================
-   HEADER / NAVIGATION
-   ============================================================ */
-header.site {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(245,240,232,0.88);
-  backdrop-filter: blur(10px);
-  border-bottom: 0.5px solid var(--border);
-}
-.nav-bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
-.nav-links a {
-  font-size: 14px; color: var(--text2); font-weight: 400;
-  letter-spacing: .3px; position: relative; padding: 4px 0;
-}
-.nav-links a:hover { color: var(--green); }
-.nav-links a::after {
-  content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
-  background: var(--green); transition: width .2s;
-}
-.nav-links a:hover::after { width: 100%; }
-.nav-links a.nav-cta::after { display: none; }
-.nav-cta {
-  background: var(--green); color: var(--cream) !important;
-  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
-  letter-spacing: .3px; transition: background .15s, transform .15s;
-}
-.nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
-.nav-cta.secondary { background: transparent; color: var(--green) !important; border: 1px solid var(--green); }
-.nav-cta.secondary:hover { background: var(--green); color: var(--cream) !important; }
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--green); padding: 6px; }
-.nav-toggle svg { width: 26px; height: 26px; }
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero { position: relative; overflow: hidden; padding: 96px 0 88px; }
-.hero::before {
-  content: ''; position: absolute; right: -120px; top: -80px;
-  width: 520px; height: 520px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(168,201,160,.28), transparent 68%);
-  pointer-events: none;
-}
-.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
-.eyebrow {
-  font-size: 11.5px; letter-spacing: 2.6px; text-transform: uppercase;
-  color: var(--green); margin-bottom: 18px; font-weight: 500;
-}
-.hero h1 { font-size: clamp(40px, 6vw, 66px); margin-bottom: 22px; }
-.hero h1 em { font-style: italic; color: var(--green); }
-.hero p.lead { font-size: 18px; color: var(--text2); font-weight: 300; max-width: 30em; margin-bottom: 32px; }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 13px 26px; border-radius: 40px; font-size: 15px;
-  letter-spacing: .3px; transition: all .15s; cursor: pointer; border: none;
-}
-.btn-primary { background: var(--green); color: var(--cream) !important; }
-.btn-primary:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
-.btn-ghost { background: transparent; color: var(--green) !important; border: 1px solid var(--border); }
-.btn-ghost:hover { background: var(--cream2); border-color: var(--green); }
-
-.hero-art { display: flex; justify-content: center; }
-.hero-art svg { width: 100%; max-width: 510px; height: auto; }
-
-/* ---- Vertrauensleiste ---- */
-.trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 26px 0; }
-.trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
-.trust-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .5px; }
-/* Fiktiv-Laufband (oben) */
-.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
-.fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
-.fiktiv-marquee .track span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
-@keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ============================================================
-   SECTION-HELFER
-   ============================================================ */
-section.block { padding: 80px 0; }
-.section-head { max-width: 38em; margin-bottom: 44px; }
-.section-head .eyebrow { margin-bottom: 12px; }
-.section-head h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 12px; }
-.section-head p { color: var(--text2); font-weight: 300; font-size: 16px; }
-
-/* ---- Leistungs-Karten ---- */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
-.card {
-  background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius);
-  padding: 28px 24px; transition: transform .18s, box-shadow .18s;
-}
-.card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(44,61,39,.08); }
-.card .ico { width: 40px; height: 40px; color: var(--green); margin-bottom: 16px; }
-.card h3 { font-size: 23px; margin-bottom: 8px; }
-.card p { font-size: 14px; color: var(--text2); font-weight: 300; }
-
-/* ---- CTA-Band ---- */
-.cta-band { background: var(--green); color: var(--cream); border-radius: var(--radius); padding: 52px 48px; text-align: center; }
-.cta-band h2 { color: var(--cream); font-size: 38px; margin-bottom: 12px; }
-.cta-band p { color: rgba(245,240,232,.92); font-weight: 300; margin-bottom: 26px; }
-.cta-band .btn-primary { background: var(--cream); color: var(--green3) !important; }
-.cta-band .btn-primary:hover { background: #fff; }
-
-/* ============================================================
-   FOOTER — dunkelgruen, Logo wird mintgruen
-   ============================================================ */
-footer.site { background: var(--green3); color: rgba(245,240,232,.7); padding: 64px 0 28px; }
-footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.footer-grid p { font-size: 13px; font-weight: 300; max-width: 24em; }
-.footer-col h4 {
-  font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.6px;
-  text-transform: uppercase; color: var(--mint); margin-bottom: 16px; font-weight: 500;
-}
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col a { color: rgba(245,240,232,.7); font-size: 14px; font-weight: 300; }
-.footer-col a:hover { color: var(--mint); }
-.footer-bottom {
-  border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  font-size: 12px; color: rgba(245,240,232,.72);
-}
-.footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 1024px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
-  .hero-art { order: -1; }
-  .hero-art svg { max-width: 340px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .nav-links {
-    position: absolute; top: 76px; left: 0; right: 0;
-    flex-direction: column; align-items: flex-start; gap: 0;
-    background: var(--cream); border-bottom: 0.5px solid var(--border);
-    padding: 8px 32px 20px; display: none;
-  }
-  .nav-links.open { display: flex; }
-  .nav-links li { width: 100%; }
-  .nav-links a { display: block; padding: 12px 0; width: 100%; }
-  .nav-links .nav-cta { margin-top: 8px; text-align: center; }
-  .nav-toggle { display: block; }
-}
-@media (max-width: 520px) {
-  .footer-grid { grid-template-columns: 1fr; }
-  .trust-row { grid-template-columns: repeat(2, 1fr); gap: 20px 8px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
-
-/* HAUPTSEITEN-LESBARKEIT & KACHELN */
-body { font-size: 16.5px; }
-.hero p.lead, .page-hero .lead { font-size: 20px; }
-.section-head p { font-size: 17px; }
-.card p { font-size: 15px; }
-.svc-body > p { font-size: 15.5px; } .svc-list li { font-size: 15px; }
-.value-box p { font-size: 15px; } .loc-card p { font-size: 14.5px; }
-.tier-list li { font-size: 15px; } .two-col p { font-size: 16px; } .two-col li { font-size: 15px; }
-.lb-card p { font-size: 16px; } .tl-item p { font-size: 15px; } .story p { font-size: 17px; }
-.aside-list span { font-size: 14.5px; } .ptab td, .ptab th { font-size: 15px; }
-@media (min-width:561px) and (max-width:1024px){ .cards { grid-template-columns: repeat(2,1fr); } }
-@media (max-width:560px){ .cards { grid-template-columns: 1fr; } }
-.loc-grid { grid-template-columns: repeat(4,1fr); }
-.loc-card.hq { grid-column: 1 / -1; }
-@media (max-width:1024px){ .loc-grid { grid-template-columns: repeat(2,1fr); } }
-@media (max-width:560px){ .loc-grid { grid-template-columns: 1fr; } }
-
-
-/* Fiktiv-Banner -> Aufklapp-Menue */
-.fiktiv-bar { position: relative; z-index: 100; }
-.fiktiv-marquee { display: block; width: 100%; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: left; }
-.fiktiv-marquee:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
-/* Schwebendes Planspiel-Menü: vertikale Pills, öffnet nach unten, über der Seite */
-.fiktiv-menu {
-  position: absolute; top: 100%; left: 16px; margin-top: 10px;
-  display: flex; flex-direction: column; gap: 8px;
-  background: rgba(30,32,26,0.96); backdrop-filter: blur(6px);
-  border: 1px solid rgba(168,201,160,.25); border-radius: 16px;
-  padding: 14px; min-width: 240px;
-  box-shadow: 0 18px 44px rgba(0,0,0,.32);
-  animation: lzMenuIn .16s ease-out;
-}
-.fiktiv-menu[hidden] { display: none; }
-.fiktiv-menu-h { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding: 2px 6px 4px; }
-.fiktiv-menu a {
-  display: block; color: var(--cream); background: rgba(168,201,160,.10);
-  border: 1px solid rgba(168,201,160,.22); border-radius: 30px;
-  padding: 12px 18px; font-size: 15px; letter-spacing: .3px; transition: background .12s, transform .12s;
-}
-.fiktiv-menu a:hover { background: var(--green); border-color: var(--green); transform: translateX(2px); }
-@keyframes lzMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
-<link rel="icon" href="/favicon.ico" sizes="any">
 </head>
-<body>
+<body class="env-portal">
 
-<!-- FIKTIV-LAUFBAND + Planspiel-Menü (schwebend) -->
-<div class="fiktiv-bar">
-  <button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()">
-    <div class="track"><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span></div>
-  </button>
-  <div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>
-    <span class="fiktiv-menu-h">Planspiel-intern</span>
-    <a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>
-    <a href='/sprints' role='menuitem'>Sprint-Übersicht</a>
-    <a href='/website-status' role='menuitem'>Website-Status</a>
-    <a href='/notizen' role='menuitem'>To-Do's</a>
-    <a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>
-    <div class="fiktiv-menu-sep"></div>
-    <button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span>🗒 To-Do's</span><span id="lzNotesState">Aus</span></button>
+<div id="gate">
+  <div class="gatecard">
+    <div class="kopf">
+      <div class="lockup" style="justify-content:center">
+        <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
+          <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+          <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+          <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
+        </svg>
+      </div>
+      <h1>Kundenportal</h1>
+      <p>Ihre Termine, Unterlagen und der Draht zum Pflegeteam.</p>
+    </div>
+
+    <div class="feld">
+      <label for="rolle">Anmelden als</label>
+      <select id="rolle">
+        <option value="stemmer">Hildegard Stemmer · Pflegekundin · Rüthen</option>
+        <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
+      </select>
+    </div>
+    <div class="feld">
+      <label for="kennung">Benutzerkennung</label>
+      <input id="kennung" type="text" autocomplete="username" readonly>
+    </div>
+    <div class="feld">
+      <label for="passwort">Passwort</label>
+      <input id="passwort" type="password" autocomplete="current-password" value="Beispiel2026" readonly>
+    </div>
+    <p class="gatehinweis">Zwei Demo-Zugänge — die Auswahl füllt Kennung und Passwort.
+      Beispieldaten, keine echten Personen.</p>
+    <button type="button" class="knopf" onclick="anmelden()">Anmelden</button>
+    <p class="gatefuss">LebensZeit gGmbH · Erwitte, Kreis Soest</p>
   </div>
 </div>
 
-<!-- ============================================================
-     HEADER — auf allen Seiten identisch
-     ============================================================ -->
-<header class="site">
-  <div class="wrap nav-bar">
-    <a aria-label='LebensZeit gGmbH Startseite' class='logo-lockup' href='/'>
-      <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
-      <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
-          <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
-          <circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
-          <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/>
-          <circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
-          <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/>
-          <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
-        </svg>
-      <span class="txt">
-        <span class="name">LebensZeit <sup>gGmbH</sup></span>
-        <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
-      </span>
-    </a>
-
-    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleNav(this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
-    </button>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href='/leistungen'>Leistungen</a></li>
-      <li><a href='/ueber-uns'>Über uns</a></li>
-      <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
-      <li><a href='/preise'>Preise</a></li>
-      <li><a href='/aktuelles'>Aktuelles</a></li>
-      <li><a class='nav-cta secondary' href='/mitgliedschaft'>Mitglied werden</a></li>
-      <li><a class='nav-cta' href='/pflegeberatung'>Pflegeberatung anfragen</a></li>
-    </ul>
-  </div>
-</header>
-
-<!-- ============================================================
-     MAIN — pro Seite austauschbar. Hier: oeffentliche Startseite.
-     ============================================================ -->
-<main>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-text">
-        <p class="eyebrow">Kundenportal</p>
-        <h1>Ihr persönlicher Zugang — <em>bald</em> hier.</h1>
-        <p class="lead">Das LebensZeit-Kundenportal bündelt künftig Ihre Termine, Dokumente, Pflegeberichte und Rechnungen an einem sicheren Ort. Wir bauen es gerade auf.</p>
-        <div class="hero-actions">
-          <a class='btn btn-primary' href='/pflegeberatung'>Pflegeberatung anfragen</a>
-          <a class='btn btn-ghost' href='/kontakt'>Kontakt aufnehmen</a>
-        </div>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="240" cy="150" r="96" fill="none" stroke="#4A6741" stroke-width="1.4" opacity="0.22"/>
-          <rect x="176" y="120" width="128" height="86" rx="12" fill="none" stroke="#4A6741" stroke-width="1.6" opacity="0.55"/>
-          <circle cx="240" cy="150" r="16" fill="none" stroke="#4A6741" stroke-width="1.6" opacity="0.7"/>
-          <path d="M240 150v30" stroke="#4A6741" stroke-width="1.6" opacity="0.7"/>
-          <path d="M224 120v-10a16 16 0 0 1 32 0v10" fill="none" stroke="#4A6741" stroke-width="1.6" opacity="0.7"/>
-        </svg>
-      </div>
+<div id="portal" hidden>
+  <header class="portal"><div class="oben">
+    <div class="lockup">
+      <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
+        <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+        <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+        <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
+      </svg>
+      <span class="name">LebensZeit <sup>gGmbH</sup></span>
     </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">In Vorbereitung</p>
-        <h2>Was Sie hier erwarten wird</h2>
-        <p>Diese Seite ist ein Platzhalter. Die folgenden Funktionen sind für einen späteren Ausbau vorgesehen.</p>
-      </div>
-      <div class="cards">
-        <div class="card"><h3>Termine</h3><p>Einsätze und Beratungstermine einsehen und anfragen.</p></div>
-        <div class="card"><h3>Dokumente</h3><p>Pflegeverträge, Berichte und Nachweise sicher abrufen.</p></div>
-        <div class="card"><h3>Rechnungen</h3><p>Eigenanteil und Abrechnungen transparent nachvollziehen.</p></div>
-        <div class="card"><h3>Nachrichten</h3><p>Direkter, geschützter Draht zum Pflegeteam.</p></div>
-      </div>
-      <p style="margin-top:26px">
-        Ein Teil davon läuft bereits: <a href="/app"><strong>Die Angehörigen-App als Prototyp
-        ansehen</strong></a> — vier Rollen auf demselben Datenstand, mit Besuchsverfolgung
-        und Tourenansicht.
-      </p>
+    <div class="rechts">
+      <span class="person"><span class="avatar" id="avatar">HS</span><span id="personName">Hildegard Stemmer</span></span>
+      <button type="button" class="abmelden" onclick="abmelden()">Abmelden</button>
     </div>
-  </section>
-</main>
+  </div></header>
 
-<!-- ============================================================
-     FOOTER — auf allen Seiten identisch
-     ============================================================ -->
-<footer class="site">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="logo-lockup">
-          <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
-          <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
-          <circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
-          <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/>
-          <circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
-          <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/>
-          <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
-        </svg>
-          <span class="txt">
-            <span class="name">LebensZeit <sup>gGmbH</sup></span>
-            <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
-          </span>
-        </div>
-        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, in der Nachbarschaft verwurzelt, digital vernetzt.</p>
-      </div>
+  <nav class="reiter" aria-label="Portalbereiche"><div class="in">
+    <button type="button" data-ans="heute" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Heute</button>
+    <button type="button" data-ans="woche">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M7 14h4M7 18h10"/></svg>Meine Woche</button>
+    <button type="button" data-ans="unterlagen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Unterlagen</button>
+    <button type="button" data-ans="kontakt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l4-4h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/></svg>Kontakt</button>
+  </div></nav>
 
-      <div class="footer-col">
-        <h4>Pflege</h4>
-        <ul>
-          <li><a href='/leistungen'>Leistungen</a></li>
-          <li><a href='/pflegeberatung'>Pflegeberatung</a></li>
-          <li><a href='/preise'>Preise &amp; Eigenanteil</a></li>
-          <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
-        </ul>
-      </div>
+  <main class="wrap" id="inhalt"></main>
 
-      <div class="footer-col">
-        <h4>Zugänge</h4>
-        <ul>
-          <li><a href='/investoren'>Investoren</a></li>
-          <li><a href='/partner'>Partner &amp; Zuweiser</a></li>
-          <li><a href='/karriere'>Karriere</a></li>
-          <li><a href='/cockpit'>Betriebs-Cockpit</a></li>
-          <li><a href='/kundenportal'>Kundenportal</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Rechtliches</h4>
-        <ul>
-          <li><a href='/impressum'>Impressum</a></li>
-          <li><a href='/datenschutz'>Datenschutz</a></li>
-          <li><a href='/barrierefreiheit'>Barrierefreiheit</a></li>
-          <li><a href='/kontakt'>Kontakt</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
-      <span class="values">nah · vernetzt · nachhaltig</span>
-    </div>
-  </div>
-</footer>
+  <footer class="portal"><div class="wrap">
+    LebensZeit gGmbH · Fiktives Unternehmen im KI-Pionierzirkel ·
+    <a href="/leistungen">Leistungen</a> · <a href="/preise">Preise &amp; Eigenanteil</a> ·
+    <a href="/kontakt">Kontakt</a> · <a href="/app">Angehörigen-App</a>
+  </div></footer>
+</div>
 
 <script>
-/* Planspiel-Menü (schwebend) */
-function lzToggleMenu(force){
-  var m=document.getElementById('fiktivMenu'), t=document.getElementById('lzTrigger');
-  var open = (typeof force==='boolean') ? force : m.hasAttribute('hidden');
-  if(open){ m.removeAttribute('hidden'); } else { m.setAttribute('hidden',''); }
-  t.setAttribute('aria-expanded', open?'true':'false');
+/* Beide Personen stammen aus dem Personas-Handout des Sprints 1. Sandra Köhler
+   fährt im Cockpit die Tour R-F1 in Rüthen — dieselbe Person in beiden Systemen,
+   statt eines weiteren Namensraums. Hildegard Stemmer steht hier mit Pflegegrad 3
+   wie im Cockpit; das Handout nennt Pflegegrad 2, der Widerspruch ist offen. */
+var KONTEN = {
+  stemmer: {
+    kennung: "h.stemmer@beispiel.de", anrede: "Guten Tag, Frau Stemmer",
+    name: "Hildegard Stemmer", initialen: "HS", stufe: "Premium-Mitglied",
+    ort: "Rüthen-Meiste", pflegegrad: "Pflegegrad 3",
+    kraft: "Sandra Köhler", kraftInitialen: "SK", kraftRolle: "Pflegefachkraft · Tour Rüthen",
+    satz: "Sandra ist auf dem Weg zu Ihnen.", zeit: "Gegen 15:10 Uhr",
+    woche: [
+      ["Montag",     "08:30", "Grundpflege", "erledigt"],
+      ["Dienstag",   "08:30", "Grundpflege", "erledigt"],
+      ["Mittwoch",   "08:30", "Grund- und Behandlungspflege", "erledigt"],
+      ["Donnerstag", "15:10", "Behandlungspflege", "unterwegs"],
+      ["Freitag",    "08:30", "Grundpflege", "geplant"],
+      ["Samstag",    "10:00", "Begleitung zum Einkauf · Ehrenamt", "geplant"],
+      ["Sonntag",    "08:30", "Grundpflege", "geplant"]
+    ],
+    frage: "Am Samstag begleitet Sie jemand vom Ehrenamt zum Einkauf. Passt 10 Uhr?",
+    antworten: ["Ja, 10 Uhr passt", "Lieber später am Tag", "Diese Woche nicht"],
+    dokumente: [
+      ["Pflegevertrag", "Stand 03/2024", "PDF"],
+      ["Leistungsnachweis Juli 2026", "Stand 01.08.2026", "PDF"],
+      ["Pflegegrad-Bescheid", "Stand 11/2023", "PDF"]
+    ],
+    rechnungen: [
+      ["Juli 2026", "Eigenanteil", "142,80 €", "beglichen"],
+      ["Juni 2026", "Eigenanteil", "142,80 €", "beglichen"],
+      ["Mai 2026",  "Eigenanteil", "138,20 €", "beglichen"]
+    ]
+  },
+  doerre: {
+    kennung: "m.doerre@beispiel.de", anrede: "Guten Tag, Herr Dörre",
+    name: "Markus Dörre", initialen: "MD", stufe: "Aktiv-Mitglied",
+    ort: "für Frau Dörre · Lippetal", pflegegrad: "Pflegegrad 2",
+    kraft: "Jana Brinkmann", kraftInitialen: "JB", kraftRolle: "Pflegefachkraft · Tour Lippetal",
+    satz: "Jana war heute bei Ihrer Mutter.", zeit: "Um 09:20 Uhr, alles in Ordnung",
+    woche: [
+      ["Montag",     "09:20", "Grundpflege", "erledigt"],
+      ["Mittwoch",   "09:20", "Grundpflege", "erledigt"],
+      ["Donnerstag", "09:20", "Grundpflege", "erledigt"],
+      ["Freitag",    "14:00", "Beratungsbesuch nach §37.3", "geplant"],
+      ["Samstag",    "—",     "Hauswirtschaft — noch nicht vergeben", "offen"]
+    ],
+    frage: "Für Samstag ist die Hauswirtschaft noch nicht vergeben. Sollen wir sie einplanen?",
+    antworten: ["Ja, bitte einplanen", "Diesmal übernehme ich das", "Bitte rufen Sie mich an"],
+    dokumente: [
+      ["Vollmacht Angehörige", "Stand 05/2025", "PDF"],
+      ["Pflegevertrag", "Stand 09/2023", "PDF"],
+      ["Leistungsnachweis Juli 2026", "Stand 01.08.2026", "PDF"]
+    ],
+    rechnungen: [
+      ["Juli 2026", "Eigenanteil", "96,40 €", "beglichen"],
+      ["Juni 2026", "Eigenanteil", "96,40 €", "offen"]
+    ]
+  }
+};
+
+/* Status trägt immer Wort UND Zeichen — ein Punkt allein ist bei Farbfehlsicht
+   und nachlassender Kontrastempfindlichkeit nicht lesbar. */
+var STATUS = {
+  erledigt:  ["\u2713", "erledigt",  "st-erledigt"],
+  unterwegs: ["\u2192", "unterwegs", "st-unterwegs"],
+  geplant:   ["\u00b7", "geplant",   "st-geplant"],
+  offen:     ["?",      "offen",     "st-offen"]
+};
+
+var konto = null, ansicht = "heute";
+
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+function heuteText(){
+  var w = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+  var d = new Date();
+  return w[d.getDay()] + ", " + d.toLocaleDateString("de-DE",
+    {day:"2-digit", month:"long", year:"numeric"});
 }
-document.addEventListener('click', function(e){
-  var bar=document.querySelector('.fiktiv-bar');
-  if(bar && !bar.contains(e.target)) lzToggleMenu(false);
+
+function statusHTML(key){
+  var s = STATUS[key] || STATUS.geplant;
+  return '<span class="status ' + s[2] + '"><span class="zeichen" aria-hidden="true">' +
+    s[0] + '</span>' + s[1] + '</span>';
+}
+
+function ansichtHeute(k){
+  return '<p class="anrede">' + esc(k.anrede) + '</p>' +
+    '<p class="datum">' + heuteText() + '</p>' +
+    '<div class="naechst">' +
+      '<span class="label">Als Nächstes</span>' +
+      '<p class="satz">' + esc(k.satz) + '</p>' +
+      '<p class="zeit">' + esc(k.zeit) + '</p>' +
+      '<div class="wer"><span class="avatar wald">' + esc(k.kraftInitialen) + '</span>' +
+        '<span><b>' + esc(k.kraft) + '</b><br><span class="rolle">' + esc(k.kraftRolle) + '</span></span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="rueck" id="rueck">' +
+      '<h2>Eine kurze Frage</h2>' +
+      '<p>' + esc(k.frage) + '</p>' +
+      '<div class="antworten">' +
+        k.antworten.map(function(a,i){
+          return '<button type="button" class="antwort" data-a="' + i + '">' + esc(a) + '</button>';
+        }).join("") +
+      '</div>' +
+    '</div>' +
+    '<section class="karte">' +
+      '<h2>Ihre Versorgung</h2>' +
+      '<p class="unter">' + esc(k.ort) + ' \u00b7 ' + esc(k.pflegegrad) + '</p>' +
+      '<span class="mitglied">' + esc(k.stufe) + '</span>' +
+    '</section>';
+}
+
+function ansichtWoche(k){
+  return '<p class="anrede">Meine Woche</p>' +
+    '<p class="datum">Ein Eintrag je Termin \u2014 Status als Wort.</p>' +
+    '<section class="karte"><ul class="woche">' +
+      k.woche.map(function(z){
+        return '<li><span class="tag">' + esc(z[0]) + '</span>' +
+          '<span class="zeile">' + esc(z[1]) + '</span>' +
+          '<span class="leistung">' + esc(z[2]) + '</span>' +
+          statusHTML(z[3]) + '</li>';
+      }).join("") +
+    '</ul></section>';
+}
+
+function ansichtUnterlagen(k){
+  return '<p class="anrede">Unterlagen</p>' +
+    '<p class="datum">Dokumente und Rechnungen an einem Ort.</p>' +
+    '<section class="karte"><h2>Dokumente</h2><ul class="liste">' +
+      k.dokumente.map(function(d){
+        return '<li><span><span class="titel">' + esc(d[0]) + '</span><br>' +
+          '<span class="meta">' + esc(d[1]) + '</span></span>' +
+          '<span class="rechts"><span class="format">' + esc(d[2]) + '</span></span></li>';
+      }).join("") +
+    '</ul></section>' +
+    '<section class="karte"><h2>Rechnungen</h2>' +
+      '<p class="unter">Der Eigenanteil ist der Betrag, der nach den Leistungen der Pflegekasse bleibt.</p>' +
+      '<ul class="liste">' +
+      k.rechnungen.map(function(r){
+        return '<li><span><span class="titel">' + esc(r[0]) + '</span><br>' +
+          '<span class="meta">' + esc(r[1]) + '</span></span>' +
+          '<span class="rechts"><span class="betrag">' + esc(r[2]) + '</span>' +
+          statusHTML(r[3] === "beglichen" ? "erledigt" : "offen") + '</span></li>';
+      }).join("") +
+    '</ul></section>';
+}
+
+function ansichtKontakt(k){
+  return '<p class="anrede">Kontakt</p>' +
+    '<p class="datum">Rufen Sie an \u2014 ein Mensch geht ran.</p>' +
+    '<section class="karte">' +
+      '<h2>Ihre Ansprechpartnerin</h2>' +
+      '<div class="wer">' +
+        '<span class="avatar wald">' + esc(k.kraftInitialen) + '</span>' +
+        '<span><b>' + esc(k.kraft) + '</b><br><span class="rolle">' + esc(k.kraftRolle) + '</span></span>' +
+      '</div>' +
+      '<a class="telefon" href="tel:+4929430000000">02943 000000</a>' +
+    '</section>' +
+    '<section class="karte"><h2>Wann Sie uns erreichen</h2>' +
+      '<div class="zeiten">' +
+        '<div><b>Pflege</b><span>t\u00e4glich 6:00 bis 22:00 Uhr</span></div>' +
+        '<div><b>B\u00fcro</b><span>Montag bis Freitag, 8:00 bis 17:00 Uhr</span></div>' +
+        '<div><b>Rufbereitschaft</b><span>au\u00dferhalb der B\u00fcrozeiten, f\u00fcr dringende F\u00e4lle</span></div>' +
+      '</div>' +
+      '<p style="margin-top:16px;color:var(--text-2);font-size:.94rem">' +
+      'Einen Nachtdienst gibt es nicht \u2014 die Rufbereitschaft ist der Weg au\u00dferhalb der Zeiten.</p>' +
+    '</section>';
+}
+
+function zeichne(){
+  var k = KONTEN[konto];
+  var f = {heute:ansichtHeute, woche:ansichtWoche, unterlagen:ansichtUnterlagen, kontakt:ansichtKontakt}[ansicht];
+  document.getElementById("inhalt").innerHTML = f(k);
+  var r = document.getElementById("rueck");
+  if (r) r.addEventListener("click", function(e){
+    var b = e.target.closest(".antwort"); if(!b) return;
+    r.querySelector(".antworten").innerHTML =
+      '<p class="danke"><span aria-hidden="true">\u2713</span>Danke \u2014 wir haben es notiert und melden uns.</p>';
+  });
+  if (window.LZQuellen && window.LZQuellen.isOn()) window.LZQuellen.rebuild();
+  window.scrollTo(0,0);
+}
+
+document.querySelector("nav.reiter .in").addEventListener("click", function(e){
+  var b = e.target.closest("button[data-ans]"); if(!b) return;
+  ansicht = b.dataset.ans;
+  document.querySelectorAll("nav.reiter button").forEach(function(x){
+    if (x === b) x.setAttribute("aria-current","page"); else x.removeAttribute("aria-current");
+  });
+  zeichne();
 });
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') lzToggleMenu(false); });
-</script>
-<script>
-/* Mobile-Navigation */
-function toggleNav(btn) {
-  var links = document.getElementById('navLinks');
-  var open = links.classList.toggle('open');
-  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+function fuelleKennung(){
+  document.getElementById("kennung").value = KONTEN[document.getElementById("rolle").value].kennung;
+}
+document.getElementById("rolle").addEventListener("change", fuelleKennung);
+fuelleKennung();
+
+function anmelden(){
+  konto = document.getElementById("rolle").value;
+  var k = KONTEN[konto];
+  document.getElementById("personName").textContent = k.name;
+  document.getElementById("avatar").textContent = k.initialen;
+  document.getElementById("gate").classList.add("weg");
+  document.getElementById("portal").hidden = false;
+  ansicht = "heute";
+  document.querySelectorAll("nav.reiter button").forEach(function(x,i){
+    if (i === 0) x.setAttribute("aria-current","page"); else x.removeAttribute("aria-current");
+  });
+  zeichne();
+}
+function abmelden(){
+  document.getElementById("portal").hidden = true;
+  document.getElementById("gate").classList.remove("weg");
+  window.scrollTo(0,0);
 }
 </script>
 <script src="/lz-notes.js" defer></script>

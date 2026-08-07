@@ -52,6 +52,32 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
 .filter:hover{border-color:var(--forest);}
 .filter.active{background:var(--green3);color:#fff;border-color:var(--green3);}
 
+/* Gedrückter Zustand spiegelt das Aussehen in der Liste: man sieht am Knopf,
+   wonach gefiltert wird, ohne die Legende im Kopf zu behalten.
+   Status trägt in der Liste volle Fläche mit weißer Schrift (.b-*),
+   Priorität eine getönte Pille mit farbiger Schrift und Punkt (.prio),
+   Sprint und Kategorie je eine getönte Marke (.sp-chip / .cat-chip). */
+.filter.active.f-offen{background:var(--red);border-color:var(--red);color:#fff;}
+.filter.active.f-auszubauen{background:var(--amber-ink);border-color:var(--amber-ink);color:#fff;}
+.filter.active.f-spaeter{background:var(--green);border-color:var(--green);color:#fff;}
+/* Erledigt trägt in der Liste keine eigene Marke, sondern Durchstreichung und
+   gedämpfte Schrift. Ohne diesen Unterschied wäre der Knopf von „Später" nicht
+   zu trennen — beide lösen auf dasselbe Grün auf. */
+.filter.active.f-erledigt{background:var(--status-ok);border-color:var(--status-ok);color:#fff;text-decoration:line-through;text-decoration-thickness:1px;text-underline-offset:2px;}
+
+.filter.active.f-p1,.filter.active.f-p2,.filter.active.f-p3{font-weight:600;letter-spacing:.3px;}
+.filter.active.f-p1::before,.filter.active.f-p2::before,.filter.active.f-p3::before{
+  content:'';display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+.filter.active.f-p1{background:rgba(140,58,42,.10);border-color:var(--red);color:var(--red);}
+.filter.active.f-p1::before{background:var(--red);}
+.filter.active.f-p2{background:rgba(176,122,42,.12);border-color:var(--amber);color:var(--amber-ink);}
+.filter.active.f-p2::before{background:var(--amber);}
+.filter.active.f-p3{background:rgba(74,103,65,.10);border-color:var(--green);color:var(--green);}
+.filter.active.f-p3::before{background:var(--sage);}
+
+.filter.active.f-sprint{background:rgba(74,103,65,.12);border-color:var(--green);color:var(--green3);font-weight:600;}
+.filter.active.f-kat{background:rgba(176,122,42,.12);border-color:rgba(176,122,42,.55);color:var(--amber-ink);font-weight:600;}
+
 .pagegroup{background:#fff;border:1px solid var(--border);border-radius:16px;padding:8px 22px 6px;margin:16px 0;}
 .pagegroup>h2{font-size:1.5rem;display:flex;align-items:baseline;gap:12px;padding:16px 0 8px;border-bottom:1px solid var(--border);}
 .pagegroup>h2 .go{font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:.5px;color:var(--green);font-weight:400;}
@@ -75,7 +101,7 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
 .cat-chip{font-size:0.8rem;letter-spacing:.4px;text-transform:uppercase;font-weight:600;color:var(--amber-ink);background:rgba(176,122,42,.10);border:1px solid rgba(176,122,42,.30);border-radius:20px;padding:3px 9px;}
 .prio{display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;}
 .prio i{width:7px;height:7px;border-radius:50%;display:inline-block;}
-.prio.p1{color:var(--red);border-color:rgba(192,57,43,.4);background:rgba(192,57,43,.08);}
+.prio.p1{color:var(--red);border-color:rgba(140,58,42,.40);background:rgba(140,58,42,.08);}
 .prio.p1 i{background:var(--red);}
 .prio.p2{color:var(--amber-ink);border-color:rgba(176,122,42,.4);background:rgba(176,122,42,.08);}
 .prio.p2 i{background:var(--amber);}
@@ -271,14 +297,20 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
 
   // Filter-Buttons: drei Gruppen (Status · Sprint · Priorität), Mehrfachauswahl
   var fbar = document.getElementById("filters");
-  function makeGroup(defs, set){
+  function makeGroup(defs, set, mod){
     var g=document.createElement("div"); g.className="grp";
     defs.forEach(function(f){
       var b=document.createElement("button");
       b.className="filter"; b.textContent=f[1]; b.dataset.f=f[0];
+      /* mod bestimmt, wie der gedrückte Zustand aussieht — je Gruppe so wie
+         das Gegenstück in der Liste. Bei Status und Priorität hängt es am Wert,
+         bei Sprint und Kategorie an der Gruppe. */
+      if (mod) b.classList.add(typeof mod === "function" ? mod(f[0]) : mod);
+      b.setAttribute("aria-pressed", "false");
       b.addEventListener("click",function(){
         set.has(f[0])?set.delete(f[0]):set.add(f[0]);
         b.classList.toggle("active", set.has(f[0]));
+        b.setAttribute("aria-pressed", set.has(f[0]) ? "true" : "false");
         render();
       });
       g.appendChild(b);
@@ -286,20 +318,21 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
     return g;
   }
   function fsep(){ var s=document.createElement("span"); s.className="fsep"; return s; }
-  fbar.appendChild(makeGroup([["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]], selStatus));
+  fbar.appendChild(makeGroup([["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]], selStatus, function(v){return "f-"+v;}));
   fbar.appendChild(fsep());
-  fbar.appendChild(makeGroup([["1","S1"],["2","S2"]], selSprint));
+  fbar.appendChild(makeGroup([["1","S1"],["2","S2"]], selSprint, "f-sprint"));
   fbar.appendChild(fsep());
-  fbar.appendChild(makeGroup([["1","Hoch"],["2","Mittel"],["3","Niedrig"]], selPrio));
+  fbar.appendChild(makeGroup([["1","Hoch"],["2","Mittel"],["3","Niedrig"]], selPrio, function(v){return "f-p"+v;}));
   fbar.appendChild(fsep());
-  fbar.appendChild(makeGroup(CATORDER.map(function(c){return [c, CATLABEL[c]];}), selCat));
+  fbar.appendChild(makeGroup(CATORDER.map(function(c){return [c, CATLABEL[c]];}), selCat, "f-kat"));
   // Zurücksetzen-Symbol hinter den Filtern
   var resetBtn=document.createElement("button");
   resetBtn.className="freset lz-round"; resetBtn.title="Filter zurücksetzen"; resetBtn.setAttribute("aria-label","Filter zurücksetzen");
   resetBtn.innerHTML="↺";
   resetBtn.addEventListener("click",function(){
-    selStatus.clear(); selSprint.clear(); selPrio.clear();
-    fbar.querySelectorAll(".filter.active").forEach(function(x){ x.classList.remove("active"); });
+    selStatus.clear(); selSprint.clear(); selPrio.clear(); selCat.clear();
+    fbar.querySelectorAll(".filter").forEach(function(x){
+      x.classList.remove("active"); x.setAttribute("aria-pressed","false"); });
     if(pageFilter){ pageFilter=null; history.replaceState(null,"",location.pathname); var pfc=document.querySelector(".pagefilter"); if(pfc) pfc.remove(); }
     render();
   });

@@ -34,7 +34,7 @@ header{background:rgba(245,240,232,.9);backdrop-filter:blur(8px);border-bottom:.
 .sum-card{flex:1;min-width:130px;background:#fff;border:.5px solid var(--border);border-radius:12px;padding:16px 18px}
 .sum-card .n{font-family:'Cormorant Garamond',serif;font-size:2rem;line-height:1}
 .sum-card .l{font-size:0.8rem;color:var(--text2);letter-spacing:.4px;margin-top:2px}
-.sum-card.g .n{color:var(--greenC)} .sum-card.y .n{color:var(--yellow)} .sum-card.r .n{color:var(--red)} .sum-card.t .n{color:var(--green)}
+.sum-card.g .n{color:var(--status-ok)} .sum-card.y .n{color:var(--yellow)} .sum-card.r .n{color:var(--red)} .sum-card.t .n{color:var(--green)}
 .progress{height:8px;border-radius:6px;background:var(--surface-2);overflow:hidden;display:flex;margin-top:16px}
 .progress i{display:block;height:100%}
 
@@ -45,7 +45,7 @@ header{background:rgba(245,240,232,.9);backdrop-filter:blur(8px);border-bottom:.
 .chip:hover{border-color:var(--green)}
 .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
 .chip.dot::before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
-.chip.r::before{background:var(--red)} .chip.y::before{background:var(--yellow)} .chip.g::before{background:var(--greenC)}
+.chip.r::before{background:var(--red)} .chip.y::before{background:var(--yellow)} .chip.g::before{background:var(--status-ok)}
 .sep{width:1px;height:22px;background:var(--border);margin:0 4px}
 .reset{margin-left:auto;font-size:0.8rem;color:var(--green);cursor:pointer;background:none;border:none;font-family:inherit}
 
@@ -65,7 +65,7 @@ header{background:rgba(245,240,232,.9);backdrop-filter:blur(8px);border-bottom:.
 .tile .nm{font-size:0.94rem;font-weight:500;color:var(--green3);padding-right:26px;line-height:1.25}
 .tile .meta{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
 .tile .st{font-size:0.8rem;letter-spacing:.4px;text-transform:uppercase;font-weight:500;display:inline-flex;align-items:center;gap:6px}
-.tile.g .st{color:var(--greenC)} .tile.y .st{color:var(--amber-ink)} .tile.r .st{color:var(--red)}
+.tile.g .st{color:var(--status-ok)} .tile.y .st{color:var(--amber-ink)} .tile.r .st{color:var(--red)}
 .tile .st::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
 .sprint{margin-left:auto;font-size:0.8rem;font-weight:600;letter-spacing:.5px;background:var(--green3);color:var(--mint);border-radius:20px;padding:3px 9px}
 .ext{position:absolute;top:12px;right:12px;color:var(--text2);font-size:0.8rem}
@@ -235,8 +235,8 @@ function renderSummary(){
     <div class="sum-card y"><div class="n">${y}</div><div class="l">In Arbeit</div></div>
     <div class="sum-card r"><div class="n">${r}</div><div class="l">Geplant</div></div>`;
   document.getElementById('progress').innerHTML=
-    `<i style="width:${g/tot*100}%;background:var(--greenC)"></i>`+
-    `<i style="width:${y/tot*100}%;background:var(--yellow)"></i>`+
+    `<i style="width:${g/tot*100}%;background:var(--status-ok)"></i>`+
+    `<i style="width:${y/tot*100}%;background:var(--amber)"></i>`+
     `<i style="width:${r/tot*100}%;background:var(--red)"></i>`;
 }
 

@@ -109,6 +109,9 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:0.8rem;col
 .amp .d{width:11px;height:11px;border-radius:50%;flex:0 0 auto;}
 .amp.gruen .d{background:var(--status-ok);} .amp.gelb .d{background:var(--amber);} .amp.rot .d{background:var(--red);}
 .bboard .resp{color:var(--dim);}
+.hint{font-size:0.88rem;color:var(--dim);max-width:78ch;line-height:1.5;}
+.hint a,.bboard a{color:var(--green);text-decoration:underline;text-underline-offset:2px;}
+#restTage{font-weight:600;color:var(--green3);}
 @media(max-width:640px){.bboard,.bboard tbody,.bboard tr,.bboard td{display:block;width:100%}.bboard thead{display:none}.bboard td{border:0;padding:3px 0}.bboard tr{border-bottom:1px solid var(--line);padding:12px 0}}
 .env-intern{ --bg:var(--surface); --dim:var(--text-2); }
 </style>
@@ -224,16 +227,41 @@ footer{border-top:1px solid var(--line);padding:18px 0 30px;font-size:0.8rem;col
     <div class="hl">Der Investor will sehen, dass ihr den Markt nicht nur <b>versteht</b>, sondern auch <b>erreicht</b> — von der Positionierung über den Preis bis zum klickbaren Prototyp. Ihr seid Unternehmer, kein Berichtswesen.</div>
 
         <h2 class="sec">Baustein-Board</h2>
+    <p class="hint" style="margin:0 0 10px">Stand 07.08.2026 · <span id="restTage"></span> bis zum Pitch.
+      Der Status ist an vorhandenen Artefakten festgemacht, nicht geschätzt — die Belegspalte nennt sie.
+      Die geplanten Termine stammen aus der Sprint-Unterlage und liegen sämtlich in der Vergangenheit;
+      sie stehen als Bezugsgröße, nicht als offene Frist.</p>
     <table class="bboard">
-      <thead><tr><th>Baustein</th><th>Status</th><th>Verantwortlich</th><th>Deadline</th></tr></thead>
+      <thead><tr><th>Baustein</th><th>Status</th><th>Beleg</th><th>Nächster Schritt</th></tr></thead>
       <tbody>
-        <tr><td><span class="bno">01</span> <span class="bt">Markenkern, USP &amp; Positionierung</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>Entwurf: 01.07.</td></tr>
-        <tr><td><span class="bno">02</span> <span class="bt">Preis- &amp; Angebotsarchitektur</span></td><td><span class="amp gelb"><span class="d"></span>In Arbeit</span></td><td class="resp">offen</td><td>08.07.</td></tr>
-        <tr><td><span class="bno">03</span> <span class="bt">Kampagnenkonzept mit KPIs</span></td><td><span class="amp rot"><span class="d"></span>Kaum begonnen</span></td><td class="resp">offen</td><td>08.07.</td></tr>
-        <tr><td><span class="bno">04</span> <span class="bt">App-Prototyp (V1→V3)</span></td><td><span class="amp gelb"><span class="d"></span>V1 steht</span></td><td class="resp">offen · ein Owner nötig</td><td>V1: 15.07. · V2–V3: Ferien</td></tr>
-        <tr><td><span class="bno">05</span> <span class="bt">KI-Vorgehensmodell (Doku)</span></td><td><span class="amp gelb"><span class="d"></span>Laufend</span></td><td class="resp">offen</td><td>ab Tag 1 → 02.09.</td></tr>
+        <tr><td><span class="bno">01</span> <span class="bt">Markenkern, USP &amp; Positionierung</span></td>
+            <td><span class="amp gruen"><span class="d"></span>Steht</span></td>
+            <td class="resp">Option C „Digitale Nähe“ festgelegt, drei Optionen verglichen · <a href="/investoren">Investorenbereich</a></td>
+            <td>Mission in einem Satz in die Pitch-Fassung übernehmen</td></tr>
+
+        <tr><td><span class="bno">02</span> <span class="bt">Preis- &amp; Angebotsarchitektur</span></td>
+            <td><span class="amp rot"><span class="d"></span>Blockiert</span></td>
+            <td class="resp">Personalkosten je Vollzeitstelle sind mit den Lohnuntergrenzen 2026 nicht vereinbar — jedes Modell darauf ist strukturell fehlerhaft</td>
+            <td>Kostenbasis klären, dann die 62 %→70 %-Rechnung als Verhältnis, nicht als fester Betrag</td></tr>
+
+        <tr><td><span class="bno">03</span> <span class="bt">Kampagnenkonzept mit KPIs</span></td>
+            <td><span class="amp gelb"><span class="d"></span>Kennzahlen stehen</span></td>
+            <td class="resp">Ergebnis-KPI Sachleistungs-Ausschöpfung 40 %→46 % bei T+180, Frühindikator 160 qualifizierte Beratungsgespräche bis T+90, Umsatzeffekt ~+168 k€/Jahr</td>
+            <td>Zwei fertige Kampagnen-Assets für Hildegard Stemmer oder Markus Dörre</td></tr>
+
+        <tr><td><span class="bno">04</span> <span class="bt">App-Prototyp (V1→V3)</span></td>
+            <td><span class="amp gelb"><span class="d"></span>Lauffähig, Stufen offen</span></td>
+            <td class="resp">LebensZeit OS läuft klickbar mit vier Rollen und gemeinsamem Datenstand · <a href="/app">Prototyp ansehen</a></td>
+            <td>Die geforderten drei Iterationsstufen V1–V3 sind nicht ausgewiesen; Personas Stemmer und Dörre fehlen in der App</td></tr>
+
+        <tr><td><span class="bno">05</span> <span class="bt">KI-Vorgehensmodell (Doku)</span></td>
+            <td><span class="amp gelb"><span class="d"></span>Material da, Reflexion offen</span></td>
+            <td class="resp">Prompt-Tagebuch mit dokumentierten Sitzungen · <a href="/prompt-tagebuch">Tagebuch</a></td>
+            <td>Der eigentliche Reflexionsteil fehlt: was gegenüber Sprint 1 anders lief und wo die Grenzen lagen</td></tr>
       </tbody>
     </table>
+    <p class="hint" style="margin:2px 0 14px">Die Spalte „Verantwortlich“ stand auf allen fünf Zeilen auf
+      „offen“ und ist hier durch den Beleg ersetzt — eine Zuordnung im Team trifft das Board nicht selbst.</p>
 
 <h2 class="sec">Die fünf Bausteine</h2>
 
@@ -353,6 +381,20 @@ tabs.addEventListener('click',e=>{
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.p===t));
   window.scrollTo({top:0,behavior:'smooth'});
 });
+</script>
+<script>
+/* Restzeit bis zum Pitch aus dem Datum rechnen — eine getippte Zahl waere in
+   einer Woche falsch, und genau daran ist das Board vorher veraltet. */
+(function(){
+  var pitch = new Date(2026, 8, 7);           // 07.09.2026, Monat ist nullbasiert
+  var heute = new Date(); heute.setHours(0,0,0,0);
+  var tage = Math.round((pitch - heute) / 86400000);
+  var el = document.getElementById("restTage");
+  if (!el) return;
+  el.textContent = tage > 1 ? "noch " + tage + " Tage"
+                 : tage === 1 ? "noch ein Tag"
+                 : tage === 0 ? "heute" : "Pitch liegt zurueck";
+})();
 </script>
 <script src="/lz-notes.js" defer></script>
 <script src="/lz-quellen.js" defer></script>

@@ -201,6 +201,34 @@
       title: "env-portal jetzt festschreibbar",
       text: "Die Umstellung des Kundenportals wartete laut Rückmeldung auf den Abgleich mit dem App-Prototyp. Der liegt jetzt vor. kundenportal.html trägt noch einen eigenen :root-Block wie vorher die Investorenseiten und bindet lz-tokens.css nicht ein — gleicher Ablauf wie beim env-invest-Rollout möglich." },
 
+    { id: "n-done-greenc-fehlte", page: "website-status", selector: "main", status: "offen", done: true,
+      title: "Statusleiste und Fertig-Punkt waren farblos",
+      text: "Ursache war ein einziges Token: --greenC wurde an vier Stellen gelesen, aber nirgends definiert — der env-intern-Block setzt nur --yellow, --yellowbg, --greenbg und --redbg. Betroffen waren der grüne Balkenabschnitt, der Punkt am Filter „Fertig\\\", die Kennzahl „Fertig\\\" und der Kachelstatus. Alle vier auf --status-ok umgestellt, damit sie mit der To-Do-Seite übereinstimmen; die gelbe Balkenfüllung auf --amber, weil Amber-Ink dort der Textton ist." },
+
+    { id: "n-done-filter-gedrueckt", page: "notizen", selector: "main", status: "auszubauen", done: true,
+      title: "Gedrückte Filter spiegeln die Liste",
+      text: "Vorher wurde jeder gedrückte Filter dunkelgrün, unabhängig davon, wonach er filtert. Jetzt trägt jede Gruppe das Aussehen ihres Gegenstücks in der Liste: Status als volle Fläche mit weißer Schrift (.b-*), Priorität als getönte Pille mit Punkt (.prio), Sprint und Kategorie als getönte Marken (.sp-chip / .cat-chip). Erledigt bekommt zusätzlich Durchstreichung, weil es sonst dasselbe Grün wie „Später\\\" wäre. aria-pressed ergänzt; Zurücksetzen erfasst jetzt auch die Kategoriengruppe, die vorher stehen blieb. Kontraste 4,94 bis 9,84:1." },
+
+    { id: "n-done-sprintboard-aktuell", page: "sprints", selector: "main", status: "auszubauen", done: true,
+      title: "Baustein-Board auf Stand gebracht",
+      text: "Das Board stand auf dem Juli-Stand: Baustein 1 „In Arbeit\\\", Baustein 3 „Kaum begonnen\\\", Baustein 4 „V1 steht\\\", alle Termine abgelaufen, Verantwortlichkeit fünfmal „offen\\\". Status jetzt an vorhandenen Artefakten festgemacht — B1 steht (Option C), B2 blockiert (Personalkosten), B3 Kennzahlen liegen vor, B4 lauffähig aber ohne ausgewiesene Iterationsstufen, B5 Material da und Reflexion offen. Spalte „Verantwortlich\\\" durch „Beleg\\\" ersetzt, weil eine Zuordnung im Team das Board nicht selbst trifft. Restzeit bis zum Pitch wird gerechnet statt getippt — eine feste Zahl war genau der Grund, warum das Board veraltet ist." },
+
+    { id: "n-sprint-tabs-1-3-6", page: "sprints", selector: "main", status: "offen",
+      title: "Sprint-Reiter 1 und 3 bis 6 nicht geprüft",
+      text: "Aktualisiert wurde nur der Reiter Sprint 2. Was in den übrigen fünf Reitern steht, ist gegen den heutigen Stand nicht nachgesehen — insbesondere Sprint 1, der abgeschlossen ist und entsprechend ausgewiesen sein sollte." },
+
+    { id: "n-done-kundenportal-gebaut", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
+      title: "Kundenportal als Website gebaut",
+      text: "Die Platzhalterseite war überhaupt nicht in der Portal-Umgebung: Fläche Creme statt Creme-warm, Fließtext 16,5px statt 19px, Kacheln mit Radius 0 statt 24px. Jetzt nach Umgebung 03 der Designgrundlage — Creme-warm, Akzent Grün, Logo Waldgrün, 1,19rem, Radius 24px, Tippziel 56px. Anmeldung nach demselben Muster wie das Cockpit: Rollenauswahl füllt Kennung und Passwort. Vier Bereiche wie in der Designgrundlage gefordert: Heute, Meine Woche, Unterlagen (Dokumente und Rechnungen — die beiden bisher fehlenden), Kontakt. Status trägt überall Wort plus Zeichen, nie einen Punkt allein. Kontraste 4,74 bis 14,76:1." },
+
+    { id: "n-portal-app-flaeche", page: "app", selector: "main", status: "offen",
+      title: "App-Fläche passt nicht zur Portal-Vorgabe",
+      text: "Die App nutzt im Hellmodus #F6F8F3 — Farbton 84°, also kühl grünlich. Die Portal-Festlegung ist Creme-warm #FBF4E6 mit Farbton 40°. Die Helligkeit ist praktisch gleich (94 gegen 96 %), der Unterschied steckt allein im Farbton: 44° Abstand. Deshalb wirkt der Übergang von der Hostseite in den Rahmen verschoben. Entscheidung nötig: entweder die vier Verlaufsflächen der App auf die warme Reihe umstellen, oder als bewusste Plattformabweichung festhalten." },
+
+    { id: "n-portal-hausnotruf", page: "kundenportal", selector: "main", status: "auszubauen",
+      title: "Hausnotruf und Nachrichten fehlen im Portal",
+      text: "Premium enthält laut Steckbrief den Hausnotruf, das Portal zeigt ihn nicht. Ebenso fehlt der Bereich Nachrichten, den die alte Platzhalterseite versprochen hat — die Rückfrage auf der Startansicht deckt nur eine Richtung ab. Beides erst nach dem Abgleich mit der App bauen, damit es nicht zweimal unterschiedlich erfunden wird." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
