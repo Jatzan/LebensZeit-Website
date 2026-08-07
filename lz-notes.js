@@ -245,6 +245,22 @@
       title: "Brett-Einträge brauchen echte Termine",
       text: "Die vier Einträge im Nachbarschaftsbrett sind erfunden, knüpfen aber an belegte Angebote an (Begegnungsorte, Angehörigen-Café, Pflegekurs als Aktiv-Leistung). Vor dem Pitch entweder mit den tatsächlich geplanten Terminen füllen oder als Beispiel kennzeichnen." },
 
+    { id: "n-done-portal-ablaeufe", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
+      title: "Knöpfe im Portal mit Abläufen hinterlegt",
+      text: "Vorher hing an jedem Knopf dieselbe Sammelroutine, die nur „Danke\\\" ausgab — Mitgliedschaft, Services und Brett wirkten dadurch funktionslos. Jetzt ein Ablaufmodell mit fünf Ausgängen: Bestätigung, weitere Auswahl, vorbelegtes Formular, vorbereitete E-Mail, Funktion. Konkret: Aufstufung der Mitgliedschaft wirkt sofort, Herabstufung zeigt erst die entfallenden Leistungen und verlangt eine zweite Bestätigung. Brett-Anmeldungen fragen, für wen sie gelten (kontoabhängig formuliert), danach Hinweis auf die Bestätigung per E-Mail; beim Fahrdienst entfällt die Frage, weil es dort um Unterlagen geht. Services: SEPA und Bankverbindung öffnen Felder mit hinterlegten Daten, Adressänderung eine vorbereitete E-Mail, Leistungen ausweiten drei Wege (Anruf, beim Hausbesuch besprechen, Eigenanteil ansehen)." },
+
+    { id: "n-done-portal-zugang-app", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "App-Zugang auf einen Eintrag zusammengeführt",
+      text: "Statt dreier Rollen steht jetzt ein Eintrag „App-Prototyp · alle Rollen\\\" mit eigener Kennung; der Knopf wechselt auf „Zum App-Prototyp\\\". Die Rollenwahl passiert im Prototyp selbst. Ein Ausbau der Anmeldung folgt später." },
+
+    { id: "n-done-portal-logo", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Logos verlinkt, Unterstrich entfernt",
+      text: "Alle drei Logos im Portal — Anmeldung, Kopfzeile, Schublade — führen auf die Startseite. Der Unterstrich beim Überfahren ist raus; stattdessen wird das Logo leicht heller, damit die Wortmarke ungestört bleibt." },
+
+    { id: "n-portal-formulare-ohne-pruefung", page: "kundenportal", selector: "main", status: "auszubauen",
+      title: "Portalformulare prüfen nichts",
+      text: "SEPA-Mandat und Bankverbindung nehmen jede Eingabe an — keine IBAN-Prüfziffer, keine Pflichtfeldkontrolle, kein Schutz gegen doppeltes Absenden. Für die Vorführung ausreichend, vor einer echten Nutzung nicht. Ebenso ist die Adressänderung eine mailto-Verknüpfung; ohne eingerichtetes E-Mail-Programm passiert nichts, der Hinweistext nennt deshalb die Telefonnummer." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",

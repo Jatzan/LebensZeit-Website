@@ -31,7 +31,27 @@ a{color:var(--lz-green)}
 .lockup .sym{width:38px;height:38px;flex:0 0 38px}
 .lockup .name{font-family:Georgia,'Times New Roman',serif;font-size:1.44rem;line-height:1}
 .lockup .name sup{font-family:'Jost',sans-serif;font-size:.52em;letter-spacing:.06em;vertical-align:super}
-a.lockup:hover .name{text-decoration:underline;text-underline-offset:4px}
+a.lockup:hover{opacity:.82}
+
+/* Eingabefelder in den Portalformularen — dieselbe Anmutung wie in der Anmeldung */
+.form{display:flex;flex-direction:column;gap:16px;max-width:460px;margin-top:18px}
+.form label{display:block;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-2);font-weight:600;margin-bottom:7px}
+.form input{width:100%;min-height:var(--tap-env);padding:12px 15px;font:inherit;font-size:1rem;
+  color:var(--text);background:var(--lz-white);border:1px solid var(--line-ui);border-radius:14px;
+  font-variant-numeric:tabular-nums}
+.form .hinweis{font-size:.94rem;color:var(--text-2);line-height:1.5}
+.knopf-voll{min-height:var(--tap-env);padding:0 26px;border-radius:var(--radius);border:0;
+  background:var(--lz-green);color:var(--lz-cream);font-size:1.06rem;cursor:pointer}
+.knopf-voll:hover{background:var(--lz-green-2)}
+.warnbox{background:rgba(140,58,42,.06);border:1px solid rgba(140,58,42,.35);
+  border-left:5px solid var(--lz-red);border-radius:var(--radius);padding:22px 26px;margin-top:6px}
+.warnbox h3{font-size:1.19rem;color:var(--lz-red);margin-bottom:10px}
+.warnbox ul{list-style:none;display:flex;flex-direction:column;gap:9px;color:var(--text-2);font-size:1rem}
+.warnbox li{padding-left:22px;position:relative}
+.warnbox li::before{content:"\2212";position:absolute;left:0;color:var(--lz-red)}
+.antwort.ernst{border-color:var(--lz-red);color:var(--lz-red)}
+.antwort.ernst:hover{background:rgba(140,58,42,.08)}
 
 /* ── Anmeldung ──────────────────────────────────────── */
 #gate{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;z-index:200;background:var(--surface);
@@ -250,14 +270,14 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
 <div id="gate">
   <div class="gatecard">
     <div class="kopf">
-      <span class="lockup" style="justify-content:center">
+      <a class="lockup" href="/" title="Zur Startseite" style="justify-content:center">
         <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
           <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
           <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
           <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
         </svg>
-      </span>
+      </a>
       <h1>Kundenportal</h1>
       <p>Ihre Termine, Unterlagen und der Draht zum Pflegeteam.</p>
     </div>
@@ -269,10 +289,8 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
           <option value="stemmer">Hildegard Stemmer · Pflegekundin · Rüthen</option>
           <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
         </optgroup>
-        <optgroup label="Dieselben Inhalte in der App">
-          <option value="app-senior">Marlene Vossenkuhl · Seniorin · App-Ansicht</option>
-          <option value="app-ang">Sabine Koch · Angehörige · App-Ansicht</option>
-          <option value="app-pflege">Sandra Meier · Pflegekraft · App-Ansicht</option>
+        <optgroup label="Prototyp">
+          <option value="app">App-Prototyp · alle Rollen</option>
         </optgroup>
       </select>
     </div>
@@ -317,14 +335,14 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
 
   <div id="schublade" aria-label="Menü">
     <div class="kopfz">
-      <span class="lockup" style="pointer-events:none">
+      <a class="lockup" href="/" title="Zur Startseite">
         <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
           <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
           <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
           <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
         </svg>
-      </span>
+      </a>
       <button type="button" class="knopf-rand zu" onclick="schublade(false)">Schließen</button>
     </div>
     <ul id="schubladeListe"></ul>
@@ -367,13 +385,17 @@ var BEREICHE = [
 /* ── Zugänge. Portalkonten führen ins Portal, App-Konten springen in den
       Prototyp — deshalb steht der Verweis nicht mehr in der Fußzeile. ── */
 var APP = {
-  "app-senior": "Marlene Vossenkuhl", "app-ang": "Sabine Koch", "app-pflege": "Sandra Meier"
+  app: { kennung: "demo@app-prototyp.beispiel",
+         hinweis: "\u00d6ffnet den App-Prototyp \u2014 dieselben Inhalte auf einem Telefon, " +
+                  "mit allen Rollen zur Auswahl.",
+         knopf: "Zum App-Prototyp" }
 };
 var KONTEN = {
   stemmer: {
     kennung: "h.stemmer@beispiel.de", anrede: "Guten Tag, Frau Stemmer",
     name: "Hildegard Stemmer", initialen: "HS", stufe: "Premium", stufeText: "Premium-Mitglied",
-    ort: "Rüthen-Meiste", pflegegrad: "Pflegegrad 3", cap: 1432, abgerufen: 587,
+    ort: "Rüthen-Meiste", adresse: "Am Möhnesee 10, 59602 Rüthen", pflegegrad: "Pflegegrad 3", cap: 1432, abgerufen: 587,
+    iban: "DE21 4145 0075 0000 123456", bank: "Sparkasse Soest",
     kraft: "Sandra Köhler", kraftInitialen: "SK", kraftRolle: "Pflegefachkraft · Tour Rüthen",
     satz: "Sandra ist auf dem Weg zu Ihnen.", zeit: "Gegen 15:10 Uhr",
     woche: [
@@ -408,7 +430,8 @@ var KONTEN = {
   doerre: {
     kennung: "m.doerre@beispiel.de", anrede: "Guten Tag, Herr Dörre",
     name: "Markus Dörre", initialen: "MD", stufe: "Aktiv", stufeText: "Aktiv-Mitglied",
-    ort: "für Frau Dörre · Lippetal", pflegegrad: "Pflegegrad 2", cap: 761, abgerufen: 236,
+    ort: "für Frau Dörre · Lippetal", adresse: "Hauptstraße 8, 59510 Lippetal", pflegegrad: "Pflegegrad 2", cap: 761, abgerufen: 236,
+    iban: "DE64 4166 0022 0000 987654", bank: "Volksbank Hellweg",
     kraft: "Jana Brinkmann", kraftInitialen: "JB", kraftRolle: "Pflegefachkraft · Tour Lippetal",
     satz: "Jana war heute bei Ihrer Mutter.", zeit: "Um 09:20 Uhr, alles in Ordnung",
     woche: [
@@ -468,6 +491,70 @@ var STATUS = {
   offen:     ["?","offen","st-offen"]
 };
 
+/* ── Ablaufmechanik ────────────────────────────────────────────────────
+   Jeder Knopf im Portal führt zu einem der fünf Ausgänge. Vorher hingen
+   die Knöpfe an einer einzigen Sammelroutine, die immer nur „Danke" sagte —
+   deshalb wirkten Mitgliedschaft, Services und Brett funktionslos.
+     text     — Bestätigung, Ende
+     optionen — nächste Auswahl im selben Kasten
+     formular — vorbelegte Felder, danach Bestätigung
+     mailto   — vorbereitete E-Mail öffnen
+     tun      — beliebige Funktion (Bereichswechsel, Stufenwechsel)          */
+function zeigeSchritt(host, schritt){
+  if (schritt.tun) { schritt.tun(); return; }
+  if (schritt.mailto) { location.href = schritt.mailto; }
+  var h = '';
+  if (schritt.titel) h += '<h3 style="font-size:1.19rem;margin-bottom:10px">' + esc(schritt.titel) + '</h3>';
+  if (schritt.text)  h += '<p class="danke"><span aria-hidden="true">\u2713</span>' + esc(schritt.text) + '</p>';
+  if (schritt.warnung) {
+    h += '<div class="warnbox"><h3>' + esc(schritt.warnung.titel) + '</h3><ul>' +
+      schritt.warnung.punkte.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
+  }
+  if (schritt.formular) {
+    h += '<div class="form">' + schritt.formular.map(function(f, i){
+      return '<div><label for="fv' + i + '">' + esc(f[0]) + '</label>' +
+        '<input id="fv' + i + '" type="text" value="' + esc(f[1]) + '"></div>';
+    }).join('') +
+    (schritt.hinweis ? '<p class="hinweis">' + esc(schritt.hinweis) + '</p>' : '') +
+    '<button type="button" class="knopf-voll" data-weiter="0">' + esc(schritt.senden || 'Absenden') + '</button></div>';
+    host.innerHTML = h;
+    host.querySelector('[data-weiter]').addEventListener('click', function(){
+      zeigeSchritt(host, schritt.dann);
+    });
+    return;
+  }
+  if (schritt.optionen) {
+    h += '<div class="antworten">' + schritt.optionen.map(function(o, i){
+      return '<button type="button" class="antwort' + (o.ernst ? ' ernst' : '') +
+        '" data-o="' + i + '">' + esc(o.label) + '</button>';
+    }).join('') + '</div>';
+    host.innerHTML = h;
+    host.addEventListener('click', function(e){
+      var b = e.target.closest('[data-o]'); if (!b) return;
+      zeigeSchritt(host, schritt.optionen[+b.dataset.o].dann);
+    }, {once:true});
+    return;
+  }
+  host.innerHTML = h;
+}
+
+/* Wer gemeint ist, hängt vom Konto ab — „für mich" heißt bei der Pflegekundin
+   etwas anderes als beim Angehörigen. */
+function fuerWen(k){
+  return konto === "stemmer"
+    ? ["F\u00fcr mich", "F\u00fcr meine Angeh\u00f6rigen", "F\u00fcr uns beide"]
+    : ["F\u00fcr meine Mutter", "F\u00fcr mich", "F\u00fcr uns beide"];
+}
+var BESTAETIGUNG = "Vorgemerkt. Die Anmeldebest\u00e4tigung kommt per E-Mail.";
+
+function bankFormular(k, titel, senden, text){
+  return { titel: titel,
+    formular: [["Kontoinhaberin oder Kontoinhaber", k.name],
+               ["IBAN", k.iban], ["Kreditinstitut", k.bank]],
+    hinweis: "Ihre hinterlegten Daten sind bereits eingetragen \u2014 pr\u00fcfen und bei Bedarf \u00e4ndern.",
+    senden: senden, dann: { text: text } };
+}
+
 var konto = null, ansicht = "heute";
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
   return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
@@ -515,15 +602,29 @@ function vWoche(k){
       '</div></div>';
 }
 
-function vBrett(){
+function vBrett(k){
   return '<p class="anrede">Nachbarschaft</p>' +
     '<p class="datum">Was in Ihrer N\u00e4he stattfindet \u2014 Kurse, Treffs und neue Angebote.</p>' +
-    '<ul class="brett">'+BRETT.map(function(b){
+    '<ul class="brett">'+BRETT.map(function(b, i){
       return '<li'+(b[6]?' class="gepinnt"':'')+'><span class="kat">'+esc(b[0])+'</span>' +
         '<h3>'+esc(b[1])+'</h3><p>'+esc(b[2])+'</p>' +
         '<p class="wann">'+esc(b[3])+'</p><p class="ort">'+esc(b[4])+'</p>' +
-        '<div class="antworten" style="margin-top:16px"><button type="button" class="antwort" style="max-width:280px">'+esc(b[5])+'</button></div></li>';
+        '<div class="aktionsfeld" data-brett="'+i+'" style="margin-top:16px">' +
+        '<div class="antworten"><button type="button" class="antwort" style="max-width:300px" data-start="'+i+'">' +
+        esc(b[5])+'</button></div></div></li>';
     }).join("")+'</ul>';
+}
+
+/* Anmeldungen fragen zurueck, fuer wen sie gelten. Beim Fahrdienst waere das
+   sinnlos — dort geht es um Unterlagen, nicht um Plaetze. */
+function brettSchritt(k, i){
+  var b = BRETT[i];
+  if (b[5] === "Mehr erfahren") {
+    return { text: "Wir schicken Ihnen die Unterlagen zum Fahrdienst per E-Mail." };
+  }
+  var wen = fuerWen(k);
+  return { titel: "F\u00fcr wen soll die Anmeldung gelten?",
+    optionen: wen.map(function(w){ return { label: w, dann: { text: BESTAETIGUNG } }; }) };
 }
 
 function vUnterlagen(k){
@@ -538,7 +639,7 @@ function vUnterlagen(k){
           '<span class="rechts"><span class="betrag">'+esc(r[2])+'</span>' +
           statusHTML(r[3]==="beglichen"?"erledigt":"offen")+'</span></li>'; }).join("")+'</ul>' +
       '<div class="antworten" style="margin-top:20px">' +
-        '<button type="button" class="antwort">SEPA-Lastschriftmandat erteilen \u2014 Rechnungen automatisch einziehen lassen</button>' +
+        '<button type="button" class="antwort" data-sepa="1">SEPA-Lastschriftmandat erteilen \u2014 Rechnungen automatisch einziehen lassen</button>' +
       '</div>' +
       '<p style="margin-top:12px;font-size:.94rem;color:var(--text-2)">' +
       'Mit einem Mandat brauchen Sie nichts mehr zu \u00fcberweisen. Sie k\u00f6nnen es jederzeit widerrufen; ' +
@@ -579,47 +680,112 @@ function vEigenanteil(k){
     '</section>';
 }
 
+function stufeIndex(name){ for (var i=0;i<STUFEN.length;i++) if (STUFEN[i][0]===name) return i; return 0; }
+
+function wechseln(ziel){
+  KONTEN[konto].stufe = ziel;
+  KONTEN[konto].stufeText = ziel + "-Mitglied";
+  zeichne();
+  var f = document.getElementById("stufenfeld");
+  if (f) zeigeSchritt(f, { text: "Ihre Mitgliedschaft l\u00e4uft ab dem kommenden Monat als " + ziel +
+    ". Die Best\u00e4tigung kommt per E-Mail." });
+}
+
+/* Aufstufen kostet nur Geld und ist sofort wirksam. Herabstufen nimmt Leistungen
+   weg — deshalb erst die Folgen zeigen, dann ein zweites Mal fragen. */
+function stufenSchritt(k, ziel){
+  var jetzt = stufeIndex(k.stufe), neu = stufeIndex(ziel);
+  if (neu > jetzt) {
+    wechseln(ziel);
+    return null;
+  }
+  var behalten = {}; STUFEN[neu][2].forEach(function(l){ behalten[l] = true; });
+  var verlust = [];
+  for (var i = neu + 1; i <= jetzt; i++)
+    STUFEN[i][2].forEach(function(l){ if (!behalten[l] && l.indexOf("alles aus") !== 0) verlust.push(l); });
+  return { titel: "Von " + k.stufe + " zu " + ziel + " wechseln",
+    warnung: { titel: "Diese Leistungen entfallen", punkte: verlust },
+    optionen: [
+      { label: "Ja, auf " + ziel + " herabstufen", ernst: true, dann: { tun: function(){ wechseln(ziel); } } },
+      { label: "Doch nicht \u2014 " + k.stufe + " behalten", dann: { text: "Es bleibt bei " + k.stufe + "." } }
+    ] };
+}
+
 function vMitglied(k){
   return '<p class="anrede">Mitgliedschaft</p>' +
     '<p class="datum">Ihre Stufe im Vergleich \u2014 ein Wechsel ist jederzeit m\u00f6glich.</p>' +
     '<div class="stufen">'+STUFEN.map(function(s){
-      var aktuell = s[0] === k.stufe;
+      var aktuell = s[0] === k.stufe, hoeher = stufeIndex(s[0]) > stufeIndex(k.stufe);
       return '<div class="stufe'+(aktuell?' aktuell':'')+'">' +
         '<span class="name">'+esc(s[0])+'</span>' +
         '<span class="preis">'+eur(s[1])+'</span><span class="je">im Jahr</span>' +
         '<ul>'+s[2].map(function(l){ return '<li>'+esc(l)+'</li>'; }).join("")+'</ul>' +
         '<div class="fuss">' + (aktuell
           ? '<span class="jetzt">Ihre Stufe</span>'
-          : '<button type="button" class="antwort" style="width:100%;text-align:center">' +
-            (s[1] > STUFEN.filter(function(x){return x[0]===k.stufe;})[0][1]
-              ? 'Auf '+esc(s[0])+' wechseln' : 'Zu '+esc(s[0])+' wechseln') + '</button>') +
+          : '<button type="button" class="antwort'+(hoeher?'':' ernst')+'" style="width:100%;text-align:center" ' +
+            'data-stufe="'+esc(s[0])+'">' + (hoeher ? 'Auf '+esc(s[0])+' wechseln' : 'Auf '+esc(s[0])+' herabstufen') +
+            '</button>') +
         '</div></div>';
     }).join("")+'</div>' +
-    '<section class="karte"><h2>Was der Wechsel bedeutet</h2>' +
-      '<p style="color:var(--text-2)">Ein Wechsel gilt ab dem folgenden Monat. Der Beitrag wird anteilig ' +
-      'abgerechnet; bereits gezahlte Betr\u00e4ge werden angerechnet. Eine K\u00fcndigung ist zum Jahresende ' +
-      'm\u00f6glich, die Versorgung selbst ist davon nicht ber\u00fchrt \u2014 sie l\u00e4uft \u00fcber den Pflegevertrag.</p>' +
-    '</section>';
+    '<section class="karte" id="stufenfeldbox"><div id="stufenfeld">' +
+      '<h2>Was der Wechsel bedeutet</h2>' +
+      '<p style="color:var(--text-2)">Eine Aufstufung gilt sofort und wird anteilig abgerechnet. ' +
+      'Eine Herabstufung zeigt Ihnen zuerst, welche Leistungen entfallen, und wird erst nach einer ' +
+      'zweiten Best\u00e4tigung wirksam. Die Versorgung selbst ist davon nicht ber\u00fchrt \u2014 sie l\u00e4uft ' +
+      '\u00fcber den Pflegevertrag.</p>' +
+    '</div></section>';
 }
 
 function vServices(k){
-  var punkte = [
-    ["mitglied","Mitgliedschaft wechseln","Stufen vergleichen und wechseln", "geh('mitglied')"],
-    ["unterlagen","SEPA-Lastschriftmandat","Rechnungen automatisch einziehen lassen", "geh('unterlagen')"],
-    ["woche","Termin anfragen","Zus\u00e4tzlicher Besuch, verschieben oder aussetzen", "geh('woche')"],
-    ["eigenanteil","Leistungen ausweiten","Wenn der Anspruch nicht ausgesch\u00f6pft ist", "geh('eigenanteil')"],
-    ["brett","Zu einem Kurs anmelden","Pflegekurse und Veranstaltungen", "geh('brett')"],
-    ["unterlagen","Adresse oder Bankverbindung \u00e4ndern","Wir rufen zur\u00fcck und best\u00e4tigen schriftlich", ""]
-  ];
   return '<p class="anrede">Services</p>' +
     '<p class="datum">Alles, was Sie hier selbst erledigen k\u00f6nnen \u2014 an einer Stelle.</p>' +
-    '<ul class="dienste">'+punkte.map(function(p){
-      return '<li><button type="button" class="dienst" onclick="'+p[3]+'">'+svg(p[0],28) +
+    '<ul class="dienste">'+DIENSTE.map(function(p,i){
+      return '<li><button type="button" class="dienst" data-dienst="'+i+'">'+svg(p[0],28) +
         '<span><b>'+esc(p[1])+'</b><span>'+esc(p[2])+'</span></span></button></li>';
     }).join("")+'</ul>' +
-    '<section class="karte"><h2>Lieber am Telefon?</h2>' +
+    '<section class="karte" id="dienstbox"><div id="dienstfeld">' +
+      '<h2>Lieber am Telefon?</h2>' +
       '<p class="unter">Jeder dieser Punkte geht auch im Gespr\u00e4ch \u2014 nichts davon muss \u00fcber das Portal laufen.</p>' +
-      '<a class="telefon" href="tel:+4929430000000">02943 000000 anrufen</a></section>';
+      '<a class="telefon" href="tel:+4929430000000">02943 000000 anrufen</a>' +
+    '</div></section>';
+}
+
+var DIENSTE = [
+  ["mitglied","Mitgliedschaft wechseln","Stufen vergleichen und wechseln"],
+  ["unterlagen","SEPA-Lastschriftmandat","Rechnungen automatisch einziehen lassen"],
+  ["woche","Termin anfragen","Zus\u00e4tzlicher Besuch, verschieben oder aussetzen"],
+  ["eigenanteil","Leistungen ausweiten","Wenn der Anspruch nicht ausgesch\u00f6pft ist"],
+  ["brett","Zu einem Kurs anmelden","Pflegekurse und Veranstaltungen"],
+  ["unterlagen","Adresse oder Bankverbindung \u00e4ndern","Wir best\u00e4tigen jede \u00c4nderung schriftlich"]
+];
+
+function dienstSchritt(k, i){
+  if (i === 0) return { tun: function(){ geh("mitglied"); } };
+  if (i === 2) return { tun: function(){ geh("woche"); } };
+  if (i === 4) return { tun: function(){ geh("brett"); } };
+
+  if (i === 1) return bankFormular(k, "SEPA-Lastschriftmandat", "Mandat erteilen",
+    "Mandat erteilt. Die n\u00e4chste Rechnung wird eingezogen; Sie k\u00f6nnen jederzeit widerrufen.");
+
+  if (i === 3) return { titel: "Leistungen ausweiten \u2014 wie m\u00f6chten Sie vorgehen?", optionen: [
+    { label: "Anruf starten", dann: { tun: function(){ location.href = "tel:+4929430000000"; } } },
+    { label: "Beim n\u00e4chsten Hausbesuch besprechen",
+      dann: { text: "Notiert. " + k.kraft.split(" ")[0] + " bringt das Thema beim n\u00e4chsten Besuch mit." } },
+    { label: "Eigenanteil einsehen", dann: { tun: function(){ geh("eigenanteil"); } } }
+  ] };
+
+  return { titel: "Was m\u00f6chten Sie \u00e4ndern?", optionen: [
+    { label: "Adresse", dann: { mailto: "mailto:portal@lebenszeit-ggmbh.example" +
+        "?subject=" + encodeURIComponent("Adress\u00e4nderung \u00b7 " + k.name) +
+        "&body=" + encodeURIComponent(
+          "Guten Tag,\n\nbitte \u00e4ndern Sie meine Anschrift.\n\n" +
+          "Name: " + k.name + "\nBisherige Anschrift: " + k.adresse + "\nNeue Anschrift: \n\n" +
+          "Mit freundlichen Gr\u00fc\u00dfen\n" + k.name),
+        text: "Ihr E-Mail-Programm \u00f6ffnet sich mit einer vorbereiteten Nachricht. " +
+              "\u00d6ffnet es sich nicht, rufen Sie uns an \u2014 02943 000000." } },
+    { label: "Bankverbindung", dann: bankFormular(k, "Bankverbindung \u00e4ndern", "\u00c4nderung absenden",
+        "\u00c4nderung aufgenommen. Wir best\u00e4tigen sie Ihnen schriftlich, bevor sie wirksam wird.") }
+  ] };
 }
 
 function vKontakt(k){
@@ -643,20 +809,55 @@ var VIEWS = {heute:vHeute, woche:vWoche, brett:vBrett, unterlagen:vUnterlagen,
 
 function zeichne(){
   var k = KONTEN[konto];
-  document.getElementById("inhalt").innerHTML = VIEWS[ansicht](k);
-  document.querySelectorAll("#reiter button, #schubladeListe button").forEach(function(b){
-    if (b.dataset.ans === ansicht) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
-  });
-  var r = document.getElementById("inhalt");
-  r.addEventListener("click", function(e){
-    var b = e.target.closest(".antwort"); if(!b) return;
-    var box = b.closest(".antworten"); if(!box) return;
-    box.innerHTML = '<p class="danke"><span aria-hidden="true">\u2713</span>Danke \u2014 wir haben es notiert und melden uns.</p>';
-  }, {once:false});
+  var inhalt = document.getElementById("inhalt");
+  inhalt.innerHTML = VIEWS[ansicht](k);
   if (window.LZQuellen && window.LZQuellen.isOn()) window.LZQuellen.rebuild();
   window.scrollTo(0,0);
 }
-function geh(a){ ansicht = a; schublade(false); zeichne(); }
+
+/* Ein Zuhörer für alle Bereiche. Vorher hing an jedem .antwort dieselbe
+   Sammelroutine, die immer nur „Danke" ausgab — die Knöpfe in Mitgliedschaft
+   und Services taten damit sichtbar nichts. */
+document.getElementById("inhalt").addEventListener("click", function(e){
+  var k = KONTEN[konto];
+
+  var stufe = e.target.closest("[data-stufe]");
+  if (stufe) {
+    var schritt = stufenSchritt(k, stufe.dataset.stufe);
+    if (schritt) zeigeSchritt(document.getElementById("stufenfeld"), schritt);
+    return;
+  }
+  var dienst = e.target.closest("[data-dienst]");
+  if (dienst) {
+    zeigeSchritt(document.getElementById("dienstfeld"), dienstSchritt(k, +dienst.dataset.dienst));
+    return;
+  }
+  var brett = e.target.closest("[data-start]");
+  if (brett) {
+    var feld = document.querySelector('.aktionsfeld[data-brett="' + brett.dataset.start + '"]');
+    zeigeSchritt(feld, brettSchritt(k, +brett.dataset.start));
+    return;
+  }
+  /* Rückfrage auf „Heute", Terminanfrage, SEPA-Knopf unter Rechnungen */
+  var a = e.target.closest(".antwort");
+  if (a) {
+    var box = a.closest(".antworten");
+    if (box && !box.closest(".aktionsfeld") && !a.dataset.o) {
+      if (a.dataset.sepa !== undefined) {
+        zeigeSchritt(box.parentElement, bankFormular(k, "SEPA-Lastschriftmandat", "Mandat erteilen",
+          "Mandat erteilt. Die n\u00e4chste Rechnung wird eingezogen; Sie k\u00f6nnen jederzeit widerrufen."));
+      } else {
+        box.innerHTML = '<p class="danke"><span aria-hidden="true">\u2713</span>' +
+          'Danke \u2014 wir haben es notiert und melden uns.</p>';
+      }
+    }
+  }
+});
+function geh(a){ ansicht = a; schublade(false); zeichne();
+  document.querySelectorAll("#reiter button, #schubladeListe button").forEach(function(b){
+    if (b.dataset.ans === ansicht) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+  });
+}
 
 function bauNavigation(){
   document.getElementById("reiter").innerHTML = BEREICHE.map(function(b){
@@ -683,14 +884,11 @@ document.addEventListener("keydown", function(e){ if (e.key === "Escape") schubl
 window.addEventListener("resize", function(){ if (innerWidth > 860) schublade(false); });
 
 function waehlen(){
-  var v = document.getElementById("rolle").value;
-  var app = APP[v];
-  document.getElementById("kennung").value = app
-    ? v.replace("app-","") + "@app-prototyp" : KONTEN[v].kennung;
-  document.getElementById("anmeldeknopf").textContent = app ? "Zum App-Prototyp" : "Anmelden";
-  document.getElementById("gatehinweis").textContent = app
-    ? "Diese Auswahl öffnet den App-Prototyp — dieselben Inhalte auf einem Telefon."
-    : "Beispieldaten, keine echten Personen. Die Auswahl füllt Kennung und Passwort.";
+  var v = document.getElementById("rolle").value, a = APP[v];
+  document.getElementById("kennung").value = a ? a.kennung : KONTEN[v].kennung;
+  document.getElementById("anmeldeknopf").textContent = a ? a.knopf : "Anmelden";
+  document.getElementById("gatehinweis").textContent = a ? a.hinweis
+    : "Beispieldaten, keine echten Personen. Die Auswahl f\u00fcllt Kennung und Passwort.";
 }
 document.getElementById("rolle").addEventListener("change", waehlen);
 waehlen();
