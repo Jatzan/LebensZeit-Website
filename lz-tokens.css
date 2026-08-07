@@ -299,8 +299,8 @@ hr{ border:0; border-top:1px solid var(--line) }
 .lz-tick-pause{
   position:absolute; right:.6rem; top:50%; transform:translateY(-50%);
   background:var(--lz-red); border:1px solid rgba(245,240,232,.5); color:var(--lz-cream);
-  font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
-  padding:.3rem .8rem; border-radius:var(--r-pill); min-height:2.25rem;
+  font-size:var(--fs-label); letter-spacing:.1em; text-transform:uppercase;
+  padding:.2rem .75rem; border-radius:var(--r-pill); min-height:2.25rem; line-height:1;
   box-shadow:-10px 0 10px 4px var(--lz-red);
 }
 @media (pointer:coarse){ .lz-tick-pause{ min-height: var(--tap) } }
@@ -321,14 +321,19 @@ hr{ border:0; border-top:1px solid var(--line) }
    Wird entfernt, sobald alle Seiten umgestellt sind.
    ══════════════════════════════════════════════════════════════════════ */
 :root{
-  --cream:      var(--surface);
-  --cream2:     var(--surface-2);
-  --cream3:     var(--surface-3);
+  /* Altnamen sind LITERALE FARBEN und werden auf Rohwerte abgebildet,
+     nicht auf Rollen. Sonst wechseln sie mit der Umgebungsklasse die
+     Bedeutung: --green würde unter .env-invest zu Amber-Ink,
+     --cream unter .env-portal zu Creme-warm. Unter .env-public fällt
+     das nicht auf — ab der zweiten Ausbaustufe schon. */
+  --cream:      var(--lz-cream);
+  --cream2:     var(--lz-cream-2);
+  --cream3:     var(--lz-cream-3);
   --cream-warm: var(--lz-cream-warm);
   --parchment:  var(--lz-parchment);
-  --green:      var(--accent);
+  --green:      var(--lz-green);
   --green2:     var(--lz-green-2);
-  --green3:     var(--heading);
+  --green3:     var(--lz-green-3);
   --green-deep: #243120;            /* nicht in der neuen Palette — nur Gradient-Basis */
   --mint:       var(--lz-mint);
   --mint-soft:  #cfe0cb;            /* nicht in der neuen Palette — helle Schrift auf Dunkel */
@@ -339,9 +344,14 @@ hr{ border:0; border-top:1px solid var(--line) }
   --amber-deep: #6B4A12;            /* nicht in der neuen Palette — Hinweis-Titel */
   --red:        var(--lz-red);
   --red-err:    var(--lz-red);
-  --text2:      var(--text-2);
-  --text3:      var(--text-3);
-  --border:     var(--line);
-  --r:          var(--radius);
+  --text2:      var(--lz-ink-2);
+  --text3:      var(--lz-ink-3);
+  --border:     var(--lz-hairline);
   --maxw:       1180px;
 }
+
+/* Bewusst KEINE Bruecke fuer --r: die Umgebungsklassen verweisen selbst auf
+   den Rohwert (.env-invest/.env-intern: --radius: var(--r)). Eine Bruecke
+   --r: var(--radius) erzeugte dort einen Zirkel; beide Werte fielen aus
+   (nachgemessen: --radius und --r leer). Stattdessen sind die 104 Aufrufe
+   var(--r) in den Seiten auf var(--radius) umgestellt — Bauteile lesen Rollen. */

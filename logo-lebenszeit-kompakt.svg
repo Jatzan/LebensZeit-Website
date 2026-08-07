@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512"
+     role="img" aria-label="LebensZeit Bildmarke, Kompaktvariante">
+  <title>LebensZeit gGmbH — Bildmarke, Kompaktvariante (24–40 px)</title>
+  <desc>Reduziert auf Außenring, fünf Knoten und Zentrum. Ohne Pentagon-Kanten,
+        ohne Diagonalen, ohne Blatt — diese Elemente verschwinden unter 40 px.
+        Die fünf Knoten bleiben: sie sind die fünf Standorte im Kreis Soest.
+        Farbe über currentColor. Farbregel: hell #4A6741 · dunkelgrün #A8C9A0 ·
+        Dark Mode #8AAC85 · warmes Beige #5A6E52. Niemals weiß.</desc>
+  <g color="#4A6741">
+    <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
+    <g fill="currentColor">
+      <circle cx="50" cy="19" r="6.5"/>
+      <circle cx="79.5" cy="40.5" r="6.5"/>
+      <circle cx="68.2" cy="75" r="6.5"/>
+      <circle cx="31.8" cy="75" r="6.5"/>
+      <circle cx="20.5" cy="40.5" r="6.5"/>
+      <circle cx="50" cy="50" r="9.5"/>
+    </g>
+  </g>
+</svg>

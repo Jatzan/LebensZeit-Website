@@ -132,20 +132,50 @@
       title: "Tabellen mobil horizontal scrollbar",
       text: "21 Tabellen (bench, ptab, cockpit tbl) in .tbl-scroll gekapselt: overflow-x auto, min-width 560 px (Cockpit 620 px), duenne Scrollleiste in Markenfarbe, ab 760 px wieder ohne Mindestbreite. Vorher sprengte preise.html die Seite um 88 px und investoren-markt um 3 px; jetzt kein Seiten-Overflow mehr bei 390 px. Das Baustein-Board bleibt ausgenommen, es hat schon ein Karten-Layout fuer schmale Screens." },
     /* ----- Designgrundlage v1 (05.08.2026) ----- */
+    { id: "n-done-patch-stufe1", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Patch Stufe 1 eingearbeitet",
+      text: "Pausenknopf auf var(--fs-label) = 0,80rem (kleinste Schrift jetzt ueberall 12,8 px). Bruecke bildet die neun Altnamen auf Rohwerte ab statt auf Rollen — sonst wuerde --green unter env-invest zu Amber-Ink und --green3 im Cockpit zu Mint. Logo-Detailstufen als Dateien uebernommen, Header nutzt die Kompaktvariante (7 Kreise, Aussenring 3,5 bei Deckkraft 0,55), Cockpit-logoSVG staffelt jetzt nach Groesse: unter 40 px kompakt, darueber mittel mit Pentagon-Kanten und Blatt." },
+    { id: "n-done-radius-entscheidung", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Radius traegt die Umgebungsunterscheidung",
+      text: "Entscheidung uebernommen: 24 px oeffentlich und Portal (Karten inbegriffen), 14 px Investoren und intern, 4 px Cockpit. Nachgemessen je Umgebung: 24 / 14 / 14 / 4." },
+    { id: "n-done-r-bruecke-zirkel", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Zirkel bei --r vermieden",
+      text: "Der Patch legte --r: var(--radius) auf :root — dort liefert es immer 24 px und setzt die 14 px von env-invest und env-intern still ausser Kraft (nachgemessen). Auf * verlegt entstand ein echter Zirkel, weil die Umgebungsklassen selbst --radius: var(--r) setzen: beide Werte fielen aus. Loesung ohne Bruecke: die 102 Aufrufe var(--r) in den Seiten sind auf var(--radius) umgestellt, der Rohwert 14 px bleibt fuer die Umgebungsdefinitionen." },
+    { id: "n-done-cockpit-mobil", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Cockpit mobil: 420 px waren unerreichbar",
+      text: "Bestaetigter Befund: bei 390 px Breite war die Anwendung 810 px breit, body{overflow:hidden} liess 420 px unerreichbar — nicht bloss unbequem. Unter 900 px wird die 236-px-Seitenleiste jetzt eine horizontal scrollbare Zeile oben, Inhalt volle Breite. Nachgemessen: 0 px unerreichbar, Navigations-Tap-Ziel 48 px." },
+    /* ----- Designgrundlage v1 (05.08.2026) ----- */
+    { id: "n-done-cockpit-balken-doppelt", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Doppelter Warnbalken im Cockpit behoben",
+      text: "Das Cockpit hatte bereits einen eigenen .marquee-Balken (22 px, position fixed, z-index 1200) — dafuer war der 22-px-Streifen in #app reserviert. Mein neuer lz-tick kam obendrauf, beide lagen uebereinander. Alter Balken samt CSS und Keyframes entfernt, jetzt genau ein Balken; die Vollbildhuelle misst dessen Hoehe." },
+    { id: "n-done-altsystem-navy", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Altsystem-Blau faelschlich als Statusfarbe gemappt",
+      text: "Bei der Migration der neun Statustoene auf vier hatte ich #2c4257 und #3a5a78 mit erfasst — das sind aber die Chromfarben des 2024-Altsystems (Kopfleiste, Schalter, KPI-Werte, Links), keine Statusfarben. Sie wurden dadurch zu blassem Statusblau #9CC2CE. Alle acht Stellen auf die eigenen Navy-Werte zurueckgesetzt; das Altsystem bleibt bewusst eigenstaendig." },
+    /* ----- Designgrundlage v1 (05.08.2026) ----- */
+    { id: "n-done-tokens-intern-cockpit", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Interne Bereiche und Cockpit auf Designgrundlage v1",
+      text: "Planspiel-intern: 115 Schriftgroessen auf rem (31 angehoben), env-intern, Warnbalken kommt aus der injizierten Leiste. Cockpit: env-cockpit, eigener Namensraum --n-* auf die Umgebungsklasse verlegt, Warnbalken oben mit gemessener Hoehe. Nachgemessen ueber 21 Seiten: 1554 Kleintexte, keine Verstoesse ausser einem Messartefakt am Systemschalter." },
+    { id: "n-done-bruecke-fix", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Fehler in der Kompatibilitaetsbruecke behoben",
+      text: "Die Bruecke stand auf :root und loeste die Altnamen deshalb immer gegen die hellen Rootwerte auf — dadurch blieb das Cockpit hell, obwohl env-cockpit gesetzt war. Custom Properties werden dort ersetzt, wo sie deklariert sind. Bruecke auf * verlegt; derselbe Fehler steckte im Cockpit-Namensraum --n-*, der jetzt auf .env-cockpit steht." },
+    { id: "n-invest-portal-tokens", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "env-invest und env-portal noch offen",
+      text: "Investorenbereich (6 Seiten) und Kundenportal sind noch nicht auf die Tokens umgestellt. Investoren bekommen laut Designgrundlage Amber-Ink als Akzent und Radius 14px, das Portal warmes Creme, Waldgruen im Logo, 1,19rem Fliesstext und 56px Tap-Ziele." },
+    /* ----- Designgrundlage v1 (05.08.2026) ----- */
     { id: "n-done-tokens-public", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Designgrundlage v1 im oeffentlichen Bereich umgesetzt",
       text: "lz-tokens.css als Einzelquelle eingebunden, eigene :root-Bloecke auf allen 15 oeffentlichen Seiten entfernt, body traegt env-public. 761 px-Schriftgroessen auf rem umgestellt, davon 163 auf die Untergrenze 0,80rem angehoben (kleinster Wert vorher 9 px). Radius 24px aus der Rolle, Bedienelemente mit --line-ui und 48px Tap-Ziel, Emojis durch SVG-Icons ersetzt, Fiktiv-Balken als lz-tick mit Pausensteuerung (96s, aria-pressed, prefers-reduced-motion). Nachgemessen: 1128 Kleintexte, kein Verstoss unter 4,5:1, keine px-Schriftgroesse mehr." },
-    { id: "n-tokens-weitere-umgebungen", page: "allgemein", selector: "main", status: "auszubauen",
-      title: "Tokens auf die vier weiteren Umgebungen ausrollen",
-      text: "Noch offen laut Umsetzungsreihenfolge: env-invest (Investorenbereich), env-portal (Kundenportal), env-intern (Planspiel-Seiten) und env-cockpit. Im Cockpit betrifft das laut Designgrundlage 94 px-Deklarationen in 18 Groessen, davon 42 unter 12 px, sowie die Migration von neun Statustoenen auf vier." },
+    { id: "n-tokens-weitere-umgebungen", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Tokens auf intern und Cockpit ausgerollt",
+      text: "env-intern (5 Planspiel-Seiten) und env-cockpit umgesetzt. Cockpit: 94 px-Schriftgroessen auf rem (74 davon unter 12,8 px, kleinste 8,5 px), 64 Farbwerte auf semantische Rollen, neun Statustoene auf die vier Tinten zusammengefuehrt, Warnbalken mit Pausensteuerung ergaenzt (Vollbildhuelle misst die Balkenhoehe). Offen bleiben env-invest und env-portal." },
     { id: "n-tokens-bruecke-abbauen", page: "allgemein", selector: "main", status: "spaeter",
       title: "Kompatibilitaetsbruecke entfernen",
       text: "lz-tokens.css enthaelt eine Bruecke, die Altnamen (--cream, --green, --text2 …) auf die semantischen Rollen abbildet, damit die Migration seitenweise laufen kann. Sobald alle Bauteile Rollen lesen, entfaellt Abschnitt 7 der Datei." },
-    { id: "n-tick-pause-groesse", page: "allgemein", selector: ".lz-tick-pause", status: "offen",
-      title: "Pausenknopf unterschreitet die eigene 0,8rem-Regel",
+    { id: "n-tick-pause-groesse", page: "allgemein", selector: ".lz-tick-pause", status: "offen", done: true,
+      title: "Pausenknopf auf 0,80rem angehoben",
       text: "Die Designgrundlage setzt fuer .lz-tick-pause font-size:.72rem (11,5 px) fest und verletzt damit ihre eigene Untergrenze von 0,80rem. Bewusst uebernommen wie geliefert. Entscheidung: entweder auf 0,8rem anheben oder die Ausnahme im Dokument benennen, wie beim 44px-Tap-Ziel im Cockpit." },
-    { id: "n-logo-kompaktvariante", page: "allgemein", selector: ".logo-lockup", status: "offen",
-      title: "Logo-Kompaktvariante fehlt",
+    { id: "n-logo-kompaktvariante", page: "allgemein", selector: ".logo-lockup", status: "offen", done: true,
+      title: "Logo-Detailstufen eingebaut",
       text: "Designgrundlage, Umsetzungsfehler 2: Die Vollversion mit fuenfzehn Linien, zwei Ringen und Blatt wird im Header bei 38 px gezeichnet und ergibt einen Fleck. Vorgesehen ist die Vollversion ab 120 px, die Kompaktvariante fuer 24 bis 40 px. Kompaktes Emblem zeichnen und im Header einsetzen." },
     /* ----- Rueckmeldungen 29.07. ----- */
     { id: "n-done-pin-anker", page: "allgemein", selector: "main", status: "auszubauen", done: true,
@@ -343,12 +373,8 @@
     if (document.getElementById("lz-bar-css")) return;
     var css = "" +
       ".fiktiv-bar{position:relative;z-index:100;}" +
-      ".fiktiv-marquee{display:block;width:100%;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;background:var(--red, #8C3A2A);color:#fff;overflow:hidden;white-space:nowrap;}" +
-      ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
-      ".fiktiv-marquee .track{display:inline-block;padding:7px 0;animation:fiktivscroll 60s linear infinite;}" +
-      ".fiktiv-marquee .track span{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;padding:0 36px;}" +
-      "@keyframes fiktivscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}" +
-      ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
+            ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
+            ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
       ".fiktiv-menu[hidden]{display:none;}" +
       ".fiktiv-menu-h{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage, #8AAC85);padding:2px 6px 4px;}" +
       ".fiktiv-menu a{display:block;color:var(--cream, #F5F0E8);background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:0.94rem;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
@@ -361,20 +387,23 @@
   function ensureBar() {
     if (document.querySelector(".fiktiv-bar")) return false; // schon vorhanden (öffentliche Seiten)
     var marquee = "";
-    for (var i = 0; i < 8; i++) marquee += "<span>Fiktives Unternehmen · nur zu Schulungszwecken</span>";
+    for (var i = 0; i < 8; i++) marquee += "<span>Fiktives Unternehmen \u00b7 nur zu Schulungszwecken</span>";
     var bar = document.createElement("div");
     bar.className = "fiktiv-bar";
     bar.innerHTML =
-      '<button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()"><div class="track">' + marquee + '</div></button>' +
+      '<div class="lz-tick" id="lzTick">' +
+        '<button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Men\u00fc \u00f6ffnen" onclick="lzToggleMenu()"><div class="lz-tick-track">' + marquee + '</div></button>' +
+        '<button type="button" class="lz-tick-pause" id="lzTickPause" aria-pressed="false" onclick="lzTickPause(event,this)">Pause</button>' +
+      '</div>' +
       '<div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>' +
         '<span class="fiktiv-menu-h">Planspiel-intern</span>' +
         "<a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>" +
-        "<a href='/sprints' role='menuitem'>Sprint-Übersicht</a>" +
+        "<a href='/sprints' role='menuitem'>Sprint-\u00dcbersicht</a>" +
         "<a href='/website-status' role='menuitem'>Website-Status</a>" +
-        "<a href='/notizen' role='menuitem'>To-Do's</a>" +
+        "<a href='/notizen' role='menuitem'>To-Do\'s</a>" +
         "<a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>" +
         '<div class="fiktiv-menu-sep"></div>' +
-        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class=\"lz-ic\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"1.5\" width=\"11\" height=\"13\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"5\" y1=\"5\" x2=\"11\" y2=\"5\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"5\" y1=\"8\" x2=\"11\" y2=\"8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"5\" y1=\"11\" x2=\"9\" y2=\"11\" stroke=\"currentColor\" stroke-width=\"1.2\"/></svg>To-Do\'s</span><span id="lzNotesState">Aus</span></button>' +
+        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class="lz-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>To-Do\'s</span><span id="lzNotesState">Aus</span></button>' +
       '</div>';
     document.body.insertBefore(bar, document.body.firstChild);
     // Menü-Verhalten nur für die injizierte Leiste binden
@@ -395,6 +424,14 @@
       if (t) t.setAttribute("aria-expanded", open ? "true" : "false");
     };
   }
+
+  window.lzTickPause = function (ev, btn) {
+    if (ev) ev.stopPropagation();
+    var t = document.getElementById("lzTick"); if (!t) return;
+    var p = t.classList.toggle("is-paused");
+    btn.setAttribute("aria-pressed", p ? "true" : "false");
+    btn.textContent = p ? "Weiter" : "Pause";
+  };
 
   /* ---------- 7. Pins auf der aktuellen Seite bauen ---------- */
   function buildPins() {
