@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Angehörigen-App — Prototyp · LebensZeit gGmbH</title>
+<meta name="description" content="LebensZeit OS — lauffähiger Prototyp der Angehörigen-App. Fiktives Schulungsprojekt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lz-tokens.css">
+<style>
+/* Hostseite für den App-Prototyp · JO · 07.08.2026
+   Umgebung: Portal (Kundenlogin) — Fläche Creme-warm, Logo Waldgrün, weite
+   Zeilenhöhe. Die App selbst läuft im Rahmen und bringt ihr eigenes
+   Farbsystem mit; der Rahmen isoliert es, siehe Hinweis im Text. */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Jost',sans-serif; background:var(--surface); color:var(--text);
+  font-size:var(--fs-body); line-height:var(--lh-body-env);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--lz-green-3);line-height:1.15}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--lz-green);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── Kopf ─────────────────────────────────────────────── */
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header .in{max-width:var(--maxw);margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.logo-lockup{display:inline-flex;align-items:center;gap:12px;color:var(--logo)}
+.logo-lockup .sym{width:34px;height:34px;flex:0 0 34px}
+.logo-lockup .name{font-family:Georgia,'Times New Roman',serif;font-size:1.35rem;letter-spacing:.01em;line-height:1}
+.logo-lockup .name sup{font-family:'Jost',sans-serif;font-size:.55em;letter-spacing:.06em;vertical-align:super}
+.logo-lockup .tag{display:block;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;margin-top:3px;color:var(--text-3)}
+header nav{margin-left:auto;display:flex;gap:20px;flex-wrap:wrap;font-size:.94rem}
+header nav a{color:var(--text-2)}
+
+/* ── Titel ────────────────────────────────────────────── */
+.head{padding:52px 0 8px}
+.eyebrow{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-ink);font-weight:600;margin-bottom:12px}
+.head h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:600}
+.head .lead{margin-top:14px;max-width:62ch;color:var(--text-2)}
+
+/* ── Rahmen für die App ───────────────────────────────── */
+.buehne{margin:34px 0 8px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--lz-green-3)}
+.buehne-kopf{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:11px 18px;background:var(--lz-green-3);color:var(--lz-cream);font-size:.8rem;letter-spacing:.5px}
+.buehne-kopf .marke{letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--lz-mint)}
+.buehne-kopf .rest{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+.buehne-kopf a{color:var(--lz-mint);text-decoration:underline;text-underline-offset:3px}
+.rahmen{display:block;width:100%;height:min(88vh,940px);border:0;background:#0F150F}
+@media(max-width:700px){.rahmen{height:min(84vh,760px)}}
+
+/* ── Textteil ─────────────────────────────────────────── */
+section{margin:44px 0}
+section h2{font-size:1.7rem;font-weight:600;margin-bottom:6px}
+section > p{max-width:64ch;color:var(--text-2)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+@media(max-width:760px){.duo{grid-template-columns:1fr}}
+.karte{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px}
+.karte h3{font-size:1.22rem;margin-bottom:10px}
+.karte ul{list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.94rem;color:var(--text-2)}
+.karte li{padding-left:19px;position:relative}
+.karte li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--lz-sage)}
+.karte.warn li::before{background:var(--lz-amber)}
+
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.94rem}
+th{text-align:left;font-weight:600;color:var(--lz-green-3);border-bottom:1px solid var(--line);padding:9px 12px 9px 0}
+td{padding:10px 12px 10px 0;border-bottom:1px solid rgba(74,103,65,.10);color:var(--text-2);vertical-align:top}
+td code,p code{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:.88em;color:var(--text)}
+
+.hinweis{background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--lz-amber);
+  border-radius:var(--radius);padding:18px 22px;margin-top:22px;font-size:.94rem;color:var(--text-2)}
+.hinweis b{color:var(--lz-green-3)}
+
+footer.site{background:var(--lz-green-3);color:rgba(245,240,232,.86);margin-top:60px;padding:34px 0;font-size:.88rem}
+footer.site .logo-lockup{color:var(--lz-mint)}
+footer .rows{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+footer .rows p{max-width:46ch;margin-top:12px}
+:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px;border-radius:var(--r-sm)}
+</style>
+</head>
+<body class="env-portal">
+
+<header class="site"><div class="in">
+  <div class="logo-lockup">
+    <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
+      <circle cx="100" cy="28"    r="13" fill="currentColor"/>
+      <circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+      <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/>
+      <circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+      <circle cx="31.5" cy="77.8"  r="13" fill="currentColor"/>
+      <circle cx="100" cy="100"    r="15" fill="currentColor"/>
+    </svg>
+    <span>
+      <span class="name">LebensZeit <sup>gGmbH</sup></span>
+      <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+    </span>
+  </div>
+  <nav>
+    <a href="/kundenportal">Kundenportal</a>
+    <a href="/leistungen">Leistungen</a>
+    <a href="/kontakt">Kontakt</a>
+  </nav>
+</div></header>
+
+<div class="wrap">
+  <div class="head">
+    <p class="eyebrow">Baustein 4 · Digitaler Prototyp</p>
+    <h1>Die Angehörigen-App</h1>
+    <p class="lead">Kein Klickdummy und kein Video, sondern ein lauffähiger Stand: vier Rollen,
+      gemeinsamer Datenstand, echte Besuchsverfolgung. Was in einer Ansicht bestätigt wird,
+      steht sofort in der anderen.</p>
+  </div>
+
+  <div class="buehne">
+    <div class="buehne-kopf">
+      <span class="marke">LebensZeit OS</span>
+      <span>Prototyp · Stand 07.08.2026</span>
+      <span class="rest">
+        <a href="/app-demo.html" target="_blank" rel="noopener">In eigenem Tab öffnen</a>
+      </span>
+    </div>
+    <iframe class="rahmen" src="/app-demo.html" title="LebensZeit OS — Prototyp der Angehörigen-App"
+            allow="fullscreen" loading="lazy"></iframe>
+  </div>
+  <p style="font-size:.88rem;color:var(--text-3);margin-top:10px">
+    Für den Pitch am Beamer besser im eigenen Tab öffnen — der Präsentationsmodus und die
+    <kbd>Esc</kbd>-Taste arbeiten dort zuverlässiger als im Rahmen.
+  </p>
+
+  <section>
+    <h2>Was der Prototyp zeigt</h2>
+    <p>Vier Zugänge auf demselben Datenstand — das ist der Punkt, den kein Bildschirmfoto transportiert.</p>
+    <div class="duo">
+      <div class="karte">
+        <h3>Trägt schon</h3>
+        <ul>
+          <li>Vier Rollen: Geschäftsführung, Pflegekraft, Senior:in, Angehörige</li>
+          <li>Gemeinsamer Zustand — eine Medikamentenbestätigung erscheint sofort in der Pflegeansicht</li>
+          <li>Besuchsverfolgung mit Restzeit, von „Unterwegs“ bis „Angekommen“</li>
+          <li>Tourenansicht mit gezeichneter Karte der Gegend um Erwitte, ohne Kartendienst</li>
+          <li>Hell und Dunkel, Auswahl bleibt gespeichert</li>
+          <li>Läuft offline in jedem aktuellen Browser, ohne Installation</li>
+        </ul>
+      </div>
+      <div class="karte warn">
+        <h3>Noch offen</h3>
+        <ul>
+          <li>Keine Anbindung an MediFox DAN — der Datenstand ist erzeugt</li>
+          <li>Anmeldung ohne Prüfung, kein Rollen- und Rechtekonzept</li>
+          <li>Keine Ehrenamtskoordination, obwohl das der Baustein ohne Marktvorbild ist</li>
+          <li>Personennamen decken sich nicht mit Cockpit und Personas</li>
+          <li>Karte ist gezeichnet, keine echte Navigation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Woher der Prototyp kommt</h2>
+    <p>Ursprünglich eine SwiftUI-App für iOS. Damit sie ohne Mac, ohne Xcode und ohne
+      Installation vorführbar ist, wurde sie als eigenständige Webseite portiert — eine
+      einzige Datei, rund 167 kB, offline lauffähig.</p>
+    <table>
+      <thead><tr><th>Aus dem Original übernommen</th><th>Abweichung in der Web-Fassung</th></tr></thead>
+      <tbody>
+        <tr><td>Design-Tokens, Schriftgrößen, Abstände, Eckenradien</td>
+            <td>SF Symbols als SVG nachgezeichnet — Apple lizenziert die Originale nicht außerhalb eigener Plattformen</td></tr>
+        <tr><td>Gemeinsamer Zustand über dieselben Objekt-Identitäten</td>
+            <td>Liquid Glass mit <code>backdrop-filter</code> nachgebaut, ohne die Lichtbrechung an den Kanten</td></tr>
+        <tr><td>Besuchsverfolgung mit identischem Timing</td>
+            <td>Karte als gezeichnete Vektorkarte statt MapKit — läuft dadurch ohne Netz und ohne Kartenschlüssel</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Warum die App in einem Rahmen läuft</h2>
+    <p>Sie bringt ihr eigenes Farbsystem aus <code>Theme.swift</code> mit. Sechs Tokennamen
+      sind bei uns schon belegt und tragen dort andere Werte — <code>--text</code>,
+      <code>--status-ok</code>, <code>--status-warn</code>, <code>--status-info</code>,
+      <code>--tint-ok</code> und <code>--font-mono</code>. Im selben Dokument würden sich
+      beide Systeme gegenseitig überschreiben.</p>
+    <div class="hinweis">
+      <b>Der Rahmen ist hier keine Notlösung, sondern die Aussage.</b> Eine iOS-App darf
+      anders aussehen als eine Webseite — sie folgt den Bedienkonventionen ihrer Plattform,
+      nicht denen des Webauftritts. Der Rahmen trennt beide Systeme sauber und lässt den
+      Prototyp genau so wirken, wie er auf einem Gerät wirkt. Angeglichen wurde nur eine
+      Stelle: die Logofarbe auf hellem Grund stand auf <code>#3D5936</code> und liegt jetzt
+      auf dem Markengrün <code>#4A6741</code>.
+    </div>
+  </section>
+</div>
+
+<footer class="site"><div class="wrap"><div class="rows">
+  <div>
+    <div class="logo-lockup">
+      <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
+        <circle cx="100" cy="28"    r="13" fill="currentColor"/>
+        <circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+        <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/>
+        <circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+        <circle cx="31.5" cy="77.8"  r="13" fill="currentColor"/>
+        <circle cx="100" cy="100"    r="15" fill="currentColor"/>
+      </svg>
+      <span>
+        <span class="name">LebensZeit <sup>gGmbH</sup></span>
+        <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+      </span>
+    </div>
+    <p>Fiktives Unternehmen im Rahmen des KI-Pionierzirkels der Volksbank Hellweg eG.
+      Der Prototyp bildet keine echten Personen und keine echten Pflegeverläufe ab.</p>
+  </div>
+</div></div></footer>
+
+<script src="/lz-notes.js" defer></script>
+<script src="/lz-quellen.js" defer></script>
+</body>
+</html>

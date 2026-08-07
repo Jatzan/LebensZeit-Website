@@ -103,6 +103,19 @@
       dok: BD, seite: "5", absch: "C.2 Software-Stack", stand: "Sprint 1", guete: "C",
       hinweis: "Der Steckbrief nennt MediFox DAN als f\u00fchrendes System und Excel plus Telefon f\u00fcr die Tourenplanung. Das dargestellte \u201ePflegeVerwaltung 2024\u201c samt Makrowarnung, Netzlaufwerk und Ladezeiten ist eine Veranschaulichung dieses R\u00fcckstands, kein reales Produkt." },
 
+    /* --- App-Prototyp --- */
+    { page: "app", sel: ".buehne", idx: 0, wert: "LebensZeit OS \u2014 Prototyp", kat: "synth", ud: "betrieb", todo: "app",
+      dok: "\u2014 eigenst\u00e4ndige Entwicklung, keine Sprint-Unterlage", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Portierung einer SwiftUI-App als einzelne Webseite. Alle darin gezeigten Personen, Termine, Medikamente und Fahrten sind erzeugt. Die Rollennamen decken sich nicht mit den \u00fcbrigen Best\u00e4nden: Sandra Meier, Marlene Vossenkuhl und Sabine Koch tauchen weder im Personalstamm des Cockpits noch im Personas-Handout auf \u2014 nur Dr. Maria Holthaus stimmt \u00fcberein." },
+
+    { page: "app", sel: "section", idx: 1, wert: "Digitalisierungsl\u00fccke Angeh\u00f6rigen-App", kat: "basis", ud: "betrieb",
+      dok: BD, seite: "5", absch: "C.2 Software-Stack", stand: "Sprint 1", guete: "A",
+      hinweis: "Der Steckbrief f\u00fchrt \u201eAngeh\u00f6rigen-Kommunikation: keine App\u201c als geplante L\u00fccke und Differenzierungspotenzial. Der Prototyp bearbeitet genau diese Zeile. Die Tourenplanung, laut selbem Abschnitt die gr\u00f6\u00dfte L\u00fccke, ist darin ebenfalls angelegt." },
+
+    { page: "app", sel: ".hinweis", idx: 0, wert: "Farbsystem der App", kat: "cd", ud: "cd",
+      dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Corporate Design", stand: "07.08.2026", guete: "S",
+      hinweis: "Die App bringt eigene Tokens aus Theme.swift mit; sechs Namen sind bei uns belegt und tragen andere Werte (--text, --status-ok, --status-warn, --status-info, --tint-ok, --font-mono). Der Rahmen trennt beide Systeme. Markenwerte stimmen bereits \u00fcberein (Gr\u00fcn, Mint, Salbei, Wald); angeglichen wurde nur die Logofarbe auf hellem Grund von #3D5936 auf #4A6741." },
+
     /* --- Bisher unbelegte Zahlen auf oeffentlichen Seiten (Pruefung 07.08.2026) --- */
     { page: "leistungen", sel: ".svc-pay", idx: 2, wert: "Entlastungsbetrag 131 \u20ac monatlich", kat: "amt", ud: "kennzahlen", todo: "leistungen",
       dok: "\u2014 in keiner Sprint-Unterlage genannt", seite: "\u2014", absch: "\u2014", stand: "\u2014", guete: "D",

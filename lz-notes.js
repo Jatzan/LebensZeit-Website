@@ -185,6 +185,22 @@
       title: "Farbliterale der internen Seiten auf Rollen",
       text: "notizen, sprints, website-status und prompt-tagebuch tragen keine Hexwerte mehr im CSS. Erledigt-Ton überall auf --status-ok (= --lz-green, Festlegung 07.08.2026), Prioritätsstufen auf --red / --amber-ink / --green, deren Punkte auf --red / --amber / --sage. Auf unternehmensdaten.html bleiben 17 Hexwerte stehen — sie sind Inhalt, nicht Gestaltung: die Seite dokumentiert die Palette im Text. Dabei fiel auf, dass sie den Amber-Ink mit #8F6318 auswies, also dem alten Wert, der mit dem env-invest-Rollout aus dem System verschwunden ist; korrigiert auf #8C5E14." },
 
+    { id: "n-done-app-eingebaut", page: "app", selector: "main", status: "auszubauen", done: true,
+      title: "App-Prototyp eingebaut",
+      text: "LebensZeit OS liegt als app-demo.html im Repo, eingerahmt von der Hostseite app.html (Umgebung Portal). Der Rahmen ist bewusst gewählt: die App bringt eigene Tokens aus Theme.swift mit, sechs Namen sind bei uns belegt und tragen andere Werte (--text, --status-ok, --status-warn, --status-info, --tint-ok, --font-mono) — im selben Dokument würden sich beide Systeme überschreiben. Verlinkt aus kundenportal.html. Einzige Änderung an der App: Logofarbe auf hellem Grund von #3D5936 auf Markengrün #4A6741." },
+
+    { id: "n-app-namensraum", page: "app", selector: "main", status: "offen",
+      title: "App-Personen sind ein weiterer Namensraum",
+      text: "Sandra Meier (Pflegekraft), Marlene Vossenkuhl (Senior:in) und Sabine Koch (Angehörige) tauchen weder im Personalstamm des Cockpits noch im Personas-Handout auf; nur Dr. Maria Holthaus stimmt überein. Damit gibt es vier getrennte Personenbestände. Für den Pitch die Personas Hildegard Stemmer und Markus Dörre auch in der App führen — sie sind die Figuren, mit denen Baustein 3 argumentiert." },
+
+    { id: "n-app-rollenfarbe-blau", page: "app", selector: "main", status: "auszubauen",
+      title: "Rollenfarbe Blau in der App",
+      text: "Die Rollenkarte Pflegekraft ist blau (#185FA5, in der App --status-info). Blau gehört nicht zur Markenpalette; im Websystem ist Petrol #33566B als Informationston hinterlegt. Entweder angleichen oder als bewusste Plattformabweichung festhalten." },
+
+    { id: "n-env-portal-festschreiben", page: "kundenportal", selector: "main", status: "offen",
+      title: "env-portal jetzt festschreibbar",
+      text: "Die Umstellung des Kundenportals wartete laut Rückmeldung auf den Abgleich mit dem App-Prototyp. Der liegt jetzt vor. kundenportal.html trägt noch einen eigenen :root-Block wie vorher die Investorenseiten und bindet lz-tokens.css nicht ein — gleicher Ablauf wie beim env-invest-Rollout möglich." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
