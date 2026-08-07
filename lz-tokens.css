@@ -118,6 +118,13 @@
   --logo:      var(--lz-green);
   --line:      var(--lz-hairline);
   --line-ui:   var(--lz-line-ui);
+  --status-ok:   var(--lz-green);      /* Erledigt, besetzt — Festlegung 07.08.2026.
+                                          Einzige Stelle, an der Markengrün Status trägt.
+                                          6,35:1 auf Weiss · 5,60:1 auf Creme · 5,15:1 auf der
+                                          Balkenspur. Offen bleibt der Abstand zum Nachbarn
+                                          Salbeigruen (2,52:1) — dort ist Salbeigruen als
+                                          Fuellflaeche auf hellem Grund das eigentliche Problem,
+                                          vorgemerkt fuer die generelle Statusfarben-Klaerung. */
   --status-warn: var(--lz-amber-ink);
   --status-crit: var(--lz-red);
   --status-info: var(--lz-info);
@@ -272,6 +279,20 @@ button, input, select, textarea, [role="switch"], [role="tab"]{
   font-family: inherit;
   font-size: var(--fs-ui);
 }
+/* Runde Bedienelemente. Die Mindesthoehe oben zieht sie sonst zu Ovalen —
+   nachgemessen 30x48 und 34x48. Sie behalten ihre Kantenlaenge; das
+   48px-Tippziel kommt ueber eine unsichtbare Flaeche zurueck, die zum
+   Knopf gehoert und deshalb mitklickt. */
+.lz-round{
+  min-height: 0; padding: 0; aspect-ratio: 1; border-radius: 50%;
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+}
+.lz-round::after{
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: var(--tap-env); height: var(--tap-env);
+  transform: translate(-50%, -50%);
+}
+
 :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm) }
 hr{ border:0; border-top:1px solid var(--line) }
 
@@ -287,10 +308,19 @@ hr{ border:0; border-top:1px solid var(--line) }
   border-bottom: 1px solid rgba(245,240,232,.28);
 }
 .env-cockpit .lz-tick{ border-top:1px solid rgba(223,231,220,.5); border-bottom:1px solid rgba(223,231,220,.5) }
+/* Laufband. Frueher: width 100% und translateX(-50%). Die Verschiebung war damit
+   die halbe CONTAINER-breite (720px), nicht die halbe INHALT-breite (1961px) —
+   der Umlauf passte nicht und die Glyphen standen dauerhaft auf Bruchteil-Pixeln,
+   was die Schrift weich zeichnete. Jetzt setzt lz-notes.js --tick-shift auf ein
+   ganzzahliges Vielfaches einer Textwiederholung und --tick-dur so, dass die
+   Geschwindigkeit ueberall 7,5 px/s betraegt — der Wert, den die oeffentlichen
+   Seiten am Desktop schon hatten. Ohne JS greifen die Rueckfallwerte. */
 .lz-tick-track{
   display:flex; gap:3.5rem; white-space:nowrap; padding:.55rem 0;
+  width:max-content;
   font-size:var(--fs-label); letter-spacing:.16em; text-transform:uppercase; font-weight:600;
-  animation: lz-tick 96s linear infinite;               /* Minimum an Bewegung */
+  will-change: transform;
+  animation: lz-tick var(--tick-dur, 260s) linear infinite;
 }
 .lz-tick:hover .lz-tick-track,
 .lz-tick:focus-within .lz-tick-track,
@@ -304,7 +334,10 @@ hr{ border:0; border-top:1px solid var(--line) }
   box-shadow:-10px 0 10px 4px var(--lz-red);
 }
 @media (pointer:coarse){ .lz-tick-pause{ min-height: var(--tap) } }
-@keyframes lz-tick{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes lz-tick{
+  from{ transform: translate3d(0,0,0) }
+  to  { transform: translate3d(calc(-1 * var(--tick-shift, 50%)),0,0) }
+}
 /* Bewegung stoppt bei Systemvorgabe, der Hinweis bleibt sichtbar */
 @media (prefers-reduced-motion:reduce){
   .lz-tick-track{ animation:none; transform:none }

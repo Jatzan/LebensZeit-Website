@@ -295,7 +295,7 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
   fbar.appendChild(makeGroup(CATORDER.map(function(c){return [c, CATLABEL[c]];}), selCat));
   // Zurücksetzen-Symbol hinter den Filtern
   var resetBtn=document.createElement("button");
-  resetBtn.className="freset"; resetBtn.title="Filter zurücksetzen"; resetBtn.setAttribute("aria-label","Filter zurücksetzen");
+  resetBtn.className="freset lz-round"; resetBtn.title="Filter zurücksetzen"; resetBtn.setAttribute("aria-label","Filter zurücksetzen");
   resetBtn.innerHTML="↺";
   resetBtn.addEventListener("click",function(){
     selStatus.clear(); selSprint.clear(); selPrio.clear();

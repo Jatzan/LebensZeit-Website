@@ -463,9 +463,22 @@
   }
 
   /* ---------- 8. Toggle im Pillmenü ---------- */
+  /* Gleiche Ampel wie beim To-Do-Schalter (Regeln stehen in lz-notes.js):
+     gruen = eingeblendet, rot = ausgeblendet, daneben die Zahl der Belege.
+     Die Farbe traegt den Zustand nicht allein — Zahl und aria-label tun es mit. */
   function syncLabel() {
     var s = document.getElementById("lzSrcState");
-    if (s) s.textContent = on ? "An" : "Aus";
+    var count = mine().length;
+    if (s) s.textContent = String(count);
+    var l = document.getElementById("lzSrcLamp");
+    if (l) {
+      l.className = "lz-lamp " + (on ? "is-on" : "is-off");
+      l.setAttribute("role", "img");
+      l.setAttribute("aria-label",
+        (on ? "eingeblendet" : "ausgeblendet") + ", " + count + " Belege auf dieser Seite");
+    }
+    var b = document.getElementById("lzSrcToggle");
+    if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
   }
   function toggle(force) {
     on = (typeof force === "boolean") ? force : !on;
@@ -479,7 +492,7 @@
     b.className = "fiktiv-note-toggle";
     b.id = "lzSrcToggle";
     b.setAttribute("role", "menuitem");
-    b.innerHTML = "<span><svg class=\"lz-ic\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"7\" cy=\"7\" r=\"4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><line x1=\"10.5\" y1=\"10.5\" x2=\"14\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.3\"/></svg>Datenquellen</span><span id=\"lzSrcState\">Aus</span>";
+    b.innerHTML = "<span><svg class=\"lz-ic\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"7\" cy=\"7\" r=\"4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><line x1=\"10.5\" y1=\"10.5\" x2=\"14\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.3\"/></svg>Datenquellen</span><span class=\"lz-state\"><span class=\"lz-lamp is-off\" id=\"lzSrcLamp\"></span><span id=\"lzSrcState\">0</span></span>";
     b.addEventListener("click", function () { toggle(); });
     menu.appendChild(b);
     syncLabel();

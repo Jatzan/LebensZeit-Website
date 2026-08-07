@@ -92,6 +92,31 @@
       title: "Pillmenü auf Standalone-Seiten",
       text: "Schwebendes Planspiel-Menü + einheitliche interne Leiste auf unternehmensdaten/website-status/sprints ergänzt. Cockpit bewusst ausgenommen (Vollbild-Layout)." },
 
+    /* ----- Schritt 1+2 vom 07.08.2026: Leiste, Ampel, runde Knöpfe ----- */
+    { id: "n-done-bar-grundregeln", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Grundregeln der Fiktiv-Leiste zentral",
+      text: "injectBarCSS() in lz-notes.js enthielt weder .fiktiv-marquee noch .lz-ic — beides stand nur inline in den 15 öffentlichen Seiten. Auf den fünf Planspiel-Seiten behielt der Knopf dadurch den Browser-Standard (grauer Grund, schwarze Schrift, auf iOS blau), wuchs statt auf 100% auf 3924px (horizontales Scrollen) und die Menüsymbole rendeten mit 44 und 88px statt 1em. Regeln jetzt in lz-notes.js, weil neun Seiten lz-tokens.css noch nicht einbinden." },
+
+    { id: "n-done-ampel-pillmenu", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Ampel statt An/Aus im Pillmenü",
+      text: "To-Do- und Quellen-Schalter zeigen jetzt Lampe + Anzahl statt „An\\\"/„Aus\\\". Grün = Salbeigrün (5,33:1 auf der Schalterfläche), Rot = --series-4 hell #B03A2E mit 1px Ring in Creme (2,24:1 zur Fläche, 5,30:1 zum Ring). Zustand hängt nicht an der Farbe allein: Zahl und aria-label tragen ihn mit, weil Rot und Grün sich in der Helligkeit kaum trennen (1,13:1) und bei Deuteranopie zusammenfallen. Anzeige liegt jetzt in einer einzigen Funktion (paintToggle) statt in zweien mit verschiedenem Text." },
+
+    { id: "n-done-laufband-messung", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Laufband: Unschärfe, Sprung und Tempo",
+      text: "translateX(-50%) verschob die halbe Container-, nicht die halbe Inhaltsbreite (720 statt 1961px) — Umlauf mit Sprung, Glyphen dauerhaft auf Bruchteil-Pixeln, daher die weiche Schrift am Desktop. lz-notes.js misst jetzt eine Textwiederholung, setzt --tick-shift auf ganze Pixel (1988px) und --tick-dur auf 7,5 px/s. Vorher schwankte das Tempo zwischen 2 px/s (öffentlich mobil) und 20 px/s (Planspiel-intern mobil)." },
+
+    { id: "n-done-runde-knoepfe", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Runde Knöpfe waren oval",
+      text: "Die globale Tap-Regel in lz-tokens.css (min-height: var(--tap-env), 48px) überschrieb explizite Höhen: Notiz-Pin 30x48, Filter-Zurücksetzen 34x48. Beide behalten jetzt ihre Kantenlänge (min-height 0, aspect-ratio 1) und holen das 48px-Tippziel über eine unsichtbare ::after-Fläche zurück. Utility .lz-round in lz-tokens.css für weitere Fälle." },
+
+    { id: "n-done-status-ok-hell", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "--status-ok für helle Umgebungen",
+      text: "Fehlte bisher ganz — jede Seite hatte sich ein eigenes Grün erfunden (#2f7d3a, #2E7038, #276b31, #BFDDC3). Festgelegt auf --lz-green. Offen bleibt: Salbeigrün als Füllfläche auf hellem Grund ist gegen jede helle Fläche zu schwach (2,05 bis 2,52:1) — gehört in die generelle Statusfarben-Klärung." },
+
+    { id: "n-tick-h-ueberdeckung", page: "allgemein", selector: "main", status: "offen",
+      title: "Anmeldeflächen decken den Warnbalken ab",
+      text: "cockpit.html #login liegt mit fest verdrahteten 22px über einer 38px hohen Leiste, investoren.html .gate mit inset:0 und z-index 200 sogar vollständig darüber. lz-notes.js setzt --tick-h jetzt auf allen Seiten; beide Flächen müssen darauf umgestellt werden. Schritt 3 und 4." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
@@ -350,7 +375,11 @@
       ".fiktiv-note-toggle:hover{background:rgba(176,122,42,.3);transform:translateX(2px);}" +
       ".fiktiv-note-toggle #lzNotesState{font-weight:600;}" +
       ".lz-note-anchor{position:relative;}" +
-      ".lz-note-pin{display:none;position:absolute;top:10px;right:10px;z-index:40;width:30px;height:30px;border-radius:50%;border:2px solid var(--cream, #F5F0E8);background:var(--amber, #B07A2A);color:#fff;font-size:0.88rem;line-height:1;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);}" +
+      /* min-height:0 und aspect-ratio sind Pflicht: die globale Tap-Regel in
+         lz-tokens.css setzt min-height auf 48px und zog den Pin auf 30x48 — oval
+         statt rund. Das 48px-Tippziel kommt ueber ::after zurueck. */
+      ".lz-note-pin{display:none;position:absolute;top:10px;right:10px;z-index:40;width:30px;height:30px;min-height:0;padding:0;aspect-ratio:1;border-radius:50%;border:2px solid var(--cream, #F5F0E8);background:var(--amber, #B07A2A);color:#fff;font-size:0.88rem;line-height:1;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.28);}" +
+      ".lz-note-pin::after{content:'';position:absolute;top:50%;left:50%;width:var(--tap-env,48px);height:var(--tap-env,48px);transform:translate(-50%,-50%);}" +
       ".lz-note-pin.s-offen{background:var(--red, #8C3A2A);}.lz-note-pin.s-auszubauen{background:var(--amber, #B07A2A);}.lz-note-pin.s-spaeter{background:var(--green, #4A6741);}" +
       "body.lz-notes-active .lz-note-pin{display:flex;animation:lzPinPulse 2.2s ease-in-out infinite;}" +
       "@keyframes lzPinPulse{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 0 rgba(176,122,42,.4);}50%{box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 7px rgba(176,122,42,0);}}" +
@@ -372,7 +401,32 @@
   function injectBarCSS() {
     if (document.getElementById("lz-bar-css")) return;
     var css = "" +
-      ".fiktiv-bar{position:relative;z-index:100;}" +
+      /* Grundregeln fuer Leiste, Knopf und Symbole. Standen bisher nur inline in den
+         15 oeffentlichen Seiten — auf den fuenf Planspiel-Seiten wurde die Leiste per
+         JS eingefuegt, ohne dass diese Regeln mitkamen. Folge (nachgemessen): der
+         Knopf behielt den Browser-Standard (#EFEFEF, schwarze Schrift, auf iOS blau),
+         bekam den Rand aus der globalen button-Regel und wuchs statt auf 100% auf
+         3924px — daher das horizontale Scrollen. Ohne .lz-ic rendern die Menue-
+         symbole mit 44px und 88px statt 1em.
+         Diese Datei laeuft auf allen Seiten, lz-tokens.css nicht (neun Seiten binden
+         sie noch nicht ein) — deshalb stehen die Regeln hier und nicht dort.
+         body-Praefix bei .fiktiv-bar, damit der z-index die Inline-Kopien der Seiten
+         schlaegt und das Menue ueber den Investoren- und Cockpit-Anmeldeflaechen liegt. */
+      "body .fiktiv-bar{position:relative;z-index:300;}" +
+      ".fiktiv-marquee{display:block;width:100%;min-height:0;margin:0;padding:0;border:0;" +
+        "background:var(--lz-red,#8C3A2A);color:var(--lz-cream,#F5F0E8);" +
+        "font:inherit;text-align:left;cursor:pointer;overflow:hidden;}" +
+      ".lz-ic{width:1em;height:1em;flex:0 0 auto;vertical-align:-.125em;margin-right:.45em;}" +
+      /* Ampel: gruen = Overlay an, rot = aus; die Zahl daneben traegt die Aussage mit,
+         weil sich Salbeigruen und Rot in der Helligkeit kaum unterscheiden (1,13:1)
+         und bei Deuteranopie fast gleich aussehen. Der Ring in Creme hebt die Lampe
+         ueber die Kante ab: Rot liegt auf der Schalterflaeche nur bei 2,24:1, gegen
+         den Ring bei 5,30:1. */
+      ".lz-state{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-variant-numeric:tabular-nums;}" +
+      ".lz-lamp{width:10px;height:10px;border-radius:50%;flex:0 0 auto;" +
+        "box-shadow:0 0 0 1px rgba(245,240,232,.55);}" +
+      ".lz-lamp.is-on{background:var(--lz-sage,#8AAC85);}" +
+      ".lz-lamp.is-off{background:#B03A2E;}" +
             ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
             ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
       ".fiktiv-menu[hidden]{display:none;}" +
@@ -403,7 +457,7 @@
         "<a href='/notizen' role='menuitem'>To-Do\'s</a>" +
         "<a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>" +
         '<div class="fiktiv-menu-sep"></div>' +
-        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class="lz-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>To-Do\'s</span><span id="lzNotesState">Aus</span></button>' +
+        '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class="lz-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>To-Do\'s</span><span class="lz-state"><span class="lz-lamp is-off" id="lzNotesLamp"></span><span id="lzNotesState">0</span></span></button>' +
       '</div>';
     document.body.insertBefore(bar, document.body.firstChild);
     // Menü-Verhalten nur für die injizierte Leiste binden
@@ -425,6 +479,95 @@
     };
   }
 
+  /* ---------- 6b2. Vorhandene Leisten auf die Ampel nachruesten ----------
+     22 Seiten tragen die Leiste fest im HTML; dort steht im Schalter noch das alte
+     <span id="lzNotesState">Aus</span>. Statt 22 Dateien anzufassen wird die
+     Beschriftung hier zur Ampel umgebaut — wirkt sofort und auch auf den neun
+     Seiten, die lz-tokens.css noch nicht einbinden. */
+  function upgradeToggle() {
+    var state = document.getElementById("lzNotesState");
+    if (!state || document.getElementById("lzNotesLamp")) return;
+    var lamp = document.createElement("span");
+    lamp.className = "lz-lamp is-off";
+    lamp.id = "lzNotesLamp";
+    if (state.parentNode && state.parentNode.classList.contains("lz-state")) {
+      state.parentNode.insertBefore(lamp, state);
+    } else {
+      var box = document.createElement("span");
+      box.className = "lz-state";
+      state.parentNode.insertBefore(box, state);
+      box.appendChild(lamp);
+      box.appendChild(state);
+    }
+  }
+
+  /* ---------- 6b3. Anzeige des Schalters ----------
+     Einzige Stelle, die Lampe, Zahl und aria setzt. Vorher taten das buildPins()
+     und lzToggleNotes() getrennt und mit unterschiedlichem Text. */
+  function paintToggle() {
+    var active = document.body.classList.contains("lz-notes-active");
+    var count = notesForPage().filter(function (n) { return !isDone(n.id); }).length;
+    var stateEl = document.getElementById("lzNotesState");
+    if (stateEl) stateEl.textContent = String(count);
+    var lampEl = document.getElementById("lzNotesLamp");
+    if (lampEl) {
+      lampEl.className = "lz-lamp " + (active ? "is-on" : "is-off");
+      /* Der Zustand haengt nicht allein an der Farbe: Rot und Salbeigruen trennen
+         sich in der Helligkeit kaum, bei Deuteranopie gar nicht. Screenreader und
+         Farbfehlsichtige lesen ihn hier, sehende an der Zahl daneben. */
+      lampEl.setAttribute("role", "img");
+      lampEl.setAttribute("aria-label",
+        (active ? "eingeblendet" : "ausgeblendet") + ", " + count + " offen auf dieser Seite");
+    }
+    var togEl = document.getElementById("lzNotesToggle");
+    if (togEl) togEl.setAttribute("aria-pressed", active ? "true" : "false");
+  }
+
+  /* ---------- 6c. Laufband ausmessen ----------
+     Setzt drei Werte auf <html>:
+       --tick-h      Hoehe der Leiste. Die Cockpit-Anmeldung und das Investoren-Gate
+                     lagen mit festen 22px bzw. 0 darueber und deckten den Balken ab.
+       --tick-shift  Verschiebung je Umlauf, gerundet auf ganze Pixel und auf ein
+                     Vielfaches einer Textwiederholung. Bruchteil-Pixel waren die
+                     Ursache der weichen Schrift, die falsche Distanz die des Sprungs.
+       --tick-dur    Dauer, so dass ueberall 7,5 px/s herauskommen — die Geschwindigkeit,
+                     die die oeffentlichen Seiten am Desktop schon hatten. Vorher war
+                     sie an die Containerbreite gekoppelt und schwankte zwischen
+                     2 px/s (oeffentlich mobil) und 20 px/s (Planspiel-intern mobil).
+     Laeuft erst, wenn die Schriften geladen sind — vorher misst man Fallback-Metrik. */
+  var TICK_SPEED = 7.5;   // px pro Sekunde
+
+  function measureTick() {
+    var tick = document.querySelector(".lz-tick");
+    if (tick) {
+      document.documentElement.style.setProperty("--tick-h", tick.offsetHeight + "px");
+    } else {
+      var bar = document.querySelector(".fiktiv-bar");
+      if (bar) document.documentElement.style.setProperty("--tick-h", bar.offsetHeight + "px");
+    }
+    var track = document.querySelector(".lz-tick-track");
+    if (!track) return;
+    var items = track.children;
+    if (items.length < 2) return;
+    // Abstand zweier gleicher Wiederholungen = Textbreite + Luecke
+    var unit = items[1].offsetLeft - items[0].offsetLeft;
+    if (!unit) return;
+    // halbe Anzahl Wiederholungen, damit nach dem Umlauf noch genug Text nachsteht
+    var steps = Math.max(1, Math.floor(items.length / 2));
+    var shift = Math.round(unit * steps);
+    document.documentElement.style.setProperty("--tick-shift", shift + "px");
+    document.documentElement.style.setProperty("--tick-dur", Math.round(shift / TICK_SPEED) + "s");
+  }
+
+  function watchTick() {
+    measureTick();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureTick);
+    var t; window.addEventListener("resize", function () {
+      clearTimeout(t); t = setTimeout(measureTick, 150);
+    });
+  }
+  window.lzMeasureTick = measureTick;
+
   window.lzTickPause = function (ev, btn) {
     if (ev) ev.stopPropagation();
     var t = document.getElementById("lzTick"); if (!t) return;
@@ -437,9 +580,7 @@
   function buildPins() {
     var mine = notesForPage().filter(function (n) { return !isDone(n.id); });
     // Zähler im Pillmenü-Toggle
-    var stateEl = document.getElementById("lzNotesState");
-    var active = document.body.classList.contains("lz-notes-active");
-    if (stateEl) stateEl.textContent = (active ? "An" : "Aus") + (mine.length ? " · " + mine.length : "");
+    paintToggle();
 
     // pro Anker-Element Offset zählen (mehrere Notizen am selben Element)
     var offsetMap = new Map();
@@ -496,9 +637,7 @@
     document.body.classList.toggle("lz-notes-active", active);
     saveVisible(active);
     if (!active) document.querySelectorAll(".lz-note-pop").forEach(function (p) { p.hidden = true; });
-    var stateEl = document.getElementById("lzNotesState");
-    var count = notesForPage().filter(function (n) { return !isDone(n.id); }).length;
-    if (stateEl) stateEl.textContent = (active ? "An" : "Aus") + (count ? " · " + count : "");
+    paintToggle();
   };
 
   /* Außenklick schließt Popover */
@@ -525,8 +664,10 @@
     injectCSS();
     injectBarCSS();
     if (slug() !== "cockpit") ensureBar(); // Cockpit: Vollbild-Layout, keine Leiste einfügen
+    upgradeToggle();
     if (loadVisible()) document.body.classList.add("lz-notes-active");
     buildPins();
+    watchTick();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
