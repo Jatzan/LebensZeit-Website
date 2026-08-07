@@ -30,7 +30,9 @@ button{cursor:pointer;font-family:inherit}
 }
 @media (prefers-reduced-motion:reduce){}
 
-#login{position:fixed;inset:22px 0 0 0;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 700px at 70% 20%,#24312a 0%,var(--n-bg) 60%);z-index:50}
+/* Fest verdrahtete 22px lagen ueber einer 38px hohen Leiste — der untere Teil des
+   Warnbalkens war verdeckt. --tick-h misst lz-notes.js auf allen Seiten. */
+#login{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 700px at 70% 20%,#24312a 0%,var(--n-bg) 60%);z-index:50;overflow-y:auto;padding:20px 0}
 .login-card{width:400px;background:var(--n-panel);border:1px solid var(--n-line);border-radius:14px;padding:34px 36px;color:var(--n-text);box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .login-card .lg{text-align:center;margin-bottom:14px}
 .login-card h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.625rem;color:var(--mint);text-align:center}
@@ -55,10 +57,15 @@ button{cursor:pointer;font-family:inherit}
 .nav .bdg{margin-left:auto;font-size:0.8rem;letter-spacing:.08em;padding:2px 6px;border-radius:8px;text-transform:uppercase}
 .side-sys{padding:10px 14px;font-size:0.8rem}
 #head{grid-area:head;display:flex;align-items:center;gap:14px;padding:0 18px}
+/* Am Desktop ist #headMeta nur eine Klammer, die nichts am Fluss aendert —
+   Uhr, Systemschalter und Abmelden stehen wie zuvor nebeneinander. */
+#head #headMeta{display:contents}
 #head .crumb{font-size:0.88rem;font-weight:500}
 #head .date{margin-left:auto;font-size:0.8rem;font-variant-numeric:tabular-nums}
-.toggle{display:flex;align-items:center;gap:8px;font-size:0.8rem}
-.toggle .sw{position:relative;width:118px;height:26px;border-radius:13px;border:1px solid;display:flex;align-items:center;font-size:0.8rem;font-weight:600}
+.toggle{display:flex;align-items:center;gap:8px;font-size:0.8rem;flex:0 0 auto}
+/* flex:0 0 auto ist Pflicht: in der gedraengten Kopfzeile schrumpfte die Schiene,
+   der absolut positionierte Knopf blieb aber 56px — er lief ueber die Beschriftung. */
+.toggle .sw{position:relative;width:118px;height:26px;min-height:0;flex:0 0 118px;border-radius:13px;border:1px solid;display:flex;align-items:center;font-size:0.8rem;font-weight:600}
 .toggle .sw span{flex:1;text-align:center;z-index:1}
 .toggle .knob{position:absolute;top:2px;width:56px;height:20px;border-radius:10px;transition:left .25s}
 .userchip{display:flex;align-items:center;gap:8px;font-size:0.8rem}
@@ -219,20 +226,50 @@ body.alt .tourlist button{border-color:#c8c8c8}body.alt .tourlist button:hover{b
 .tbl-scroll::-webkit-scrollbar-thumb{background:rgba(168,201,160,.40);border-radius:3px}
 @media(min-width:760px){.tbl-scroll>table{min-width:0}}
 
-/* Vollbildhuelle auf schmalen Screens: die 236px-Seitenleiste machte die
-   Anwendung 810px breit, body{overflow:hidden} liess 420px unerreichbar.
-   Unter 900px wird die Leiste eine horizontal scrollbare Zeile oben. */
+/* Schmale Screens: die 236px-Seitenleiste machte die Anwendung 810px breit.
+   Erster Versuch war eine horizontal scrollbare Zeile — die Navigation wurde damit
+   2965px breit und musste geschoben werden. Jetzt liegt sie als Schublade neben
+   dem Bild und kommt ueber den Hamburger. Kopfzeile zweizeilig, Fusszeile mit
+   automatischer Hoehe: in der starren 26px-Zeile brach ihr Text auf drei Zeilen um
+   und wurde abgeschnitten. */
 @media(max-width:900px){
-  #app.on{grid-template-columns:1fr;grid-template-rows:auto 56px 1fr 26px;
-          grid-template-areas:"side" "head" "main" "foot"}
-  #side{flex-direction:row;align-items:center;gap:2px;overflow-x:auto;overflow-y:hidden;
-        border-right:0;border-bottom:1px solid var(--line);padding:0 6px}
-  #side .brand,#side .side-sys,#side .rolebox{display:none}
-  #nav{display:flex;flex-direction:row;gap:2px}
-  #nav button{white-space:nowrap;min-height:var(--tap-env);border-right:0}
+  #app.on{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;
+          grid-template-areas:"head" "main" "foot"}
+
+  #side{position:fixed;top:var(--tick-h,2.375rem);bottom:0;left:0;z-index:70;
+        width:min(84vw,300px);transform:translateX(-100%);transition:transform .22s ease-out;
+        box-shadow:none;overflow-y:auto;overscroll-behavior:contain}
+  #side.is-open{transform:none;box-shadow:8px 0 32px rgba(0,0,0,.45)}
+  #sideScrim{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;z-index:65;background:rgba(0,0,0,.5);
+             opacity:0;pointer-events:none;transition:opacity .22s;border:0;padding:0}
+  #sideScrim.is-open{opacity:1;pointer-events:auto}
+  #nav button{min-height:var(--tap-env)}
+
+  #head{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;
+        grid-template-areas:"burger crumb user logout" "meta meta meta meta";
+        gap:5px 10px;padding:6px 12px;overflow:visible;align-items:center}
+  #head .crumb{grid-area:crumb;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #head .userchip{grid-area:user}
+  #head .userchip #userName{display:none}
+  #head #burger{grid-area:burger}
+  #head #logoutBtn{grid-area:logout;margin-left:0}
+  #head .date{margin-left:0}
+  #head .toggle{margin-left:auto}
+  #head #headMeta{grid-area:meta;display:flex;align-items:center;gap:10px;
+                  padding-top:4px;border-top:1px solid var(--n-line)}
+
   #main{padding:14px 12px 28px}
-  #head{gap:8px;padding:0 10px;overflow-x:auto}
+  #foot{min-height:26px;padding:7px 14px;flex-wrap:wrap;gap:2px 14px;line-height:1.35}
+  #foot>span:last-child{margin-left:0!important;flex-basis:100%}
 }
+/* Hamburger nur schmal sichtbar — am Zeigergeraet steht die Leiste ohnehin */
+#burger{display:none}
+@media(max-width:900px){#burger{display:inline-flex;align-items:center;justify-content:center;
+  width:var(--tap-env);height:var(--tap-env);min-height:0;padding:0;border:1px solid var(--n-line);
+  border-radius:8px;background:none;color:inherit;flex:0 0 auto}}
+@media(min-width:901px){#sideScrim{display:none}}
+body.alt #burger{border-color:#2c4257;color:#fff}
+body.alt #head #headMeta{border-top-color:#2c4257}
 </style>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -363,16 +400,26 @@ body.alt #logoutBtn{border-color:#9aa;color:#334;background:#e8eef2;}
     <div class="side-sys" id="sysline"></div>
   </aside>
   <header id="head">
+    <button type="button" id="burger" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="side" onclick="toggleSide()">
+      <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true">
+        <line x1="3" y1="6"  x2="17" y2="6"  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="3" y1="10" x2="17" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="3" y1="14" x2="17" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
     <span class="crumb" id="crumb">Übersicht</span>
-    <span class="date" id="clock">—</span>
-    <div class="toggle"><span>System</span>
-      <div class="sw" id="sw" role="switch" aria-checked="true" tabindex="0" title="Altsystem 2024 ⇄ LZ Cockpit 2026">
-        <div class="knob"></div><span class="s24">2024</span><span class="s26">2026</span>
+    <div id="headMeta">
+      <span class="date" id="clock">—</span>
+      <div class="toggle"><span>System</span>
+        <div class="sw" id="sw" role="switch" aria-checked="true" tabindex="0" title="Altsystem 2024 ⇄ LZ Cockpit 2026">
+          <div class="knob"></div><span class="s24">2024</span><span class="s26">2026</span>
+        </div>
       </div>
     </div>
     <div class="userchip"><span class="av">KB</span><span id="userName">K. Brandt</span></div>
     <button id="logoutBtn" onclick="logout()" title="Abmelden — zurück zur Anmeldung">Abmelden</button>
   </header>
+  <button type="button" id="sideScrim" aria-label="Navigation schließen" onclick="toggleSide(false)" tabindex="-1"></button>
   <main id="main"></main>
   <footer id="foot"><span id="footVer"></span><span id="footSave"></span><span style="margin-left:auto">Mandant: LebensZeit gGmbH · Kreis Soest</span></footer>
 </div>
@@ -1133,27 +1180,40 @@ function render(){
     b.classList.toggle("act",b.dataset.id===S.mod);
     b.classList.toggle("gone",m==="alt"&&["qual","serv","appv"].includes(b.dataset.id));
   });
-  document.getElementById("main").innerHTML=R[S.mod](m);
-  document.getElementById("main").scrollTop=0;
+  const mainEl=document.getElementById("main");
+  /* Die Quellen-Registry adressiert je Modul unterschiedliche Bauteile. Da render()
+     #main komplett neu schreibt, braucht sie die Modulkennung am Element und einen
+     Neuaufbau danach — sonst haengen die Marker an geloeschten Knoten. */
+  mainEl.dataset.mod=S.mod;
+  mainEl.innerHTML=R[S.mod](m);
+  mainEl.scrollTop=0;
   initTables();
+  if(window.LZQuellen && window.LZQuellen.isOn()) window.LZQuellen.rebuild();
 }
 </script>
 <script src="/lz-notes.js" defer></script>
+<script src="/lz-quellen.js" defer></script>
 <script>
-function lzTickPause(ev,btn){
-  if(ev) ev.stopPropagation();
-  var t=document.getElementById('lzTick'); if(!t) return;
-  var p=t.classList.toggle('is-paused');
-  btn.setAttribute('aria-pressed', p?'true':'false');
-  btn.textContent = p ? 'Weiter' : 'Pause';
+/* Schublade: schliesst nach jeder Modulwahl, bei Escape und beim Verbreitern.
+   Ohne das bliebe sie beim Drehen ins Querformat offen ueber dem Inhalt stehen. */
+function toggleSide(force){
+  var s=document.getElementById('side'), sc=document.getElementById('sideScrim'), b=document.getElementById('burger');
+  if(!s) return;
+  var open = (typeof force==='boolean') ? force : !s.classList.contains('is-open');
+  s.classList.toggle('is-open',open);
+  if(sc) sc.classList.toggle('is-open',open);
+  if(b){ b.setAttribute('aria-expanded',open?'true':'false');
+         b.setAttribute('aria-label',open?'Navigation schließen':'Navigation öffnen'); }
+  if(open) { var f=s.querySelector('.nav button'); if(f) f.focus(); }
 }
-/* Balkenhöhe messen, damit die Vollbildhülle exakt darunter sitzt */
-function lzTickFit(){
-  var t=document.getElementById('lzTick'); if(!t) return;
-  document.documentElement.style.setProperty('--tick-h', t.offsetHeight+'px');
-}
-window.addEventListener('load', lzTickFit);
-window.addEventListener('resize', lzTickFit);
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') toggleSide(false); });
+document.getElementById('nav').addEventListener('click',function(e){
+  if(e.target.closest('button')) toggleSide(false);
+});
+window.addEventListener('resize',function(){ if(innerWidth>900) toggleSide(false); });
+
+/* lzTickPause und die Balkenmessung kommen jetzt aus lz-notes.js — hier stand
+   beides ein zweites Mal (lzTickFit), mit demselben Ergebnis und doppelter Pflege. */
 </script>
 </body>
 </html>

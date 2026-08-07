@@ -9,13 +9,32 @@
   "use strict";
 
   /* ---------- 1. Kategorien ---------- */
+  /* Jede Kategorie traegt zwei Farbpaare: hell fuer Creme/Weiss, dunkel fuer die
+     Nachtflaeche des Cockpits. Ein einziger Wert reicht nicht — Salbeigruen etwa
+     liegt auf Creme bei 2,22:1, auf der Nachtflaeche bei 6,52:1. Die Tinte kippt
+     mit: auf den dunklen Hellwerten Weiss, auf den hellen Dunkelwerten Nachtinte. */
   var CATS = {
-    basis:   { label: "Datenbasis",        farbe: "var(--green, #4A6741)", sym: "\u25C6", info: "Verbindlicher Steckbrief \u2014 unveraendert uebernehmen." },
-    amt:     { label: "Amtliche Statistik", farbe: "var(--sage, #8AAC85)", sym: "\u25B2", info: "Externe Quelle, im Pitch zitierbar." },
-    ziel:    { label: "Ziel / Planwert",   farbe: "var(--amber, #B07A2A)", sym: "\u25CF", info: "Angestrebter Wert \u2014 nicht als Ist ausgeben." },
-    annahme: { label: "Annahme",           farbe: "var(--text2, #5A5648)", sym: "\u25CB", info: "Abgeleitet oder geschaetzt \u2014 Herleitung offenlegen." },
-    platz:   { label: "Platzhalter",       farbe: "var(--red, #8C3A2A)", sym: "\u2715", info: "Nicht belegt \u2014 vor dem Pitch ersetzen oder streichen." },
-    cd:      { label: "Corporate Design",  farbe: "var(--mint, #A8C9A0)", sym: "\u25C8", info: "Festlegung aus dem Projektspeicher \u2014 tr\u00e4gt das Corporate Design, l\u00e4sst sich aber nicht \u00fcber die Sprint-Unterlagen belegen." }
+    basis:   { label: "Datenbasis",         sym: "\u25C6",
+               farbe: "#4A6741", tinte: "#FFFFFF", farbeD: "#8AAC85", tinteD: "#12190F",
+               info: "Verbindlicher Steckbrief \u2014 unveraendert uebernehmen." },
+    amt:     { label: "Amtliche Statistik", sym: "\u25B2",
+               farbe: "#8AAC85", tinte: "#2A2820", farbeD: "#A8C9A0", tinteD: "#12190F",
+               info: "Externe Quelle, im Pitch zitierbar." },
+    ziel:    { label: "Ziel / Planwert",    sym: "\u25CF",
+               farbe: "#B07A2A", tinte: "#2A2820", farbeD: "#E2B56A", tinteD: "#12190F",
+               info: "Angestrebter Wert \u2014 nicht als Ist ausgeben." },
+    annahme: { label: "Annahme",            sym: "\u25CB",
+               farbe: "#5A5648", tinte: "#FFFFFF", farbeD: "#93A493", tinteD: "#12190F",
+               info: "Abgeleitet oder geschaetzt \u2014 Herleitung offenlegen." },
+    synth:   { label: "Erzeugter Datensatz", sym: "\u2B21",
+               farbe: "#33566B", tinte: "#FFFFFF", farbeD: "#9CC2CE", tinteD: "#12190F",
+               info: "Selbst erzeugte Einzeldaten \u2014 die Summen stimmen mit dem Steckbrief ueberein, die einzelnen Personen, Adressen und Fahrten sind erfunden. Nie als echte Erhebung ausgeben." },
+    platz:   { label: "Platzhalter",        sym: "\u2715",
+               farbe: "#8C3A2A", tinte: "#FFFFFF", farbeD: "#F09595", tinteD: "#12190F",
+               info: "Nicht belegt \u2014 vor dem Pitch ersetzen oder streichen." },
+    cd:      { label: "Corporate Design",   sym: "\u25C8",
+               farbe: "#A8C9A0", tinte: "#2A2820", farbeD: "#A8C9A0", tinteD: "#12190F",
+               info: "Festlegung aus dem Projektspeicher \u2014 tr\u00e4gt das Corporate Design, l\u00e4sst sich aber nicht \u00fcber die Sprint-Unterlagen belegen." }
   };
 
   /* ---------- 2. Registry: Datenpunkte je Seite ---------- */
@@ -31,6 +50,73 @@
   var IP = "LebensZeit_Investorpitch_20min.pdf";
 
   var SRC = [
+    /* ══ Betriebs-Cockpit ══════════════════════════════════════════════
+       Die Simulation fuehrt vier Bestaende, die es in keiner Unterlage gibt:
+       180 Klienten, 56 Mitarbeitende, 45 Ehrenamtliche, 18 Fahrzeuge, dazu
+       6 Touren und 8 offene Stellen. Erzeugt wurden sie gegen die Summen und
+       Verteilungen des Steckbriefs — nachgerechnet am 07.08.2026, Ergebnis je
+       Eintrag im Hinweis. Selektoren sind auf das Modul verengt, weil render()
+       #main je Modul komplett neu schreibt. */
+
+    { page: "cockpit", sel: '#main[data-mod="home"] > .kgrid', idx: 0, wert: "Kennzahlenreihe der \u00dcbersicht", kat: "basis", ud: "kennzahlen",
+      dok: BD, seite: "2, 4", absch: "Kennzahlenblock \u00b7 A.1 Umsatz-Split", stand: "Sprint 1", guete: "A",
+      hinweis: "180 Pflegef\u00e4lle \u00b7 62 % Eigenfinanzierung \u00b7 56 Mitarbeitende \u00b7 520 Mitglieder \u00b7 18 Fahrzeuge \u00b7 45 Ehrenamtliche. Alle sechs Werte stehen so im Steckbrief. Pflegeumsatz 1,15 Mio. und F\u00f6rdermittel 0,80 Mio. bleiben getrennt." },
+
+    { page: "cockpit", sel: '#main[data-mod="home"] > .panel', idx: 1, wert: "Deckungsbeitr\u00e4ge je Standort", kat: "basis", ud: "standorte",
+      dok: BD, seite: "4", absch: "A.3 Ergebnis je Standort", stand: "Sprint 1", guete: "A",
+      hinweis: "Erwitte +110 \u00b7 Bad Sassendorf +55 \u00b7 Anr\u00f6chte +12 \u00b7 R\u00fcthen \u221238 \u00b7 Lippetal \u221230 k\u20ac; F\u00e4lle 70/45/25/22/18. Beides stimmt mit dem Datenbestand der Simulation exakt \u00fcberein. Nach direkten Standortkosten, vor Zentral-Overhead." },
+
+    { page: "cockpit", sel: '#main[data-mod="kli"] > .panel', idx: 2, wert: "180 Klientendatens\u00e4tze", kat: "synth", ud: "kennzahlen", todo: "cockpit",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Namen, Adressen, Koordinaten, Eintrittsdatum und Besuchsfrequenz sind erfunden. Gepr\u00fcft und deckungsgleich mit dem Steckbrief: Pflegegrade 70/65/35/10 (D.1) und Standortverteilung 70/45/25/22/18 (A.3). Mittlere Aussch\u00f6pfung 39,2 % gegen ~40 % im Steckbrief. Hildegard Stemmer steht hier mit 82/PG 3, im Personas-Handout mit 79/PG 2 \u2014 offener Widerspruch." },
+
+    { page: "cockpit", sel: '#main[data-mod="kli"] > .panel', idx: 0, wert: "Sachleistungs-Caps je Pflegegrad", kat: "amt", ud: "kennzahlen",
+      dok: BD, seite: "6", absch: "D.1 Klientenstruktur nach Pflegegrad", stand: "Sprint 1", guete: "B",
+      extern: "SGB XI \u00a736 \u00b7 GKV-Spitzenverband, Leistungsbetr\u00e4ge",
+      hinweis: "PG 2: 761 \u20ac \u00b7 PG 3: 1.432 \u20ac \u00b7 PG 4: 1.778 \u20ac \u00b7 PG 5: 2.200 \u20ac je Monat, \u00d8 Cap 1.281 \u20ac. Gelten laut Markt- und Wettbewerbsanalyse ab Januar 2024; n\u00e4chste Anpassung ist f\u00fcr 2028 vorgesehen (PUEG), die Werte sind im Simulationsjahr 2026 also g\u00fcltig." },
+
+    { page: "cockpit", sel: '#main[data-mod="pers"] > .panel', idx: 1, wert: "56 Personaldatens\u00e4tze", kat: "synth", ud: "team", todo: "cockpit",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Kopfzahl 56 und Vollzeit\u00e4quivalente 45,6 (Steckbrief ~45) stimmen. Der Rollenmix weicht ab: der Steckbrief f\u00fchrt 20 Fachkr\u00e4fte, 13 Hilfskr\u00e4fte, 5 Hauswirtschaft/Betreuung und 5 Verwaltung, die Simulation 18/14/0/4 plus 6 Auszubildende und 1 Qualit\u00e4tsmanagement. Ursache: die 6 Azubis stehen im Steckbrief neben den 56, hier aber darin \u2014 sie verdr\u00e4ngen die Hauswirtschaft. Examinierte 23 statt 25. Vor dem Pitch angleichen." },
+
+    { page: "cockpit", sel: '#main[data-mod="pers"] > .panel', idx: 0, wert: "8 offene Stellen", kat: "basis", ud: "team",
+      dok: BD, seite: "7", absch: "F \u00b7 Personalstruktur (Detail)", stand: "Sprint 1", guete: "A",
+      hinweis: "Soll 64, besetzt 56 \u2192 8 offene Fachkraftstellen. Standortzuordnung und Vakanzdauer (3 bis 11 Monate) sind f\u00fcr die Simulation erzeugt und in keiner Unterlage belegt." },
+
+    { page: "cockpit", sel: '#main[data-mod="tour"] > .panel', idx: 1, wert: "6 Touren mit Stopps", kat: "synth", ud: "betrieb", todo: "cockpit",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Routen, Stoppfolgen und die Namen der Pflegekr\u00e4fte sind erfunden \u2014 die Tourennamen tauchen im Personalstamm nicht auf, es sind drei getrennte Namensr\u00e4ume. Der Umfang ist stark verk\u00fcrzt: der Steckbrief nennt 3\u20134 Touren je Standort fr\u00fch und ~2 sp\u00e4t (C.3), also rund 25 am Tag; die Simulation zeigt 6." },
+
+    { page: "cockpit", sel: '#main[data-mod="ehren"] > .panel', idx: 2, wert: "45 Ehrenamtsdatens\u00e4tze", kat: "synth", ud: "team", todo: "cockpit",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Kopfzahl 45 stimmt mit dem Steckbrief (S. 2 und S. 7). Personen, T\u00e4tigkeiten, Monatsstunden und die Markierung \u00a745c/d-relevant sind erzeugt. T\u00e4tigkeitsspektrum folgt Teil 1 des Steckbriefs: Besuchsdienst, Vorlesen, Einkaufshilfe, Demenz-Begleitung, Fahrdienst, Begegnungsort \u2014 nichts Pflegerisches." },
+
+    { page: "cockpit", sel: '#main[data-mod="fuhr"] > .panel', idx: 1, wert: "18 Fahrzeugdatens\u00e4tze", kat: "synth", ud: "betrieb",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
+      hinweis: "Kennzeichen, Modelle, Kilometerst\u00e4nde und Wartungsfristen sind erfunden. Standortverteilung Erwitte 6 \u00b7 Bad Sassendorf 4 \u00b7 Anr\u00f6chte 3 \u00b7 R\u00fcthen 3 \u00b7 Lippetal 2 und die Leasingkosten um 9.300 \u20ac je Fahrzeug stimmen mit C.1 \u00fcberein." },
+
+    { page: "cockpit", sel: "#side", idx: 0, wert: "Rollen und Berechtigungen", kat: "annahme", ud: "betrieb", todo: "cockpit",
+      dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Cockpit-Berechtigungskonzept", stand: "laufend", guete: "S",
+      hinweis: "Sechs Demo-Rollen mit modul- und reiterweiser Freigabe. In keiner Sprint-Unterlage beschrieben \u2014 abgeleitet aus \u00a722 SGB X und dem Erforderlichkeitsgrundsatz. Die Rollennamen der Anmeldung (Holthaus, Brandt, Yilmaz) stehen nicht im Personalstamm der Simulation." },
+
+    { page: "cockpit", sel: "#foot", idx: 0, wert: "Altsystem 2024", kat: "annahme", ud: "betrieb",
+      dok: BD, seite: "5", absch: "C.2 Software-Stack", stand: "Sprint 1", guete: "C",
+      hinweis: "Der Steckbrief nennt MediFox DAN als f\u00fchrendes System und Excel plus Telefon f\u00fcr die Tourenplanung. Das dargestellte \u201ePflegeVerwaltung 2024\u201c samt Makrowarnung, Netzlaufwerk und Ladezeiten ist eine Veranschaulichung dieses R\u00fcckstands, kein reales Produkt." },
+
+    /* --- Bisher unbelegte Zahlen auf oeffentlichen Seiten (Pruefung 07.08.2026) --- */
+    { page: "leistungen", sel: ".svc-pay", idx: 2, wert: "Entlastungsbetrag 131 \u20ac monatlich", kat: "amt", ud: "kennzahlen", todo: "leistungen",
+      dok: "\u2014 in keiner Sprint-Unterlage genannt", seite: "\u2014", absch: "\u2014", stand: "\u2014", guete: "D",
+      extern: "SGB XI \u00a745b \u00b7 Entlastungsbetrag",
+      hinweis: "Widerspruch im eigenen Material: das Personas-Handout rechnet Markus D\u00f6rre 125 \u20ac im Monat entgangenen Entlastungsbetrag vor, die Website nennt 131 \u20ac. Der Steckbrief nennt \u00a745b nur als Leistungsart und mit 0,10 Mio. \u20ac Jahresumsatz, keinen Monatsbetrag. Die \u00fcbrigen SGB-XI-Werte der Website stehen laut Markt- und Wettbewerbsanalyse auf Stand 2024 \u2014 vor dem Pitch auf ein Jahr festlegen und belegen." },
+
+    { page: "karriere", sel: ".card", idx: 3, wert: "56 Mitarbeitende und 45 Ehrenamtliche", kat: "basis", ud: "team",
+      dok: BD, seite: "7, 2", absch: "F \u00b7 Personalstruktur \u00b7 Kennzahlenblock", stand: "Sprint 1", guete: "A",
+      hinweis: "56 besetzt bei Soll 64, davon 25 examiniert und 6 Azubis; 45 Ehrenamtliche. Beide Zahlen stehen so im Steckbrief. Die 8 offenen Stellen sind hier bewusst nicht genannt \u2014 auf der Karriereseite w\u00e4re die Vakanz das Angebot, nicht die Kennzahl." },
+
+    { page: "aktuelles", sel: ".card", idx: 3, wert: "45 Ehrenamtliche", kat: "basis", ud: "team",
+      dok: BD, seite: "2, 7", absch: "Kennzahlenblock \u00b7 F Personalstruktur", stand: "Sprint 1", guete: "A",
+      hinweis: "Kopfzahl belegt. Die im Beitrag genannten Personen und Portraits sind erfunden \u2014 Website-Erz\u00e4hlung, kein Faktenfehler." },
+
     /* --- Corporate Design (Projektspeicher, gilt auf allen Seiten) --- */
     { page: "*", sel: ".logo-lockup", idx: 0, wert: "Logo, Wortmarke & Farbregel", kat: "cd", ud: "cd",
       dok: "Projektspeicher \u00b7 Team-Festlegung", seite: "\u2014", absch: "Corporate Design", stand: "laufend", guete: "S",
@@ -380,17 +466,33 @@
     if (document.getElementById("lz-src-css")) return;
     var c = [];
     Object.keys(CATS).forEach(function (k) {
-      c.push(".lz-src-host.k-" + k + "{outline:2px dashed " + CATS[k].farbe + ";outline-offset:3px;}");
-      c.push(".lz-src-badge.k-" + k + "{background:" + CATS[k].farbe + ";}");
-      c.push(".lz-src-dot.k-" + k + "{background:" + CATS[k].farbe + ";}");
+      var t = CATS[k];
+      c.push(".lz-src-host.k-" + k + "{outline:2px dashed " + t.farbe + ";outline-offset:3px;}");
+      c.push(".lz-src-badge.k-" + k + "{background:" + t.farbe + ";color:" + t.tinte + ";}");
+      c.push(".lz-src-pop .kat.k-" + k + "{background:" + t.farbe + ";color:" + t.tinte + ";}");
+      c.push(".env-cockpit .lz-src-pop .kat.k-" + k + "{background:" + t.farbeD + ";color:" + t.tinteD + ";}");
+      c.push(".lz-src-dot.k-" + k + "{background:" + t.farbe + ";}");
+      /* Cockpit: dieselben Kategorien, andere Toene. Ohne das lag etwa Datenbasis-
+         Gruen mit 1,6:1 auf der Nachtflaeche — der Rahmen war nicht zu sehen. */
+      c.push(".env-cockpit .lz-src-host.k-" + k + "{outline-color:" + t.farbeD + ";}");
+      c.push(".env-cockpit .lz-src-badge.k-" + k + "{background:" + t.farbeD + ";color:" + t.tinteD + ";}");
+      c.push(".env-cockpit .lz-src-dot.k-" + k + "{background:" + t.farbeD + ";}");
     });
     var css = c.join("") +
       ".lz-src-host{position:relative;}" +
-      ".lz-src-badge{position:absolute;top:3px;right:4px;z-index:40;color:#fff;font:600 10px/1 Jost,system-ui,sans-serif;letter-spacing:.4px;padding:4px 7px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.28);border:0;}" +
+      ".lz-src-badge{position:absolute;top:3px;right:4px;z-index:40;font:600 10px/1 Jost,system-ui,sans-serif;letter-spacing:.4px;padding:4px 7px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.28);border:0;min-height:0;}" +
+      /* Das Popover stand fest auf Weiss, waehrend --text im Cockpit die Nachtinte
+         ist: 1,26:1, also unlesbar. Im Cockpit jetzt Nachtpanel mit 11,91:1. */
+      ".env-cockpit .lz-src-pop{background:#1E2921;color:#DFE7DC;border-color:#5B7666;box-shadow:0 16px 40px rgba(0,0,0,.5);}" +
+      ".env-cockpit .lz-src-pop h5{color:#A8C9A0;}" +
+      ".env-cockpit .lz-src-pop dt,.env-cockpit .lz-src-pop .cls{color:#93A493;}" +
+      ".env-cockpit .lz-src-pop .hint{color:#93A493;border-top-color:#33443A;}" +
+      ".env-cockpit .lz-src-pop .udlink{color:#8AAC85;}" +
+      ".env-cockpit .lz-src-pop .tlink{color:#F09595;}" +
       ".lz-src-badge:hover{transform:scale(1.08);}" +
       ".lz-src-pop{position:absolute;z-index:60;top:26px;right:0;width:265px;background:#fff;color:var(--text, #2A2820);border:1px solid rgba(74,103,65,.28);border-radius:12px;padding:13px 15px;box-shadow:0 16px 40px rgba(0,0,0,.2);font:400 13px/1.5 Jost,system-ui,sans-serif;text-align:left;}" +
       ".lz-src-pop h5{font:600 14px/1.3 Jost,system-ui,sans-serif;margin:0 0 6px;color:var(--green3, #2C3D27);}" +
-      ".lz-src-pop .kat{display:inline-block;font-size:0.8rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#fff;border-radius:20px;padding:2px 9px;margin-bottom:8px;}" +
+      ".lz-src-pop .kat{display:inline-block;font-size:0.8rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border-radius:20px;padding:2px 9px;margin-bottom:8px;}" +
       ".lz-src-pop dl{margin:0;display:grid;grid-template-columns:58px 1fr;gap:3px 9px;}" +
       ".lz-src-pop dt{color:var(--text3, #8A8478);font-size:0.8rem;}" +
       ".lz-src-pop dd{margin:0;font-size:0.8rem;}" +
@@ -418,7 +520,7 @@
     d.className = "lz-src-pop";
     d.innerHTML =
       '<button class="cls" aria-label="Schliessen">\u00d7</button>' +
-      '<span class="kat" style="background:' + cat.farbe + '">' + cat.sym + " " + esc(cat.label) + "</span>" +
+      '<span class="kat k-' + entry.kat + '">' + cat.sym + " " + esc(cat.label) + "</span>" +
       "<h5>" + esc(entry.wert) + "</h5>" +
       "<dl><dt>Dokument</dt><dd class=\"dok\">" + esc(entry.dok) + "</dd>" +
       "<dt>Seite</dt><dd>S. " + esc(entry.seite) + "</dd>" +

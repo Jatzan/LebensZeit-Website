@@ -117,6 +117,46 @@
       title: "Anmeldeflächen decken den Warnbalken ab",
       text: "cockpit.html #login liegt mit fest verdrahteten 22px über einer 38px hohen Leiste, investoren.html .gate mit inset:0 und z-index 200 sogar vollständig darüber. lz-notes.js setzt --tick-h jetzt auf allen Seiten; beide Flächen müssen darauf umgestellt werden. Schritt 3 und 4." },
 
+    { id: "n-done-cockpit-mobil", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Cockpit mobil: Schublade statt Scrollleiste",
+      text: "Die Seitenleiste wurde unter 900px zu einer horizontal scrollbaren Zeile — die Navigation war damit 2965px breit. Jetzt liegt sie als Schublade neben dem Bild und kommt über einen Hamburger; sie schließt bei Modulwahl, Escape, Klick auf die Abdunklung und beim Verbreitern über 900px." },
+
+    { id: "n-done-cockpit-kopf-fuss", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Cockpit mobil: Kopfzeile und Fußzeile",
+      text: "Kopfzeile war einzeilig und gedrängt (Titel, Uhr, Systemschalter, Person, Abmelden auf 390px). Jetzt zweizeilig: oben Hamburger, Titel, Kürzel, Abmelden — unten Uhr und Systemschalter. Höhe 97px statt 160px im Zwischenstand. Fußzeile stand in einer starren 26px-Zeile und wurde abgeschnitten, sobald ihr Text umbrach; jetzt automatische Höhe." },
+
+    { id: "n-done-cockpit-systemschalter", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Systemschalter mobil defekt",
+      text: "Die Schiene hatte feste 118px ohne flex:0 0 auto und schrumpfte in der gedrängten Kopfzeile; der absolut positionierte Knopf blieb bei 56px und lief über die Beschriftung 2024/2026. Beide Werte jetzt gegen Schrumpfen gesichert, in beiden Modi geprüft." },
+
+    { id: "n-done-cockpit-pillmenu", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Pillmenü im Cockpit",
+      text: "Das Cockpit war von der Leiste ausgenommen und trug den Warnbalken ohne Knopf und ohne Menü. ensureBar() in lz-notes.js unterscheidet jetzt drei Ausgangslagen und rüstet einen vorhandenen Balken nach, statt eine zweite Leiste einzufügen. Menü liegt auf Anmeldung und in der laufenden Anwendung obenauf. Datenquellen-Schalter fehlt dort weiterhin — lz-quellen.js ist im Cockpit nicht eingebunden, bewusst: die Simulation führt keine Belegstellen." },
+
+    { id: "n-done-quellen-cockpit", page: "cockpit", selector: "main", status: "auszubauen", done: true,
+      title: "Quellen-Overlay im Cockpit",
+      text: "lz-quellen.js war im Cockpit nicht eingebunden — die vier erzeugten Bestände (180 Klienten, 56 Mitarbeitende, 45 Ehrenamtliche, 18 Fahrzeuge) plus Touren und offene Stellen trugen keine Herkunft. 14 Einträge ergänzt, Selektoren je Modul verengt (#main[data-mod=…] > .panel), Neuaufbau nach jedem render(). Neue Kategorie „Erzeugter Datensatz\\\" eingeführt: Summen stimmen mit dem Steckbrief, Einzelpersonen sind erfunden." },
+
+    { id: "n-done-quellen-dunkel", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Quellen-Popover war im Cockpit unlesbar",
+      text: "Das Popover stand fest auf Weiß, während --text im Cockpit die Nachtinte #DFE7DC ist — 1,26:1. Jetzt Nachtpanel mit 11,91:1. Zusätzlich tragen alle sieben Kategorien getrennte Töne für hell und dunkel: Datenbasis-Grün lag auf der Nachtfläche bei 1,6:1, der gestrichelte Rahmen war nicht zu sehen. Plakettentinte kippt mit (Weiß auf dunklen Hellwerten, Nachtinte auf hellen Dunkelwerten)." },
+
+    { id: "n-personalstamm-rollenmix", page: "cockpit", selector: "main", status: "offen",
+      title: "Rollenmix im Personalstamm weicht vom Steckbrief ab",
+      text: "Kopfzahl 56 und FTE 45,6 stimmen, der Mix nicht: Steckbrief 20 Fachkräfte / 13 Hilfskräfte / 5 Hauswirtschaft / 5 Verwaltung, Simulation 18 / 14 / 0 / 4 plus 6 Azubis und 1 Qualitätsmanagement. Ursache: die 6 Azubis stehen im Steckbrief neben den 56, in der Simulation darin — sie verdrängen die Hauswirtschaft. Examinierte 23 statt 25. Vor dem Pitch angleichen, weil B2 auf dem Qualifikationsmix aufbaut." },
+
+    { id: "n-tourenzahl", page: "cockpit", selector: "main", status: "auszubauen",
+      title: "Touren stark verkürzt dargestellt",
+      text: "Der Steckbrief nennt 3–4 Touren je Standort früh und ~2 spät (C.3), also rund 25 am Tag. Die Simulation zeigt 6. Für die Vorführung tragfähig, für eine Aussage zur Tourenoptimierung nicht — entweder aufstocken oder im Pitch als Ausschnitt kennzeichnen." },
+
+    { id: "n-namensraeume", page: "cockpit", selector: "main", status: "auszubauen",
+      title: "Drei getrennte Namensräume für Personen",
+      text: "Die Anmeldung nennt Holthaus, Brandt und Yilmaz, der Personalstamm 56 andere Namen, die Tourenliste sechs weitere Pflegekräfte (Weber, Yilmaz, Nowak, Köhler, Brinkmann, Busch-Kranz). Keiner der drei Bestände überschneidet sich sauber. Fällt auf, sobald jemand im Pitch zwei Ansichten nebeneinander legt." },
+
+    { id: "n-entlastungsbetrag", page: "leistungen", selector: "main", status: "offen",
+      title: "Entlastungsbetrag: 131 € vs. 125 €",
+      text: "leistungen.html nennt 131 €/Monat nach §45b, das Personas-Handout rechnet Markus Dörre 125 €/Monat entgangenen Betrag vor. Der Steckbrief nennt keinen Monatsbetrag. Die übrigen SGB-XI-Werte der Website stehen laut Markt- und Wettbewerbsanalyse auf Stand 2024. Auf ein Jahr festlegen und belegen." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
@@ -438,18 +478,8 @@
     document.head.appendChild(el);
   }
 
-  function ensureBar() {
-    if (document.querySelector(".fiktiv-bar")) return false; // schon vorhanden (öffentliche Seiten)
-    var marquee = "";
-    for (var i = 0; i < 8; i++) marquee += "<span>Fiktives Unternehmen \u00b7 nur zu Schulungszwecken</span>";
-    var bar = document.createElement("div");
-    bar.className = "fiktiv-bar";
-    bar.innerHTML =
-      '<div class="lz-tick" id="lzTick">' +
-        '<button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Men\u00fc \u00f6ffnen" onclick="lzToggleMenu()"><div class="lz-tick-track">' + marquee + '</div></button>' +
-        '<button type="button" class="lz-tick-pause" id="lzTickPause" aria-pressed="false" onclick="lzTickPause(event,this)">Pause</button>' +
-      '</div>' +
-      '<div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>' +
+  function menuHTML() {
+    return '<div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>' +
         '<span class="fiktiv-menu-h">Planspiel-intern</span>' +
         "<a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>" +
         "<a href='/sprints' role='menuitem'>Sprint-\u00dcbersicht</a>" +
@@ -459,12 +489,56 @@
         '<div class="fiktiv-menu-sep"></div>' +
         '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class="lz-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>To-Do\'s</span><span class="lz-state"><span class="lz-lamp is-off" id="lzNotesLamp"></span><span id="lzNotesState">0</span></span></button>' +
       '</div>';
-    document.body.insertBefore(bar, document.body.firstChild);
-    // Menü-Verhalten nur für die injizierte Leiste binden
+  }
+
+  function bindBar() {
     document.addEventListener("click", function (e) {
       if (!e.target.closest(".fiktiv-bar")) lzToggleMenu(false);
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") lzToggleMenu(false); });
+  }
+
+  /* Drei Ausgangslagen:
+       1. .fiktiv-bar vorhanden  -> Leiste und Menue stehen inline im HTML, nichts zu tun
+       2. nur .lz-tick vorhanden -> Cockpit: Balken da, aber ohne Knopf und ohne Menue
+       3. gar nichts             -> Leiste komplett einfuegen
+     Fall 2 gab es bisher nicht; das Cockpit war von der Leiste ausgenommen. */
+  function upgradeBar() {
+    if (document.querySelector(".fiktiv-bar")) return "vorhanden";
+    var tick = document.querySelector(".lz-tick");
+    if (!tick) return "fehlt";
+    var track = tick.querySelector(".lz-tick-track");
+    if (!track) return "fehlt";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "fiktiv-marquee"; btn.id = "lzTrigger";
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-controls", "fiktivMenu");
+    btn.setAttribute("aria-label", "Planspiel-Men\u00fc \u00f6ffnen");
+    btn.addEventListener("click", function () { window.lzToggleMenu(); });
+    tick.insertBefore(btn, track);
+    btn.appendChild(track);
+    var wrap = document.createElement("div");
+    wrap.className = "fiktiv-bar";
+    tick.parentNode.insertBefore(wrap, tick);
+    wrap.appendChild(tick);
+    wrap.insertAdjacentHTML("beforeend", menuHTML());
+    bindBar();
+    return "nachgeruestet";
+  }
+
+  function ensureBar() {
+    var marquee = "";
+    for (var i = 0; i < 8; i++) marquee += "<span>Fiktives Unternehmen \u00b7 nur zu Schulungszwecken</span>";
+    var bar = document.createElement("div");
+    bar.className = "fiktiv-bar";
+    bar.innerHTML =
+      '<div class="lz-tick" id="lzTick">' +
+        '<button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Men\u00fc \u00f6ffnen" onclick="lzToggleMenu()"><div class="lz-tick-track">' + marquee + '</div></button>' +
+        '<button type="button" class="lz-tick-pause" id="lzTickPause" aria-pressed="false" onclick="lzTickPause(event,this)">Pause</button>' +
+      '</div>' +
+      menuHTML();
+    document.body.insertBefore(bar, document.body.firstChild);
+    bindBar();
     return true;
   }
 
@@ -663,7 +737,10 @@
     loadDone();
     injectCSS();
     injectBarCSS();
-    if (slug() !== "cockpit") ensureBar(); // Cockpit: Vollbild-Layout, keine Leiste einfügen
+    /* Cockpit war hier bisher ausgenommen. Es bringt den Balken selbst mit, aber
+       ohne Knopf und Menue — upgradeBar() ruestet beides nach, statt eine zweite
+       Leiste einzufuegen. */
+    if (upgradeBar() === "fehlt") ensureBar();
     upgradeToggle();
     if (loadVisible()) document.body.classList.add("lz-notes-active");
     buildPins();
