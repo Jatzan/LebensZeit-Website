@@ -285,6 +285,14 @@
       title: "Logos auf den Anmeldeflächen verlinkt",
       text: "Investoren-Gate und Cockpit-Anmeldung trugen das Logo ohne Verweis. Beide führen jetzt auf die Startseite, ohne Unterstrich; geprüft, dass der Klick tatsächlich navigiert." },
 
+    { id: "n-done-ueberuns-knopf-umbruch", page: "ueber-uns", selector: "main", status: "offen", done: true,
+      title: "Knopf „Gemeinschaft unterstützen“ ragte mobil über die Karte",
+      text: "Die Zeile stand auf display:flex ohne flex-wrap, der Knopf trug zusätzlich flex-shrink:0 — auf schmalen Screens blieb seine Breite erzwungen und er lief seitlich aus der Karte statt darunter umzubrechen. Unter 640px schaltet die Zeile jetzt auf Spalte, Knopf zentriert und auf volle Kartenbreite. Josh gemeldet 08.08.2026." },
+
+    { id: "n-done-holthaus-portraet", page: "ueber-uns", selector: "main", status: "offen", done: true,
+      title: "Porträt bei Dr. Holthaus hinterlegt",
+      text: "Rundes, transparentes SVG-Porträt (portrait-holthaus.svg) über das bestehende Kürzel MH gelegt. Kürzel bleibt als Fallback im Markup vor dem Bild — bei Ladefehler entfernt onerror nur das <img>, das Kürzel wird dann automatisch sichtbar, ohne eigene z-index-Regel. Erste Fassung hatte die Reihenfolge vertauscht: das Kürzel schien durch das Bild durch, weil es im Markup danach stand." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",

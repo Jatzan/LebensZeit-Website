@@ -283,7 +283,11 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .tl-item p { font-size:0.88rem; color:var(--text2); font-weight:300; }
 
 .lead-card { display:flex; gap:22px; background:#fff; border:0.5px solid var(--border); border-radius:var(--radius); padding:30px; align-items:flex-start; }
-.lead-card .av { width:72px; height:72px; border-radius:50%; background:var(--green); color:var(--cream); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:1.625rem; flex-shrink:0; }
+.lead-card .av { position:relative; width:72px; height:72px; border-radius:50%; background:var(--green); color:var(--cream); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:1.625rem; flex-shrink:0; overflow:hidden; }
+.lead-card .av img { position:absolute; inset:0; width:100%; height:100%; border-radius:50%; }
+/* Bild steht im Markup NACH dem Kürzel und malt es damit standardmäßig zu.
+   onerror entfernt nur das <img> bei Ladefehler — das Kürzel bleibt dann sichtbar,
+   ohne dass zusätzliche z-index-Regeln nötig sind. */
 .lead-card h3 { font-size:1.5rem; margin-bottom:2px; }
 .lead-card .role { font-size:0.8rem; color:var(--forest); font-weight:500; margin-bottom:10px; }
 .lead-card p { font-size:0.88rem; color:var(--text2); font-weight:300; max-width:48em; }
@@ -490,7 +494,11 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <div class="wrap">
       <div class="section-head"><p class="eyebrow">Team &amp; Führung</p><h2>Menschen hinter der Pflege</h2></div>
       <div class="lead-card">
-        <div class="av" aria-hidden="true">MH</div>
+        <div class="av" aria-hidden="true">
+          <span class="av-fallback">MH</span>
+          <img src="/portrait-holthaus.svg" alt="" width="72" height="72" loading="lazy"
+               onerror="this.remove()">
+        </div>
         <div>
           <h3>Dr. Maria Holthaus</h3>
           <p class="role">Gründerin &amp; Geschäftsführerin</p>
@@ -548,13 +556,22 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   <!-- GEMEINNÜTZIGKEIT -->
   <section class="block" style="padding-top:0;">
     <div class="wrap">
-      <div class="info-panel" style="display:flex;align-items:center;justify-content:space-between;gap:32px;background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:36px 40px;">
+      <div class="info-panel gemeinnuetzig-panel" style="display:flex;align-items:center;justify-content:space-between;gap:32px;background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:36px 40px;">
         <div>
           <h3 style="font-size:1.75rem;margin-bottom:8px;">Warum gemeinnützig?</h3>
           <p style="color:var(--text2);font-weight:300;max-width:46em;">Als gGmbH fließen Überschüsse zurück in die Versorgung — nicht in private Gewinne. Das macht LebensZeit förderfähig, glaubwürdig und langfristig orientiert. Über die Verwendung der Mittel legen wir transparent Rechenschaft ab.</p>
         </div>
-        <a class='btn btn-primary' href='/mitgliedschaft' style='flex-shrink:0;'>Gemeinschaft unterstützen</a>
+        <a class='btn btn-primary gemeinnuetzig-btn' href='/mitgliedschaft'>Gemeinschaft unterstützen</a>
       </div>
+      <style>
+        /* Der Knopf trug flex-shrink:0 und die Reihe kein flex-wrap — auf schmalen
+           Screens blieb seine Breite erzwungen, er ragte über die Karte hinaus statt
+           darunter umzubrechen. Unter 640px Zeile umschalten, Knopf zentriert. */
+        @media(max-width:640px){
+          .gemeinnuetzig-panel{flex-direction:column;align-items:stretch;text-align:left;padding:28px 26px;}
+          .gemeinnuetzig-btn{flex-shrink:1;align-self:center;text-align:center;}
+        }
+      </style>
     </div>
   </section>
 
