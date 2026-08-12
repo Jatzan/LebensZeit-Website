@@ -10,7 +10,131 @@
 <link rel="stylesheet" href="/lz-tokens.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-  /* Farben: siehe /lz-tokens.css. Der frueher hier stehende eigene :root-Block
+  
+
+
+/* ── Seitentitel im Stil der uebrigen Investorenseiten ── */
+.hero-klein { background: var(--green3); color: var(--cream); padding: 54px 0 46px; }
+.hero-klein .eyebrow { color: var(--amber); font-size: .8rem; letter-spacing: 3px;
+  text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
+.hero-klein h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; color: var(--cream); }
+.hero-klein .lead { margin-top: 14px; max-width: 62ch; color: rgba(245,240,232,.82);
+  font-weight: 300; }
+/* Abschnittsueberschriften der Reiter tragen jetzt die Display-Serife wie ueberall */
+.panel .card-title, .panel .section-title, .panel h2, .panel h3 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 1.44rem; font-weight: 500; color: var(--green3);
+  letter-spacing: 0; text-transform: none;
+}
+.page { max-width: var(--maxw); margin: 0 auto; padding: 28px 32px 60px; }
+/* Die Kopfzeile ist sticky (77px). Ohne eigene Haftung rutschen die fuenf Reiter
+   beim Scrollen darunter und lassen sich nicht mehr antippen — beim Test hat die
+   Kopfzeile die Klicks abgefangen. Die Reiterleiste haftet deshalb direkt darunter
+   und bleibt waehrend der langen Panels erreichbar. */
+.tabs { max-width: var(--maxw); margin: 0 auto; position: sticky; top: 76px; z-index: 40;
+        background: var(--surface); scroll-margin-top: 86px; }
+
+/* Grundregel fuer Verweise. Fehlte beim Uebernehmen der Kopf-/Fusszeile —
+   ohne sie unterstreicht der Browser Logo und Navigation. */
+a { color: var(--green); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--green2); }
+
+/* ── Kopf- und Fusszeile, uebernommen aus den uebrigen Investorenseiten ──
+   Das Dashboard trug vorher nur eine eigene Kopfleiste mit LZ-Kachel und stand
+   damit ausserhalb der Seitenarchitektur — kein Logo, keine Navigation, keine
+   Fusszeile. */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+.logo-lockup { display: inline-flex; align-items: center; gap: 12px; color: var(--green); }
+.logo-lockup .sym { width: 38px; height: 38px; flex-shrink: 0; }
+.logo-lockup .txt { display: flex; flex-direction: column; line-height: 1; }
+.logo-lockup .name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px; letter-spacing: 2px; color: currentColor;
+}
+.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .9; }
+.logo-lockup .tag {
+  font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase; color: currentColor; opacity: .9; margin-top: 4px;
+}
+header.site {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,240,232,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a {
+  font-size: 14px; color: var(--text2); font-weight: 400;
+  letter-spacing: .3px; position: relative; padding: 4px 0;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
+  background: var(--green); transition: width .2s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.nav-cta::after { display: none; }
+.nav-cta {
+  background: var(--green); color: var(--cream) !important;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
+  letter-spacing: .3px; transition: background .15s, transform .15s;
+}
+.nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.nav-cta.secondary { background: transparent; color: var(--green) !important; border: 1px solid var(--green); }
+.nav-cta.secondary:hover { background: var(--green); color: var(--cream) !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--green); padding: 6px; }
+.nav-toggle svg { width: 26px; height: 26px; }
+footer.site { background: var(--green3); color: rgba(245,240,232,.7); padding: 64px 0 28px; }
+footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+.footer-grid p { font-size: 13px; font-weight: 300; max-width: 24em; }
+.footer-col h4 {
+  font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.6px;
+  text-transform: uppercase; color: var(--mint); margin-bottom: 16px; font-weight: 500;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: rgba(245,240,232,.7); font-size: 14px; font-weight: 300; }
+.footer-col a:hover { color: var(--mint); }
+.footer-bottom {
+  border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size: 12px; color: rgba(245,240,232,.72);
+}
+.footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  
+  
+  
+  
+  
+  
+  .footer-grid { grid-template-columns: 1fr; }
+.gate-card .logo-lockup { color: var(--green); justify-content: center; margin-bottom: 8px; }
+.inv-theme header.site { background: var(--green3); border-bottom: 1px solid rgba(168,201,160,.18); backdrop-filter: none; }
+.inv-theme header .logo-lockup { color: var(--mint); }
+.inv-theme .nav-links a { color: rgba(245,240,232,.92); }
+.inv-theme .nav-links a:hover { color: var(--mint); }
+.inv-theme .nav-links a::after { background: var(--mint); }
+.inv-theme .nav-links a[aria-current="page"] { color: var(--mint) !important; }
+.inv-theme .nav-cta.secondary { color: var(--mint) !important; border-color: rgba(168,201,160,.5); }
+.inv-theme .nav-cta.secondary:hover { background: var(--mint); color: var(--green3) !important; }
+.inv-theme .nav-toggle { color: var(--mint); }
+  .inv-theme .nav-links { background: var(--green3); border-bottom-color: rgba(168,201,160,.18); }
+
+/* Muss NACH den Grundregeln stehen — sonst ueberschreiben .nav-toggle{display:none}
+   und .nav-links{display:flex} die Mobilregeln bei gleicher Spezifitaet. */
+@media (max-width: 1024px) {
+  .nav-links {     position: absolute; top: 76px; left: 0; right: 0;     flex-direction: column; align-items: flex-start; gap: 0;     background: var(--cream); border-bottom: 0.5px solid var(--border);     padding: 8px 32px 20px; display: none;   }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; padding: 12px 0; width: 100%; }
+  .nav-links .nav-cta { margin-top: 8px; text-align: center; }
+  .nav-toggle { display: block; }
+}
+
+/* Farben: siehe /lz-tokens.css. Der frueher hier stehende eigene :root-Block
    war eine zweite Farbquelle mit 47 Tokens; --text, --text2, --border, --radius,
    --green, --amber und --red trugen dieselben Namen wie im Tokensystem, aber
    andere Werte. Die Serienfarben stimmten dagegen fast exakt ueberein — die
@@ -167,31 +291,55 @@
 <body class="env-invest">
 <div class="page">
 
-  <div class="header">
-    <div class="header-top">
-      <div class="brand">
-        <div class="logo">LZ</div>
-        <div class="brand-text">
-          <h1>Wettbewerbs-Dashboard</h1>
-          <p>LebensZeit gGmbH · Kreis Soest, NRW</p>
-        </div>
-      </div>
-      <div class="header-meta">
-        KI-Pionierzirkel Sprint 1<br>
-        Stand: August 2026 · Vertraulich
-      </div>
-    </div>
-    <div style="margin-top:8px;">
-      <span class="notice">Datengrundlage: Markt- & Wettbewerbsanalyse April 2026 · Schätzwerte auf Basis Destatis, IT.NRW, Bertelsmann Stiftung</span>
-    </div>
-  </div>
+  <header class="site">
+  <div class="wrap nav-bar">
+    <a aria-label='LebensZeit Investorenbereich' class='logo-lockup' href='/'>
+      <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
+      <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
+          <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
+          <circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
+        </svg>
+      <span class="txt">
+        <span class="name">LebensZeit <sup>gGmbH</sup></span>
+        <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+      </span>
+    </a>
 
-  <!-- Tabs -->
-  <p style="max-width:1180px;margin:0 auto 14px;padding:0 24px;font-size:.94rem">
-  <a href="/investoren" style="color:var(--lz-green)">&larr; zurück zum Investorenbereich</a>
-</p>
-<div class="tabs">
-    <button class="tab active" onclick="switchTab('overview')">Übersicht</button>
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleNav(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href='/investoren'>Übersicht</a></li>
+      <li><a href='/investoren-kennzahlen'>Kennzahlen</a></li>
+      <li><a href='/investoren-markt'>Markt &amp; Wettbewerb</a></li>
+      <li><a aria-current='page' href='/investoren-wettbewerb' style='color:var(--green);'>Wettbewerbs-Dashboard</a></li>
+      <li><a href='/investoren-swot'>SWOT</a></li>
+      <li><a href='/investoren-finanzierung'>Finanzierung</a></li>
+      <li><a href='/investoren-kontakt'>IR-Kontakt</a></li>
+      <li><a class='nav-cta secondary' href='/investoren' onclick='logout(event)'>Abmelden</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero-klein">
+  <div class="wrap">
+    <p class="eyebrow">Investorenbereich · Sprint 1</p>
+    <h1>Wettbewerbs&#8209;Dashboard</h1>
+    <p class="lead">Zehn Wettbewerber im Kreis Soest, ihre Präsenz je Standort und der
+      Kennzahlenvergleich gegen die Branche. Datengrundlage: Markt- und Wettbewerbsanalyse,
+      gestützt auf Destatis, IT.NRW und Bertelsmann Stiftung.</p>
+  </div>
+</section>
+
+<!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('overview')">Überblick</button>
     <button class="tab" onclick="switchTab('matrix')">Präsenzmatrix</button>
     <button class="tab" onclick="switchTab('wettbewerber')">Wettbewerber</button>
     <button class="tab" onclick="switchTab('standorte')">Standorte</button>
@@ -819,7 +967,79 @@ new Chart(document.getElementById('growthChart'), {
   }
 });
 </script>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo-lockup">
+          <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
+          <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
+          <circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
+        </svg>
+          <span class="txt">
+            <span class="name">LebensZeit <sup>gGmbH</sup></span>
+            <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+          </span>
+        </div>
+        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, in der Nachbarschaft verwurzelt, digital vernetzt.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pflege</h4>
+        <ul>
+          <li><a href='/leistungen'>Leistungen</a></li>
+          <li><a href='/pflegeberatung'>Pflegeberatung</a></li>
+          <li><a href='/preise'>Preise &amp; Eigenanteil</a></li>
+          <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Zugänge</h4>
+        <ul>
+          <li><a href='/investoren'>Investoren</a></li>
+          <li><a href='/partner'>Partner &amp; Zuweiser</a></li>
+          <li><a href='/karriere'>Karriere</a></li>
+          <li><a href='/cockpit'>Betriebs-Cockpit</a></li>
+          <li><a href='/kundenportal'>Kundenportal</a></li>
+          <li><a href='/kunden-app'>Kunden-App</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href='/impressum'>Impressum</a></li>
+          <li><a href='/datenschutz'>Datenschutz</a></li>
+          <li><a href='/barrierefreiheit'>Barrierefreiheit</a></li>
+          <li><a href='/kontakt'>Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
+      <span class="values">nah · vernetzt · nachhaltig</span>
+    </div>
+  </div>
+</footer>
+
 <script src="/lz-notes.js" defer></script>
 <script src="/lz-quellen.js" defer></script>
+<script>
+function toggleNav(btn) {
+  var links = document.getElementById('navLinks');
+  var open = links.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+/* logout wird auf allen Investorenseiten im Markup aufgerufen, war aber nirgends
+   definiert — der Klick warf einen ReferenceError, nur der href rettete die Navigation. */
+function logout(ev) { try { sessionStorage.removeItem('lz-invest'); } catch (e) {} }
+</script>
 </body>
 </html>

@@ -345,6 +345,26 @@
       title: "Einwohnerzahlen: Marktanalyse und Dashboard sind die Quelle",
       text: "Festlegung vom 08.08.2026. Erwitte 20.200 · Bad Sassendorf 13.100 · Anröchte 8.400 · Rüthen 10.700 · Lippetal 8.500. Beim Nachziehen im Webbestand zeigte sich, dass nichts zu ändern war: einzugsgebiet.html und unternehmensdaten.html nennen rund 60.900 Einwohner, was genau der Summe dieser fünf Werte entspricht. Die abweichenden Zahlen stehen nur im Investorpitch-PDF, also außerhalb des Repos." },
 
+    { id: "n-done-dashboard-architektur", page: "investoren-wettbewerb", selector: "main", status: "auszubauen", done: true,
+      title: "Dashboard in die Seitenarchitektur eingefügt",
+      text: "Der erste Durchgang hatte nur die Farbtokens getauscht — die Seite stand weiter außerhalb der Architektur: eigene Kopfleiste mit LZ-Kachel statt Logo, keine Navigation, keine Fußzeile, keine Überschriften in Cormorant. Jetzt Kopf- und Fußzeile der übrigen Investorenseiten, dunkelgrüner Seitentitel mit Eyebrow und Display-Serife, Abschnittsüberschriften auf Cormorant, Karte im Bausteinraster der Investoren-Startseite. Josh gemeldet 08.08.2026." },
+
+    { id: "n-done-dashboard-kaskade", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Drei Fehler beim Übernehmen der Kopfzeile",
+      text: "Erstens hatte mein Extraktor die Mobilregeln aus @media (max-width:1024px) herausgelöst — das Mobil-Layout galt dadurch auf allen Breiten. Zweitens stand der wiederhergestellte Medienblock VOR den Grundregeln und wurde von .nav-toggle{display:none} bei gleicher Spezifität überschrieben; mobil blieb die Navigation offen und der Hamburger verborgen. Drittens fehlte die a-Grundregel, wodurch Logo und Navigation unterstrichen waren. Alle drei nachgemessen behoben." },
+
+    { id: "n-done-dashboard-reiter-sticky", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Reiterleiste rutschte unter die Kopfzeile",
+      text: "Die Kopfzeile haftet mit 77px Höhe, die Reiterleiste nicht — beim Scrollen lagen die fünf Reiter darunter und fingen keine Klicks mehr ab. Aufgefallen, weil der Playwright-Klick von der Kopfzeile abgefangen wurde. Reiterleiste haftet jetzt direkt darunter und bleibt während der langen Panels erreichbar." },
+
+    { id: "n-done-dashboard-label", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Doppelte Beschriftung „Übersicht“",
+      text: "Der erste Reiter hieß „Übersicht“ wie der Navigationspunkt, der auf die Investoren-Startseite führt — zwei gleiche Beschriftungen mit verschiedenen Zielen auf einem Bildschirm. Reiter heißt jetzt „Überblick“." },
+
+    { id: "n-logout-undefiniert", page: "allgemein", selector: "main", status: "offen",
+      title: "logout() ist auf den Investorenseiten nicht definiert",
+      text: "Alle Investorenseiten rufen im Abmelden-Verweis onclick='logout(event)' auf, definieren die Funktion aber nirgends — der Klick wirft einen ReferenceError, nur das href rettet die Navigation. Auf investoren-wettbewerb.html ist sie jetzt definiert; die übrigen sechs Seiten brauchen dieselbe Ergänzung." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
