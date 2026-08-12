@@ -153,11 +153,7 @@
       title: "Drei getrennte Namensräume für Personen",
       text: "Die Anmeldung nennt Holthaus, Brandt und Yilmaz, der Personalstamm 56 andere Namen, die Tourenliste sechs weitere Pflegekräfte (Weber, Yilmaz, Nowak, Köhler, Brinkmann, Busch-Kranz). Keiner der drei Bestände überschneidet sich sauber. Fällt auf, sobald jemand im Pitch zwei Ansichten nebeneinander legt." },
 
-    { id: "n-entlastungsbetrag", page: "leistungen", selector: "main", status: "offen",
-      title: "Entlastungsbetrag: 131 € vs. 125 €",
-      text: "leistungen.html nennt 131 €/Monat nach §45b, das Personas-Handout rechnet Markus Dörre 125 €/Monat entgangenen Betrag vor. Der Steckbrief nennt keinen Monatsbetrag. Die übrigen SGB-XI-Werte der Website stehen laut Markt- und Wettbewerbsanalyse auf Stand 2024. Auf ein Jahr festlegen und belegen." },
-
-    { id: "n-cockpit-notizen-anker", page: "cockpit", selector: "main", status: "offen",
+        { id: "n-cockpit-notizen-anker", page: "cockpit", selector: "main", status: "offen",
       title: "To-Do-Pins im Cockpit ohne sichtbaren Anker",
       text: "Die Notiz-Pins hängen an Selektoren, die im Cockpit entweder nicht existieren oder in einem Bereich liegen, den render() neu schreibt — sie erscheinen nicht sichtbar verankert. Analog zum Quellen-Overlay lösen: Selektoren je Modul verengen (#main[data-mod=…]) und buildPins() nach jedem render() erneut aufrufen. Josh gemeldet 07.08.2026." },
 
@@ -377,6 +373,10 @@
       title: "Benchmark-Zeile behauptete „Branche Ø“, zeigte aber das Ziel",
       text: "Bei der gestrigen Festlegung (Eigenfinanzierung gegen das eigene Ziel statt die Branche) wurde nur der Zahlenwert auf 70 % geändert, die feste Zeilenbeschriftung „Branche Ø“ blieb stehen — Widerspruch zwischen Text und Zahl in derselben Zeile. Beschriftung ist jetzt je Kennzahl steuerbar; Eigenfinanzierung zeigt „Ziel“, alle anderen weiterhin „Branche Ø“. Section-Überschrift und Legende entsprechend ergänzt." },
 
+    { id: "n-entlastungsbetrag", page: "leistungen", selector: "main", status: "offen", done: true,
+      title: "Entlastungsbetrag: geklärt, 131 € ist richtig",
+      text: "Ich hatte das als offenen Widerspruch geführt — es war aber schon im Baustein-3-Dokument v3.1 geschlossen: 131 €/Monat, 1.572 €/Jahr, gültig seit 1. Januar 2025. Der Wert 125 € im Personas-Handout ist der Stand vor 2025 und damit veraltet, nicht die Website. Zweiter Rechtsstand aus derselben Quelle: Verhinderungs- und Kurzzeitpflege haben seit 1. Juli 2025 einen gemeinsamen Jahresbetrag von bis zu 3.539 € — die frühere isolierte Nennung von §39 ist überholt." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
@@ -573,7 +573,11 @@
 
     { id: "n-cockpit-stufe4", page: "cockpit", selector: "main", status: "auszubauen", done: true,
       title: "Cockpit Stufe 4 erledigt",
-      text: "Tagesansicht mit Störung (Disposition): Dienstag 07:12, 2 Krankmeldungen / 3 Touren; Vorschlagsliste prüft §37.3-Qualifikation und Zeitfenster, Ein-Klick-Umplanung; 2024-Telefonzettel-Version. Zugleich Sprint-4-Vorlage." }
+      text: "Tagesansicht mit Störung (Disposition): Dienstag 07:12, 2 Krankmeldungen / 3 Touren; Vorschlagsliste prüft §37.3-Qualifikation und Zeitfenster, Ein-Klick-Umplanung; 2024-Telefonzettel-Version. Zugleich Sprint-4-Vorlage." },
+
+    { id: "n-done-praesentationsschicht", page: "praesentation", selector: "main", status: "auszubauen", done: true,
+      title: "Präsentationsschicht gebaut (Testballon Sprint 1)",
+      text: "/praesentation.html: Vollbild-Foliendeck, Foliendaten (SLIDES) getrennt vom Layout, Pfeiltasten/Leertaste/Esc, Folienzähler, ein Stylesheet (lz-tokens.css), kein zweiter :root-Block. Vollbild-Ausnahme dokumentiert: Warnbalken verschwindet nur im Vollbild. Inhalt 1:1 aus Sprint 1 (abgeschlossen). Zwei Zusatzfolien zeigen die drei entschiedenen SWOT-Korrekturen (Premium statt „Familie“, 500.000–600.000 statt 600.000 Graumarkt-Kräfte, PG 4–5 statt PG 3–5) für den Sprint-2-Pitch. Einstieg über neue CTA auf /investoren nach Anmeldung." }
   ];
 
   /* ---------- 2. Status-Metadaten ---------- */

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Präsentationsschicht — Sprint 1 (Testballon) · LebensZeit gGmbH</title>
+<meta name="description" content="Investorenbereich der LebensZeit gGmbH — vertraulich. Klickbare Vollbild-Präsentation, Foliendaten getrennt vom Layout.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lz-tokens.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+/* Farb- und Maßtokens: ausschließlich aus /lz-tokens.css — kein zweiter :root-Block.
+   Die Bühne benutzt bewusst rohe Markenwerte (--lz-*) statt der hellen .env-invest-
+   Standardrollen: eine Vollbild-Bühne ist keine der fünf definierten Umgebungen,
+   sondern eine Präsentationsschicht darüber. Radius/Tap-Ziele kommen trotzdem aus
+   den semantischen Rollen der Umgebungsklasse .env-invest, in der die Seite sitzt. */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--lz-green-3);color:var(--lz-cream);overflow:hidden}
+
+/* ============================================================
+   BÜHNE — ein Slide sichtbar, Rest per [hidden]
+   ============================================================ */
+.deck{
+  /* inset oben = Höhe des Warnbalkens (--tick-h, von lz-notes.js gemessen).
+     Feste 0 hätte hier denselben Fehler reproduziert, der beim Investoren-Gate
+     schon einmal behoben wurde: der Balken lag darüber und deckte die Bühne
+     an der Oberkante ab. Im Vollbild verschwindet der Balken (siehe Ausnahme
+     unten) — dort füllt die Bühne wieder den ganzen Viewport. */
+  position:fixed; inset: var(--tick-h, 2.375rem) 0 0 0; z-index:10;
+  background:linear-gradient(150deg, var(--lz-night) 0%, var(--lz-green-3) 46%, var(--lz-green) 130%);
+  display:flex; flex-direction:column;
+}
+:fullscreen .deck,
+body.lz-is-fullscreen .deck{ inset:0; }
+.slide{
+  flex:1; display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(28px,6vw,90px) clamp(24px,8vw,120px);
+  overflow-y:auto;
+}
+.slide[hidden]{display:none}
+.slide .eyebrow{
+  font-size:var(--fs-label); letter-spacing:.18em; text-transform:uppercase;
+  color:var(--lz-sage); font-weight:600; margin-bottom:var(--sp-4);
+}
+.slide h1,.slide h2{ font-family:var(--font-display); color:var(--lz-mint); font-weight:400; line-height:1.12 }
+.slide h1{ font-size:clamp(2.2rem,5.4vw,4rem); margin-bottom:var(--sp-4) }
+.slide h2{ font-size:clamp(1.7rem,3.6vw,2.6rem); margin-bottom:var(--sp-5) }
+.slide .lead{ font-size:clamp(1rem,1.6vw,1.25rem); color:rgba(245,240,232,.88); font-weight:300; max-width:46em; margin-bottom:var(--sp-6) }
+.slide .meta-row{ display:flex; gap:var(--sp-3); flex-wrap:wrap; margin-top:var(--sp-2) }
+.chip{
+  font-size:var(--fs-label); letter-spacing:.08em; border:1px solid rgba(168,201,160,.4);
+  border-radius:var(--r-pill); padding:.4rem 1rem; color:var(--lz-mint); background:rgba(168,201,160,.08);
+}
+
+/* Statistik-Kacheln */
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:var(--sp-5); margin-top:var(--sp-2) }
+.stat{ border-left:3px solid var(--lz-sage); padding-left:var(--sp-4) }
+.stat .num{ font-family:var(--font-display); font-weight:300; font-size:clamp(2.2rem,4.6vw,3.4rem); color:var(--lz-mint); line-height:1 }
+.stat .lbl{ font-size:.94rem; color:rgba(245,240,232,.78); margin-top:var(--sp-2); font-weight:300 }
+
+/* Karten-Grid (Five Forces, Personas) */
+.card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:var(--sp-4); margin-top:var(--sp-2) }
+.pcard{
+  background:rgba(255,255,255,.06); border:1px solid rgba(168,201,160,.22); border-radius:var(--radius);
+  padding:var(--sp-5); backdrop-filter:blur(2px);
+}
+.pcard b{ display:block; color:var(--lz-mint); font-family:var(--font-display); font-size:1.4rem; margin-bottom:var(--sp-2) }
+.pcard p{ font-size:.92rem; color:rgba(245,240,232,.85); font-weight:300; line-height:1.5 }
+
+/* Personas nebeneinander */
+.persona-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--sp-5); margin-top:var(--sp-2) }
+.persona{ background:rgba(255,255,255,.06); border:1px solid rgba(168,201,160,.22); border-radius:var(--radius); padding:var(--sp-6) }
+.persona h3{ font-family:var(--font-display); color:var(--lz-mint); font-size:1.7rem; margin-bottom:2px }
+.persona .role{ font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--lz-sage); margin-bottom:var(--sp-3) }
+.persona p{ font-size:.94rem; color:rgba(245,240,232,.85); font-weight:300; line-height:1.55 }
+.persona .quote{ margin-top:var(--sp-3); font-style:italic; color:var(--lz-cream-2); border-left:2px solid var(--lz-sage); padding-left:var(--sp-3) }
+
+/* Listen / Checklisten */
+.slide ul.check{ list-style:none; display:flex; flex-direction:column; gap:var(--sp-2); margin-top:var(--sp-2) }
+.slide ul.check li{ position:relative; padding-left:28px; font-size:1rem; color:rgba(245,240,232,.92); font-weight:300 }
+.slide ul.check li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--lz-sage); font-weight:600 }
+
+/* Korrektur-Tabelle (Vorher → Nachher) */
+.fix-table{ width:100%; border-collapse:collapse; margin-top:var(--sp-3) }
+.fix-table th,.fix-table td{ text-align:left; padding:.75rem .9rem; font-size:.92rem; border-bottom:1px solid rgba(168,201,160,.2) }
+.fix-table th{ font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--lz-sage); font-weight:500 }
+.fix-table .was{ color:rgba(245,240,232,.55); text-decoration:line-through; text-decoration-color:rgba(176,58,46,.7) }
+.fix-table .now{ color:var(--lz-mint); font-weight:500 }
+.tag{ display:inline-block; font-size:.72rem; letter-spacing:.06em; padding:.12rem .5rem; border-radius:8px; margin-left:.4rem; vertical-align:1px }
+.tag.f{ background:rgba(74,103,65,.35); color:var(--lz-sage) }
+.tag.a{ background:rgba(180,122,42,.28); color:#E2B56A }
+.tag.e{ background:rgba(107,91,214,.28); color:#C3BBF2 }
+.faeo-legend{ margin-top:var(--sp-4); font-size:.8rem; color:rgba(245,240,232,.6) }
+
+/* ============================================================
+   CHROME — Fortschritt, Zähler, Pfeile, Vollbild
+   ============================================================ */
+.deck-progress{ position:absolute; top:0; left:0; height:3px; background:var(--lz-sage); transition:width .25s ease; z-index:20 }
+.deck-hud{
+  position:fixed; bottom:0; left:0; right:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px clamp(20px,5vw,56px); font-size:.82rem; color:rgba(245,240,232,.7);
+  background:linear-gradient(0deg, rgba(0,0,0,.28), transparent);
+}
+.deck-hud .lz-count{ font-variant-numeric:tabular-nums; letter-spacing:.04em }
+.deck-nav{ display:flex; gap:10px }
+.deck-btn{
+  min-height:44px; min-width:44px; border-radius:50%; border:1px solid rgba(245,240,232,.4);
+  background:rgba(255,255,255,.06); color:var(--lz-cream); font-size:1.1rem; cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.deck-btn:hover{ background:rgba(255,255,255,.16) }
+.deck-hint{ display:none }
+@media (min-width:760px){ .deck-hint{ display:inline } }
+.deck-exit{
+  /* Gleiche tick-h-Regel wie bei .deck: sonst haengt der Knopf unter dem Warnbalken. */
+  position:fixed; top:calc(var(--tick-h, 2.375rem) + 16px); right:16px; z-index:20;
+  min-height:40px; padding:0 16px; border-radius:var(--r-pill); border:1px solid rgba(245,240,232,.35);
+  background:rgba(255,255,255,.06); color:var(--lz-cream); font-size:.82rem; cursor:pointer;
+}
+.deck-exit:hover{ background:rgba(255,255,255,.16) }
+:focus-visible{ outline:2px solid var(--lz-mint); outline-offset:2px }
+
+/* Vollbild-Ausnahme: Warnbalken darf im Vollbild ganz verschwinden.
+   Auf den Folien (nicht im Vollbild) bleibt er sichtbar wie auf jeder anderen
+   Seite — Festlegung von Josh, 12.08.2026. Zwei Wege abgedeckt: die echte
+   Fullscreen-API (:fullscreen) und die Klasse als Fallback, falls die API
+   in der Umgebung blockiert ist. */
+:fullscreen .fiktiv-bar,
+body.lz-is-fullscreen .fiktiv-bar{ display:none }
+:fullscreen .deck-exit,
+body.lz-is-fullscreen .deck-exit{ display:none }
+
+@media (prefers-reduced-motion:reduce){ *{ transition:none !important } }
+</style>
+</head>
+<body class="env-invest">
+
+<button class="deck-exit" id="deckExit" onclick="location.href='/investoren'">← Investorenbereich</button>
+
+<main class="deck" id="deck" role="region" aria-roledescription="Präsentation" aria-label="LebensZeit gGmbH — Sprint 1 Testballon">
+  <div class="deck-progress" id="deckProgress"></div>
+  <!-- Folien werden aus SLIDES gerendert, siehe <script> unten -->
+  <div class="deck-hud">
+    <span class="lz-count" id="deckCount">1 / 1</span>
+    <span class="deck-hint">Pfeiltasten · Leertaste weiter · <kbd>Esc</kbd> verlässt die Präsentation</span>
+    <span class="deck-nav">
+      <button class="deck-btn" id="deckFull" aria-label="Vollbild umschalten" title="Vollbild (F)">⛶</button>
+      <button class="deck-btn" id="deckPrev" aria-label="Vorherige Folie">‹</button>
+      <button class="deck-btn" id="deckNext" aria-label="Nächste Folie">›</button>
+    </span>
+  </div>
+</main>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   1. FOLIENDATEN — von der Darstellung getrennt.
+   Inhalt: Sprint 1 (abgeschlossen, Pitch 15.06.2026), 1:1 aus /sprints
+   übernommen und für die Bühne komprimiert — Testballon der Technik, keine
+   inhaltliche Neuarbeit. Zwei Zusatzfolien am Ende zeigen, dass dieselbe
+   Bühne auch die für Sprint 2 bereits entschiedenen SWOT-Korrekturen trägt.
+   Jede Zahl mit F/A/E/O-Label, wo im Original nicht schon durch die
+   Sprint-Übersicht als "verbindlich" gedeckt.
+   ══════════════════════════════════════════════════════════════════════ */
+var SLIDES = [
+  { kind:"cover",
+    eyebrow:"Sprint 1 · Markt & Wettbewerb · Pitch 15.06.2026 — abgeschlossen",
+    title:"LebensZeit gGmbH",
+    lead:"Testballon der Präsentationsschicht: Vollbild, Foliendaten getrennt vom Layout, dieselbe Technik trägt später Sprint 2. Inhalt unverändert aus der Sprint-Übersicht.",
+    chips:["Fünf Bausteine","Steckbriefe verbindlich","nah · vernetzt · nachhaltig"] },
+
+  { kind:"stats",
+    eyebrow:"Baustein 01 · Markt- & Wettbewerbsanalyse",
+    title:"Einzige flächendeckende Versorgung im Kreis Soest",
+    lead:"Relevanter Pflegemarkt Deutschland, Wettbewerbsmatrix und blinde Flecken.",
+    stats:[
+      {num:"~44 Mrd. €",lbl:"Pflegemarkt Deutschland / Jahr (F)"},
+      {num:"~14 Mrd. €",lbl:"davon ambulant (F)"},
+      {num:"10",lbl:"Wettbewerber im Benchmark (F)"},
+      {num:"Ø 1–2",lbl:"Standorte je Wettbewerber — LebensZeit und Caritas: alle 5 (F)"}
+    ] },
+
+  { kind:"grid",
+    eyebrow:"Baustein 02 · Porter's Five Forces",
+    title:"Fünf Kräfte, 1 (gering) – 5 (sehr hoch)",
+    lead:"Quelle: Investorpitch S. 9 und S. 11. Claude als kritischer Analyst — Gegenposition live gezeigt.",
+    cards:[
+      {t:"Lieferantenmacht — 4/5",p:"Kritischste Kraft: 8 offene Stellen, 38 % Förderanteil."},
+      {t:"Substitute — 3/5",p:"Mittel, steigend — Graumarkt, Plattformen ab 2028+."},
+      {t:"Wettbewerbsintensität — 3/5",p:"Mittel — Caritas hält dieselbe Abdeckung."},
+      {t:"Neue Wettbewerber — 2/5",p:"Gering — Regulierung und Vertrauensaufbau schützen."},
+      {t:"Kundenmacht — 2/5",p:"Gering — keine vergleichbare lokale Alternative."}
+    ] },
+
+  { kind:"personas",
+    eyebrow:"Baustein 03 · Zwei Personas",
+    title:"In drei Schritten geschärft (V1 → V3)",
+    lead:"Frühe Fassungen: Sandra Köhler, Markus Pohlmann — iterativ verworfen.",
+    personas:[
+      {name:"Hildegard Stemmer",role:"Pflegebedürftig, lebt allein",text:"Alltag zwischen Selbstständigkeit und wachsender Unsicherheit. Erwartet Verlässlichkeit vor Nähe.",quote:"„Ich will niemandem zur Last fallen — aber allein schaffe ich das auch nicht mehr.“"},
+      {name:"Markus Dörre",role:"Angehöriger, entscheidet über die Pflege",text:"Sonntagabends auf dem Sofa, das schlechte Gewissen der Distanz. Sucht Gewissheit ohne ständig anzurufen.",quote:"„Ich will wissen, wie es ihr geht — ohne jedes Mal anzurufen und zu stören.“"}
+    ] },
+
+  { kind:"list",
+    eyebrow:"Baustein 04 · Strategische SWOT & Stoßrichtung",
+    title:"Option C — „Digitale Nähe“",
+    lead:"Der sichtbare Pflegepartner für Angehörige. Claudes Kritik verschob den Fokus von drei Säulen auf eine Stoßrichtung — und auf die Angehörigen.",
+    items:[
+      "SWOT/TOWS mit priorisierter Stoßrichtung und 90-Tage-Maßnahmen",
+      "Drei Optionen strukturiert verglichen, Option C ausgewählt",
+      "Anforderung erfüllt: Stoßrichtung von Claude als kritischem Investor zerlegt"
+    ] },
+
+  { kind:"stats",
+    eyebrow:"Baustein 05 · KI-Vorgehensmodell (Pflicht, separat bewertet)",
+    title:"Dokumentiertes Vorgehen statt bloßer Ergebnisse",
+    lead:"Methoden: Kontext-Anker, Prompt-Creator-Methode, Zwei-Stufen-Kritik, Iterieren & Testen.",
+    stats:[
+      {num:"7",lbl:"dokumentierte Sessions (F)"},
+      {num:"5 / 7",lbl:"Sessions mit Claude als Kritiker (F)"},
+      {num:"3",lbl:"echte blinde Flecken gefunden (F)"},
+      {num:"2",lbl:"Strategie-Änderungen (F)"}
+    ] },
+
+  { kind:"list",
+    eyebrow:"Sprint 1 · Ergebnis",
+    title:"Verbindliche Ergebnisse",
+    lead:"Die Steckbriefe gelten unverändert und verbindlich für alle weiteren Sprints.",
+    items:[
+      "Markt- & Wettbewerbsanalyse (Kreis Soest, ambulante Pflege) + Wettbewerbsmatrix",
+      "Porter's Five Forces (5 Kräfte, 1–5 bewertet)",
+      "Zwei Personas: Hildegard Stemmer & Markus Dörre",
+      "SWOT & strategische Stoßrichtung 2026–2031 (Option C)",
+      "Geschäftsmodell-Basisdaten (verbindlich)",
+      "Prompt-Tagebuch Sprint 1 (7 Sessions)"
+    ] },
+
+  { kind:"fixes",
+    eyebrow:"Ausblick Sprint 2 · Baustein 04 (SWOT) — Entscheidung 07.08.2026",
+    title:"Drei Korrekturen, bevor die SWOT-Folie in den Pitch geht",
+    lead:"Dieselbe Bühne trägt auch die bereits entschiedenen Korrekturen für den Pitch am 7. September — hier als Beleg, nicht als vollständige Sprint-2-Folie.",
+    rows:[
+      {label:"Mitgliedschaftsmodell",was:"„Familie“",now:"Basis / Aktiv / Premium",tag:"f",tagLabel:"F"},
+      {label:"Graumarkt-Kräfte (bundesweit)",was:"600.000",now:"500.000–600.000",tag:"a",tagLabel:"A"},
+      {label:"Substitutionsrisiko",was:"PG 3–5",now:"PG 4–5",tag:"e",tagLabel:"E"}
+    ],
+    note:"Begründung PG 4–5: Graumarkt-Vollzeitbetreuung kostet 1.500–2.500 €/Monat. Bei PG 3 liegt der Sachleistungsbetrag bei 1.432 €/Monat — dort wäre der Graumarkt teurer, kein Verdrängungsfall. Erst ab PG 4 (1.778 €) und PG 5 (2.200 €) trägt das Argument. (Sachleistungs-Caps §36, kanonisch.)" },
+
+  { kind:"cover",
+    eyebrow:"Testballon — Ergebnis",
+    title:"Technik geprüft, Inhalt wartet auf Sprint 2",
+    lead:"Vollbild, Pfeiltasten, Folienzähler, Esc, ein Stylesheet (lz-tokens.css) — ohne zweiten :root-Block. Nächster Schritt: dieselbe Bühne mit dem echten Sprint-2-Baustein-Board (Markenkern, Preisarchitektur, Kampagne, App-Showcase, KI-Reflexion) füllen.",
+    chips:["Sprint 2 · Pitch 07.09.2026","20 + 10 Minuten"] }
+];
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. LAYOUT — kennt nur die "kind"-Felder oben, keine Inhalte.
+   ══════════════════════════════════════════════════════════════════════ */
+function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
+
+function renderSlide(s){
+  var chips = (s.chips||[]).map(function(c){ return '<span class="chip">'+esc(c)+'</span>'; }).join("");
+  var head = '<p class="eyebrow">'+esc(s.eyebrow||"")+'</p><h1>'+esc(s.title||"")+'</h1>' +
+             (s.lead ? '<p class="lead">'+esc(s.lead)+'</p>' : "");
+
+  if (s.kind === "cover"){
+    return head + (chips ? '<div class="meta-row">'+chips+'</div>' : "");
+  }
+  if (s.kind === "stats"){
+    var stats = (s.stats||[]).map(function(x){
+      return '<div class="stat"><div class="num">'+esc(x.num)+'</div><div class="lbl">'+esc(x.lbl)+'</div></div>';
+    }).join("");
+    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<div class="stat-grid">'+stats+'</div>';
+  }
+  if (s.kind === "grid"){
+    var cards = (s.cards||[]).map(function(c){
+      return '<div class="pcard"><b>'+esc(c.t)+'</b><p>'+esc(c.p)+'</p></div>';
+    }).join("");
+    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<div class="card-grid">'+cards+'</div>';
+  }
+  if (s.kind === "personas"){
+    var pc = (s.personas||[]).map(function(p){
+      return '<div class="persona"><h3>'+esc(p.name)+'</h3><div class="role">'+esc(p.role)+'</div>' +
+             '<p>'+esc(p.text)+'</p><p class="quote">'+esc(p.quote)+'</p></div>';
+    }).join("");
+    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<div class="persona-grid">'+pc+'</div>';
+  }
+  if (s.kind === "list"){
+    var items = (s.items||[]).map(function(i){ return "<li>"+esc(i)+"</li>"; }).join("");
+    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<ul class="check">'+items+'</ul>';
+  }
+  if (s.kind === "fixes"){
+    var rows = (s.rows||[]).map(function(r){
+      return '<tr><td>'+esc(r.label)+'</td>' +
+             '<td class="was">'+esc(r.was)+'</td>' +
+             '<td class="now">'+esc(r.now)+' <span class="tag '+r.tag+'">'+esc(r.tagLabel)+'</span></td></tr>';
+    }).join("");
+    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") +
+      '<table class="fix-table"><thead><tr><th>Feld</th><th>Vorher</th><th>Nachher</th></tr></thead><tbody>'+rows+'</tbody></table>' +
+      (s.note ? '<p class="lead" style="margin-top:1.2rem;font-size:.92rem">'+esc(s.note)+'</p>' : "") +
+      '<p class="faeo-legend">F Fakt (belegt) · A Annahme (plausibel, unbelegt) · E Empfehlung (eigener Vorschlag) · O Offen</p>';
+  }
+  return head;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. BÜHNENSTEUERUNG
+   ══════════════════════════════════════════════════════════════════════ */
+(function(){
+  "use strict";
+  var deck = document.getElementById("deck");
+  var progress = document.getElementById("deckProgress");
+  var countEl = document.getElementById("deckCount");
+  var i = 0;
+
+  SLIDES.forEach(function(s, idx){
+    var sec = document.createElement("section");
+    sec.className = "slide";
+    sec.dataset.index = idx;
+    if (idx !== 0) sec.hidden = true;
+    sec.innerHTML = renderSlide(s);
+    deck.insertBefore(sec, document.querySelector(".deck-hud"));
+  });
+  var slideEls = deck.querySelectorAll(".slide");
+
+  function show(n){
+    n = Math.max(0, Math.min(SLIDES.length - 1, n));
+    slideEls[i].hidden = true;
+    i = n;
+    slideEls[i].hidden = false;
+    slideEls[i].scrollTop = 0;
+    countEl.textContent = (i+1) + " / " + SLIDES.length;
+    progress.style.width = ((i+1) / SLIDES.length * 100) + "%";
+  }
+  function next(){ show(i+1); }
+  function prev(){ show(i-1); }
+
+  document.getElementById("deckNext").addEventListener("click", next);
+  document.getElementById("deckPrev").addEventListener("click", prev);
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown"){ e.preventDefault(); next(); }
+    else if (e.key === "ArrowLeft" || e.key === "Backspace" || e.key === "PageUp"){ e.preventDefault(); prev(); }
+    else if (e.key === "Home"){ show(0); }
+    else if (e.key === "End"){ show(SLIDES.length - 1); }
+    else if (e.key === "f" || e.key === "F"){ toggleFullscreen(); }
+    else if (e.key === "Escape"){
+      if (document.fullscreenElement) { /* Browser schließt Vollbild selbst; Klassen-Fallback räumen wir mit auf. */ }
+      else { location.href = "/investoren"; }
+    }
+  });
+
+  /* Vollbild — Ausnahme dokumentiert in <style>: Warnbalken verschwindet nur hier. */
+  function toggleFullscreen(){
+    if (!document.fullscreenElement){
+      (document.documentElement.requestFullscreen || function(){ document.body.classList.toggle("lz-is-fullscreen", true); }).call(document.documentElement);
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  document.getElementById("deckFull").addEventListener("click", toggleFullscreen);
+  document.addEventListener("fullscreenchange", function(){
+    document.body.classList.toggle("lz-is-fullscreen", !!document.fullscreenElement);
+  });
+
+  /* Klick auf die rechte/linke Bühnenhälfte blättert ebenfalls (Maus/Touch ohne Pfeile) */
+  deck.addEventListener("click", function(e){
+    if (e.target.closest(".deck-hud") || e.target.closest(".deck-exit")) return;
+    var r = deck.getBoundingClientRect();
+    if (e.clientX - r.left > r.width / 2) next(); else prev();
+  });
+
+  show(0);
+})();
+</script>
+
+<script src="/lz-notes.js" defer></script>
+<script src="/lz-quellen.js" defer></script>
+</body>
+</html>
