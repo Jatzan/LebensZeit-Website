@@ -14,13 +14,6 @@
 
 
 /* ── Seitentitel im Stil der uebrigen Investorenseiten ── */
-.hero-klein { background: var(--green3); color: var(--cream); padding: 54px 0 46px; }
-.hero-klein .eyebrow { color: var(--amber); font-size: .8rem; letter-spacing: 3px;
-  text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
-.hero-klein h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500;
-  font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; color: var(--cream); }
-.hero-klein .lead { margin-top: 14px; max-width: 62ch; color: rgba(245,240,232,.82);
-  font-weight: 300; }
 /* Abschnittsueberschriften der Reiter tragen jetzt die Display-Serife wie ueberall */
 .panel .card-title, .panel .section-title, .panel h2, .panel h3 {
   font-family: 'Cormorant Garamond', serif !important;
@@ -39,6 +32,43 @@
    ohne sie unterstreicht der Browser Logo und Navigation. */
 a { color: var(--green); text-decoration: none; transition: color .15s; }
 a:hover { color: var(--green2); }
+
+/* ── Hausbausteine, uebernommen aus investoren-kennzahlen.html ──
+   Der eigentliche Grund, warum das Dashboard nicht passte: es war eine Tab-App
+   mit .panel/.tab-Mechanik, waehrend jede andere Investorenseite eine durchlaufende
+   Erzaehlung aus section.block-Abschnitten ist. Struktur jetzt angeglichen, nicht
+   nur die Farben. */
+.conf-bar { background: var(--green3); color: rgba(245,240,232,.75); text-align: center;
+  font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; padding: 7px 0; }
+.eyebrow { font-size: 11.5px; letter-spacing: 2.6px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 12px; font-weight: 500; }
+.inv-hero { padding: 64px 0 36px; }
+.inv-hero h1 { font-size: clamp(34px, 5vw, 56px); margin-bottom: 16px; font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+.inv-hero h1 em { font-style: italic; }
+.inv-hero .lead { font-size: 18px; font-weight: 300; max-width: 46em; }
+.inv-theme .inv-hero {
+  background: linear-gradient(135deg, var(--green-deep, #243120) 0%, var(--green) 145%);
+  color: var(--cream); position: relative; overflow: hidden;
+}
+.inv-theme .inv-hero::after {
+  content:''; position:absolute; right:-140px; top:-90px; width:460px; height:460px; border-radius:50%;
+  background: radial-gradient(circle, rgba(168,201,160,.16), transparent 68%); pointer-events:none;
+}
+.inv-theme .inv-hero .eyebrow { color: var(--accent-ink); }
+.inv-theme .inv-hero h1 { color: var(--cream); }
+.inv-theme .inv-hero h1 em { color: var(--mint); }
+.inv-theme .inv-hero .lead { color: rgba(245,240,232,.92); }
+
+/* Masse exakt aus investoren-kennzahlen.html uebernommen — vorher standen hier
+   eigene, knapp danebenliegende Werte (38px statt 44px Ueberschrift). */
+section.block { padding: 80px 0; }
+section.block:first-of-type { padding-top: 8px; }
+.section-head { max-width: 38em; margin-bottom: 44px; }
+.section-head .eyebrow { margin-bottom: 12px; }
+.section-head h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 12px;
+  font-family: 'Cormorant Garamond', serif; font-weight: 500; color: var(--green3); }
+.section-head p { color: var(--text-2); font-weight: 300; font-size: 16px; }
+section.block .section-head .eyebrow { color: var(--accent-ink); }
 
 /* ── Kopf- und Fusszeile, uebernommen aus den uebrigen Investorenseiten ──
    Das Dashboard trug vorher nur eine eigene Kopfleiste mit LZ-Kachel und stand
@@ -169,22 +199,15 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   .header-meta { font-size: 12px; color: var(--text-3); text-align: right; }
   .notice { margin-top: 8px; font-size: 11px; color: var(--text-3); background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 6px; padding: 6px 12px; display: inline-block; }
 
-  /* Tabs */
-  .tabs { display: flex; gap: 4px; background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 10px; padding: 4px; margin-bottom: 20px; flex-wrap: wrap; }
-  .tab { padding: 7px 16px; border-radius: 7px; font-size: 13px; cursor: pointer; color: var(--text-2); background: transparent; border: none; transition: all 0.15s; white-space: nowrap; }
-  .tab:hover { color: var(--text); background: var(--lz-cream-3); }
-  .tab.active { background: var(--lz-white); color: var(--text); border: 0.5px solid var(--line); font-weight: 500; }
 
-  /* Panels */
-  .panel { display: none; }
-  .panel.active { display: block; }
 
   /* KPI Cards */
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
-  .kpi { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
-  .kpi-label { font-size: 11px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-  .kpi-value { font-size: 24px; font-weight: 500; line-height: 1; }
-  .kpi-sub { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+  .kpi { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 22px 22px 20px; transition: transform .18s, box-shadow .18s; }
+  .kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(44,61,39,.08); }
+  .kpi-label { font-size: 11px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .kpi-value { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; line-height: 1; }
+  .kpi-sub { font-size: 11.5px; color: var(--text-3); margin-top: 6px; }
   .kpi.highlight { background: var(--d3-flaeche); border-color: var(--d3); }
   .kpi.highlight .kpi-value { color: var(--d3); }
   .kpi.warn { background: var(--d2-flaeche); border-color: var(--d2); }
@@ -288,10 +311,11 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   .chart-wrap { position: relative; }
 </style>
 </head>
-<body class="env-invest">
+<body class="env-invest inv-theme">
 <div class="page">
 
-  <header class="site">
+  <div class="conf-bar">Vertraulich · Investorenbereich · Fiktives Schulungsprojekt</div>
+<header class="site">
   <div class="wrap nav-bar">
     <a aria-label='LebensZeit Investorenbereich' class='logo-lockup' href='/'>
       <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
@@ -327,27 +351,19 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   </div>
 </header>
 
-<section class="hero-klein">
+<section class="inv-hero">
   <div class="wrap">
-    <p class="eyebrow">Investorenbereich · Sprint 1</p>
-    <h1>Wettbewerbs&#8209;Dashboard</h1>
-    <p class="lead">Zehn Wettbewerber im Kreis Soest, ihre Präsenz je Standort und der
-      Kennzahlenvergleich gegen die Branche. Datengrundlage: Markt- und Wettbewerbsanalyse,
-      gestützt auf Destatis, IT.NRW und Bertelsmann Stiftung.</p>
+    <p class="eyebrow">Investorenbereich &middot; Sprint 1</p>
+    <h1>Zehn Wettbewerber, <em>eine L&uuml;cke</em>.</h1>
+    <p class="lead">Pr&auml;senz, Bedrohungsniveau und Kennzahlenvergleich der zehn relevanten
+      Anbieter im Kreis Soest &mdash; gest&uuml;tzt auf Destatis, IT.NRW und Bertelsmann Stiftung.</p>
   </div>
 </section>
 
-<!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('overview')">Überblick</button>
-    <button class="tab" onclick="switchTab('matrix')">Präsenzmatrix</button>
-    <button class="tab" onclick="switchTab('wettbewerber')">Wettbewerber</button>
-    <button class="tab" onclick="switchTab('standorte')">Standorte</button>
-    <button class="tab" onclick="switchTab('benchmark')">KPI-Benchmark</button>
-  </div>
-
   <!-- PANEL: OVERVIEW -->
-  <div id="panel-overview" class="panel active">
+  <section class="block" id="ueberblick">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Marktumfeld</p><h2>Ein dichter, aber nicht unbezwingbarer Markt</h2><p>Zehn Anbieter teilen sich den Kreis Soest &mdash; nur zwei davon sind fu&#776;r LebensZeit wirklich bedrohlich.</p></div>
     <div class="kpi-grid">
       <div class="kpi highlight">
         <div class="kpi-label">Wettbewerber gesamt</div>
@@ -428,9 +444,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       </div>
     </div>
   </div>
+</section>
 
   <!-- PANEL: PRÄSENZMATRIX -->
-  <div id="panel-matrix" class="panel">
+  <section class="block" id="praesenzmatrix">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Geografie</p><h2>Wer ist wo aktiv?</h2><p>Die Pr&auml;senz je Standort entscheidet, wo Verdr&auml;ngung droht und wo LebensZeit strukturell im Vorteil ist.</p></div>
     <div class="section">
       <div class="section-title">Geografische Präsenz aller Wettbewerber</div>
       <div class="legend" style="margin-bottom: 14px;">
@@ -497,9 +516,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       </div>
     </div>
   </div>
+</section>
 
   <!-- PANEL: WETTBEWERBER -->
-  <div id="panel-wettbewerber" class="panel">
+  <section class="block" id="wettbewerber">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Einzelanalyse</p><h2>Zehn Anbieter, vier Typen</h2><p>Direkte, indirekte und k&uuml;nftige Konkurrenten &mdash; und eine Sonderkategorie, die sich keiner Regulierung stellt.</p></div>
     <div class="kpi-grid" style="margin-bottom: 20px;">
       <div class="kpi danger">
         <div class="kpi-label">Direkte Hauptkonkurrenten</div>
@@ -552,9 +574,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       </div>
     </div>
   </div>
+</section>
 
   <!-- PANEL: STANDORTE -->
-  <div id="panel-standorte" class="panel">
+  <section class="block" id="standorte">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Standortvergleich</p><h2>Wettbewerbsintensit&auml;t je Standort</h2><p>Nicht jeder Standort ist gleich hart umk&auml;mpft &mdash; die Unterschiede erkl&auml;ren einen Teil der Standortergebnisse.</p></div>
     <div class="standort-grid" id="standort-cards"></div>
 
     <div class="section" style="margin-top: 16px;">
@@ -564,9 +589,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       </div>
     </div>
   </div>
+</section>
 
   <!-- PANEL: KPI-BENCHMARK -->
-  <div id="panel-benchmark" class="panel">
+  <section class="block" id="benchmark">
+  <div class="wrap">
+    <div class="section-head"><p class="eyebrow">Benchmark</p><h2>LebensZeit gegen die Branche</h2><p>Vier Kennzahlen im direkten Vergleich mit dem Branchendurchschnitt und dem eigenen Ziel.</p></div>
     <div class="kpi-grid" style="margin-bottom: 20px;">
       <div class="kpi highlight">
         <div class="kpi-label">Umsatz vs. Branche Ø</div>
@@ -591,10 +619,10 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     </div>
 
     <div class="section">
-      <div class="section-title">LebensZeit vs. Branchendurchschnitt (Destatis / GKV)</div>
+      <div class="section-title">LebensZeit vs. Branchendurchschnitt und eigenes Ziel (Destatis / GKV)</div>
       <div class="legend" style="margin-bottom: 16px;">
         <div class="legend-item"><div class="legend-dot" style="background:#0A8A66;"></div> LebensZeit</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7;"></div> Branchendurchschnitt</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7;"></div> Branchendurchschnitt oder eigenes Ziel &mdash; je Kennzahl in der Zeile benannt</div>
       </div>
       <div id="bench-rows"></div>
     </div>
@@ -611,6 +639,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       </div>
     </div>
   </div>
+</section>
 
 </div>
 
@@ -684,15 +713,6 @@ const potentials = [1.0, 0.7, 0.4, 0.5, 0.4];
 
 const threatColors = { hoch: '#B03A2E', mittel: '#B87A15', niedrig: '#6E9424' };
 const threatBgColors = { hoch: 'rgba(176,58,46,.10)', mittel: 'rgba(184,122,21,.12)', niedrig: 'rgba(110,148,36,.12)' };
-
-function switchTab(id) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    const panels = ['overview','matrix','wettbewerber','standorte','benchmark'];
-    t.classList.toggle('active', panels[i] === id);
-  });
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-}
 
 function renderThreatBars() {
   const sorted = [...competitors].sort((a,b) => b.threat - a.threat);
@@ -793,7 +813,7 @@ function renderBenchRows() {
   const metrics = [
     { label: 'Umsatz', lz: '2,1 Mio. €', ind: '1,5 Mio. €', lzPct: 70, indPct: 50, delta: '+40 %', sign: 'pos' },
     { label: 'Förderanteil', lz: '38 %', ind: '22 %', lzPct: 76, indPct: 44, delta: '+16 PP', sign: 'neg' } /* B6: stand hier als –16 PP, auf der Kennzahlenkarte als +16 PP — derselbe Sachverhalt mit entgegengesetztem Vorzeichen. Jetzt einheitlich +16 PP: LebensZeit haengt 16 Punkte staerker an Foerdermitteln als die Branche. Die Bewertung traegt die Farbe (sign neg), nicht das Vorzeichen. */,
-    { label: 'Eigenfinanzierung', lz: '62 %', ind: '70 %', lzPct: 62, indPct: 70, delta: '–8 PP', sign: 'neg' },
+    { label: 'Eigenfinanzierung', lz: '62 %', ind: '70 %', lzPct: 62, indPct: 70, delta: '–8 PP', sign: 'neg', bez: 'Ziel' },
     { label: 'Betreute Fälle', lz: '180', ind: '~150 (Ø)', lzPct: 60, indPct: 50, delta: '+20 %', sign: 'pos' },
     { label: 'Mitarbeiter FTE', lz: '34 + 22 TZ', ind: 'Ø ~25 FTE', lzPct: 68, indPct: 50, delta: '+36 %', sign: 'pos' },
     { label: 'Ehrenamtliche', lz: '45 Personen', ind: 'kaum Standard', lzPct: 90, indPct: 10, delta: 'USP', sign: 'pos' },
@@ -815,7 +835,7 @@ function renderBenchRows() {
             </div>
           </div>
           <div class="bench-bar-row">
-            <div class="bench-bar-label" style="color:var(--text-3);">Branche Ø</div>
+            <div class="bench-bar-label" style="color:var(--text-3);">${m.bez || 'Branche Ø'}</div>
             <div class="bench-bar-wrap">
               <div class="bench-bar bar-ind" style="width:${m.indPct}%;">
                 <span class="bench-val" style="color:var(--text-2);">${m.ind}</span>

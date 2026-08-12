@@ -365,6 +365,18 @@
       title: "logout() ist auf den Investorenseiten nicht definiert",
       text: "Alle Investorenseiten rufen im Abmelden-Verweis onclick='logout(event)' auf, definieren die Funktion aber nirgends — der Klick wirft einen ReferenceError, nur das href rettet die Navigation. Auf investoren-wettbewerb.html ist sie jetzt definiert; die übrigen sechs Seiten brauchen dieselbe Ergänzung." },
 
+    { id: "n-done-dashboard-umgebaut", page: "investoren-wettbewerb", selector: "main", status: "auszubauen", done: true,
+      title: "Wettbewerbs-Dashboard war strukturell keine Investorenseite",
+      text: "Zwei Anläufe zuvor hatten nur Farben und Chrome (Kopf-/Fußzeile) angeglichen — das eigentliche Problem war die Bauweise: eine Tab-App mit .panel/.tab-Mechanik, während jede andere Investorenseite eine durchlaufende Erzählung aus section.block-Abschnitten ist (Eyebrow, Cormorant-Überschrift, Vorspann, Inhalt). Fünf Tab-Panels in fünf section.block umgewandelt, .tabs und switchTab() entfernt, .inv-theme-Klasse ergänzt (fehlte — daran hing der Gradient-Hero, die Vertraulichkeitsleiste und die dunkle Navigationsleiste), .conf-bar ergänzt, Hero auf die echte .inv-hero-Klasse mit Farbverlauf und kursivem Akzent umgestellt, KPI-Karten auf Cormorant-Ziffern. Josh gemeldet 08.08.2026 nach zwei vorangegangenen Versuchen." },
+
+    { id: "n-done-dashboard-versteckte-charts", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Sechs Diagramme initialisierten mit Größe null",
+      text: "Nebenbefund beim Umbau: .panel{display:none} versteckte vier der fünf Panels beim Laden, Chart.js maß die darin liegenden Canvas-Elemente aber schon beim Seitenaufbau, unabhängig vom aktiven Tab — kein DOMContentLoaded-Schutz. Radar-, Demo- und Wachstumsdiagramm hätten beim ersten Tab-Wechsel vermutlich leer oder verzerrt gestanden. Seit alle Abschnitte durchgehend sichtbar sind, messen alle sechs Canvas-Elemente reale Pixelmaße statt 0×0 — nachgemessen." },
+
+    { id: "n-done-dashboard-bez-zeile", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Benchmark-Zeile behauptete „Branche Ø“, zeigte aber das Ziel",
+      text: "Bei der gestrigen Festlegung (Eigenfinanzierung gegen das eigene Ziel statt die Branche) wurde nur der Zahlenwert auf 70 % geändert, die feste Zeilenbeschriftung „Branche Ø“ blieb stehen — Widerspruch zwischen Text und Zahl in derselben Zeile. Beschriftung ist jetzt je Kennzahl steuerbar; Eigenfinanzierung zeigt „Ziel“, alle anderen weiterhin „Branche Ø“. Section-Überschrift und Legende entsprechend ergänzt." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",
