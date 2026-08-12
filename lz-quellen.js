@@ -48,6 +48,7 @@
   };
   var BD = "LebensZeit_Geschaeftsmodell_Basisdaten.pdf";
   var IP = "LebensZeit_Investorpitch_20min.pdf";
+  var MW = "LebensZeit_Markt_Wettbewerbsanalyse.docx";
 
   var SRC = [
     /* ══ Betriebs-Cockpit ══════════════════════════════════════════════
@@ -103,6 +104,20 @@
       dok: BD, seite: "5", absch: "C.2 Software-Stack", stand: "Sprint 1", guete: "C",
       hinweis: "Der Steckbrief nennt MediFox DAN als f\u00fchrendes System und Excel plus Telefon f\u00fcr die Tourenplanung. Das dargestellte \u201ePflegeVerwaltung 2024\u201c samt Makrowarnung, Netzlaufwerk und Ladezeiten ist eine Veranschaulichung dieses R\u00fcckstands, kein reales Produkt." },
 
+    /* --- Wettbewerbs-Dashboard --- */
+    { page: "investoren-wettbewerb", sel: ".kpi-grid", idx: 0, wert: "Kennzahlen des Wettbewerbsumfelds", kat: "annahme", ud: "markt", todo: "investoren-wettbewerb",
+      dok: MW, seite: "\u2014", absch: "Kap. 2 \u00b7 Markt und Wettbewerb", stand: "April 2026", guete: "C",
+      extern: "Destatis \u00b7 IT.NRW \u00b7 Bertelsmann Stiftung 2023",
+      hinweis: "10 Wettbewerber, 2 hochrelevante, 4,5 % Marktpenetration, 5,3 Wettbewerber je Standort. Die Bedrohungsbewertungen 1\u201310 sind eine eigene Skala des Teams, keine externe Erhebung. Das adressierbare Potenzial von 3,0 Mio. \u20ac ist in den Gesch\u00e4ftsmodell-Basisdaten ausdr\u00fccklich als bekannte Schwachstelle vermerkt \u2014 es passt rechnerisch nicht zu ~3.995 Pflegebed\u00fcrftigen." },
+
+    { page: "investoren-wettbewerb", sel: ".bench-row", idx: 0, wert: "KPI-Benchmark gegen die Branche", kat: "ziel", ud: "kennzahlen",
+      dok: BD, seite: "2", absch: "Kennzahlenblock", stand: "Sprint 1", guete: "B",
+      hinweis: "F\u00f6rderanteil 38 % gegen 22 % Branche \u2014 einheitlich als +16 PP ausgewiesen, die Bewertung tr\u00e4gt die Farbe, nicht das Vorzeichen. Eigenfinanzierung 62 % gegen das eigene Ziel 70 %, also \u20138 PP; die Branchenzahl 78 % wird bewusst nicht mehr als Bezugsgr\u00f6\u00dfe verwendet (Festlegung 08.08.2026). Beide Werte standen vorher auf derselben Seite mit widerspr\u00fcchlichen Vorzeichen und Bezugsgr\u00f6\u00dfen." },
+
+    { page: "investoren-wettbewerb", sel: ".standort-grid", idx: 0, wert: "Standortdaten und Einwohnerzahlen", kat: "annahme", ud: "standorte", todo: "investoren-wettbewerb",
+      dok: MW, seite: "\u2014", absch: "Standortbetrachtung", stand: "April 2026", guete: "C",
+      hinweis: "Erwitte 20.200 \u00b7 Bad Sassendorf 13.100 \u00b7 Anr\u00f6chte 8.400 \u00b7 R\u00fcthen 10.700 \u00b7 Lippetal 8.500. Festlegung vom 08.08.2026: Markt- und Wettbewerbsanalyse plus Dashboard sind die Quelle. Standortkarte und Investorpitch f\u00fchren abweichende Werte (~16.200 f\u00fcr Erwitte, 10.304 / 10.290 / 11.883) \u2014 diese m\u00fcssen nachgezogen werden." },
+
     /* --- Kundenportal --- */
     { page: "kundenportal", sel: ".naechst", idx: 0, wert: "Beispielverl\u00e4ufe im Portal", kat: "synth", ud: "betrieb", todo: "kundenportal",
       dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
@@ -123,6 +138,15 @@
     { page: "kundenportal", sel: ".rechnung", idx: 1, wert: "Selbstzahler-Stundens\u00e4tze", kat: "basis", ud: "kennzahlen",
       dok: BD, seite: "4", absch: "A.4 Selbstzahler-Stundensatz", stand: "Sprint 1", guete: "A",
       hinweis: "38 \u20ac je Stunde Hilfskraft, 52 \u20ac je Stunde examinierte Fachkraft. Der Rabatt von 10 % auf Entlastungsleistungen ab Stufe Aktiv steht im Mitgliedschaftsmodell, Teil B." },
+
+    /* --- Kunden-App --- */
+    { page: "kunden-app", sel: ".naechst", idx: 0, wert: "Kunden-App \u2014 Beispielverl\u00e4ufe", kat: "synth", ud: "betrieb", todo: "kunden-app",
+      dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "08.08.2026", guete: "D",
+      hinweis: "Termine, Dokumente, Rechnungsbetr\u00e4ge und R\u00fcckfragen sind erfunden \u2014 inhaltsgleich mit dem Kundenportal, damit beide Kan\u00e4le dieselbe Geschichte erz\u00e4hlen. Die Personen sind belegt: Hildegard Stemmer und Markus D\u00f6rre aus dem Personas-Handout, Sandra K\u00f6hler und Jana Brinkmann aus den Tourdaten des Cockpits. Damit f\u00fchrt die Kunden-App keinen eigenen Namensraum mehr, anders als der SwiftUI-Prototyp (Vossenkuhl, Koch, Meier)." },
+
+    { page: "kunden-app", sel: ".stufe", idx: 0, wert: "Mitgliedsstufen in der App", kat: "basis", ud: "mitglieder",
+      dok: BD, seite: "3, 5", absch: "B \u00b7 Mitgliedschaftsmodell", stand: "Sprint 1", guete: "A",
+      hinweis: "Basis 48 \u20ac \u00b7 Aktiv 120 \u20ac \u00b7 Premium 360 \u20ac im Jahr, nie \u201eFamilie\u201c. Identisch zum Kundenportal." },
 
     /* --- App-Prototyp --- */
     { page: "app", sel: ".buehne", idx: 0, wert: "LebensZeit OS \u2014 Prototyp", kat: "synth", ud: "betrieb", todo: "app",

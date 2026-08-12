@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wettbewerbs-Dashboard – LebensZeit gGmbH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lz-tokens.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  /* Farben: siehe /lz-tokens.css. Der frueher hier stehende eigene :root-Block
+   war eine zweite Farbquelle mit 47 Tokens; --text, --text2, --border, --radius,
+   --green, --amber und --red trugen dieselben Namen wie im Tokensystem, aber
+   andere Werte. Die Serienfarben stimmten dagegen fast exakt ueberein — die
+   Palette --series-1 bis --series-6 ist offenkundig aus diesem Dashboard
+   abgeleitet, --series-1 #185FA5 ist mit dem hiesigen Blau identisch.
+   Der prefers-color-scheme-Block ist entfallen: laut Designgrundlage ist einzig
+   das Cockpit dunkel, alle uebrigen Umgebungen sind dauerhaft hell. */
+:root{
+  /* Reihenfarben der Diagramme — Aufhellungen als Flaechen fuer Marken und Chips */
+  --d1: var(--series-1); --d1-flaeche: rgba(24, 95,165,.10);
+  --d2: var(--series-2); --d2-flaeche: rgba(184,122, 21,.12);
+  --d3: var(--series-3); --d3-flaeche: rgba(10,138,102,.10);
+  --d4: var(--series-4); --d4-flaeche: rgba(176, 58, 46,.10);
+  --d5: var(--series-5); --d5-flaeche: rgba(107, 91,214,.10);
+  --d6: var(--series-6); --d6-flaeche: rgba(110,148, 36,.12);
+  --dz: var(--lz-red);  --dz-flaeche: rgba(140, 58, 42,.10);
+}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Jost', sans-serif; background: var(--surface); color: var(--text);
+       font-size: var(--fs-body); line-height: var(--lh-body-env); }
+/* Grundflaeche und Schriftgroesse kommen jetzt aus der Umgebung env-invest:
+   Creme statt des frueheren --bg3, 16,48px statt fester 14px. */
+  .page { max-width: 1200px; margin: 0 auto; padding: 24px 20px 48px; }
+
+  /* Header */
+  .header { margin-bottom: 28px; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .logo { width: 40px; height: 40px; border-radius: 8px; background: var(--d3); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 500; font-size: 14px; flex-shrink: 0; }
+  .brand-text h1 { font-size: 20px; font-weight: 500; color: var(--text); }
+  .brand-text p { font-size: 12px; color: var(--text-2); }
+  .header-meta { font-size: 12px; color: var(--text-3); text-align: right; }
+  .notice { margin-top: 8px; font-size: 11px; color: var(--text-3); background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 6px; padding: 6px 12px; display: inline-block; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 10px; padding: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab { padding: 7px 16px; border-radius: 7px; font-size: 13px; cursor: pointer; color: var(--text-2); background: transparent; border: none; transition: all 0.15s; white-space: nowrap; }
+  .tab:hover { color: var(--text); background: var(--lz-cream-3); }
+  .tab.active { background: var(--lz-white); color: var(--text); border: 0.5px solid var(--line); font-weight: 500; }
+
+  /* Panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* KPI Cards */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .kpi-label { font-size: 11px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .kpi-value { font-size: 24px; font-weight: 500; line-height: 1; }
+  .kpi-sub { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+  .kpi.highlight { background: var(--d3-flaeche); border-color: var(--d3); }
+  .kpi.highlight .kpi-value { color: var(--d3); }
+  .kpi.warn { background: var(--d2-flaeche); border-color: var(--d2); }
+  .kpi.warn .kpi-value { color: var(--d2); }
+  .kpi.danger { background: var(--d4-flaeche); border-color: var(--d4); }
+  .kpi.danger .kpi-value { color: var(--d4); }
+  .kpi.info { background: var(--d1-flaeche); border-color: var(--d1); }
+  .kpi.info .kpi-value { color: var(--d1); }
+
+  /* Section */
+  .section { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+  .section-title { font-size: 13px; font-weight: 500; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+
+  /* Two-col layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Threat bar */
+  .threat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .threat-name { width: 220px; font-size: 13px; flex-shrink: 0; }
+  .threat-name .sub { font-size: 11px; color: var(--text-3); }
+  .threat-bar-wrap { flex: 1; height: 28px; background: var(--lz-cream-2); border-radius: 4px; overflow: hidden; }
+  .threat-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; font-weight: 500; transition: width 0.5s ease; }
+  .threat-score { width: 30px; font-size: 13px; font-weight: 500; text-align: right; flex-shrink: 0; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge-hoch { background: var(--d4-flaeche); color: var(--d4); }
+  .badge-mittel { background: var(--d2-flaeche); color: var(--d2); }
+  .badge-niedrig { background: var(--d6-flaeche); color: var(--d6); }
+
+  /* Presence matrix */
+  .matrix-wrap { overflow-x: auto; }
+  .matrix { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .matrix th { font-size: 11px; font-weight: 500; color: var(--text-2); text-align: center; padding: 6px 8px; border-bottom: 0.5px solid var(--line-ui); background: var(--lz-cream-2); white-space: nowrap; }
+  .matrix th.left { text-align: left; min-width: 180px; }
+  .matrix td { text-align: center; padding: 7px 8px; border-bottom: 0.5px solid var(--line); vertical-align: middle; }
+  .matrix td.name { text-align: left; font-size: 12px; padding-left: 4px; }
+  .matrix td.name .sub { font-size: 10px; color: var(--text-3); }
+  .matrix tr:last-child td { border-bottom: none; }
+  .matrix tr:hover td { background: var(--lz-cream-2); }
+  .pres-full { width: 22px; height: 22px; border-radius: 50%; background: var(--d3); display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; }
+  .pres-part { width: 22px; height: 22px; border-radius: 50%; background: var(--d2-flaeche); border: 1.5px solid var(--d2); display: inline-flex; align-items: center; justify-content: center; color: var(--d2); font-size: 10px; }
+  .pres-none { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 10px; }
+  .intensity-cell { font-size: 11px; font-weight: 500; }
+
+  /* Competitor cards */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .comp-card { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .comp-card.hoch { border-left: 3px solid var(--d4); }
+  .comp-card.mittel-hoch { border-left: 3px solid var(--dz); }
+  .comp-card.mittel { border-left: 3px solid var(--d2); }
+  .comp-card.niedrig { border-left: 3px solid var(--d6); }
+  .comp-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
+  .comp-name { font-size: 13px; font-weight: 500; }
+  .comp-type { font-size: 10px; color: var(--text-3); margin-top: 2px; }
+  .comp-body { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+  .comp-tag { display: inline-block; background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 4px; padding: 2px 6px; font-size: 10px; color: var(--text-2); margin: 2px 2px 0 0; }
+  .comp-strengths { margin-top: 8px; }
+  .comp-strengths p { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+
+  /* Benchmark */
+  .bench-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .bench-label { width: 200px; font-size: 12px; flex-shrink: 0; }
+  .bench-bars { flex: 1; }
+  .bench-bar-group { display: flex; flex-direction: column; gap: 3px; }
+  .bench-bar-row { display: flex; align-items: center; gap: 6px; }
+  .bench-bar-label { width: 70px; font-size: 10px; color: var(--text-2); text-align: right; flex-shrink: 0; }
+  .bench-bar-wrap { flex: 1; height: 16px; background: var(--lz-cream-2); border-radius: 3px; overflow: hidden; }
+  .bench-bar { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-right: 6px; justify-content: flex-end; }
+  .bench-val { font-size: 10px; font-weight: 500; white-space: nowrap; }
+  .bar-lz { background: var(--d3); }
+  .bar-ind { background: var(--line-ui); }
+  .delta { font-size: 11px; font-weight: 500; width: 56px; text-align: right; flex-shrink: 0; }
+  .delta.pos { color: var(--d3); }
+  .delta.neg { color: var(--d4); }
+  .delta.warn { color: var(--d2); }
+
+  /* Legend */
+  .legend { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-2); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* Standort detail */
+  .standort-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .standort-card { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .standort-name { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .standort-sub { font-size: 11px; color: var(--text-3); margin-bottom: 12px; }
+  .standort-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 0.5px solid var(--line); }
+  .standort-stat:last-child { border-bottom: none; }
+  .stat-label { font-size: 11px; color: var(--text-2); }
+  .stat-val { font-size: 13px; font-weight: 500; }
+  .profit { color: var(--d4); font-size: 10px; margin-left: 4px; }
+  .profit.ok { color: var(--d3); }
+
+  /* Intensity dots */
+  .int-bar { display: flex; gap: 3px; margin-top: 6px; }
+  .int-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line-ui); }
+  .int-dot.filled { background: var(--dz); }
+  .int-dot.half { background: var(--d2); }
+
+  /* Chart wrap */
+  .chart-wrap { position: relative; }
+</style>
+</head>
+<body class="env-invest">
+<div class="page">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="logo">LZ</div>
+        <div class="brand-text">
+          <h1>Wettbewerbs-Dashboard</h1>
+          <p>LebensZeit gGmbH · Kreis Soest, NRW</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        KI-Pionierzirkel Sprint 1<br>
+        Stand: August 2026 · Vertraulich
+      </div>
+    </div>
+    <div style="margin-top:8px;">
+      <span class="notice">Datengrundlage: Markt- & Wettbewerbsanalyse April 2026 · Schätzwerte auf Basis Destatis, IT.NRW, Bertelsmann Stiftung</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <p style="max-width:1180px;margin:0 auto 14px;padding:0 24px;font-size:.94rem">
+  <a href="/investoren" style="color:var(--lz-green)">&larr; zurück zum Investorenbereich</a>
+</p>
+<div class="tabs">
+    <button class="tab active" onclick="switchTab('overview')">Übersicht</button>
+    <button class="tab" onclick="switchTab('matrix')">Präsenzmatrix</button>
+    <button class="tab" onclick="switchTab('wettbewerber')">Wettbewerber</button>
+    <button class="tab" onclick="switchTab('standorte')">Standorte</button>
+    <button class="tab" onclick="switchTab('benchmark')">KPI-Benchmark</button>
+  </div>
+
+  <!-- PANEL: OVERVIEW -->
+  <div id="panel-overview" class="panel active">
+    <div class="kpi-grid">
+      <div class="kpi highlight">
+        <div class="kpi-label">Wettbewerber gesamt</div>
+        <div class="kpi-value">10</div>
+        <div class="kpi-sub">im Kreis Soest aktiv</div>
+      </div>
+      <div class="kpi danger">
+        <div class="kpi-label">Hochrelevante Rivalen</div>
+        <div class="kpi-value">2</div>
+        <div class="kpi-sub">Caritas + Graumarkt</div>
+      </div>
+      <div class="kpi warn">
+        <div class="kpi-label">Marktpenetration LZ</div>
+        <div class="kpi-value">4,5 %</div>
+        <div class="kpi-sub">180 von ~3.995 Fällen</div>
+      </div>
+      <div class="kpi info">
+        <div class="kpi-label">Adressierbares Potenzial</div>
+        <div class="kpi-value">3,0 Mio. €</div>
+        <div class="kpi-sub">5 Standorte kumuliert</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Ø Wettbewerber / Standort</div>
+        <div class="kpi-value">5,3</div>
+        <div class="kpi-sub">vollständige Präsenz</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Markt wächst bis 2040</div>
+        <div class="kpi-value">+30 %</div>
+        <div class="kpi-sub">Anteil 65+ Kreis Soest</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Bedrohungsniveau je Wettbewerber</div>
+      <div id="threat-bars"></div>
+      <div class="legend" style="margin-top: 14px; margin-bottom: 0;">
+        <div class="legend-item"><div class="legend-dot" style="background:#B03A2E;"></div> Hoch (7–10)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#B87A15;"></div> Mittel (4–6)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6E9424;"></div> Niedrig (1–3)</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <div class="section-title">Wettbewerbsintensität je Standort</div>
+        <div class="chart-wrap" style="height: 220px;">
+          <canvas id="intensityChart" role="img" aria-label="Balkendiagramm: Wettbewerbsintensität an den 5 LebensZeit-Standorten">Erwitte 8, Bad Sassendorf 8.5, Anröchte 4, Rüthen 2.5, Lippetal 4</canvas>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Marktpotenzial je Standort (Mio. €/J.)</div>
+        <div class="chart-wrap" style="height: 220px;">
+          <canvas id="potentialChart" role="img" aria-label="Balkendiagramm: Marktpotenzial an den 5 LebensZeit-Standorten in Millionen Euro">Erwitte 1.0, Bad Sassendorf 0.7, Anröchte 0.4, Rüthen 0.5, Lippetal 0.4</canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Wettbewerber nach Typ</div>
+      <div style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+        <div class="chart-wrap" style="height: 200px; width: 200px; flex-shrink: 0;">
+          <canvas id="typeChart" role="img" aria-label="Donut-Diagramm: Wettbewerber nach Organisationstyp">Freigemeinnützig 6, Privat 1, Inoffiziell 1, Digital 1, Konzern 1</canvas>
+        </div>
+        <div>
+          <div class="legend" style="flex-direction: column; gap: 8px; margin: 0;">
+            <div class="legend-item"><div class="legend-dot" style="background:#185FA5; border-radius:50%;"></div> Freigemeinnützig (6) · Caritas, Diakonie, DRK, AWO, Johanniter, Malteser</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#6E9424; border-radius:50%;"></div> Privat (1) · Pflegedienst Sommer</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#B03A2E; border-radius:50%;"></div> Inoffiziell / Graumarkt (1)</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#6B5BD6; border-radius:50%;"></div> Digital / Plattform (1) · Careship, Pflegefinder</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#888780; border-radius:50%;"></div> Konzern / Stationär (1) · Vitanas, Korian</div>
+          </div>
+          <div style="margin-top: 12px; font-size: 12px; color: var(--text-2); max-width: 320px; line-height: 1.6;">
+            6 von 9 relevanten Wettbewerbern sind wie LebensZeit freigemeinnützig – Preiskampf ist begrenzt,
+            aber Kundenbindung über konfessionelle oder gesellschaftliche Identität ist entscheidend.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: PRÄSENZMATRIX -->
+  <div id="panel-matrix" class="panel">
+    <div class="section">
+      <div class="section-title">Geografische Präsenz aller Wettbewerber</div>
+      <div class="legend" style="margin-bottom: 14px;">
+        <div class="legend-item">
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--d3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;flex-shrink:0;">✓</div> Vollpräsenz
+        </div>
+        <div class="legend-item">
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--d2-flaeche);border:1.5px solid var(--d2);display:flex;align-items:center;justify-content:center;color:var(--d2);font-size:9px;flex-shrink:0;">~</div> Teilpräsenz
+        </div>
+        <div class="legend-item">
+          <div style="width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:9px;flex-shrink:0;">–</div> Nicht vertreten
+        </div>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th class="left">Anbieter</th>
+              <th>Typ</th>
+              <th>Erwitte</th>
+              <th>Bad Sass.</th>
+              <th>Anröchte</th>
+              <th>Rüthen</th>
+              <th>Lippetal</th>
+              <th>Relevanz</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body"></tbody>
+          <tfoot>
+            <tr style="background: var(--lz-cream-2);">
+              <td class="name" style="font-weight:500; font-size:11px; color: var(--text-2);">Wettbewerber mit Präsenz</td>
+              <td></td>
+              <td class="intensity-cell" style="color: var(--d4);">8</td>
+              <td class="intensity-cell" style="color: var(--d4);">8–9</td>
+              <td class="intensity-cell" style="color: var(--d2);">4</td>
+              <td class="intensity-cell" style="color: var(--d6);">2–3</td>
+              <td class="intensity-cell" style="color: var(--d2);">4</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Strategische Implikationen aus der Präsenzanalyse</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;">
+        <div style="padding: 12px; background: var(--d6-flaeche); border-radius: 8px; border: 0.5px solid var(--d6);">
+          <div style="font-size: 11px; font-weight: 500; color: var(--d6); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Alleinstellung</div>
+          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Rüthen: Nur Caritas + Graumarkt als Hauptkonkurrenten. Trotz Defizit beste strukturelle Ausgangsposition für Marktführerschaft.</div>
+        </div>
+        <div style="padding: 12px; background: var(--d4-flaeche); border-radius: 8px; border: 0.5px solid var(--d4);">
+          <div style="font-size: 11px; font-weight: 500; color: var(--d4); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Härtester Wettbewerb</div>
+          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Erwitte & Bad Sassendorf: 8–9 Wettbewerber aktiv. Kundenbindung durch Servicequalität und Ehrenamtsnetz kritisch wichtig.</div>
+        </div>
+        <div style="padding: 12px; background: var(--d2-flaeche); border-radius: 8px; border: 0.5px solid var(--d2);">
+          <div style="font-size: 11px; font-weight: 500; color: var(--d2); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Graumarkt-Gefahr</div>
+          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Einziger Wettbewerber mit Vollpräsenz in allen 5 Standorten neben Caritas. Besonders bei Pflegegrad 3–5 direkter Preiskonkurrent.</div>
+        </div>
+        <div style="padding: 12px; background: var(--d1-flaeche); border-radius: 8px; border: 0.5px solid var(--d1);">
+          <div style="font-size: 11px; font-weight: 500; color: var(--d1); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Digitale Flanke</div>
+          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Careship/Plattformen aktuell nur in Erwitte + Bad Sassendorf. Zeitfenster für eigene digitale Angebote in Randgemeinden nutzen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: WETTBEWERBER -->
+  <div id="panel-wettbewerber" class="panel">
+    <div class="kpi-grid" style="margin-bottom: 20px;">
+      <div class="kpi danger">
+        <div class="kpi-label">Direkte Hauptkonkurrenten</div>
+        <div class="kpi-value">3</div>
+        <div class="kpi-sub">Caritas, Diakonie, DRK</div>
+      </div>
+      <div class="kpi warn">
+        <div class="kpi-label">Indirekte Konkurrenten</div>
+        <div class="kpi-value">4</div>
+        <div class="kpi-sub">AWO, Johanniter, Malteser, Sommer</div>
+      </div>
+      <div class="kpi info">
+        <div class="kpi-label">Zukunfts-Konkurrenten</div>
+        <div class="kpi-value">2</div>
+        <div class="kpi-sub">Digitale Plattformen ab 2028+</div>
+      </div>
+      <div class="kpi highlight">
+        <div class="kpi-label">Sonderkategorie</div>
+        <div class="kpi-value">1</div>
+        <div class="kpi-sub">Graumarkt (inoffiziell)</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Detailprofile</div>
+      <div class="comp-grid" id="comp-cards"></div>
+    </div>
+
+    <div class="section" style="margin-top: 16px;">
+      <div class="section-title">Positionierungsvergleich – Radar-Dimensionen</div>
+      <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+        <div class="chart-wrap" style="height: 320px; width: 320px; flex-shrink: 0;">
+          <canvas id="radarChart" role="img" aria-label="Radar-Diagramm: Wettbewerbsvergleich LebensZeit vs. Caritas, DRK, Diakonie, Graumarkt auf 6 Dimensionen">Positionierungsvergleich der wichtigsten Wettbewerber auf 6 strategischen Dimensionen.</canvas>
+        </div>
+        <div>
+          <div class="legend" style="flex-direction: column; gap: 8px; margin: 0 0 16px;">
+            <div class="legend-item"><div class="legend-dot" style="background:#0A8A66;"></div> LebensZeit gGmbH</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#185FA5;"></div> Caritas-Sozialstation</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#B03A2E;"></div> DRK Kreisverband</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#B87A15;"></div> Diakonie Sozialstation</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#888780;"></div> 24h / Graumarkt</div>
+          </div>
+          <div style="font-size: 11px; color: var(--text-2); line-height: 1.7; max-width: 280px;">
+            <strong style="font-weight: 500;">Bewertungsdimensionen</strong><br>
+            Flächendeckung · Markenbekanntheit · Digitalisierung · Preisattraktivität · Fachkräftebasis · Finanzstärke<br><br>
+            Skala: 1 (schwach) – 10 (sehr stark)<br>
+            Schätzung auf Basis verfügbarer Marktdaten.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: STANDORTE -->
+  <div id="panel-standorte" class="panel">
+    <div class="standort-grid" id="standort-cards"></div>
+
+    <div class="section" style="margin-top: 16px;">
+      <div class="section-title">Demografischer Vergleich aller Standorte</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="demoChart" role="img" aria-label="Gruppenbalkendiagramm: Demografische Kennzahlen je Standort">Anteil 65+ und Anteil 80+ je Standort im Vergleich.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: KPI-BENCHMARK -->
+  <div id="panel-benchmark" class="panel">
+    <div class="kpi-grid" style="margin-bottom: 20px;">
+      <div class="kpi highlight">
+        <div class="kpi-label">Umsatz vs. Branche Ø</div>
+        <div class="kpi-value">+40 %</div>
+        <div class="kpi-sub">2,1 Mio. vs. 1,5 Mio. €</div>
+      </div>
+      <div class="kpi danger">
+        <div class="kpi-label">Förderanteil vs. Branche</div>
+        <div class="kpi-value">+16 PP</div>
+        <div class="kpi-sub">38 % vs. Ø 22 %</div>
+      </div>
+      <div class="kpi warn">
+        <div class="kpi-label">Eigenfinanzierung vs. Ziel</div>
+        <div class="kpi-value">–8 PP</div>
+        <div class="kpi-sub">62 % vs. Ziel 70 %</div>
+      </div>
+      <div class="kpi info">
+        <div class="kpi-label">Standorte vs. Branche Ø</div>
+        <div class="kpi-value">3× mehr</div>
+        <div class="kpi-sub">5 vs. Ø 1–2 je Anbieter</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">LebensZeit vs. Branchendurchschnitt (Destatis / GKV)</div>
+      <div class="legend" style="margin-bottom: 16px;">
+        <div class="legend-item"><div class="legend-dot" style="background:#0A8A66;"></div> LebensZeit</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#D3D1C7;"></div> Branchendurchschnitt</div>
+      </div>
+      <div id="bench-rows"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Marktpenetration & Wachstumspotenzial</div>
+      <div class="chart-wrap" style="height: 240px;">
+        <canvas id="growthChart" role="img" aria-label="Balkendiagramm: Marktanteil LebensZeit und verbleibendes Potenzial je Standort">Marktanteil LebensZeit vs. verbleibendes Potenzial je Standort.</canvas>
+      </div>
+      <div style="margin-top: 12px; font-size: 12px; color: var(--text-2); line-height: 1.6;">
+        LebensZeit deckt aktuell ~4,5 % der geschätzten 3.995 Pflegebedürftigen in den 5 Standortgemeinden ab.
+        Das adressierbare Potenzial für einen flächendeckenden Marktführer liegt bei ~3,0 Mio. €/Jahr.
+        Derzeit werden davon ca. 2,1 Mio. € realisiert – <strong style="font-weight:500; color: var(--d3);">Eigenfinanzierungsanteil muss von 62 % auf 70 % steigen</strong>.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const competitors = [
+  { name: 'Caritas-Sozialstation Hellweg', type: 'Freigemeinnützig', threat: 9, level: 'hoch',
+    presence: ['full','full','full','full','full'],
+    comment: 'Stärkstes Netzwerk; hohe Kundenbindung durch Kirchenbindung',
+    strengths: ['Flächendeckung', 'Förderzugang', 'Markenvertrauen'],
+    weaknesses: 'Bürokratische Strukturen; Innovationsgeschwindigkeit gering' },
+  { name: '24h-Betreuung / Graumarkt', type: 'Inoffiziell', threat: 8, level: 'hoch',
+    presence: ['full','full','full','full','full'],
+    comment: 'Einziger mit Vollpräsenz in allen 5 Standorten; Preisunterbietung möglich',
+    strengths: ['Preisattraktivität', 'Kontinuierliche Anwesenheit', 'Flexibilität'],
+    weaknesses: 'Rechtliche Grauzone; keine Pflegegrad-Abrechnung; Qualitätsunsicherheit' },
+  { name: 'DRK Kreisverband Soest', type: 'Freigemeinnützig', threat: 7, level: 'hoch',
+    presence: ['full','full','full','part','full'],
+    comment: 'Hausnotruf-Marktführer; breites Portfolio; bekannte Marke',
+    strengths: ['Hausnotruf', 'Fahrdienste', 'Bundesmarke'],
+    weaknesses: 'Pflege als Nebengeschäft; Qualitätsschwankungen' },
+  { name: 'Diakonie Sozialstation Soest', type: 'Freigemeinnützig', threat: 6, level: 'mittel',
+    presence: ['full','full','part','none','none'],
+    comment: 'Fokus auf Soest-Stadt; kombiniert Pflege + seelsorgerliche Begleitung',
+    strengths: ['Markenname', 'Kombi-Angebote', 'Kirchenbindung ev.'],
+    weaknesses: 'Geringe Ländlichkeitspräsenz; Randgemeinden kaum abgedeckt' },
+  { name: 'AWO Sozialstation Soest', type: 'Freigemeinnützig', threat: 5, level: 'mittel',
+    presence: ['full','full','none','none','none'],
+    comment: 'Eher urban orientiert; weniger Flächendeckung',
+    strengths: ['Sozialpolitische Vernetzung', 'Tarifbindung'],
+    weaknesses: 'Keine Ländlichkeitsstrategie; begrenzt auf 2 Standorte' },
+  { name: 'Johanniter Soest', type: 'Freigemeinnützig', threat: 5, level: 'mittel',
+    presence: ['full','full','part','none','full'],
+    comment: 'Modernes Erscheinungsbild; App-gestützte Services; starke Bundesorganisation',
+    strengths: ['Digitalisierung', 'Hausnotruf', 'Menüservice'],
+    weaknesses: 'Kein Fokus auf vollambulante Pflege; Einstiegskonkurrent' },
+  { name: 'Malteser Hilfsdienst Soest', type: 'Freigemeinnützig', threat: 4, level: 'mittel',
+    presence: ['full','full','none','none','none'],
+    comment: 'Häusliche Pflege + Mahlzeitendienst; begrenzte Reichweite',
+    strengths: ['Mahlzeitendienst', 'Kirchliche Anbindung'],
+    weaknesses: 'Sehr begrenzte Flächenpräsenz; kein Ländlichkeitsfokus' },
+  { name: 'Careship / Pflegefinder', type: 'Digital / Plattform', threat: 4, level: 'mittel',
+    presence: ['part','part','none','none','none'],
+    comment: 'Matching-Plattform; Relevanz steigt ab 2028; zielt auf Angehörige',
+    strengths: ['Skalierbarkeit', 'Angehörigen-UX', 'Wachstumsfinanzierung'],
+    weaknesses: 'Kein Ländlichkeitsnetz; Vertrauensaufbau dauert; keine Pflegegrad-Abrechnung' },
+  { name: 'Pflegedienst Sommer (Soest)', type: 'Privat', threat: 2, level: 'niedrig',
+    presence: ['part','full','none','none','none'],
+    comment: 'Kleinstanbieter; saisonale Kapazitäten',
+    strengths: ['Flexibilität', 'Lokale Bekanntheit'],
+    weaknesses: 'Sehr begrenzte Kapazität; keine Fläche' },
+  { name: 'Vitanas / Korian (NRW-weit)', type: 'Konzern / Stationär', threat: 1, level: 'niedrig',
+    presence: ['none','none','none','none','none'],
+    comment: 'Kein direktes Engagement im Kreis Soest; primär stationär',
+    strengths: ['Finanzstärke', 'Skaleneffekte'],
+    weaknesses: 'Kein ambulantes Engagement vor Ort' },
+];
+
+const locations = ['Erwitte','Bad Sass.','Anröchte','Rüthen','Lippetal'];
+const locationsFull = ['Erwitte','Bad Sassendorf','Anröchte','Rüthen','Lippetal'];
+
+const standortData = [
+  { name: 'Erwitte', sub: 'Hauptstandort', ew: 20200, anteil65: 23.5, anteil80: 7.1, alter: 45.8, cases: 1300, potential: 1.0, status: 'ok' },
+  { name: 'Bad Sassendorf', sub: 'Premium / Kurort', ew: 13100, anteil65: 26.2, anteil80: 8.4, alter: 47.5, cases: 920, potential: 0.7, status: 'ok' },
+  { name: 'Anröchte', sub: 'Ländlich', ew: 8400, anteil65: 23.0, anteil80: 6.9, alter: 45.3, cases: 545, potential: 0.4, status: 'ok' },
+  { name: 'Rüthen', sub: 'Nicht kostendeckend', ew: 10700, anteil65: 24.1, anteil80: 7.5, alter: 46.2, cases: 685, potential: 0.5, status: 'warn' },
+  { name: 'Lippetal', sub: 'Nicht kostendeckend', ew: 8500, anteil65: 23.8, anteil80: 7.2, alter: 45.9, cases: 545, potential: 0.4, status: 'warn' },
+];
+
+const intensity = [8, 8.5, 4, 2.5, 4];
+const potentials = [1.0, 0.7, 0.4, 0.5, 0.4];
+
+const threatColors = { hoch: '#B03A2E', mittel: '#B87A15', niedrig: '#6E9424' };
+const threatBgColors = { hoch: 'rgba(176,58,46,.10)', mittel: 'rgba(184,122,21,.12)', niedrig: 'rgba(110,148,36,.12)' };
+
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    const panels = ['overview','matrix','wettbewerber','standorte','benchmark'];
+    t.classList.toggle('active', panels[i] === id);
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+function renderThreatBars() {
+  const sorted = [...competitors].sort((a,b) => b.threat - a.threat);
+  const container = document.getElementById('threat-bars');
+  container.innerHTML = sorted.map(c => `
+    <div class="threat-row">
+      <div class="threat-name">
+        ${c.name.length > 28 ? c.name.slice(0,27)+'…' : c.name}
+        <div class="sub">${c.type}</div>
+      </div>
+      <div class="threat-bar-wrap">
+        <div class="threat-bar" style="width:${c.threat*10}%; background:${threatColors[c.level]};">
+          <span style="color:#fff; font-size:11px;">${c.threat}/10</span>
+        </div>
+      </div>
+      <span class="badge badge-${c.level === 'hoch' ? 'hoch' : c.level === 'niedrig' ? 'niedrig' : 'mittel'}">${c.level.toUpperCase()}</span>
+    </div>
+  `).join('');
+}
+
+function renderMatrix() {
+  const body = document.getElementById('matrix-body');
+  const presMap = { full: '<div class="pres-full">✓</div>', part: '<div class="pres-part">~</div>', none: '<div class="pres-none">–</div>' };
+  const levelColors = { hoch: '#B03A2E', mittel: '#B87A15', niedrig: '#6E9424' };
+  body.innerHTML = competitors.map(c => `
+    <tr>
+      <td class="name">
+        ${c.name.length > 32 ? c.name.slice(0,31)+'…' : c.name}
+        <div class="sub">${c.type}</div>
+      </td>
+      <td><span class="badge badge-${c.level === 'hoch' ? 'hoch' : c.level === 'niedrig' ? 'niedrig' : 'mittel'}">${c.level.toUpperCase()}</span></td>
+      ${c.presence.map(p => `<td>${presMap[p]}</td>`).join('')}
+      <td style="font-size:11px; color: ${levelColors[c.level]}; font-weight:500;">${c.threat}/10</td>
+    </tr>
+  `).join('');
+}
+
+function renderCompCards() {
+  const container = document.getElementById('comp-cards');
+  const cardClass = { hoch: 'hoch', mittel: 'mittel', niedrig: 'niedrig' };
+  const extraMap = { hoch: 'mittel-hoch', mittel: 'mittel', niedrig: 'niedrig' };
+  container.innerHTML = competitors.map(c => `
+    <div class="comp-card ${c.threat >= 7 ? 'hoch' : c.threat >= 5 ? 'mittel' : 'niedrig'}">
+      <div class="comp-card-header">
+        <div>
+          <div class="comp-name">${c.name}</div>
+          <div class="comp-type">${c.type}</div>
+        </div>
+        <span class="badge badge-${c.level === 'hoch' ? 'hoch' : c.level === 'niedrig' ? 'niedrig' : 'mittel'}">${c.threat}/10</span>
+      </div>
+      <div class="comp-body">${c.comment}</div>
+      <div class="comp-strengths">
+        <p>Stärken</p>
+        ${c.strengths.map(s => `<span class="comp-tag">${s}</span>`).join('')}
+      </div>
+      <div style="margin-top:8px; font-size:11px; color: var(--text-3);">Schwäche: ${c.weaknesses.slice(0,80)}${c.weaknesses.length>80?'…':''}</div>
+    </div>
+  `).join('');
+}
+
+function renderStandortCards() {
+  const intensityPerLoc = intensity; // B13: war ein zweites Mal hart kodiert
+  const container = document.getElementById('standort-cards');
+  container.innerHTML = standortData.map((s, i) => `
+    <div class="standort-card" style="${s.status==='warn' ? 'border-left: 3px solid var(--d2);' : 'border-left: 3px solid var(--d3);'}">
+      <div class="standort-name">${s.name}</div>
+      <div class="standort-sub">${s.sub}</div>
+      <div class="standort-stat">
+        <span class="stat-label">Einwohner</span>
+        <span class="stat-val">${s.ew.toLocaleString('de-DE')}</span>
+      </div>
+      <div class="standort-stat">
+        <span class="stat-label">Anteil 65+</span>
+        <span class="stat-val">${s.anteil65.toFixed(1)} %</span>
+      </div>
+      <div class="standort-stat">
+        <span class="stat-label">Ø Alter</span>
+        <span class="stat-val">${s.alter.toFixed(1)} J.</span>
+      </div>
+      <div class="standort-stat">
+        <span class="stat-label">Pflegebedürftige (gesch.)</span>
+        <span class="stat-val">~${s.cases.toLocaleString('de-DE')}</span>
+      </div>
+      <div class="standort-stat">
+        <span class="stat-label">Marktpotenzial/J.</span>
+        <span class="stat-val">~${s.potential.toFixed(1)} Mio. €</span>
+      </div>
+      <div class="standort-stat" style="border-bottom:none; padding-bottom:0;">
+        <span class="stat-label">Wettb.-Intensität</span>
+        <span class="stat-val" style="color: ${intensityPerLoc[i]>=7 ? 'var(--d4)' : intensityPerLoc[i]>=4 ? 'var(--d2)' : 'var(--d6)'};">${intensityPerLoc[i]}/10</span>
+      </div>
+      ${s.status==='warn' ? '<div style="margin-top:8px; font-size:10px; background: var(--d2-flaeche); color: var(--d2); border-radius:4px; padding: 4px 8px; font-weight:500;">Nicht kostendeckend</div>' : ''}
+    </div>
+  `).join('');
+}
+
+function renderBenchRows() {
+  const metrics = [
+    { label: 'Umsatz', lz: '2,1 Mio. €', ind: '1,5 Mio. €', lzPct: 70, indPct: 50, delta: '+40 %', sign: 'pos' },
+    { label: 'Förderanteil', lz: '38 %', ind: '22 %', lzPct: 76, indPct: 44, delta: '+16 PP', sign: 'neg' } /* B6: stand hier als –16 PP, auf der Kennzahlenkarte als +16 PP — derselbe Sachverhalt mit entgegengesetztem Vorzeichen. Jetzt einheitlich +16 PP: LebensZeit haengt 16 Punkte staerker an Foerdermitteln als die Branche. Die Bewertung traegt die Farbe (sign neg), nicht das Vorzeichen. */,
+    { label: 'Eigenfinanzierung', lz: '62 %', ind: '70 %', lzPct: 62, indPct: 70, delta: '–8 PP', sign: 'neg' },
+    { label: 'Betreute Fälle', lz: '180', ind: '~150 (Ø)', lzPct: 60, indPct: 50, delta: '+20 %', sign: 'pos' },
+    { label: 'Mitarbeiter FTE', lz: '34 + 22 TZ', ind: 'Ø ~25 FTE', lzPct: 68, indPct: 50, delta: '+36 %', sign: 'pos' },
+    { label: 'Ehrenamtliche', lz: '45 Personen', ind: 'kaum Standard', lzPct: 90, indPct: 10, delta: 'USP', sign: 'pos' },
+    { label: 'Standortanzahl', lz: '5 Standorte', ind: 'Ø 1–2', lzPct: 100, indPct: 25, delta: '3× mehr', sign: 'pos' },
+    { label: 'Digitalisierung', lz: 'Gering', ind: 'Mittel', lzPct: 20, indPct: 50, delta: '–30 PP', sign: 'neg' },
+  ];
+  const container = document.getElementById('bench-rows');
+  container.innerHTML = metrics.map(m => `
+    <div class="bench-row">
+      <div class="bench-label">${m.label}</div>
+      <div class="bench-bars">
+        <div class="bench-bar-group">
+          <div class="bench-bar-row">
+            <div class="bench-bar-label">LebensZeit</div>
+            <div class="bench-bar-wrap">
+              <div class="bench-bar bar-lz" style="width:${m.lzPct}%;">
+                <span class="bench-val" style="color:#fff;">${m.lz}</span>
+              </div>
+            </div>
+          </div>
+          <div class="bench-bar-row">
+            <div class="bench-bar-label" style="color:var(--text-3);">Branche Ø</div>
+            <div class="bench-bar-wrap">
+              <div class="bench-bar bar-ind" style="width:${m.indPct}%;">
+                <span class="bench-val" style="color:var(--text-2);">${m.ind}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="delta ${m.sign}">${m.delta}</div>
+    </div>
+  `).join('');
+}
+
+renderThreatBars();
+renderMatrix();
+renderCompCards();
+renderStandortCards();
+renderBenchRows();
+
+const isDark = false; // Investorenumgebung ist dauerhaft hell
+const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
+const labelColor = isDark ? '#b4b2a9' : '#5f5e5a';
+
+new Chart(document.getElementById('intensityChart'), {
+  type: 'bar',
+  data: {
+    labels: locationsFull,
+    datasets: [{
+      label: 'Wettbewerber mit Präsenz',
+      data: intensity,
+      backgroundColor: intensity.map(v => v >= 7 ? 'rgba(176,58,46,.10)' : v >= 4 ? 'rgba(184,122,21,.12)' : 'rgba(110,148,36,.12)'),
+      borderColor: intensity.map(v => v >= 7 ? '#B03A2E' : v >= 4 ? '#B87A15' : '#6E9424'),
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, max: 11, grid: { color: gridColor }, ticks: { color: labelColor, stepSize: 2 } },
+      x: { grid: { display: false }, ticks: { color: labelColor } }
+    }
+  }
+});
+
+new Chart(document.getElementById('potentialChart'), {
+  type: 'bar',
+  data: {
+    labels: locationsFull,
+    datasets: [{
+      label: 'Marktpotenzial (Mio. €/J.)',
+      data: potentials,
+      backgroundColor: 'rgba(10,138,102,.10)',
+      borderColor: '#0A8A66',
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, max: 1.3, grid: { color: gridColor }, ticks: { color: labelColor, callback: v => v.toFixed(1) + ' Mio.' } },
+      x: { grid: { display: false }, ticks: { color: labelColor } }
+    }
+  }
+});
+
+new Chart(document.getElementById('typeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Freigemeinnützig', 'Privat', 'Graumarkt', 'Digital', 'Konzern'],
+    datasets: [{
+      data: [6, 1, 1, 1, 1],
+      backgroundColor: ['#185FA5', '#6E9424', '#B03A2E', '#6B5BD6', '#888780'],
+      borderWidth: 2,
+      borderColor: '#FFFFFF',
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    cutout: '65%',
+  }
+});
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Flächendeckung', 'Marken-\nbekanntheit', 'Digitali-\nsierung', 'Preis-\nattraktivität', 'Fachkräfte-\nbasis', 'Finanz-\nstärke'],
+    datasets: [
+      { label: 'LebensZeit', data: [8,6,3,6,5,5], borderColor: '#0A8A66', backgroundColor: 'rgba(15,110,86,0.12)', pointBackgroundColor: '#0A8A66', borderWidth: 2 },
+      { label: 'Caritas', data: [8,9,4,5,6,8], borderColor: '#185FA5', backgroundColor: 'rgba(24,95,165,0.07)', pointBackgroundColor: '#185FA5', borderWidth: 2 },
+      { label: 'DRK', data: [7,8,6,6,6,7], borderColor: '#B03A2E', backgroundColor: 'rgba(163,45,45,0.07)', pointBackgroundColor: '#B03A2E', borderWidth: 2 },
+      { label: 'Diakonie', data: [5,7,5,5,6,7], borderColor: '#B87A15', backgroundColor: 'rgba(186,117,23,0.07)', pointBackgroundColor: '#B87A15', borderWidth: 2 },
+      { label: 'Graumarkt', data: [10,4,3,9,5,4], borderColor: '#888780', backgroundColor: 'rgba(136,135,128,0.07)', pointBackgroundColor: '#888780', borderWidth: 2 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      r: {
+        beginAtZero: true, max: 10, min: 0,
+        ticks: { display: false },
+        grid: { color: gridColor },
+        pointLabels: { color: labelColor, font: { size: 10 } }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('demoChart'), {
+  type: 'bar',
+  data: {
+    labels: locationsFull,
+    datasets: [
+      { label: 'Anteil 65+ (%)', data: [23.5, 26.2, 23.0, 24.1, 23.8], backgroundColor: 'rgba(10,138,102,.10)', borderColor: '#0A8A66', borderWidth: 1, borderRadius: 4 },
+      { label: 'Anteil 80+ (%)', data: [7.1, 8.4, 6.9, 7.5, 7.2], backgroundColor: 'rgba(24,95,165,.10)', borderColor: '#185FA5', borderWidth: 1, borderRadius: 4 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, max: 32, grid: { color: gridColor }, ticks: { color: labelColor, callback: v => v + ' %' } },
+      x: { grid: { display: false }, ticks: { color: labelColor } }
+    }
+  }
+});
+
+new Chart(document.getElementById('growthChart'), {
+  type: 'bar',
+  data: {
+    labels: locationsFull,
+    datasets: [
+      { label: 'LZ-Marktanteil (Mio. €)', data: [0.42, 0.30, 0.09, 0.08, 0.08], backgroundColor: '#0A8A66', borderRadius: [4,4,0,0], borderSkipped: false },
+      { label: 'Verbleibendes Potenzial', data: [0.58, 0.40, 0.31, 0.42, 0.32], backgroundColor: isDark ? '#2a2a28' : '#F1EFE8', borderColor: isDark ? '#444441' : '#D3D1C7', borderWidth: 1, borderRadius: [4,4,0,0] },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: labelColor } },
+      y: { stacked: true, beginAtZero: true, max: 1.1, grid: { color: gridColor }, ticks: { color: labelColor, callback: v => v.toFixed(1) + ' Mio.' } }
+    }
+  }
+});
+</script>
+<script src="/lz-notes.js" defer></script>
+<script src="/lz-quellen.js" defer></script>
+</body>
+</html>

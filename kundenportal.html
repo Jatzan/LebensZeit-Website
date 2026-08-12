@@ -281,6 +281,7 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
       </a>
       <h1>Kundenportal</h1>
       <p>Ihre Termine, Unterlagen und der Draht zum Pflegeteam.</p>
+      <p style="font-size:.85rem;color:var(--text-3);margin-top:6px">Lieber als App? <a href="/kunden-app">Kunden-App öffnen</a></p>
     </div>
 
     <div class="feld">
@@ -291,7 +292,7 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
           <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
         </optgroup>
         <optgroup label="Prototyp">
-          <option value="app">App-Prototyp · alle Rollen</option>
+          <option value="app">App-Prototyp (SwiftUI-Portierung) · alle Rollen</option>
         </optgroup>
       </select>
     </div>
@@ -386,7 +387,7 @@ var BEREICHE = [
 /* ── Zugänge. Portalkonten führen ins Portal, App-Konten springen in den
       Prototyp — deshalb steht der Verweis nicht mehr in der Fußzeile. ── */
 var APP = {
-  app: { kennung: "demo@app-prototyp.beispiel",
+  app: { kennung: "demo@app-prototyp.beispiel", ziel: "/app",
          hinweis: "\u00d6ffnet den App-Prototyp \u2014 dieselben Inhalte auf einem Telefon, " +
                   "mit allen Rollen zur Auswahl.",
          knopf: "Zum App-Prototyp" }
@@ -964,7 +965,7 @@ waehlen();
 
 function anmelden(){
   var v = document.getElementById("rolle").value;
-  if (APP[v]) { location.href = "/app"; return; }
+  if (APP[v]) { location.href = APP[v].ziel; return; }
   konto = v;
   var k = KONTEN[konto];
   document.getElementById("personName").textContent = k.name;

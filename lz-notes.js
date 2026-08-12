@@ -293,6 +293,58 @@
       title: "Porträt bei Dr. Holthaus hinterlegt",
       text: "Rundes, transparentes SVG-Porträt (portrait-holthaus.svg) über das bestehende Kürzel MH gelegt. Kürzel bleibt als Fallback im Markup vor dem Bild — bei Ladefehler entfernt onerror nur das <img>, das Kürzel wird dann automatisch sichtbar, ohne eigene z-index-Regel. Erste Fassung hatte die Reihenfolge vertauscht: das Kürzel schien durch das Bild durch, weil es im Markup danach stand." },
 
+    { id: "n-done-kundenapp-gebaut", page: "kunden-app", selector: "main", status: "auszubauen", done: true,
+      title: "Kunden-App gebaut",
+      text: "Neue Datei kunden-app.html nach Funktionsbauplan_Kunden-App.md. app-demo.html blieb unberührt — Änderungen daran nur nach Freigabe. Übernommen von der Portierung: Gerätehülle 393×852, Dynamic Island, Statusleiste, Home-Indikator, untere Reiterleiste, Seitenwechsel per Animation. Nach unserer Festlegung neu: Fläche Creme-warm statt der kühlen #F6F8F3 (das war der 44-Grad-Farbtonsprung), Fließtext 1,19rem, Radius 24, Tippziel 56, Logo Waldgrün. Nur zwei Rollen, mit den Personas aus Sprint 1. Acht Bereiche über fünf Reiter, Aktionen im Bottom-Sheet statt inline." },
+
+    { id: "n-done-kundenapp-namensraum", page: "kunden-app", selector: "main", status: "offen", done: true,
+      title: "Kunden-App führt keinen eigenen Namensraum",
+      text: "Hildegard Stemmer und Markus Dörre aus dem Personas-Handout, Sandra Köhler und Jana Brinkmann aus den Tourdaten des Cockpits. Damit stimmen Kundenportal und Kunden-App überein; offen bleibt nur der SwiftUI-Prototyp mit Vossenkuhl, Koch und Meier." },
+
+    { id: "n-kundenapp-services-weggelassen", page: "kunden-app", selector: "main", status: "auszubauen",
+      title: "Services bewusst nicht in die App übernommen",
+      text: "Das Portal hat eine Sammelseite „Services\\\", weil die Aktionen dort über acht Reiter verstreut liegen. In der App sitzt jede Aktion direkt an ihrer Stelle — SEPA unter Rechnungen, Wechsel unter Mitgliedschaft, Beratung unter Eigenanteil. „Mehr\\\" ist nur der Zugang zu den drei Bereichen, die nicht in die Reiterleiste passen. Im Team prüfen, ob das so bleiben soll." },
+
+    { id: "n-kundenapp-iterationsstufen", page: "kunden-app", selector: "main", status: "offen",
+      title: "Iterationsstufen V1–V3 noch nicht ausgewiesen",
+      text: "Baustein 4 verlangt drei dokumentierte Iterationsstufen. Vorschlag: V1 = SwiftUI-Portierung (app-demo.html), V2 = Kunden-App mit korrekten Personas und Wochenübersicht (dieser Stand), V3 = nach dem Team-Feedback. Muss im Pitch belegbar sein, steht bisher nirgends." },
+
+    { id: "n-zwei-apps-nebeneinander", page: "kundenportal", selector: "main", status: "offen",
+      title: "Zwei Apps in der Portal-Anmeldung",
+      text: "Die Anmeldung bietet jetzt Kunden-App und SwiftUI-Prototyp nebeneinander an — für den Vergleich im Team gewollt, für den Pitch verwirrend. Vor dem 7. September auf eine festlegen." },
+
+    { id: "n-done-kunden-app", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Kunden-App als eigene Datei gebaut",
+      text: "kunden-app.html — eigenstaendig, app-demo.html unberuehrt. Optik aus der bestehenden Portierung uebernommen (SF-Pro-Stack, kuehler Gruenverlauf, Liquid Glass, Geraetehuelle 393x852, Hell/Dunkel). Inhalt nach Funktionsbauplan: nur die beiden pitchrelevanten Rollen, Personas Stemmer und Doerre statt Vossenkuhl/Koch, Pflegekraefte Koehler und Brinkmann wie im Cockpit. Fuenf Reiter — Heute, Woche, Nachbarn, Unterlagen, Mehr; Eigenanteil, Mitgliedschaft und Kontakt liegen unter Mehr, weil eine iOS-Tableiste bei fuenf Eintraegen endet. Services bewusst nicht uebernommen: eine Sammelseite ist ein Web-Muster. Kontraste hell 6,35 bis 15,72:1, dunkel 7,56 bis 19,70:1." },
+
+    { id: "n-kunden-app-doppelt", page: "allgemein", selector: "main", status: "offen",
+      title: "Vorgefundene Fassung von kunden-app.html gesichert",
+      text: "Beim Anlegen existierte bereits eine kunden-app.html (43 kB, funktionsfaehig, dieselben acht Ansichten und Personas), die nicht aus dem Upload-ZIP stammte und die ich keinem Arbeitsschritt zuordnen kann. Sie trug das Portal-Design (Jost/Cormorant auf Creme-warm) statt der App-Optik. Gesichert als kunden-app_portal-optik_gesichert.html ausserhalb des Repos. Vor dem Verwerfen mit Josh klaeren, ob daraus etwas uebernommen werden soll." },
+
+    { id: "n-kunden-app-iterationen", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "Iterationsstufen V1 bis V3 ausweisen",
+      text: "Baustein 4 verlangt drei Iterationsstufen. Mit app-demo.html (Ausgangsstand) und kunden-app.html (Personenabgleich plus fuenf Bereiche) liegen zwei Staende vor, sind aber nirgends als V1 und V2 bezeichnet. Vor dem Pitch benennen und den dritten Stand festlegen." },
+
+    { id: "n-done-dashboard-integriert", page: "investoren-wettbewerb", selector: "main", status: "auszubauen", done: true,
+      title: "Wettbewerbs-Dashboard in den Investorenbereich übernommen",
+      text: "Als eigene Seite investoren-wettbewerb.html, aus allen sechs Investorenseiten verlinkt. Migration nach demselben Muster wie der env-invest-Rollout: eigener :root-Block mit 47 Tokens entfernt, lz-tokens.css eingebunden, body auf env-invest, Warnbalken und Pillmenü über lz-notes.js, drei Quellen-Einträge. Der prefers-color-scheme-Block ist entfallen — laut Designgrundlage ist einzig das Cockpit dunkel. Schrift von system-ui auf Jost, Grundfläche von #ffffff auf die Creme der Umgebung, Schriftgröße von festen 14px auf --fs-public." },
+
+    { id: "n-done-dashboard-serienfarben", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Diagrammfarben auf die Serienpalette gezogen",
+      text: "Das Dashboard führte sieben eigene Datenreihenfarben plus Aufhellungen. Beim Abgleich zeigte sich, dass die Serienpalette in lz-tokens.css offenkundig aus diesem Dashboard abgeleitet wurde — --series-1 #185FA5 ist mit dem dortigen Blau identisch, die übrigen liegen dicht daneben. 40 harte Hexwerte in den Chart.js-Aufrufen und 22 Variablennamen umgestellt; die Aufhellungen leiten sich jetzt als rgba aus den Serienfarben ab statt als eigene Hexwerte." },
+
+    { id: "n-done-dashboard-b6-b7-b13", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Drei Widersprüche im Dashboard behoben",
+      text: "B6: Förderanteil stand auf der Kennzahlenkarte als +16 PP, in der Benchmarkzeile als −16 PP — derselbe Sachverhalt mit entgegengesetztem Vorzeichen, beides auf einem Bildschirm. Jetzt einheitlich +16 PP (38 % gegen 22 % Branche = 16 Punkte höhere Abhängigkeit); die Bewertung trägt die Farbe, nicht das Vorzeichen. B7: Eigenfinanzierung wurde einmal gegen das Ziel 70 % (−8 PP), einmal gegen die Branche 78 % (−16 PP) verglichen — Festlegung vom 08.08.2026: durchgehend gegen das eigene Ziel. B13: das Intensitäts-Array [8, 8.5, 4, 2.5, 4] war zweimal hart kodiert, jetzt eine Quelle." },
+
+    { id: "n-dashboard-potenzial-3mio", page: "investoren-wettbewerb", selector: "main", status: "offen",
+      title: "Adressierbares Potenzial 3,0 Mio. € bleibt strittig",
+      text: "Steht als Kennzahlenkarte im Dashboard, ist in den Geschäftsmodell-Basisdaten aber ausdrücklich als bekannte Schwachstelle markiert: passt rechnerisch nicht zu ~3.995 Pflegebedürftigen im Einzugsgebiet. Im Quellen-Eintrag vermerkt, inhaltlich nicht angefasst — die Zahl gehört in dieselbe Klärung wie die übrigen Marktvolumen-Angaben." },
+
+    { id: "n-dashboard-einwohner-geklaert", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Einwohnerzahlen: Marktanalyse und Dashboard sind die Quelle",
+      text: "Festlegung vom 08.08.2026. Erwitte 20.200 · Bad Sassendorf 13.100 · Anröchte 8.400 · Rüthen 10.700 · Lippetal 8.500. Beim Nachziehen im Webbestand zeigte sich, dass nichts zu ändern war: einzugsgebiet.html und unternehmensdaten.html nennen rund 60.900 Einwohner, was genau der Summe dieser fünf Werte entspricht. Die abweichenden Zahlen stehen nur im Investorpitch-PDF, also außerhalb des Repos." },
+
     /* ----- Offen (aus dem Technik-/Review-Check) ----- */
     { id: "n-asset-bibliothek", page: "allgemein", selector: "main", status: "auszubauen",
       title: "Asset-Bibliothek-Seite",

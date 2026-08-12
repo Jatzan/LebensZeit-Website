@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="de" data-scheme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F6F8F3">
+<title>LebensZeit — Kunden-App</title>
+<style>
+/* ==========================================================================
+   LebensZeit · Kunden-App · JO · 11.08.2026
+   Eigenstaendige Datei. app-demo.html bleibt unberuehrt.
+   Optik: Tokens, Geraetehuelle, Glas und Tableiste aus der bestehenden
+   Portierung uebernommen (Theme.swift-Werte) — SF Pro, kuehler Gruenverlauf,
+   Liquid Glass, Hell/Dunkel. Bewusst NICHT das Portal-Design (Jost auf Creme).
+   Inhalt: nach Funktionsbauplan Kunden-App — nur Senior:in und Angehoerige,
+   Personas Stemmer und Doerre, Bereiche aus dem Kundenportal.
+   „Services" nicht uebernommen: eine Sammelseite ist ein Web-Muster; in der App
+   sitzen die Wege in ihren Reitern, „Mehr" ist die iOS-Ueberlaufstelle.
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --lz:#4A6741; --lz-mint:#A8C9A0; --lz-salbei:#8AAC85; --lz-wald:#5A6E52;
+  --radius-card:18px;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue","Segoe UI Variable","Segoe UI",Roboto,sans-serif;
+  --spring:cubic-bezier(0.22,1.15,0.36,1);
+  --ease:cubic-bezier(0.4,0.0,0.2,1);
+}
+[data-scheme="light"]{
+  --lz-accent:#4A6741; --text:#14241A;
+  --text-secondary:rgba(20,36,26,.72); --text-tertiary:rgba(20,36,26,.55); --text-faint:rgba(20,36,26,.40);
+  --hairline:rgba(20,36,26,.10);
+  --status-urgent:#B3261E; --status-warn:#8C5E14; --status-ok:#15803D; --status-info:#185FA5;
+  --tint-card:rgba(74,103,65,.10); --tint-warn:rgba(140,94,20,.12);
+  --bg-1:#F6F8F3; --bg-2:#EAF0E6; --bg-3:#F2F6EF; --bg-4:#E6EEE3;
+  --glow-1:rgba(74,103,65,.10); --glow-2:rgba(138,172,133,.12);
+  --glass-bg:rgba(255,255,255,.52); --glass-border:rgba(255,255,255,.85); --glass-spec:rgba(255,255,255,.75);
+  --glass-shadow:0 1px 2px rgba(20,36,26,.045),0 10px 28px rgba(20,36,26,.075);
+}
+[data-scheme="dark"]{
+  --lz-accent:#A8C9A0; --text:#FFFFFF;
+  --text-secondary:rgba(255,255,255,.72); --text-tertiary:rgba(255,255,255,.55); --text-faint:rgba(255,255,255,.40);
+  --hairline:rgba(255,255,255,.12);
+  --status-urgent:#F09595; --status-warn:#E2B56A; --status-ok:#7FC389; --status-info:#9CC2CE;
+  --tint-card:rgba(74,103,65,.16); --tint-warn:rgba(226,181,106,.14);
+  --bg-1:#050D05; --bg-2:#0B1A0B; --bg-3:#122A12; --bg-4:#091809;
+  --glow-1:rgba(74,103,65,.18); --glow-2:rgba(138,172,133,.08);
+  --glass-bg:rgba(255,255,255,.075); --glass-border:rgba(255,255,255,.16); --glass-spec:rgba(255,255,255,.22);
+  --glass-shadow:0 1px 2px rgba(0,0,0,.30),0 12px 30px rgba(0,0,0,.38);
+}
+html,body{margin:0;padding:0;height:100%;font-family:var(--font);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overscroll-behavior:none}
+body{background:#0d1410;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+button{font:inherit;border:0;background:none;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+/* [hidden] verliert sonst gegen display:flex aus den Klassen — der
+   Zurueck-Pfeil blieb dadurch auf den Reiter-Seiten sichtbar. */
+[hidden]{display:none!important}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(900px 700px at 50% 0%,#1b2a1d 0%,transparent 70%),
+             linear-gradient(160deg,#0e1611 0%,#0a100c 50%,#10190f 100%)}
+#device{position:relative;width:393px;height:852px;flex:none;border-radius:56px;padding:12px;
+  background:linear-gradient(150deg,#6f7a70 0%,#2b322c 22%,#1a1f1b 50%,#39403a 78%,#767f76 100%);
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.10),0 40px 90px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.45)}
+#screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:var(--bg-1);
+  isolation:isolate;--safe-top:59px;--safe-bottom:34px;display:flex;flex-direction:column}
+#island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:124px;height:35px;
+  border-radius:20px;background:#000;z-index:900;pointer-events:none}
+#statusbar{position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;
+  justify-content:space-between;padding:16px 30px 0;font-size:15px;font-weight:600;color:var(--text);
+  z-index:890;pointer-events:none;font-variant-numeric:tabular-nums}
+#statusbar .sb-right{display:flex;align-items:center;gap:6px}
+#homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:140px;height:5px;
+  border-radius:3px;background:var(--text);opacity:.32;z-index:895;pointer-events:none}
+.lz-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(165deg,var(--bg-1) 0%,var(--bg-2) 38%,var(--bg-3) 68%,var(--bg-4) 100%)}
+.lz-bg::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(520px 380px at 12% 8%,var(--glow-1),transparent 70%),
+             radial-gradient(460px 340px at 92% 82%,var(--glow-2),transparent 72%)}
+body.bare #stage{background:var(--bg-1)}
+body.bare #device{width:100%;height:100%;border-radius:0;padding:0;background:none;box-shadow:none}
+body.bare #screen{border-radius:0;--safe-top:env(safe-area-inset-top,14px);--safe-bottom:env(safe-area-inset-bottom,14px)}
+body.bare #island,body.bare #statusbar,body.bare #homebar{display:none}
+
+.glass{position:relative;border-radius:var(--radius-card);background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:inset 0 0 0 .5px var(--glass-border),inset 0 1px 0 0 var(--glass-spec),var(--glass-shadow);
+  isolation:isolate}
+.glass[data-tint]::before{content:'';position:absolute;inset:0;border-radius:inherit;
+  background:var(--tint-card);pointer-events:none;z-index:-1}
+.navbar{position:relative;z-index:5;flex:none;display:flex;align-items:center;gap:8px;
+  padding:calc(var(--safe-top) + 2px) 14px 6px;min-height:46px}
+.nav-title{position:absolute;left:50%;top:calc(var(--safe-top) + 12px);transform:translateX(-50%);
+  font-size:17px;font-weight:600;color:var(--text);white-space:nowrap}
+.navbar-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:50%;color:var(--lz-accent);transition:transform .18s var(--spring)}
+.navbar-btn:active{transform:scale(.9);background:var(--tint-card)}
+.scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;
+  position:relative;z-index:1;padding-bottom:120px}
+.scroll::-webkit-scrollbar{display:none}
+.pad{padding:0 20px}
+.tabbar{position:absolute;left:12px;right:12px;bottom:calc(var(--safe-bottom) - 22px);z-index:20;
+  display:flex;padding:6px 8px 4px;border-radius:26px;background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);
+  box-shadow:inset 0 0 0 .5px var(--glass-border),inset 0 1px 0 var(--glass-spec),var(--glass-shadow)}
+.tabbar button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;padding:5px 2px 4px;border-radius:20px;color:var(--text-faint);
+  transition:color .2s var(--ease),transform .2s var(--spring)}
+.tabbar button.active{color:var(--lz-accent)}
+.tabbar button:active{transform:scale(.9)}
+.tab-label{font-size:10px;font-weight:500;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.screen-title{font-size:32px;font-weight:700;letter-spacing:-.5px;color:var(--text);margin:2px 0}
+.screen-sub{font-size:15px;color:var(--text-secondary);margin-bottom:18px}
+.section-header{font-size:13px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
+  color:var(--text-tertiary);margin:24px 0 10px}
+.card{padding:18px;border-radius:var(--radius-card);margin-bottom:12px}
+.card-title{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px}
+.card-sub{font-size:14px;color:var(--text-secondary);line-height:1.45}
+.besuch-eyebrow{font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--lz-accent)}
+.besuch-text{font-size:22px;font-weight:600;color:var(--text);margin:8px 0 2px;line-height:1.25}
+.besuch-eta{font-size:17px;color:var(--text);font-variant-numeric:tabular-nums}
+.pflege-row{display:flex;align-items:center;gap:12px;margin-top:16px}
+.avatar{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;
+  justify-content:center;background:var(--lz);color:#fff;font-size:15px;font-weight:600}
+[data-scheme="dark"] .avatar{background:var(--lz-wald)}
+.pflege-name{font-size:16px;font-weight:600;color:var(--text)}
+.pflege-sub{font-size:13px;color:var(--text-secondary)}
+.plan-row{display:flex;gap:14px;padding:14px 0;border-bottom:.5px solid var(--hairline)}
+.plan-row:last-child{border-bottom:0}
+.plan-rail{width:10px;flex:none;display:flex;flex-direction:column;align-items:center;padding-top:5px}
+.plan-dot{width:9px;height:9px;border-radius:50%;background:var(--text-faint);flex:none}
+.plan-dot.ok{background:var(--status-ok)} .plan-dot.now{background:var(--status-warn)}
+.plan-dot.offen{background:var(--status-info)}
+.plan-line{flex:1;width:1.5px;background:var(--hairline);margin-top:4px;min-height:12px}
+.plan-body{flex:1;min-width:0}
+.plan-tag{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-tertiary)}
+.plan-zeit{font-size:17px;color:var(--text);font-variant-numeric:tabular-nums;margin-top:1px}
+.plan-text{font-size:14px;color:var(--text-secondary);margin-top:1px}
+.plan-status{font-size:13px;font-weight:600;margin-top:5px;display:inline-flex;align-items:center;gap:5px}
+.st-ok{color:var(--status-ok)} .st-now{color:var(--status-warn)}
+.st-plan{color:var(--text-tertiary)} .st-offen{color:var(--status-info)}
+.brett-kat{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--lz-accent)}
+.brett-titel{font-size:18px;font-weight:600;color:var(--text);margin:6px 0 4px}
+.brett-text{font-size:14px;color:var(--text-secondary);line-height:1.45}
+.brett-meta{font-size:14px;color:var(--text);margin-top:10px;font-variant-numeric:tabular-nums}
+.brett-ort{font-size:13px;color:var(--text-tertiary)}
+.gepinnt{box-shadow:inset 0 0 0 .5px var(--glass-border),inset 3px 0 0 0 var(--status-warn),var(--glass-shadow)}
+.btn-bordered{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;
+  padding:12px 18px;border-radius:14px;color:var(--lz-accent);font-size:16px;font-weight:500;
+  box-shadow:inset 0 0 0 1.5px var(--lz-accent);text-align:center;transition:transform .18s var(--spring)}
+.btn-bordered:active{transform:scale(.97);background:var(--tint-card)}
+.btn-bordered.ernst{color:var(--status-urgent);box-shadow:inset 0 0 0 1.5px var(--status-urgent)}
+.btn-stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.frage-titel{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+.frage-text{font-size:14px;color:var(--text-secondary);line-height:1.45}
+.danke{display:flex;align-items:flex-start;gap:9px;font-size:15px;color:var(--status-ok);
+  font-weight:500;line-height:1.4;padding:4px 0}
+.warn{border-radius:14px;padding:14px 16px;background:var(--tint-warn);margin-top:12px}
+.warn-titel{font-size:14px;font-weight:600;color:var(--status-warn);margin-bottom:6px}
+.warn ul{margin:0;padding-left:18px} .warn li{font-size:14px;color:var(--text-secondary);line-height:1.5}
+.list-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:.5px solid var(--hairline)}
+.list-row:last-child{border-bottom:0}
+.list-title{font-size:16px;color:var(--text)}
+.list-meta{font-size:13px;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+.list-right{margin-left:auto;text-align:right;flex:none}
+.betrag{font-size:17px;color:var(--text);font-variant-numeric:tabular-nums;font-weight:500}
+.chip{display:inline-flex;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;
+  letter-spacing:.4px;text-transform:uppercase;color:var(--text-secondary);box-shadow:inset 0 0 0 1px var(--hairline)}
+.wert-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;
+  border-bottom:.5px solid var(--hairline);font-variant-numeric:tabular-nums}
+.wert-row.summe{border-bottom:0;border-top:1.5px solid var(--lz-accent);margin-top:4px;padding-top:14px}
+.wert-label{font-size:15px;color:var(--text-secondary)}
+.wert-row.summe .wert-label,.wert-row.summe .wert-zahl{color:var(--text);font-weight:600;font-size:17px}
+.wert-zahl{font-size:15px;color:var(--text)}
+.balken{height:8px;border-radius:5px;background:var(--hairline);overflow:hidden;margin:14px 0 8px}
+.balken i{display:block;height:100%;background:var(--lz-accent)}
+.stufe{padding:18px;border-radius:var(--radius-card);margin-bottom:12px}
+.stufe.aktuell{box-shadow:inset 0 0 0 2px var(--lz-accent),var(--glass-shadow)}
+.stufe-kopf{display:flex;align-items:baseline;gap:10px}
+.stufe-name{font-size:20px;font-weight:700;color:var(--text)}
+.stufe-preis{margin-left:auto;font-size:19px;font-weight:600;color:var(--lz-accent);font-variant-numeric:tabular-nums}
+.stufe ul{list-style:none;padding:0;margin:12px 0 0}
+.stufe li{font-size:14px;color:var(--text-secondary);padding-left:22px;position:relative;margin-bottom:7px;line-height:1.4}
+.stufe li::before{content:'\2713';position:absolute;left:0;color:var(--lz-accent);font-weight:700}
+.jetzt{display:inline-flex;padding:4px 12px;border-radius:20px;background:var(--tint-card);
+  color:var(--lz-accent);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:14px}
+.kontakt-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:.5px solid var(--hairline)}
+.kontakt-row:last-child{border-bottom:0}
+.kontakt-name{font-size:16px;font-weight:500;color:var(--text)}
+.kontakt-rolle{font-size:13px;color:var(--text-tertiary)}
+.tel-btn{margin-left:auto;flex:none;display:flex;align-items:center;justify-content:center;
+  width:42px;height:42px;border-radius:50%;background:var(--tint-card);color:var(--lz-accent)}
+.zeit-row{display:flex;gap:14px;padding:11px 0;border-bottom:.5px solid var(--hairline);font-size:15px}
+.zeit-row:last-child{border-bottom:0}
+.zeit-row b{min-width:8.5em;font-weight:600;color:var(--text)}
+.zeit-row span{color:var(--text-secondary);font-variant-numeric:tabular-nums}
+.mehr-row{display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;
+  border-radius:var(--radius-card);margin-bottom:10px;text-align:left;transition:transform .18s var(--spring)}
+.mehr-row:active{transform:scale(.98)}
+.mehr-row svg{color:var(--lz-accent);flex:none}
+.mehr-row .t{font-size:16px;font-weight:500;color:var(--text)}
+.mehr-row .s{font-size:13px;color:var(--text-tertiary)}
+.mehr-row .pfeil{margin-left:auto;color:var(--text-faint);flex:none}
+#login{position:absolute;inset:0;z-index:800;display:flex;flex-direction:column;
+  padding:calc(var(--safe-top) + 16px) 26px calc(var(--safe-bottom) + 16px);overflow-y:auto;scrollbar-width:none}
+#login::-webkit-scrollbar{display:none}
+#login.weg{display:none}
+.login-brand{text-align:center;margin:auto 0 0}
+.login-brand h1{font-size:29px;font-weight:700;color:var(--text);margin:14px 0 4px;letter-spacing:-.4px}
+.login-claim{font-size:14px;color:var(--text-secondary)}
+.login-rule{width:44px;height:1.5px;background:var(--hairline);margin:20px auto}
+.login-question{font-size:15px;font-weight:600;color:var(--text-tertiary);text-align:center;margin-bottom:16px}
+.role-card{width:100%;padding:18px;border-radius:var(--radius-card);margin-bottom:12px;text-align:left;
+  display:block;transition:transform .2s var(--spring)}
+.role-card:active{transform:scale(.97)}
+.role-label{font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--lz-accent);display:block}
+.role-name{font-size:19px;font-weight:600;color:var(--text);margin:5px 0 2px;display:block}
+.role-sub{font-size:13px;color:var(--text-tertiary);display:block}
+.login-foot{margin:auto 0 0;text-align:center;font-size:11px;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--text-faint);padding-top:20px}
+.fiktiv{margin-top:14px;padding:11px 14px;border-radius:12px;background:var(--tint-warn);
+  font-size:12px;color:var(--status-warn);text-align:center;line-height:1.45;font-weight:500}
+.appearance{position:absolute;top:calc(var(--safe-top) + 6px);right:20px;z-index:810;width:38px;height:38px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--lz-accent)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="device"><div id="screen">
+  <div class="lz-bg"></div>
+  <div id="island"></div>
+  <div id="statusbar"><span id="uhr">9:41</span><span class="sb-right">
+    <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor" aria-hidden="true"><rect x="0" y="7.5" width="3" height="3.5" rx=".6"/><rect x="4.5" y="5.5" width="3" height="5.5" rx=".6"/><rect x="9" y="3" width="3" height="8" rx=".6"/><rect x="13.5" y="0" width="3" height="11" rx=".6"/></svg>
+    <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="21" height="11" rx="3.2" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.4 2.4 0 0 0 0-4z" fill="currentColor" fill-opacity=".4"/></svg>
+  </span></div>
+  <button class="appearance" id="modus" aria-label="Hell oder dunkel umschalten">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor" stroke="none"/></svg>
+  </button>
+  <div id="login">
+    <div class="login-brand">
+      <svg width="60" height="60" viewBox="0 0 200 200" style="color:var(--lz-accent)" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
+        <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+        <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+        <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
+      </svg>
+      <h1>LebensZeit</h1>
+      <p class="login-claim">Pflege &middot; Gesundheit &middot; Gemeinschaft</p>
+      <div class="login-rule"></div>
+    </div>
+    <p class="login-question">Wer sind Sie?</p>
+    <div id="rollen"></div>
+    <p class="fiktiv">Fiktives Unternehmen &mdash; nur zu Schulungszwecken.<br>Alle Personen und Daten sind erfunden.</p>
+    <p class="login-foot">nah &middot; vernetzt &middot; nachhaltig</p>
+  </div>
+  <div class="navbar" id="navbar" hidden>
+    <button class="navbar-btn" id="zurueck" hidden aria-label="Zur&uuml;ck">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <span class="nav-title" id="navtitel"></span>
+    <span style="flex:1"></span>
+    <button class="navbar-btn" id="abmelden" aria-label="Abmelden">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 12H4M8 8l-4 4 4 4M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/></svg>
+    </button>
+  </div>
+  <div class="scroll" id="inhalt" hidden></div>
+  <div class="tabbar" id="tabbar" hidden></div>
+  <div id="homebar"></div>
+</div></div></div>
+<script>
+var IC = {
+  heute:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  woche:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M7 14h4M7 18h9"/>',
+  brett:'<rect x="3" y="4" width="18" height="15" rx="2.5"/><path d="M12 19v2M8 8.5h8M8 12.5h5"/>',
+  unterlagen:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+  mehr:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
+  eigenanteil:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9.5 8h5M9.5 12h5"/>',
+  mitglied:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>',
+  kontakt:'<path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l4-4h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/>',
+  tel:'<path d="M6.6 3h3l1.5 4-2 1.4a12 12 0 0 0 5.5 5.5l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3z"/>',
+  pfeil:'<path d="M9 5l7 7-7 7"/>'
+};
+function svg(k,s){ s=s||24;
+  return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
+    'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'; }
+
+var KONTEN = {
+  stemmer: {
+    label:"Pflegekundin", name:"Hildegard Stemmer", initialen:"HS", anrede:"Guten Tag, Frau Stemmer",
+    ort:"R\u00fcthen-Meiste", pg:"Pflegegrad 3", cap:1432, abgerufen:587, stufe:"Premium",
+    kraft:"Sandra K\u00f6hler", kraftKurz:"Sandra", kraftIni:"SK", kraftRolle:"Pflegefachkraft \u00b7 Tour R\u00fcthen",
+    satz:"Sandra ist auf dem Weg zu Ihnen.", eta:"Gegen 15:10 Uhr",
+    woche:[["Montag","08:30","Grundpflege","ok"],["Dienstag","08:30","Grundpflege","ok"],
+           ["Mittwoch","08:30","Grund- und Behandlungspflege","ok"],
+           ["Donnerstag","15:10","Behandlungspflege","now"],["Freitag","08:30","Grundpflege","plan"],
+           ["Samstag","10:00","Begleitung zum Einkauf \u00b7 Ehrenamt","plan"],
+           ["Sonntag","08:30","Grundpflege","plan"]],
+    verlauf:[["Heute, 9:12","Medikamente gegeben","ok"],["Heute, 8:45","Blutdruck 135/82 \u2014 im Rahmen","ok"],
+             ["Gestern, 18:30","Abendbesuch, alles in Ordnung","ok"],
+             ["Montag, 14:20","Hinweis: Trinkmenge unter dem Ziel","offen"]],
+    frage:"Am Samstag begleitet Sie jemand vom Ehrenamt zum Einkauf. Passt 10 Uhr?",
+    antworten:["Ja, 10 Uhr passt","Lieber sp\u00e4ter am Tag","Diese Woche nicht"],
+    dokumente:[["Pflegevertrag","Stand 03/2024"],["Leistungsnachweis Juli 2026","Stand 01.08.2026"],
+               ["Pflegegrad-Bescheid","Stand 11/2023"]],
+    rechnungen:[["Juli 2026","142,80 \u20ac",true],["Juni 2026","142,80 \u20ac",true],["Mai 2026","138,20 \u20ac",true]],
+    kontakte:[["Sandra K\u00f6hler","SK","Bezugspflegekraft \u00b7 Tour R\u00fcthen"],
+              ["Zentrale Erwitte","LZ","B\u00fcro und Abrechnung"],
+              ["Rufbereitschaft","RB","au\u00dferhalb der B\u00fcrozeiten"],
+              ["Praxis Dr. K\u00fchn","DK","Hausarzt"],["Apotheke R\u00fcthen","AP","Lieferdienst nach Meiste"]]
+  },
+  doerre: {
+    label:"Angeh\u00f6riger", name:"Markus D\u00f6rre", initialen:"MD", anrede:"Guten Tag, Herr D\u00f6rre",
+    ort:"f\u00fcr Frau D\u00f6rre \u00b7 Lippetal", pg:"Pflegegrad 2", cap:761, abgerufen:236, stufe:"Aktiv",
+    kraft:"Jana Brinkmann", kraftKurz:"Jana", kraftIni:"JB", kraftRolle:"Pflegefachkraft \u00b7 Tour Lippetal",
+    satz:"Jana war heute bei Ihrer Mutter.", eta:"Um 09:20 Uhr, alles in Ordnung",
+    woche:[["Montag","09:20","Grundpflege","ok"],["Mittwoch","09:20","Grundpflege","ok"],
+           ["Donnerstag","09:20","Grundpflege","ok"],["Freitag","14:00","Beratungsbesuch nach \u00a737.3","plan"],
+           ["Samstag","\u2014","Hauswirtschaft \u2014 noch nicht vergeben","offen"]],
+    verlauf:[["Heute, 9:20","Besuch abgeschlossen","ok"],["Gestern, 16:00","Rezept eingel\u00f6st","ok"],
+             ["Dienstag, 11:00","Hausarzttermin best\u00e4tigt","ok"]],
+    frage:"F\u00fcr Samstag ist die Hauswirtschaft noch nicht vergeben. Sollen wir sie einplanen?",
+    antworten:["Ja, bitte einplanen","Diesmal \u00fcbernehme ich das","Bitte rufen Sie mich an"],
+    dokumente:[["Vollmacht Angeh\u00f6rige","Stand 05/2025"],["Pflegevertrag","Stand 09/2023"],
+               ["Leistungsnachweis Juli 2026","Stand 01.08.2026"]],
+    rechnungen:[["Juli 2026","96,40 \u20ac",true],["Juni 2026","96,40 \u20ac",false]],
+    kontakte:[["Jana Brinkmann","JB","Bezugspflegekraft \u00b7 Tour Lippetal"],
+              ["Zentrale Erwitte","LZ","B\u00fcro und Abrechnung"],
+              ["Rufbereitschaft","RB","au\u00dferhalb der B\u00fcrozeiten"],
+              ["Praxis Dr. K\u00fchn","DK","Hausarzt der Mutter"],["Apotheke Lippetal","AP","Botendienst"]]
+  }
+};
+var BRETT = [
+  ["Veranstaltung","Tag der offenen T\u00fcr",
+   "Pflegeberatung, Hausf\u00fchrung, Kaffee und Kuchen. Lernen Sie das Team kennen, das Sie betreut.",
+   "Samstag, 12.09. \u00b7 14 bis 17 Uhr","Standort Erwitte","Platz reservieren",true,"beide"],
+  ["Kurs","Pflegekurs f\u00fcr Angeh\u00f6rige",
+   "Vier Abende: r\u00fcckenschonendes Heben, Medikamentengabe, Umgang mit Demenz. F\u00fcr Angeh\u00f6rige kostenfrei.",
+   "ab Dienstag, 05.09. \u00b7 18:30 Uhr","Begegnungsort Bad Sassendorf","Anmelden",false,"angehoerige"],
+  ["Kurs","Bewegungstreff im Sitzen",
+   "Sanfte Gymnastik \u2014 auch mit Rollator oder im Rollstuhl m\u00f6glich.",
+   "jeden Mittwoch \u00b7 10:30 Uhr","Begegnungsort R\u00fcthen","Vormerken",false,"klient"],
+  ["Angebot","Neu: Fahrdienst zu Arztterminen",
+   "Wir holen ab, begleiten in die Praxis und bringen zur\u00fcck \u2014 auch nach R\u00fcthen-Meiste und Lippetal.",
+   "ab sofort","alle f\u00fcnf Standorte","Mehr erfahren",false,"info"],
+  ["Nachbarschaft","Angeh\u00f6rigen-Caf\u00e9",
+   "Offener Treff f\u00fcr pflegende Angeh\u00f6rige. Ohne Anmeldung, ohne Programm.",
+   "jeden ersten Donnerstag \u00b7 16 Uhr","Begegnungsort Anr\u00f6chte","Vormerken",false,"angehoerige"]
+];
+var STUFEN = [
+  ["Basis",48,["Newsletter","Zugang zu den Begegnungsorten","kostenlose Erstberatung"]],
+  ["Aktiv",120,["alles aus Basis","priorisierte Beratung","Angeh\u00f6rigen-App","10 % auf Entlastungsleistungen","freie Kurse"]],
+  ["Premium",360,["alles aus Aktiv","garantierte Versorgungskapazit\u00e4t","fester Ansprechpartner","Hausnotruf inklusive","volle App"]]
+];
+var STATUS = { ok:["\u2713","erledigt","st-ok"], now:["\u2192","unterwegs","st-now"],
+               plan:["\u00b7","geplant","st-plan"], offen:["?","offen","st-offen"] };
+var konto=null, reiter="heute", unterseite=null;
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function eur(n){ return n.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" \u20ac"; }
+function heuteText(){
+  var w=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"], d=new Date();
+  return w[d.getDay()]+", "+d.toLocaleDateString("de-DE",{day:"2-digit",month:"long"});
+}
+function statusHTML(k){ var s=STATUS[k]||STATUS.plan;
+  return '<span class="plan-status '+s[2]+'"><span aria-hidden="true">'+s[0]+'</span>'+s[1]+'</span>'; }
+function zeigeSchritt(host, schritt){
+  if (!host) return;
+  if (schritt.tun) { schritt.tun(); return; }
+  var h='';
+  if (schritt.titel) h += '<p class="frage-titel">'+esc(schritt.titel)+'</p>';
+  if (schritt.text)  h += '<p class="danke"><span aria-hidden="true">\u2713</span><span>'+esc(schritt.text)+'</span></p>';
+  if (schritt.warnung) h += '<div class="warn"><p class="warn-titel">'+esc(schritt.warnung.titel)+'</p><ul>'+
+      schritt.warnung.punkte.map(function(p){ return '<li>'+esc(p)+'</li>'; }).join('')+'</ul></div>';
+  if (schritt.optionen){
+    h += '<div class="btn-stack">'+schritt.optionen.map(function(o,i){
+      return '<button class="btn-bordered'+(o.ernst?' ernst':'')+'" data-o="'+i+'">'+esc(o.label)+'</button>';
+    }).join('')+'</div>';
+    host.innerHTML = h;
+    host.addEventListener('click', function(e){
+      var b=e.target.closest('[data-o]'); if(!b) return;
+      zeigeSchritt(host, schritt.optionen[+b.dataset.o].dann);
+    }, {once:true});
+    return;
+  }
+  host.innerHTML = h;
+}
+function fuerWen(){ return konto==="stemmer"
+  ? ["F\u00fcr mich","F\u00fcr meine Angeh\u00f6rigen","F\u00fcr uns beide"]
+  : ["F\u00fcr meine Mutter","F\u00fcr mich","F\u00fcr uns beide"]; }
+</script>
+<script>
+function vHeute(k){
+  return '<div class="pad">'+
+    '<p class="screen-title">'+esc(k.anrede)+'</p><p class="screen-sub">'+heuteText()+'</p>'+
+    '<div class="glass card" data-tint="card"><p class="besuch-eyebrow">Als N\u00e4chstes</p>'+
+      '<p class="besuch-text">'+esc(k.satz)+'</p><p class="besuch-eta">'+esc(k.eta)+'</p>'+
+      '<div class="pflege-row"><span class="avatar">'+esc(k.kraftIni)+'</span>'+
+      '<span><span class="pflege-name">'+esc(k.kraft)+'</span><br>'+
+      '<span class="pflege-sub">'+esc(k.kraftRolle)+'</span></span></div></div>'+
+    '<div class="glass card" id="fragefeld"><p class="frage-titel">Eine kurze Frage</p>'+
+      '<p class="frage-text">'+esc(k.frage)+'</p><div class="btn-stack">'+
+      k.antworten.map(function(a){ return '<button class="btn-bordered" data-quittung="1">'+esc(a)+'</button>'; }).join('')+
+      '</div></div>'+
+    '<p class="section-header">Was zuletzt geschah</p><div class="glass card">'+
+      k.verlauf.map(function(v,i,a){
+        return '<div class="plan-row"><div class="plan-rail"><span class="plan-dot '+v[2]+'"></span>'+
+          (i<a.length-1?'<span class="plan-line"></span>':'')+'</div><div class="plan-body">'+
+          '<p class="plan-zeit" style="font-size:15px">'+esc(v[0])+'</p>'+
+          '<p class="plan-text">'+esc(v[1])+'</p></div></div>'; }).join('')+'</div></div>';
+}
+function vWoche(k){
+  return '<div class="pad"><p class="screen-title">Meine Woche</p>'+
+    '<p class="screen-sub">Ein Eintrag je Termin \u2014 Status als Wort.</p><div class="glass card">'+
+    k.woche.map(function(z,i,a){
+      return '<div class="plan-row"><div class="plan-rail"><span class="plan-dot '+z[3]+'"></span>'+
+        (i<a.length-1?'<span class="plan-line"></span>':'')+'</div><div class="plan-body">'+
+        '<p class="plan-tag">'+esc(z[0])+'</p><p class="plan-zeit">'+esc(z[1])+'</p>'+
+        '<p class="plan-text">'+esc(z[2])+'</p>'+statusHTML(z[3])+'</div></div>'; }).join('')+'</div>'+
+    '<div class="glass card" id="terminfeld"><p class="frage-titel">Termin anfragen</p>'+
+      '<p class="frage-text">Sie brauchen einen zus\u00e4tzlichen Besuch oder wollen einen verschieben? '+
+      'Wir melden uns am selben Werktag.</p><div class="btn-stack">'+
+      '<button class="btn-bordered" data-quittung="1">Zus\u00e4tzlichen Besuch anfragen</button>'+
+      '<button class="btn-bordered" data-quittung="1">Einen Termin verschieben</button>'+
+      '<button class="btn-bordered" data-quittung="1">Besuch f\u00fcr eine Woche aussetzen</button>'+
+      '</div></div></div>';
+}
+function vBrett(){
+  return '<div class="pad"><p class="screen-title">Nachbarschaft</p>'+
+    '<p class="screen-sub">Was in Ihrer N\u00e4he stattfindet.</p>'+
+    BRETT.map(function(b,i){
+      return '<div class="glass card'+(b[6]?' gepinnt':'')+'"><p class="brett-kat">'+esc(b[0])+'</p>'+
+        '<p class="brett-titel">'+esc(b[1])+'</p><p class="brett-text">'+esc(b[2])+'</p>'+
+        '<p class="brett-meta">'+esc(b[3])+'</p><p class="brett-ort">'+esc(b[4])+'</p>'+
+        '<div class="brett-feld" data-feld="'+i+'"><div class="btn-stack">'+
+        '<button class="btn-bordered" data-brett="'+i+'">'+esc(b[5])+'</button></div></div></div>';
+    }).join('')+'</div>';
+}
+function brettSchritt(k,i){
+  var b=BRETT[i], ziel=b[7], istKlient=(konto==="stemmer");
+  if (ziel==="info") return { text:"Wir schicken Ihnen die Unterlagen zum Fahrdienst per E-Mail." };
+  if (ziel==="beide") return { titel:"F\u00fcr wen soll die Anmeldung gelten?",
+    optionen: fuerWen().map(function(w){
+      return { label:w, dann:{ text:w+" vorgemerkt. Die Anmeldebest\u00e4tigung kommt per E-Mail." } }; }) };
+  var wen = (ziel==="klient") ? (istKlient?"F\u00fcr Sie":"F\u00fcr Ihre Mutter")
+                              : (istKlient?"F\u00fcr Ihre Angeh\u00f6rigen":"F\u00fcr Sie");
+  return { text: wen+" vorgemerkt \u2014 dieses Angebot richtet sich nur an "+
+    (ziel==="klient"?"Pflegekundinnen und Pflegekunden":"Angeh\u00f6rige")+
+    ". Die Anmeldebest\u00e4tigung kommt per E-Mail." };
+}
+function vUnterlagen(k){
+  return '<div class="pad"><p class="screen-title">Unterlagen</p>'+
+    '<p class="screen-sub">Dokumente und Rechnungen.</p>'+
+    '<p class="section-header">Dokumente</p><div class="glass card">'+
+      k.dokumente.map(function(d){
+        return '<div class="list-row"><span><span class="list-title">'+esc(d[0])+'</span><br>'+
+          '<span class="list-meta">'+esc(d[1])+'</span></span>'+
+          '<span class="list-right"><span class="chip">PDF</span></span></div>'; }).join('')+'</div>'+
+    '<p class="section-header">Rechnungen</p><div class="glass card">'+
+      k.rechnungen.map(function(r){
+        return '<div class="list-row"><span><span class="list-title">'+esc(r[0])+'</span><br>'+
+          '<span class="list-meta">Eigenanteil</span></span><span class="list-right">'+
+          '<span class="betrag">'+esc(r[1])+'</span><br>'+statusHTML(r[2]?"ok":"offen")+'</span></div>';
+      }).join('')+'</div>'+
+    '<div class="glass card" id="sepafeld"><p class="frage-titel">Lastschriftmandat</p>'+
+      '<p class="frage-text">Rechnungen automatisch einziehen lassen. Jederzeit widerrufbar, '+
+      'jede Abbuchung acht Wochen r\u00fcckbuchbar.</p><div class="btn-stack">'+
+      '<button class="btn-bordered" data-sepa="1">Mandat erteilen</button></div></div></div>';
+}
+function vEigenanteil(k){
+  var offen=k.cap-k.abgerufen, quote=Math.round(k.abgerufen/k.cap*100);
+  return '<div class="pad"><p class="screen-title">Eigenanteil</p>'+
+    '<p class="screen-sub">Was die Pflegekasse tr\u00e4gt \u2014 und was bleibt.</p>'+
+    '<div class="glass card" data-tint="card"><p class="card-title">Ihr Monat</p>'+
+      '<p class="card-sub">'+esc(k.pg)+' \u00b7 Sachleistungsbetrag '+eur(k.cap)+'</p>'+
+      '<div class="balken"><i style="width:'+quote+'%"></i></div>'+
+      '<p class="list-meta">'+quote+' % abgerufen</p><div style="margin-top:14px">'+
+      '<div class="wert-row"><span class="wert-label">Anspruch der Pflegekasse</span><span class="wert-zahl">'+eur(k.cap)+'</span></div>'+
+      '<div class="wert-row"><span class="wert-label">davon abgerufen</span><span class="wert-zahl">'+eur(k.abgerufen)+'</span></div>'+
+      '<div class="wert-row summe"><span class="wert-label">verf\u00e4llt am Monatsende</span><span class="wert-zahl">'+eur(offen)+'</span></div>'+
+      '</div></div>'+
+    '<div class="glass card" id="beratungfeld"><p class="frage-titel">Unklar, was davon bei Ihnen bleibt?</p>'+
+      '<p class="frage-text">Wir gehen die Abrechnung mit Ihnen durch \u2014 Zeile f\u00fcr Zeile. F\u00fcr Mitglieder kostenfrei.</p>'+
+      '<div class="btn-stack"><button class="btn-bordered" data-beratung="1">Beratung vereinbaren</button></div></div>'+
+    '<p class="section-header">Au\u00dferhalb der Kasse</p><div class="glass card">'+
+      '<div class="wert-row"><span class="wert-label">Hilfskraft \u00b7 Hauswirtschaft</span><span class="wert-zahl">38,00 \u20ac / Std.</span></div>'+
+      '<div class="wert-row" style="border-bottom:0"><span class="wert-label">Fachkraft \u00b7 Behandlungspflege</span><span class="wert-zahl">52,00 \u20ac / Std.</span></div>'+
+      (k.stufe==="Basis" ? '' : '<p class="card-sub" style="margin-top:12px">Als '+esc(k.stufe)+
+        '-Mitglied erhalten Sie 10 % auf Entlastungsleistungen nach \u00a745b.</p>')+
+    '</div></div>';
+}
+function stufeIdx(n){ for(var i=0;i<STUFEN.length;i++) if(STUFEN[i][0]===n) return i; return 0; }
+function wechseln(ziel){ KONTEN[konto].stufe=ziel; zeichne();
+  zeigeSchritt(document.getElementById("stufenfeld"),
+    { text:"Ihre Mitgliedschaft l\u00e4uft ab dem kommenden Monat als "+ziel+"." }); }
+function stufenSchritt(k,ziel){
+  var jetzt=stufeIdx(k.stufe), neu=stufeIdx(ziel);
+  if (neu>jetzt){ wechseln(ziel); return null; }
+  var behalten={}; STUFEN[neu][2].forEach(function(l){ behalten[l]=true; });
+  var verlust=[];
+  for (var i=neu+1;i<=jetzt;i++)
+    STUFEN[i][2].forEach(function(l){ if(!behalten[l] && l.indexOf("alles aus")!==0) verlust.push(l); });
+  return { titel:"Von "+k.stufe+" zu "+ziel,
+    warnung:{ titel:"Diese Leistungen entfallen", punkte:verlust },
+    optionen:[ { label:"Ja, auf "+ziel+" herabstufen", ernst:true, dann:{ tun:function(){ wechseln(ziel); } } },
+               { label:"Doch nicht \u2014 "+k.stufe+" behalten", dann:{ text:"Es bleibt bei "+k.stufe+"." } } ] };
+}
+function vMitglied(k){
+  return '<div class="pad"><p class="screen-title">Mitgliedschaft</p>'+
+    '<p class="screen-sub">Ein Wechsel ist jederzeit m\u00f6glich.</p>'+
+    STUFEN.map(function(s){
+      var aktuell=(s[0]===k.stufe), hoeher=(stufeIdx(s[0])>stufeIdx(k.stufe));
+      return '<div class="glass stufe'+(aktuell?' aktuell':'')+'"><div class="stufe-kopf">'+
+        '<span class="stufe-name">'+esc(s[0])+'</span><span class="stufe-preis">'+eur(s[1])+'</span></div>'+
+        '<p class="list-meta">im Jahr</p><ul>'+s[2].map(function(l){ return '<li>'+esc(l)+'</li>'; }).join('')+'</ul>'+
+        (aktuell ? '<span class="jetzt">Ihre Stufe</span>'
+          : '<div class="btn-stack"><button class="btn-bordered'+(hoeher?'':' ernst')+'" data-stufe="'+esc(s[0])+'">'+
+            (hoeher?'Auf '+esc(s[0])+' wechseln':'Auf '+esc(s[0])+' herabstufen')+'</button></div>')+
+        '</div>';
+    }).join('')+
+    '<div class="glass card" id="stufenfeld"><p class="frage-titel">Was der Wechsel bedeutet</p>'+
+      '<p class="frage-text">Eine Aufstufung gilt sofort. Eine Herabstufung zeigt erst, welche Leistungen '+
+      'entfallen, und wird nach einer zweiten Best\u00e4tigung wirksam. Die Versorgung l\u00e4uft \u00fcber den '+
+      'Pflegevertrag und ist nicht ber\u00fchrt.</p></div></div>';
+}
+function vKontakt(k){
+  return '<div class="pad"><p class="screen-title">Kontakt</p>'+
+    '<p class="screen-sub">Rufen Sie an \u2014 ein Mensch geht ran.</p><div class="glass card">'+
+    k.kontakte.map(function(c){
+      return '<div class="kontakt-row"><span class="avatar">'+esc(c[1])+'</span>'+
+        '<span><span class="kontakt-name">'+esc(c[0])+'</span><br>'+
+        '<span class="kontakt-rolle">'+esc(c[2])+'</span></span>'+
+        '<a class="tel-btn" href="tel:+4929430000000" aria-label="'+esc(c[0])+' anrufen">'+svg("tel",20)+'</a></div>';
+    }).join('')+'</div>'+
+    '<p class="section-header">Wann Sie uns erreichen</p><div class="glass card">'+
+      '<div class="zeit-row"><b>Pflege</b><span>t\u00e4glich 6:00\u201322:00 Uhr</span></div>'+
+      '<div class="zeit-row"><b>B\u00fcro</b><span>Mo\u2013Fr 8:00\u201317:00 Uhr</span></div>'+
+      '<div class="zeit-row"><b>Rufbereitschaft</b><span>au\u00dferhalb der B\u00fcrozeiten</span></div>'+
+      '<p class="card-sub" style="margin-top:12px">Einen Nachtdienst gibt es nicht \u2014 die Rufbereitschaft '+
+      'ist der Weg au\u00dferhalb der Zeiten.</p></div></div>';
+}
+var MEHR = [["eigenanteil","Eigenanteil","Was die Kasse tr\u00e4gt, was bleibt"],
+            ["mitglied","Mitgliedschaft","Stufen vergleichen und wechseln"],
+            ["kontakt","Kontakt","Ansprechpartner und Zeiten"]];
+function vMehr(){
+  return '<div class="pad"><p class="screen-title">Mehr</p><p class="screen-sub">Weitere Bereiche.</p>'+
+    MEHR.map(function(m){
+      return '<button class="glass mehr-row" data-mehr="'+m[0]+'">'+svg(m[0],26)+
+        '<span><span class="t">'+esc(m[1])+'</span><br><span class="s">'+esc(m[2])+'</span></span>'+
+        '<span class="pfeil">'+svg("pfeil",20)+'</span></button>'; }).join('')+'</div>';
+}
+var REITER = [["heute","Heute"],["woche","Woche"],["brett","Nachbarn"],["unterlagen","Unterlagen"],["mehr","Mehr"]];
+var VIEWS = { heute:vHeute, woche:vWoche, brett:vBrett, unterlagen:vUnterlagen,
+              mehr:vMehr, eigenanteil:vEigenanteil, mitglied:vMitglied, kontakt:vKontakt };
+var TITEL = { heute:"Heute", woche:"Meine Woche", brett:"Nachbarschaft", unterlagen:"Unterlagen",
+              mehr:"Mehr", eigenanteil:"Eigenanteil", mitglied:"Mitgliedschaft", kontakt:"Kontakt" };
+function zeichne(){
+  var k=KONTEN[konto], ans=unterseite||reiter;
+  document.getElementById("inhalt").innerHTML = VIEWS[ans](k);
+  document.getElementById("navtitel").textContent = TITEL[ans];
+  document.getElementById("zurueck").hidden = !unterseite;
+  document.querySelectorAll("#tabbar button").forEach(function(b){
+    b.classList.toggle("active", b.dataset.r===reiter); });
+  document.getElementById("inhalt").scrollTop = 0;
+}
+function geh(r){ reiter=r; unterseite=null; zeichne(); }
+document.getElementById("inhalt").addEventListener("click", function(e){
+  var k=KONTEN[konto];
+  var m=e.target.closest("[data-mehr]");
+  if (m){ unterseite=m.dataset.mehr; zeichne(); return; }
+  var st=e.target.closest("[data-stufe]");
+  if (st){ var s=stufenSchritt(k,st.dataset.stufe);
+    if (s) zeigeSchritt(document.getElementById("stufenfeld"), s); return; }
+  var br=e.target.closest("[data-brett]");
+  if (br){ zeigeSchritt(document.querySelector('.brett-feld[data-feld="'+br.dataset.brett+'"]'),
+    brettSchritt(k, +br.dataset.brett)); return; }
+  if (e.target.closest("[data-sepa]")){
+    zeigeSchritt(document.getElementById("sepafeld"),
+      { titel:"Lastschriftmandat", text:"Mandat erteilt. Die n\u00e4chste Rechnung wird eingezogen." }); return; }
+  if (e.target.closest("[data-beratung]")){
+    zeigeSchritt(document.getElementById("beratungfeld"), { titel:"Wie m\u00f6chten Sie die Beratung f\u00fchren?",
+      optionen:[ { label:"Jetzt anrufen", dann:{ tun:function(){ location.href="tel:+4929430000000"; } } },
+                 { label:"Um R\u00fcckruf bitten", dann:{ text:"Notiert. Wir rufen am n\u00e4chsten Werktag zur\u00fcck." } },
+                 { label:"Beim n\u00e4chsten Hausbesuch", dann:{ text:"Notiert. "+k.kraftKurz+" bringt die Abrechnung mit." } } ] });
+    return; }
+  var q=e.target.closest("[data-quittung]");
+  if (q){ zeigeSchritt(q.closest(".card"), { text:"Danke \u2014 wir haben es notiert und melden uns." }); }
+});
+document.getElementById("zurueck").addEventListener("click", function(){ unterseite=null; zeichne(); });
+document.getElementById("rollen").innerHTML = Object.keys(KONTEN).map(function(id){
+  var k=KONTEN[id];
+  return '<button class="glass role-card" data-rolle="'+id+'">'+
+    '<span class="role-label">'+esc(k.label)+'</span>'+
+    '<span class="role-name">'+esc(k.name)+'</span>'+
+    '<span class="role-sub">'+esc(k.ort)+' \u00b7 '+esc(k.pg)+'</span></button>';
+}).join('');
+document.getElementById("rollen").addEventListener("click", function(e){
+  var b=e.target.closest("[data-rolle]"); if(!b) return;
+  konto=b.dataset.rolle; reiter="heute"; unterseite=null;
+  document.getElementById("login").classList.add("weg");
+  ["navbar","inhalt","tabbar"].forEach(function(id){ document.getElementById(id).hidden=false; });
+  zeichne();
+});
+document.getElementById("abmelden").addEventListener("click", function(){
+  document.getElementById("login").classList.remove("weg");
+  ["navbar","inhalt","tabbar"].forEach(function(id){ document.getElementById(id).hidden=true; });
+});
+document.getElementById("tabbar").innerHTML = REITER.map(function(r){
+  return '<button data-r="'+r[0]+'">'+svg(r[0],24)+'<span class="tab-label">'+esc(r[1])+'</span></button>';
+}).join('');
+document.getElementById("tabbar").addEventListener("click", function(e){
+  var b=e.target.closest("[data-r]"); if(!b) return; geh(b.dataset.r);
+});
+document.getElementById("modus").addEventListener("click", function(){
+  var neu = document.documentElement.dataset.scheme==="dark" ? "light" : "dark";
+  document.documentElement.dataset.scheme = neu;
+  document.querySelector('meta[name=theme-color]').content = neu==="dark" ? "#050D05" : "#F6F8F3";
+});
+function uhr(){ document.getElementById("uhr").textContent =
+  new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}); }
+uhr(); setInterval(uhr,20000);
+function huelle(){ document.body.classList.toggle("bare", innerWidth<900 || innerHeight<900); }
+huelle(); addEventListener("resize", huelle);
+</script>
+</body>
+</html>
