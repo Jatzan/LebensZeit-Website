@@ -41,6 +41,20 @@ a.lockup:hover{opacity:.82}
   color:var(--text);background:var(--lz-white);border:1px solid var(--line-ui);border-radius:14px;
   font-variant-numeric:tabular-nums}
 .form .hinweis{font-size:.94rem;color:var(--text-2);line-height:1.5}
+/* Fehlermeldung am Feld. Der Zustand haengt nicht an der Farbe allein: das
+   Feld bekommt zusaetzlich aria-invalid und die Meldung steht als Text
+   darunter, verknuepft ueber aria-describedby. */
+.form input[aria-invalid="true"]{border-color:var(--lz-red);border-width:2px}
+/* Der Fokusring bleibt Pflicht, faerbt sich auf dem fehlerhaften Feld aber
+   mit: gruener Ring um roten Rahmen las sich wie zwei konkurrierende Rahmen. */
+.form input[aria-invalid="true"]:focus-visible{outline-color:var(--lz-red)}
+.form .feldfehler{display:none;margin-top:7px;font-size:.94rem;line-height:1.45;color:var(--lz-red)}
+.form .feldfehler.an{display:flex;gap:.5em;align-items:baseline}
+.form .feldfehler.an::before{content:"!";flex:0 0 auto;font-weight:700;
+  width:1.25em;height:1.25em;border-radius:50%;border:1.5px solid currentColor;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.8em}
+.knopf-voll[disabled]{opacity:.55;cursor:default}
+.knopf-voll[disabled]:hover{background:var(--lz-green)}
 .knopf-voll{min-height:var(--tap-env);padding:0 26px;border-radius:var(--radius);border:0;
   background:var(--lz-green);color:var(--lz-cream);font-size:1.06rem;cursor:pointer}
 .knopf-voll:hover{background:var(--lz-green-2)}
@@ -397,7 +411,7 @@ var KONTEN = {
     kennung: "h.stemmer@beispiel.de", anrede: "Guten Tag, Frau Stemmer",
     name: "Hildegard Stemmer", initialen: "HS", stufe: "Premium", stufeText: "Premium-Mitglied",
     ort: "Rüthen-Meiste", adresse: "Am Möhnesee 10, 59602 Rüthen", pflegegrad: "Pflegegrad 3", cap: 1432, abgerufen: 587,
-    iban: "DE21 4145 0075 0000 123456", bank: "Sparkasse Soest",
+    iban: "DE93 4145 0075 0000 123456", bank: "Sparkasse Soest",
     kraft: "Sandra Köhler", kraftInitialen: "SK", kraftRolle: "Pflegefachkraft · Tour Rüthen",
     satz: "Sandra ist auf dem Weg zu Ihnen.", zeit: "Gegen 15:10 Uhr",
     woche: [
@@ -433,7 +447,7 @@ var KONTEN = {
     kennung: "m.doerre@beispiel.de", anrede: "Guten Tag, Herr Dörre",
     name: "Markus Dörre", initialen: "MD", stufe: "Aktiv", stufeText: "Aktiv-Mitglied",
     ort: "für Frau Dörre · Lippetal", adresse: "Hauptstraße 8, 59510 Lippetal", pflegegrad: "Pflegegrad 2", cap: 761, abgerufen: 236,
-    iban: "DE64 4166 0022 0000 987654", bank: "Volksbank Hellweg",
+    iban: "DE07 4166 0022 0000 987654", bank: "Volksbank Hellweg",
     kraft: "Jana Brinkmann", kraftInitialen: "JB", kraftRolle: "Pflegefachkraft · Tour Lippetal",
     satz: "Jana war heute bei Ihrer Mutter.", zeit: "Um 09:20 Uhr, alles in Ordnung",
     woche: [
@@ -517,15 +531,38 @@ function zeigeSchritt(host, schritt){
       schritt.warnung.punkte.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
   }
   if (schritt.formular) {
+    /* Drittes Feldelement ist die Pruefart: "iban" oder "pflicht".
+       Ohne Angabe wird nicht geprueft (z. B. vorbelegte Anzeigefelder). */
     h += '<div class="form">' + schritt.formular.map(function(f, i){
+      var art = f[2] || '';
       return '<div><label for="fv' + i + '">' + esc(f[0]) + '</label>' +
-        '<input id="fv' + i + '" type="text" value="' + esc(f[1]) + '"></div>';
+        '<input id="fv' + i + '" type="text"' +
+        (art === 'iban' ? ' inputmode="text" autocomplete="off" spellcheck="false"' : '') +
+        (art ? ' data-pruef="' + art + '" aria-describedby="fe' + i + '"' : '') +
+        ' value="' + esc(f[1]) + '">' +
+        (art ? '<p class="feldfehler" id="fe' + i + '" role="alert"></p>' : '') +
+        '</div>';
     }).join('') +
     (schritt.hinweis ? '<p class="hinweis">' + esc(schritt.hinweis) + '</p>' : '') +
     '<button type="button" class="knopf-voll" data-weiter="0">' + esc(schritt.senden || 'Absenden') + '</button></div>';
     host.innerHTML = h;
-    host.querySelector('[data-weiter]').addEventListener('click', function(){
+
+    var knopf = host.querySelector('[data-weiter]');
+    var laeuft = false;
+    knopf.addEventListener('click', function(){
+      /* Schutz gegen doppeltes Absenden: der zweite Klick lief bisher einfach
+         nochmal durch und baute den Schritt neu auf. */
+      if (laeuft) return;
+      if (!formularGeprueft(host)) return;
+      laeuft = true;
+      knopf.disabled = true;
       zeigeSchritt(host, schritt.dann);
+    });
+    /* Fehlermeldung verschwindet, sobald getippt wird — sie soll nicht
+       stehen bleiben, waehrend jemand gerade korrigiert. */
+    host.querySelectorAll('input[data-pruef]').forEach(function(inp){
+      inp.addEventListener('input', function(){ feldFehler(inp, null); });
+      inp.addEventListener('blur', function(){ if (inp.value.trim()) pruefeFeld(inp); });
     });
     return;
   }
@@ -553,10 +590,73 @@ function fuerWen(k){
 }
 var BESTAETIGUNG = "Die Anmeldebest\u00e4tigung kommt per E-Mail.";
 
+/* \u2500\u2500 Feldpruefung \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+   SEPA-Mandat und Bankverbindung nahmen jede Eingabe an: keine Pruefziffer,
+   keine Pflichtfelder, kein Schutz gegen doppeltes Absenden. Fuer die
+   Vorfuehrung reicht das, aber es laedt im Pitch zur Rueckfrage ein.        */
+
+/* IBAN-Laengen der Laender, die hier realistisch vorkommen. Steht ein Land
+   nicht in der Liste, wird nur die Pruefziffer gerechnet, nicht die Laenge. */
+var IBAN_LAENGE = { DE:22, AT:20, CH:21, LI:21, LU:20, NL:18, BE:16, FR:27,
+                    IT:27, ES:24, PL:28, DK:18, SE:24, GB:22 };
+
+/* Pruefziffer nach ISO 13616 / DIN 91101: die ersten vier Zeichen wandern
+   nach hinten, Buchstaben werden zu Zahlen (A=10 \u2026 Z=35), der Rest modulo 97
+   muss 1 ergeben. Stellenweise gerechnet \u2014 eine deutsche IBAN hat als Zahl
+   20 Stellen und passt nicht mehr exakt in eine Gleitkommazahl. */
+function ibanFehler(wert){
+  var s = String(wert).toUpperCase().replace(/[\s\u00a0.\-]/g, "");
+  if (!s) return "Bitte die IBAN eintragen.";
+  if (!/^[A-Z]{2}[0-9]{2}[0-9A-Z]+$/.test(s))
+    return "Eine IBAN beginnt mit zwei Buchstaben f\u00fcr das Land und zwei Pr\u00fcfziffern.";
+  var land = s.slice(0, 2);
+  if (IBAN_LAENGE[land] && s.length !== IBAN_LAENGE[land])
+    return "Eine IBAN aus " + land + " hat " + IBAN_LAENGE[land] +
+           " Zeichen, eingetragen sind " + s.length + ".";
+  var um = s.slice(4) + s.slice(0, 4), rest = 0;
+  for (var i = 0; i < um.length; i++) {
+    var c = um.charCodeAt(i);
+    var teil = (c >= 65) ? String(c - 55) : um.charAt(i);
+    for (var j = 0; j < teil.length; j++) rest = (rest * 10 + (teil.charCodeAt(j) - 48)) % 97;
+  }
+  if (rest !== 1) return "Die Pr\u00fcfziffer dieser IBAN stimmt nicht \u2014 bitte noch einmal vergleichen.";
+  return null;
+}
+
+function feldFehler(inp, text){
+  var box = inp.parentNode.querySelector('.feldfehler');
+  if (text) {
+    inp.setAttribute('aria-invalid', 'true');
+    if (box) { box.textContent = text; box.classList.add('an'); }
+  } else {
+    inp.removeAttribute('aria-invalid');
+    if (box) { box.textContent = ''; box.classList.remove('an'); }
+  }
+}
+
+function pruefeFeld(inp){
+  var art = inp.dataset.pruef, wert = inp.value.trim();
+  var fehler = null;
+  if (art === 'iban') fehler = ibanFehler(wert);
+  else if (art === 'pflicht' && !wert) fehler = 'Dieses Feld wird ben\u00f6tigt.';
+  feldFehler(inp, fehler);
+  return !fehler;
+}
+
+function formularGeprueft(host){
+  var felder = host.querySelectorAll('input[data-pruef]');
+  var ok = true, erstes = null;
+  felder.forEach(function(inp){
+    if (!pruefeFeld(inp)) { ok = false; if (!erstes) erstes = inp; }
+  });
+  if (erstes) erstes.focus();
+  return ok;
+}
+
 function bankFormular(k, titel, senden, text){
   return { titel: titel,
-    formular: [["Kontoinhaberin oder Kontoinhaber", k.name],
-               ["IBAN", k.iban], ["Kreditinstitut", k.bank]],
+    formular: [["Kontoinhaberin oder Kontoinhaber", k.name, "pflicht"],
+               ["IBAN", k.iban, "iban"], ["Kreditinstitut", k.bank, "pflicht"]],
     hinweis: "Ihre hinterlegten Daten sind bereits eingetragen \u2014 pr\u00fcfen und bei Bedarf \u00e4ndern.",
     senden: senden, dann: { text: text } };
 }
@@ -800,7 +900,7 @@ function dienstSchritt(k, i){
   return { titel: "Was m\u00f6chten Sie \u00e4ndern?", optionen: [
     { label: "Adresse", dann: {
         titel: "Adress\u00e4nderung",
-        formular: [["Bisherige Anschrift", k.adresse], ["Neue Anschrift", ""]],
+        formular: [["Bisherige Anschrift", k.adresse], ["Neue Anschrift", "", "pflicht"]],
         hinweis: "Achtung: Dies ist ein Schulungsprojekt. Die E-Mail geht an eine erfundene " +
                  "Adresse und kommt nirgends an \u2014 sie \u00f6ffnet nur Ihr E-Mail-Programm zur Ansicht. " +
                  "Eine echte \u00c4nderung nehmen wir telefonisch entgegen: 02943 000000.",

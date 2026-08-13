@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Präsentationsschicht — Sprint 1 (Testballon) · LebensZeit gGmbH</title>
-<meta name="description" content="Investorenbereich der LebensZeit gGmbH — vertraulich. Klickbare Vollbild-Präsentation, Foliendaten getrennt vom Layout.">
+<title>Investorenpitch Sprint 1 — LebensZeit gGmbH (vertraulich)</title>
+<meta name="description" content="Investorenbereich der LebensZeit gGmbH — vertraulich. Investorenpitch Sprint 1 als Vollbild-Präsentation. Fiktives Schulungsprojekt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,369 +12,1211 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22%232C3D27%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%23A8C9A0%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%23A8C9A0%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <style>
-/* Farb- und Maßtokens: ausschließlich aus /lz-tokens.css — kein zweiter :root-Block.
-   Die Bühne benutzt bewusst rohe Markenwerte (--lz-*) statt der hellen .env-invest-
-   Standardrollen: eine Vollbild-Bühne ist keine der fünf definierten Umgebungen,
-   sondern eine Präsentationsschicht darüber. Radius/Tap-Ziele kommen trotzdem aus
-   den semantischen Rollen der Umgebungsklasse .env-invest, in der die Seite sitzt. */
+/* ══════════════════════════════════════════════════════════════════════
+   PRÄSENTATIONSSCHICHT · LebensZeit gGmbH
+   Foliendaten stehen als Liste im Skriptblock unten, das Layout kennt sie nicht.
+   Farb- und Maßtokens ausschließlich aus /lz-tokens.css — kein zweiter
+   :root-Block. Die Seite sitzt in der Umgebung .env-invest; Radius, Tap-Ziel
+   und Schriftleiter kommen daher aus den semantischen Rollen.
+
+   Zwei Folienarten nach dem Vorbild des Originals:
+     .t-light  Creme — Standard, wie 20 der 24 Originalfolien
+     .t-dark   Dunkelgrün — die vier Akzentfolien (Lieferantenmacht,
+               Stoßrichtung, Investment Case, Schluss)
+   Das Logo folgt der Farbregel: auf Creme Originalgrün, auf Dunkelgrün
+   Mintgrün. Nie in Weiß.
+   ══════════════════════════════════════════════════════════════════════ */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{font-family:var(--font-body);background:var(--lz-green-3);color:var(--lz-cream);overflow:hidden}
+body{
+  font-family:var(--font-body);
+  background:var(--lz-cream);
+  color:var(--lz-ink);
+  overflow:hidden;
+}
 
-/* ============================================================
-   BÜHNE — ein Slide sichtbar, Rest per [hidden]
-   ============================================================ */
+/* ══ Bühne ══════════════════════════════════════════════════════════════
+   inset oben = Höhe des Warnbalkens (--tick-h, von lz-notes.js gemessen).
+   Feste 0 hätte denselben Fehler reproduziert, der beim Investoren-Gate und
+   in der Cockpit-Anmeldung schon zweimal auftrat: der Balken lag darüber und
+   deckte die Oberkante ab. Im Vollbild verschwindet der Balken (Ausnahme
+   unten) — dort füllt die Bühne wieder den ganzen Viewport. */
 .deck{
-  /* inset oben = Höhe des Warnbalkens (--tick-h, von lz-notes.js gemessen).
-     Feste 0 hätte hier denselben Fehler reproduziert, der beim Investoren-Gate
-     schon einmal behoben wurde: der Balken lag darüber und deckte die Bühne
-     an der Oberkante ab. Im Vollbild verschwindet der Balken (siehe Ausnahme
-     unten) — dort füllt die Bühne wieder den ganzen Viewport. */
-  position:fixed; inset: var(--tick-h, 2.375rem) 0 0 0; z-index:10;
-  background:linear-gradient(150deg, var(--lz-night) 0%, var(--lz-green-3) 46%, var(--lz-green) 130%);
+  position:fixed; inset:var(--tick-h, 2.375rem) 0 0 0; z-index:10;
   display:flex; flex-direction:column;
 }
-:fullscreen .deck,
-body.lz-is-fullscreen .deck{ inset:0; }
-.slide{
-  flex:1; display:flex; flex-direction:column; justify-content:center;
-  padding:clamp(28px,6vw,90px) clamp(24px,8vw,120px);
-  overflow-y:auto;
-}
+:fullscreen .deck, body.lz-is-fullscreen .deck{ inset:0 }
+
+.slide{ flex:1; min-height:0; overflow-y:auto; overflow-x:hidden }
 .slide[hidden]{display:none}
-.slide .eyebrow{
-  font-size:var(--fs-label); letter-spacing:.18em; text-transform:uppercase;
-  color:var(--lz-sage); font-weight:600; margin-bottom:var(--sp-4);
+
+/* Einpassung — die Folie ist der Rahmen, .slide-inner der Inhalt.
+   Ist der Inhalt höher als der Rahmen, verkleinert fitSlide() ihn über
+   --fit, statt scrollen zu lassen: eine Präsentation wird nicht gescrollt.
+   Gemessen: bei 1920x1080 passte alles, bei 1440x900 waren acht und bei
+   1280x800 elf Folien zu hoch — Folie 3 um 201 px, Folie 12 um 192 px.
+   zoom (nicht transform) ist hier richtig, weil es das LAYOUT skaliert und
+   die Höhe damit wirklich sinkt; transform würde nur die Darstellung
+   verzerren und scrollHeight unverändert lassen. Nebeneffekt und erwünscht:
+   der Text bricht im verkleinerten Zustand günstiger um.
+   min-height wird durch --fit geteilt, damit die Fußzeile trotz Verkleinerung
+   auf der Unterkante sitzt (Prozentwerte gelten vor dem Zoom). */
+.slide-inner{
+  min-height:calc(100% / var(--fit, 1));
+  display:flex; flex-direction:column;
+  /* Die Bedienleiste liegt absolut über der Folie, ihre Höhe muss unten
+     freigehalten werden. Geteilt durch --fit, weil die Polsterung im
+     gezoomten Raum liegt: eine feste Polsterung schrumpft mit und die
+     Fußzeile rutschte unter die Leiste — nachgemessen bei 1280x800,
+     Folie 3 mit 14 px Überdeckung. --hud-h setzt das Skript. */
+  padding:clamp(26px,4.4vw,68px) clamp(20px,5vw,84px)
+          calc(clamp(16px,2.2vw,30px) + var(--hud-h, 60px) / var(--fit, 1));
+  zoom:var(--fit, 1);
 }
-.slide h1,.slide h2{ font-family:var(--font-display); color:var(--lz-mint); font-weight:400; line-height:1.12 }
-.slide h1{ font-size:clamp(2.2rem,5.4vw,4rem); margin-bottom:var(--sp-4) }
-.slide h2{ font-size:clamp(1.7rem,3.6vw,2.6rem); margin-bottom:var(--sp-5) }
-.slide .lead{ font-size:clamp(1rem,1.6vw,1.25rem); color:rgba(245,240,232,.88); font-weight:300; max-width:46em; margin-bottom:var(--sp-6) }
-.slide .meta-row{ display:flex; gap:var(--sp-3); flex-wrap:wrap; margin-top:var(--sp-2) }
-.chip{
-  font-size:var(--fs-label); letter-spacing:.08em; border:1px solid rgba(168,201,160,.4);
-  border-radius:var(--r-pill); padding:.4rem 1rem; color:var(--lz-mint); background:rgba(168,201,160,.08);
+
+/* Folienkopf — Eyebrow links, Minutenmarke rechts, wie im Original */
+.s-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:var(--sp-4);
+  margin-bottom:var(--sp-3); flex-wrap:wrap;
+}
+.s-eyebrow{
+  font-size:var(--fs-label); letter-spacing:.16em; text-transform:uppercase;
+  font-weight:600; line-height:1.4;
+}
+.s-min{
+  font-size:var(--fs-label); letter-spacing:.14em; text-transform:uppercase;
+  white-space:nowrap; opacity:.72;
+}
+.slide h1,.slide h2{ font-family:var(--font-display); font-weight:400; line-height:1.12 }
+.slide h1{ font-size:clamp(1.9rem,4.6vw,3.2rem) }
+.slide h2{ font-size:clamp(1.55rem,3.5vw,2.5rem) }
+.slide h2 em, .slide h1 em{ font-style:italic }
+.s-lead{ font-size:clamp(.94rem,1.35vw,1.09rem); font-weight:300; max-width:60em; margin-top:var(--sp-4) }
+.s-body{ margin-top:var(--sp-5) }
+.s-foot{
+  margin-top:auto; padding-top:var(--sp-5);
+  display:flex; align-items:center; justify-content:space-between; gap:var(--sp-4);
+  font-size:var(--fs-label); letter-spacing:.12em; text-transform:uppercase;
 }
 
-/* Statistik-Kacheln */
-.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:var(--sp-5); margin-top:var(--sp-2) }
-.stat{ border-left:3px solid var(--lz-sage); padding-left:var(--sp-4) }
-.stat .num{ font-family:var(--font-display); font-weight:300; font-size:clamp(2.2rem,4.6vw,3.4rem); color:var(--lz-mint); line-height:1 }
-.stat .lbl{ font-size:.94rem; color:rgba(245,240,232,.78); margin-top:var(--sp-2); font-weight:300 }
+/* ── Umgebungsfarben der beiden Folienarten ───────────────────────────── */
+.t-light{ background:var(--lz-cream); color:var(--lz-ink) }
+.t-light h1,.t-light h2{ color:var(--lz-green-3) }
+.t-light h1 em,.t-light h2 em{ color:var(--lz-green) }
+.t-light .s-eyebrow{ color:var(--lz-green-2) }
+.t-light .s-min,.t-light .s-lead,.t-light .s-foot{ color:var(--lz-ink-2) }
 
-/* Karten-Grid (Five Forces, Personas) */
-.card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:var(--sp-4); margin-top:var(--sp-2) }
-.pcard{
-  background:rgba(255,255,255,.06); border:1px solid rgba(168,201,160,.22); border-radius:var(--radius);
-  padding:var(--sp-5); backdrop-filter:blur(2px);
+.t-dark{ background:linear-gradient(150deg,var(--lz-green-3) 0%,#243120 62%,var(--lz-green) 165%); color:var(--lz-cream) }
+.t-dark h1,.t-dark h2{ color:var(--lz-cream) }
+.t-dark h1 em,.t-dark h2 em{ color:var(--lz-mint) }
+.t-dark .s-eyebrow{ color:var(--lz-sage) }
+.t-dark .s-min{ color:rgba(245,240,232,.7) }
+.t-dark .s-lead{ color:rgba(245,240,232,.9) }
+.t-dark .s-foot{ color:rgba(245,240,232,.66) }
+
+/* ══ Titel- und Schlussfolie ════════════════════════════════════════════ */
+.s-cover{ align-items:center; justify-content:center; text-align:center }
+.s-cover .lz-logo{ margin-bottom:var(--sp-6) }
+.s-cover h1{ font-size:clamp(1.7rem,4vw,2.9rem); margin-bottom:var(--sp-5) }
+.s-rule{ width:clamp(120px,28vw,320px); height:1px; background:var(--lz-hairline); margin:0 auto var(--sp-6) }
+.t-dark .s-rule{ background:rgba(168,201,160,.4) }
+.s-cover .s-meta{ font-size:var(--fs-label); letter-spacing:.16em; text-transform:uppercase; line-height:2 }
+.t-light .s-cover .s-meta, .s-cover .s-meta{ color:var(--lz-ink-2) }
+.t-dark .s-cover .s-meta{ color:rgba(245,240,232,.78) }
+
+/* Wortmarke — Georgia/Times, ausschließlich hier. Farbe vom Container. */
+.lz-logo{ display:inline-flex; flex-direction:column; align-items:center; gap:10px; color:var(--lz-green) }
+.t-dark .lz-logo{ color:var(--lz-mint) }
+.lz-logo svg{ width:clamp(54px,8vw,88px); height:auto; display:block }
+.lz-logo .lz-mark{
+  font-family:var(--font-mark); letter-spacing:var(--ls-mark);
+  font-size:clamp(1.5rem,3.4vw,2.2rem); line-height:1; color:currentColor;
 }
-.pcard b{ display:block; color:var(--lz-mint); font-family:var(--font-display); font-size:1.4rem; margin-bottom:var(--sp-2) }
-.pcard p{ font-size:.92rem; color:rgba(245,240,232,.85); font-weight:300; line-height:1.5 }
+.lz-logo .lz-sub{ font-family:var(--font-body); font-size:var(--fs-label); letter-spacing:.1em; opacity:.9 }
+.lz-logo .lz-tagline{
+  font-family:var(--font-body); font-size:.72rem; letter-spacing:.2em;
+  text-transform:uppercase; opacity:.78; margin-top:2px;
+}
+/* Fußzeilen-Logo, Kompaktstufe (24–40px) — offizielle Kurzform */
+.lz-logo-compact{ display:inline-flex; align-items:center; gap:8px; color:var(--lz-green) }
+.t-dark .lz-logo-compact{ color:var(--lz-sage) }
+.lz-logo-compact svg{ width:26px; height:26px; flex:0 0 auto }
+.lz-logo-compact .lz-mark{
+  font-family:var(--font-mark); letter-spacing:var(--ls-mark); font-size:.95rem;
+  text-transform:none; color:currentColor;
+}
 
-/* Personas nebeneinander */
-.persona-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--sp-5); margin-top:var(--sp-2) }
-.persona{ background:rgba(255,255,255,.06); border:1px solid rgba(168,201,160,.22); border-radius:var(--radius); padding:var(--sp-6) }
-.persona h3{ font-family:var(--font-display); color:var(--lz-mint); font-size:1.7rem; margin-bottom:2px }
-.persona .role{ font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--lz-sage); margin-bottom:var(--sp-3) }
-.persona p{ font-size:.94rem; color:rgba(245,240,232,.85); font-weight:300; line-height:1.55 }
-.persona .quote{ margin-top:var(--sp-3); font-style:italic; color:var(--lz-cream-2); border-left:2px solid var(--lz-sage); padding-left:var(--sp-3) }
+/* ══ Bausteine ══════════════════════════════════════════════════════════ */
+.g-auto{ display:grid; gap:var(--sp-4); grid-template-columns:repeat(auto-fit,minmax(190px,1fr)) }
+.g-auto > *{ min-width:0 }
+.g-2{ display:grid; gap:var(--sp-4); grid-template-columns:repeat(auto-fit,minmax(280px,1fr)) }
+.g-2 > *{ min-width:0 }
+.g-3{ display:grid; gap:var(--sp-4); grid-template-columns:repeat(auto-fit,minmax(240px,1fr)) }
+.g-3 > *{ min-width:0 }
+/* Feste Zweispaltigkeit. auto-fit hat in der schmalen linken Spalte von
+   Folie 3 drei Spuren gebildet und die Kennzahlen auf ~200px gequetscht —
+   „2,1 Mio €" brach dabei um. */
+.g-22{ display:grid; gap:var(--sp-4); grid-template-columns:repeat(2,minmax(0,1fr)) }
+@media (max-width:620px){ .g-22{ grid-template-columns:1fr } }
 
-/* Listen / Checklisten */
-.slide ul.check{ list-style:none; display:flex; flex-direction:column; gap:var(--sp-2); margin-top:var(--sp-2) }
-.slide ul.check li{ position:relative; padding-left:28px; font-size:1rem; color:rgba(245,240,232,.92); font-weight:300 }
-.slide ul.check li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--lz-sage); font-weight:600 }
+/* Karte — Grundform aller Inhaltsblöcke */
+.k{
+  background:var(--lz-white); border:0.5px solid var(--lz-hairline);
+  border-radius:var(--radius); padding:var(--sp-5);
+}
+.t-dark .k{ background:rgba(255,255,255,.07); border-color:rgba(168,201,160,.24) }
+.k-lbl{
+  font-size:var(--fs-label); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--lz-ink-2); margin-bottom:var(--sp-2); display:block;
+}
+.t-dark .k-lbl{ color:var(--lz-sage) }
+.k-num{
+  font-family:var(--font-display); font-weight:300; line-height:1;
+  font-size:clamp(1.9rem,3.6vw,2.9rem); color:var(--lz-green-3);
+}
+.t-dark .k-num{ color:var(--lz-mint) }
+.k-num.warn{ color:var(--lz-amber-ink) }
+.k-num.crit{ color:var(--lz-red) }
+.k-t{ font-family:var(--font-display); font-size:clamp(1.15rem,2vw,1.5rem); color:var(--lz-green-3); margin-bottom:var(--sp-2) }
+.t-dark .k-t{ color:var(--lz-mint) }
+.k-p{ font-size:.9rem; font-weight:300; color:var(--lz-ink-2); line-height:1.5; margin-top:var(--sp-2) }
+.t-dark .k-p{ color:rgba(245,240,232,.85) }
+.k-p + .k-p{ margin-top:var(--sp-3) }
 
-/* Korrektur-Tabelle (Vorher → Nachher) */
-.fix-table{ width:100%; border-collapse:collapse; margin-top:var(--sp-3) }
-.fix-table th,.fix-table td{ text-align:left; padding:.75rem .9rem; font-size:.92rem; border-bottom:1px solid rgba(168,201,160,.2) }
-.fix-table th{ font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--lz-sage); font-weight:500 }
-.fix-table .was{ color:rgba(245,240,232,.55); text-decoration:line-through; text-decoration-color:rgba(176,58,46,.7) }
-.fix-table .now{ color:var(--lz-mint); font-weight:500 }
-.tag{ display:inline-block; font-size:.72rem; letter-spacing:.06em; padding:.12rem .5rem; border-radius:8px; margin-left:.4rem; vertical-align:1px }
-.tag.f{ background:rgba(74,103,65,.35); color:var(--lz-sage) }
-.tag.a{ background:rgba(180,122,42,.28); color:#E2B56A }
-.tag.e{ background:rgba(107,91,214,.28); color:#C3BBF2 }
-.faeo-legend{ margin-top:var(--sp-4); font-size:.8rem; color:rgba(245,240,232,.6) }
+/* Getönte Karten — Bewertung trägt die Fläche, nicht die Schrift allein */
+.k.ok{   background:rgba(74,103,65,.07);  border-color:rgba(74,103,65,.3) }
+.k.warn{ background:var(--tint-warn);      border-color:rgba(140,94,20,.3) }
+.k.crit{ background:var(--tint-crit);      border-color:rgba(140,58,42,.3) }
+.k.ok .k-t{ color:var(--lz-green-2) } .k.warn .k-t{ color:var(--lz-amber-ink) } .k.crit .k-t{ color:var(--lz-red) }
+.k.ok  .k-lbl{ color:var(--lz-green-2) } .k.warn .k-lbl{ color:var(--lz-amber-ink) } .k.crit .k-lbl{ color:var(--lz-red) }
 
-/* ============================================================
-   CHROME — Fortschritt, Zähler, Pfeile, Vollbild
-   ============================================================ */
-.deck-progress{ position:absolute; top:0; left:0; height:3px; background:var(--lz-sage); transition:width .25s ease; z-index:20 }
+/* Listen */
+ul.s-list{ list-style:none; display:flex; flex-direction:column; gap:var(--sp-2) }
+ul.s-list li{ position:relative; padding-left:1.15em; font-size:.92rem; font-weight:300; line-height:1.5 }
+ul.s-list li::before{ content:'·'; position:absolute; left:0; font-weight:700; opacity:.7 }
+.t-light ul.s-list li{ color:var(--lz-ink-2) } .t-dark ul.s-list li{ color:rgba(245,240,232,.88) }
+ul.s-list li b{ font-weight:500; color:var(--lz-ink) } .t-dark ul.s-list li b{ color:var(--lz-cream) }
+
+/* Fünf-Kräfte-Zeile: Punkteskala 1–5.
+   Der Wert hängt nicht an der Farbe — die Zahl „3/5" steht daneben und im
+   aria-label, weil Amber und Grün sich in der Helligkeit kaum trennen. */
+.force{ display:grid; grid-template-columns:minmax(0,13rem) auto minmax(0,1fr); gap:var(--sp-3) var(--sp-4);
+        align-items:center; padding:var(--sp-3) var(--sp-4); border-radius:var(--radius); margin-bottom:var(--sp-2) }
+.force > *{ min-width:0 }
+.force-n{ font-size:.95rem; font-weight:500 }
+.force-dots{ display:inline-flex; gap:5px; flex:0 0 auto }
+.force-dots i{ width:11px; height:11px; border-radius:50%; background:var(--lz-cream-3); display:block }
+.force-dots i.on{ background:var(--lz-green) }
+.force.w .force-dots i.on{ background:var(--lz-amber) }
+.force.c .force-dots i.on{ background:var(--lz-red) }
+.force-txt{ font-size:.88rem; font-weight:300; color:var(--lz-ink-2); line-height:1.5 }
+.force-txt b{ font-weight:500 }
+.force.o{ background:rgba(74,103,65,.07) }  .force.o .force-n{ color:var(--lz-green-2) }  .force.o .force-txt b{ color:var(--lz-green-2) }
+.force.w{ background:var(--tint-warn) }      .force.w .force-n{ color:var(--lz-amber-ink) } .force.w .force-txt b{ color:var(--lz-amber-ink) }
+.force.c{ background:var(--tint-crit) }      .force.c .force-n{ color:var(--lz-red) }       .force.c .force-txt b{ color:var(--lz-red) }
+@media (max-width:760px){ .force{ grid-template-columns:1fr; gap:var(--sp-2) } }
+
+/* Tabelle */
+.s-tbl{ width:100%; border-collapse:collapse; font-size:.86rem }
+.s-tbl th,.s-tbl td{ text-align:left; padding:.5rem .7rem; border-bottom:0.5px solid var(--lz-hairline) }
+.s-tbl th{ font-size:var(--fs-label); letter-spacing:.1em; text-transform:uppercase; font-weight:500;
+           background:var(--lz-green-3); color:var(--lz-mint); border-bottom:none; white-space:nowrap }
+.s-tbl td{ color:var(--lz-ink-2) } .s-tbl td:first-child{ color:var(--lz-ink) }
+.s-tbl .num{ font-variant-numeric:tabular-nums; white-space:nowrap }
+.s-tbl .st-ok{ color:var(--lz-green-2) } .s-tbl .st-bad{ color:var(--lz-red) } .s-tbl .st-warn{ color:var(--lz-amber-ink) }
+.s-tbl tr.me td{ background:rgba(74,103,65,.09); font-weight:500; color:var(--lz-ink) }
+.tbl-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100% }
+.tbl-scroll > .s-tbl{ min-width:640px }
+@media (min-width:900px){ .tbl-scroll > .s-tbl{ min-width:0 } }
+/* Präsenzzeichen: Form UND Farbe, nie Farbe allein */
+.p-full,.p-part,.p-none{ display:inline-flex; align-items:center; justify-content:center;
+  width:20px; height:20px; border-radius:50%; font-size:.68rem; line-height:1 }
+.p-full{ background:var(--lz-green); color:var(--lz-cream) }
+.p-part{ background:var(--tint-warn); border:1.5px solid var(--lz-amber-ink); color:var(--lz-amber-ink) }
+.p-none{ border:1px solid var(--lz-line-ui); color:var(--lz-ink-3) }
+
+/* Persona */
+.persona{ display:grid; grid-template-columns:minmax(0,15rem) minmax(0,1fr); gap:var(--sp-4) }
+@media (max-width:820px){ .persona{ grid-template-columns:1fr } }
+.p-card{ background:var(--lz-green-3); color:var(--lz-cream); border-radius:var(--radius); padding:var(--sp-5) }
+.p-card.alt{ background:var(--lz-cream-2); color:var(--lz-ink) }
+.p-ini{ width:52px; height:52px; border-radius:50%; border:1px solid currentColor;
+        display:flex; align-items:center; justify-content:center; font-family:var(--font-display);
+        font-size:1.15rem; margin-bottom:var(--sp-4); opacity:.9 }
+.p-name{ font-family:var(--font-display); font-size:clamp(1.3rem,2.2vw,1.7rem); margin-bottom:var(--sp-3) }
+.p-facts{ font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; line-height:1.9; opacity:.82 }
+.p-role{ font-size:var(--fs-label); letter-spacing:.14em; text-transform:uppercase; font-weight:600; margin-top:var(--sp-3) }
+.p-card .p-role{ color:var(--lz-mint) } .p-card.alt .p-role{ color:var(--lz-green-2) }
+.p-quote{ font-family:var(--font-display); font-style:italic; font-size:1.02rem; line-height:1.5;
+          margin-top:var(--sp-4); padding-top:var(--sp-4); border-top:1px solid rgba(168,201,160,.3) }
+.p-card.alt .p-quote{ border-top-color:var(--lz-hairline) }
+
+/* Iterationskette V1 → V2 → V3 */
+.chain{ display:grid; gap:var(--sp-3); grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); align-items:stretch }
+.chain > *{ min-width:0 }
+.chain .k{ display:flex; flex-direction:column }
+.v-tag{ font-family:var(--font-display); font-size:1.6rem; color:var(--lz-green); line-height:1; margin-bottom:var(--sp-2) }
+.t-dark .v-tag{ color:var(--lz-mint) }
+
+/* Kritiker-Dialog: drei Spalten Kritik → Frage → Antwort */
+.dlg{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:var(--sp-4) }
+.dlg > *{ min-width:0 }
+.dlg-col .k-lbl{ font-size:.72rem }
+.dlg-q{ font-style:italic }
+
+/* Zitatband */
+.s-quote{
+  font-family:var(--font-display); font-style:italic; font-size:clamp(1.05rem,2vw,1.4rem);
+  line-height:1.5; padding-top:var(--sp-5); margin-top:var(--sp-5);
+  border-top:1px solid var(--lz-hairline);
+}
+.t-dark .s-quote{ border-top-color:rgba(168,201,160,.35); color:var(--lz-cream-2) }
+.s-quote.center{ text-align:center }
+
+/* Prompt — wortwörtliches Zitat */
+.prompt{
+  font-family:var(--font-display); font-style:italic; font-size:.98rem; line-height:1.55;
+  color:var(--lz-green-3);
+}
+.t-dark .prompt{ color:var(--lz-cream-2) }
+.pill{
+  display:inline-block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:600;
+  padding:.3rem .8rem; border-radius:var(--r-pill); margin-bottom:var(--sp-3);
+  background:var(--lz-green-3); color:var(--lz-mint);
+}
+.pill.amber{ background:var(--lz-amber-ink); color:var(--lz-cream) }
+
+/* ══ F/A/E/O-Kennzeichnung ══════════════════════════════════════════════
+   Labelpflicht des Projekts. Die Marke trägt Buchstabe + Titel, nicht nur
+   Farbe — bei Deuteranopie fallen Amber und Grün sonst zusammen. */
+.lbl{
+  display:inline-block; font-size:.66rem; font-weight:700; line-height:1;
+  padding:.16rem .34rem; border-radius:4px; margin-left:.34em; vertical-align:.1em;
+  font-variant-numeric:tabular-nums;
+}
+.lbl-f{ background:rgba(74,103,65,.16);  color:var(--lz-green-2) }
+.lbl-a{ background:rgba(140,94,20,.16);  color:var(--lz-amber-ink) }
+.lbl-e{ background:rgba(51,86,107,.16);  color:var(--lz-info) }
+.lbl-o{ background:rgba(140,58,42,.16);  color:var(--lz-red) }
+.t-dark .lbl-f{ background:rgba(168,201,160,.2); color:var(--lz-mint) }
+.t-dark .lbl-a{ background:rgba(226,181,106,.22); color:#E2B56A }
+.t-dark .lbl-e{ background:rgba(156,194,206,.22); color:#9CC2CE }
+.t-dark .lbl-o{ background:rgba(240,149,149,.22); color:#F09595 }
+
+/* Korrekturhinweis — jede Stelle, an der diese Fassung vom Original abweicht,
+   ist gekennzeichnet. Eingeklappt, weil die Folie im Pitch die Aussage tragen
+   soll und nicht den Änderungsnachweis: die Kurzzeile bleibt immer sichtbar,
+   die Begründung ist einen Klick entfernt. Ausgeklappt sind acht Folien bei
+   1440x900 zu hoch geworden — nachgemessen, deshalb <details>. */
+.fix{
+  margin-top:var(--sp-4);
+  border-left:3px solid var(--lz-amber-ink); background:var(--tint-warn);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-size:.82rem; font-weight:300; line-height:1.55; color:var(--lz-ink-2);
+}
+.fix > summary{
+  cursor:pointer; list-style:none; display:flex; gap:.55em; align-items:center;
+  padding:.5rem var(--sp-4); min-height:44px;
+  font-weight:600; color:var(--lz-amber-ink);
+}
+.fix > summary::-webkit-details-marker{ display:none }
+.fix > summary::before{ content:'▸'; flex:0 0 auto; font-size:.9em; opacity:.85 }
+.fix[open] > summary::before{ content:'▾' }
+.fix > summary:hover{ text-decoration:underline; text-underline-offset:3px }
+.fix .fix-body{ padding:0 var(--sp-4) var(--sp-4) }
+.fix b{ font-weight:600; color:var(--lz-amber-ink) }
+.fix .was{ text-decoration:line-through; text-decoration-color:rgba(140,58,42,.6); opacity:.7 }
+.t-dark .fix{ background:rgba(226,181,106,.14); border-left-color:#E2B56A; color:rgba(245,240,232,.88) }
+.t-dark .fix b, .t-dark .fix > summary{ color:#E2B56A }
+.faeo{ margin-top:var(--sp-3); font-size:.74rem; opacity:.66 }
+
+/* ══ Bedienleiste ═══════════════════════════════════════════════════════ */
+.deck-progress{
+  position:absolute; top:0; left:0; height:2px; z-index:22;
+  background:var(--lz-green); transition:width .25s ease;
+}
+.slide-dark-active ~ .deck-progress{ background:var(--lz-mint) }
 .deck-hud{
-  position:fixed; bottom:0; left:0; right:0; z-index:20;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px clamp(20px,5vw,56px); font-size:.82rem; color:rgba(245,240,232,.7);
-  background:linear-gradient(0deg, rgba(0,0,0,.28), transparent);
+  position:absolute; bottom:0; left:0; right:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--sp-4);
+  padding:.6rem clamp(16px,4vw,40px);
+  font-size:var(--fs-label); letter-spacing:.08em;
+  background:rgba(245,240,232,.92); border-top:0.5px solid var(--lz-hairline);
+  color:var(--lz-ink-2);
 }
-.deck-hud .lz-count{ font-variant-numeric:tabular-nums; letter-spacing:.04em }
-.deck-nav{ display:flex; gap:10px }
+body.on-dark .deck-hud{ background:rgba(28,38,26,.92); border-top-color:rgba(168,201,160,.24); color:rgba(245,240,232,.8) }
+.deck-count{ font-variant-numeric:tabular-nums; white-space:nowrap }
+.deck-hint{ display:none; opacity:.8 }
+@media (min-width:900px){ .deck-hint{ display:inline } }
+.deck-nav{ display:flex; gap:8px; align-items:center }
 .deck-btn{
-  min-height:44px; min-width:44px; border-radius:50%; border:1px solid rgba(245,240,232,.4);
-  background:rgba(255,255,255,.06); color:var(--lz-cream); font-size:1.1rem; cursor:pointer;
-  display:inline-flex; align-items:center; justify-content:center;
+  min-height:40px; min-width:40px; border-radius:50%; cursor:pointer;
+  border:1px solid var(--lz-line-ui); background:transparent; color:var(--lz-green-2);
+  display:inline-flex; align-items:center; justify-content:center; font-size:1rem; line-height:1;
+  padding:0; aspect-ratio:1; position:relative;
 }
-.deck-btn:hover{ background:rgba(255,255,255,.16) }
-.deck-hint{ display:none }
-@media (min-width:760px){ .deck-hint{ display:inline } }
+/* Unsichtbare 48px-Trefferfläche, damit der Knopf rund bleibt und nicht oval
+   wird — dieselbe Lösung wie .lz-round in lz-tokens.css. */
+.deck-btn::after{ content:''; position:absolute; top:50%; left:50%; width:48px; height:48px; transform:translate(-50%,-50%) }
+.deck-btn:hover{ background:rgba(74,103,65,.1) }
+body.on-dark .deck-btn{ border-color:rgba(168,201,160,.45); color:var(--lz-mint) }
+body.on-dark .deck-btn:hover{ background:rgba(168,201,160,.16) }
 .deck-exit{
-  /* Gleiche tick-h-Regel wie bei .deck: sonst haengt der Knopf unter dem Warnbalken. */
-  position:fixed; top:calc(var(--tick-h, 2.375rem) + 16px); right:16px; z-index:20;
-  min-height:40px; padding:0 16px; border-radius:var(--r-pill); border:1px solid rgba(245,240,232,.35);
-  background:rgba(255,255,255,.06); color:var(--lz-cream); font-size:.82rem; cursor:pointer;
+  font-size:var(--fs-label); letter-spacing:.08em; color:var(--lz-green-2);
+  display:inline-flex; align-items:center; gap:.4em; min-height:40px; padding:0 .5rem; white-space:nowrap;
 }
-.deck-exit:hover{ background:rgba(255,255,255,.16) }
-:focus-visible{ outline:2px solid var(--lz-mint); outline-offset:2px }
+body.on-dark .deck-exit{ color:var(--lz-mint) }
 
-/* Vollbild-Ausnahme: Warnbalken darf im Vollbild ganz verschwinden.
-   Auf den Folien (nicht im Vollbild) bleibt er sichtbar wie auf jeder anderen
-   Seite — Festlegung von Josh, 12.08.2026. Zwei Wege abgedeckt: die echte
-   Fullscreen-API (:fullscreen) und die Klasse als Fallback, falls die API
-   in der Umgebung blockiert ist. */
-:fullscreen .fiktiv-bar,
-body.lz-is-fullscreen .fiktiv-bar{ display:none }
-:fullscreen .deck-exit,
-body.lz-is-fullscreen .deck-exit{ display:none }
+/* Bedienleiste auf dem Telefon — nachgemessen: mit ausgeschriebenem
+   „Investorenbereich" brauchte die Leiste 433 px bei 390 px Viewport und
+   weitete damit die GANZE Seite auf (dieselbe Fehlerklasse wie im
+   Wettbewerbs-Dashboard). Der Zähler machte es sichtbar: ab Folie 10
+   wurden aus 433 px 442 px, weil „10 / 24" breiter ist als „1 / 24".
+   Deshalb bleibt unter 620 px nur der Pfeil stehen; die Beschriftung
+   traegt weiterhin das aria-label. */
+@media (max-width:620px){
+  .deck-hud{ padding:.5rem 10px; gap:8px }
+  .deck-exit .deck-exit-t{ display:none }
+  .deck-nav{ gap:6px }
+  .deck-btn{ min-height:38px; min-width:38px }
+}
+:focus-visible{ outline:2px solid var(--lz-green); outline-offset:2px }
+body.on-dark :focus-visible{ outline-color:var(--lz-mint) }
+
+/* Folienverzeichnis (Taste 0 oder Klick auf den Zähler) */
+.toc{
+  position:absolute; inset:0; z-index:30; display:none;
+  background:var(--lz-cream); padding:clamp(20px,4vw,48px); overflow-y:auto;
+}
+.toc.open{ display:block }
+.toc h2{ font-family:var(--font-display); color:var(--lz-green-3); margin-bottom:var(--sp-4) }
+.toc ol{ list-style:none; counter-reset:t; display:grid; gap:6px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)) }
+.toc li{ counter-increment:t }
+.toc button{
+  width:100%; text-align:left; background:none; border:0; border-bottom:0.5px solid var(--lz-hairline);
+  padding:.55rem .3rem; font:inherit; font-size:.88rem; color:var(--lz-ink-2); cursor:pointer;
+  min-height:44px; display:flex; gap:.7rem; align-items:baseline; border-radius:0;
+}
+.toc button::before{ content:counter(t); font-variant-numeric:tabular-nums; color:var(--lz-ink-3); min-width:1.6em }
+.toc button:hover{ color:var(--lz-green); background:rgba(74,103,65,.06) }
+.toc button[aria-current="true"]{ color:var(--lz-green); font-weight:500 }
+
+/* Warnbalken darf im Vollbild ganz verschwinden — Ausnahme, festgelegt von
+   Josh am 12.08.2026. Außerhalb des Vollbilds bleibt er sichtbar wie auf
+   jeder anderen Seite. Zwei Wege abgedeckt: die Fullscreen-API und die
+   Klasse als Rückfall, falls die API blockiert ist. */
+:fullscreen .fiktiv-bar, body.lz-is-fullscreen .fiktiv-bar{ display:none }
 
 @media (prefers-reduced-motion:reduce){ *{ transition:none !important } }
+@media print{ body{overflow:visible} .deck{position:static;inset:auto} .slide{display:flex !important;page-break-after:always;min-height:100vh} .deck-hud,.toc,.fiktiv-bar{display:none} }
 </style>
 </head>
 <body class="env-invest">
 
-<button class="deck-exit" id="deckExit" onclick="location.href='/investoren'">← Investorenbereich</button>
-
-<main class="deck" id="deck" role="region" aria-roledescription="Präsentation" aria-label="LebensZeit gGmbH — Sprint 1 Testballon">
+<main class="deck" id="deck" role="region" aria-roledescription="Präsentation"
+      aria-label="Investorenpitch Sprint 1 — LebensZeit gGmbH">
   <div class="deck-progress" id="deckProgress"></div>
-  <!-- Folien werden aus SLIDES gerendert, siehe <script> unten -->
+
+  <div class="toc" id="toc" role="dialog" aria-label="Folienverzeichnis" aria-modal="false">
+    <h2>Folienverzeichnis</h2>
+    <ol id="tocList"></ol>
+  </div>
+
   <div class="deck-hud">
-    <span class="lz-count" id="deckCount">1 / 1</span>
-    <span class="deck-hint">Pfeiltasten · Leertaste weiter · <kbd>Esc</kbd> verlässt die Präsentation</span>
+    <a class="deck-exit" href="/investoren" aria-label="Zurück zum Investorenbereich">←<span class="deck-exit-t">Investorenbereich</span></a>
+    <span class="deck-hint">Pfeiltasten blättern · <b>0</b> Verzeichnis · <b>F</b> Vollbild · <b>Esc</b> zurück</span>
     <span class="deck-nav">
+      <button class="deck-btn" id="deckToc"  aria-label="Folienverzeichnis öffnen" title="Verzeichnis (0)">☰</button>
       <button class="deck-btn" id="deckFull" aria-label="Vollbild umschalten" title="Vollbild (F)">⛶</button>
       <button class="deck-btn" id="deckPrev" aria-label="Vorherige Folie">‹</button>
       <button class="deck-btn" id="deckNext" aria-label="Nächste Folie">›</button>
+      <span class="deck-count" id="deckCount">1 / 1</span>
     </span>
   </div>
 </main>
 
 <script>
-/* ══════════════════════════════════════════════════════════════════════
-   1. FOLIENDATEN — von der Darstellung getrennt.
-   Inhalt: Sprint 1 (abgeschlossen, Pitch 15.06.2026), 1:1 aus /sprints
-   übernommen und für die Bühne komprimiert — Testballon der Technik, keine
-   inhaltliche Neuarbeit. Zwei Zusatzfolien am Ende zeigen, dass dieselbe
-   Bühne auch die für Sprint 2 bereits entschiedenen SWOT-Korrekturen trägt.
-   Jede Zahl mit F/A/E/O-Label, wo im Original nicht schon durch die
-   Sprint-Übersicht als "verbindlich" gedeckt.
-   ══════════════════════════════════════════════════════════════════════ */
-var SLIDES = [
-  { kind:"cover",
-    eyebrow:"Sprint 1 · Markt & Wettbewerb · Pitch 15.06.2026 — abgeschlossen",
-    title:"LebensZeit gGmbH",
-    lead:"Testballon der Präsentationsschicht: Vollbild, Foliendaten getrennt vom Layout, dieselbe Technik trägt später Sprint 2. Inhalt unverändert aus der Sprint-Übersicht.",
-    chips:["Fünf Bausteine","Steckbriefe verbindlich","nah · vernetzt · nachhaltig"] },
+/* ══════════════════════════════════════════════════════════════════════════
+   1. FOLIENDATEN — vollständig getrennt von der Darstellung.
+   ──────────────────────────────────────────────────────────────────────────
+   Quelle: LebensZeit_Investorpitch_20min.pdf, 24 Folien, Sprint 1,
+   Pitch 15.06.2026. Reihenfolge, Eyebrows, Minutenmarken, Fußzeilen und
+   die vier dunklen Akzentfolien folgen dem Original.
 
-  { kind:"stats",
-    eyebrow:"Baustein 01 · Markt- & Wettbewerbsanalyse",
-    title:"Einzige flächendeckende Versorgung im Kreis Soest",
-    lead:"Relevanter Pflegemarkt Deutschland, Wettbewerbsmatrix und blinde Flecken.",
-    stats:[
-      {num:"~44 Mrd. €",lbl:"Pflegemarkt Deutschland / Jahr (F)"},
-      {num:"~14 Mrd. €",lbl:"davon ambulant (F)"},
-      {num:"10",lbl:"Wettbewerber im Benchmark (F)"},
-      {num:"Ø 1–2",lbl:"Standorte je Wettbewerber — LebensZeit und Caritas: alle 5 (F)"}
-    ] },
+   Jede Abweichung vom Original steht als `fix` sichtbar auf der Folie —
+   nichts wird stillschweigend geändert. Angewandte Korrekturen:
+     F3  „Familie" → Basis/Aktiv/Premium (bekannter Fehler Nr. 1)
+     F3  Team 101 aufgelöst in 56 Mitarbeitende + 45 Ehrenamtliche
+         (Kopfzahlen nie addieren, analog Pflegeumsatz/Fördermittel)
+     F3  Umsatz getrennt: Pflegeumsatz SGB XI/V ~1,15 Mio € · Fördermittel
+         ~0,80 Mio € · übrige Erlöse ~0,15 Mio €. Der Pflegeumsatz ist NICHT
+         2,1 minus 0,80 — 1,15 Mio € ist der belegte Wert für die Abrechnung
+         nach SGB XI/V (Cockpit-Modul Abrechnung, Quellen-Registry), der Rest
+         sind Selbstzahler und Mitgliedsbeiträge. Die 0,15 Mio € sind als
+         Restgröße gerechnet, deshalb Annahme.
+     F4  Graumarkt 600.000 → 500.000–600.000 (Entscheidung 07.08.2026)
+     F5  Erwitte ~16.200 → 20.200 Einwohner. Die Tabelle summierte sich
+         nicht auf ihre eigene Gesamtzahl: 56.900 statt der genannten
+         60.900. Mit 20.200 stimmt die Summe exakt.
+     F5  „Marktpotenzial 3,0 Mio €" von Fakt auf Offen herabgestuft
+     F6  Graumarkt-Preisdruck PG 3–5 → PG 4–5 (Entscheidung 07.08.2026)
+     F9  Substitute PG 3–5 → PG 4–5, gleiche Begründung
+     F11 Graumarkt PG 3–5 → PG 4–5; „6 von 9" als offene Zählbasis markiert
+     F13/14 Personas-Set als Offen gekennzeichnet — Set 2 (Stemmer/Dörre)
+         ist inzwischen maßgeblich, die Iterationsfolie F15 belegt aber die
+         Entstehung von Brinkmann/Koch. Entscheidung steht aus.
+   ══════════════════════════════════════════════════════════════════════════ */
 
-  { kind:"grid",
-    eyebrow:"Baustein 02 · Porter's Five Forces",
-    title:"Fünf Kräfte, 1 (gering) – 5 (sehr hoch)",
-    lead:"Quelle: Investorpitch S. 9 und S. 11. Claude als kritischer Analyst — Gegenposition live gezeigt.",
-    cards:[
-      {t:"Lieferantenmacht — 4/5",p:"Kritischste Kraft: 8 offene Stellen, 38 % Förderanteil."},
-      {t:"Substitute — 3/5",p:"Mittel, steigend — Graumarkt, Plattformen ab 2028+."},
-      {t:"Wettbewerbsintensität — 3/5",p:"Mittel — Caritas hält dieselbe Abdeckung."},
-      {t:"Neue Wettbewerber — 2/5",p:"Gering — Regulierung und Vertrauensaufbau schützen."},
-      {t:"Kundenmacht — 2/5",p:"Gering — keine vergleichbare lokale Alternative."}
-    ] },
+/* Kurzschreibweisen für die Labelpflicht */
+const F = ' <span class="lbl lbl-f" title="Fakt — belegt">F</span>';
+const A = ' <span class="lbl lbl-a" title="Annahme — plausibel, unbelegt">A</span>';
+const E = ' <span class="lbl lbl-e" title="Empfehlung — eigener Vorschlag">E</span>';
+const O = ' <span class="lbl lbl-o" title="Offen — bekannt unsicher">O</span>';
+const LEGENDE = '<p class="faeo">F Fakt (belegt) · A Annahme (plausibel, unbelegt) · E Empfehlung · O Offen (bekannt unsicher)</p>';
 
-  { kind:"personas",
-    eyebrow:"Baustein 03 · Zwei Personas",
-    title:"In drei Schritten geschärft (V1 → V3)",
-    lead:"Frühe Fassungen: Sandra Köhler, Markus Pohlmann — iterativ verworfen.",
-    personas:[
-      {name:"Hildegard Stemmer",role:"Pflegebedürftig, lebt allein",text:"Alltag zwischen Selbstständigkeit und wachsender Unsicherheit. Erwartet Verlässlichkeit vor Nähe.",quote:"„Ich will niemandem zur Last fallen — aber allein schaffe ich das auch nicht mehr.“"},
-      {name:"Markus Dörre",role:"Angehöriger, entscheidet über die Pflege",text:"Sonntagabends auf dem Sofa, das schlechte Gewissen der Distanz. Sucht Gewissheit ohne ständig anzurufen.",quote:"„Ich will wissen, wie es ihr geht — ohne jedes Mal anzurufen und zu stören.“"}
-    ] },
+const SLIDES = [
 
-  { kind:"list",
-    eyebrow:"Baustein 04 · Strategische SWOT & Stoßrichtung",
-    title:"Option C — „Digitale Nähe“",
-    lead:"Der sichtbare Pflegepartner für Angehörige. Claudes Kritik verschob den Fokus von drei Säulen auf eine Stoßrichtung — und auf die Angehörigen.",
-    items:[
-      "SWOT/TOWS mit priorisierter Stoßrichtung und 90-Tage-Maßnahmen",
-      "Drei Optionen strukturiert verglichen, Option C ausgewählt",
-      "Anforderung erfüllt: Stoßrichtung von Claude als kritischem Investor zerlegt"
-    ] },
+/* ── 01 ─ Titel ──────────────────────────────────────────────────────── */
+{ theme:'light', kind:'cover',
+  logo:true,
+  title:'Kennen wir unseren Markt? <em>Der Beweis in fünf Bausteinen.</em>',
+  meta:['Investorenpitch · 20 Minuten + 10 Minuten Q&A',
+        'KI-Pionierzirkel Sprint 1 · Volksbank Hellweg eG · 15. Juni 2026'] },
 
-  { kind:"stats",
-    eyebrow:"Baustein 05 · KI-Vorgehensmodell (Pflicht, separat bewertet)",
-    title:"Dokumentiertes Vorgehen statt bloßer Ergebnisse",
-    lead:"Methoden: Kontext-Anker, Prompt-Creator-Methode, Zwei-Stufen-Kritik, Iterieren & Testen.",
-    stats:[
-      {num:"7",lbl:"dokumentierte Sessions (F)"},
-      {num:"5 / 7",lbl:"Sessions mit Claude als Kritiker (F)"},
-      {num:"3",lbl:"echte blinde Flecken gefunden (F)"},
-      {num:"2",lbl:"Strategie-Änderungen (F)"}
-    ] },
+/* ── 02 ─ Agenda ─────────────────────────────────────────────────────── */
+{ theme:'light', eyebrow:'Agenda · 20 Minuten + 10 Minuten Q&A', min:'Min. 0–2',
+  title:'Fünf Bausteine. Eine Frage: Kennen wir unseren Markt wirklich?',
+  lead:'Unser Investor wollte vor weiteren Entscheidungen genau das wissen. Heute liefern wir die Antwort — und zeigen nicht nur, <b>was</b> wir erarbeitet haben, sondern <b>wie</b>: Das KI-Vorgehensmodell ist integraler Bestandteil jedes Bausteins, kein Anhang.',
+  foot:'Sprint 1 · Markt & Wettbewerb',
+  html:`<div class="g-auto">
+    ${[['Baustein 1 · Min. 2–6','Markt &amp; Wettbewerb','Marktgröße, Wettbewerbsmatrix, blinde Flecken — plus drei Prompt-Strategien dahinter.'],
+       ['Baustein 2 · Min. 6–10',"Porter's Five Forces",'Fünf Kräfte (Skala 1–5) — und der Dialog mit Claude als kritischem Analysten, live.'],
+       ['Baustein 3 · Min. 10–13','Zwei Personas','Wer entscheidet wirklich über Pflege? Zwei Profile, in drei Schritten geschärft.'],
+       ['Baustein 4 · Min. 13–17','SWOT &amp; Stoßrichtung','Eine priorisierte Strategie, 90-Tage-Plan — und wie Claudes Kritik sie verändert hat.'],
+       ['Baustein 5 · Min. 17–20','KI-Vorgehens&shy;modell','7 dokumentierte Sessions, Methoden, Grenzen — das Herzstück des Lernprozesses.']]
+      .map(([l,t,p],i)=>`<div class="k${i===4?' warn':''}"><span class="k-lbl">${l}</span><div class="k-t">${t}</div><p class="k-p">${p}</p></div>`).join('')}
+  </div>` },
 
-  { kind:"list",
-    eyebrow:"Sprint 1 · Ergebnis",
-    title:"Verbindliche Ergebnisse",
-    lead:"Die Steckbriefe gelten unverändert und verbindlich für alle weiteren Sprints.",
-    items:[
-      "Markt- & Wettbewerbsanalyse (Kreis Soest, ambulante Pflege) + Wettbewerbsmatrix",
-      "Porter's Five Forces (5 Kräfte, 1–5 bewertet)",
-      "Zwei Personas: Hildegard Stemmer & Markus Dörre",
-      "SWOT & strategische Stoßrichtung 2026–2031 (Option C)",
-      "Geschäftsmodell-Basisdaten (verbindlich)",
-      "Prompt-Tagebuch Sprint 1 (7 Sessions)"
-    ] },
+/* ── 03 ─ Ausgangslage ───────────────────────────────────────────────── */
+{ theme:'light', eyebrow:'Ausgangslage', min:'Min. 0–2',
+  title:'LebensZeit auf einen Blick.',
+  lead:'Gegründet 2020 in Erwitte · gGmbH · Geschäftsführung Dr. Maria Holthaus · Pflege und Gesundheit im ländlichen Raum — nah, vernetzt, nachhaltig.',
+  foot:'Ausgangslage',
+  html:`<div class="g-2" style="grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
+    <div>
+      <div class="g-22" style="margin-bottom:var(--sp-4)">
+        <div class="k"><span class="k-lbl">Standorte</span><div class="k-num">5</div>
+          <p class="k-p">Erwitte · Bad Sassendorf · Anröchte · Rüthen · Lippetal — einzige Flächendeckung der Region${F}</p></div>
+        <div class="k"><span class="k-lbl">Umsatz</span><div class="k-num">2,1 Mio €</div>
+          <p class="k-p">Pflegeumsatz SGB XI/V ~1,15 Mio €${F} · Fördermittel ~0,80 Mio €${F} · übrige Erlöse ~0,15 Mio €${A} (Selbstzahler, Mitgliedsbeiträge) — Eigenfinanzierung 62 %, Ziel 70 %${F}</p></div>
+        <div class="k"><span class="k-lbl">Mitarbeitende</span><div class="k-num">56</div>
+          <p class="k-p">34 Festangestellte · 22 Teilzeit · davon 8 Stellen unbesetzt${F}<br>Zusätzlich 45 Ehrenamtliche als Alleinstellungsmerkmal${F}</p></div>
+        <div class="k"><span class="k-lbl">Netzwerk</span><div class="k-num">520</div>
+          <p class="k-p">Fördermitglieder: Basis 300 · Aktiv 170 · Premium 50${F} · 180 aktiv betreute Pflegefälle PG 2–5${F}</p></div>
+      </div>
+      <details class="fix"><summary>3 Korrekturen gegenüber dem Original — Mitgliedsstufe, Kopfzahl, Umsatzaufteilung</summary><div class="fix-body">Mitgliedsstufe <span class="was">Familie</span> → <b>Premium</b> — kanonisch ist Basis/Aktiv/Premium, „Familie" ist ein bekannter Fehler in zwei Quelldokumenten.
+        <span class="was">Team 101</span> → <b>56 Mitarbeitende und 45 Ehrenamtliche getrennt</b>: 101 addiert Angestellte und Ehrenamt zu einer Kopfzahl, dieselbe Art Fehler wie Pflegeumsatz plus Fördermittel.
+        Und der Umsatz ist aufgeteilt statt „davon 38 % Fördergelder" — dabei ist <b>1,15 Mio € der belegte Pflegeumsatz nach SGB XI/V</b>, nicht die Differenz 2,1 minus 0,80. Die übrigen ~0,15 Mio € sind Selbstzahler und Mitgliedsbeiträge und hier als Restgröße gerechnet.</div></details>
+    </div>
+    <div>
+      <span class="k-lbl">Was uns stark macht — und was uns bremst</span>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
+        <div class="k ok"><div class="k-t">Außergewöhnliches Vertrauen</div><p class="k-p">Höchste Bekanntheit und Weiterempfehlung — günstigste Kundengewinnung im Markt.${A}</p></div>
+        <div class="k crit"><div class="k-t">Zwei Standorte defizitär</div><p class="k-p">Rüthen −38 k€ und Lippetal −30 k€ Deckungsbeitrag${F} — Quersubventionierung belastet.</p></div>
+        <div class="k crit"><div class="k-t">8 offene Stellen seit über 6 Monaten</div><p class="k-p">Kapazitätsengpass blockiert Wachstum direkt — bei nur 4,5 % Marktdurchdringung.${F}</p></div>
+        <div class="k warn"><div class="k-t">Digitalisierungsgrad gering</div><p class="k-p">Kommunikation überwiegend telefonisch — digitale Vernetzung fehlt.${F}</p></div>
+      </div>
+    </div>
+  </div>${LEGENDE}` },
 
-  { kind:"fixes",
-    eyebrow:"Ausblick Sprint 2 · Baustein 04 (SWOT) — Entscheidung 07.08.2026",
-    title:"Drei Korrekturen, bevor die SWOT-Folie in den Pitch geht",
-    lead:"Dieselbe Bühne trägt auch die bereits entschiedenen Korrekturen für den Pitch am 7. September — hier als Beleg, nicht als vollständige Sprint-2-Folie.",
-    rows:[
-      {label:"Mitgliedschaftsmodell",was:"„Familie“",now:"Basis / Aktiv / Premium",tag:"f",tagLabel:"F"},
-      {label:"Graumarkt-Kräfte (bundesweit)",was:"600.000",now:"500.000–600.000",tag:"a",tagLabel:"A"},
-      {label:"Substitutionsrisiko",was:"PG 3–5",now:"PG 4–5",tag:"e",tagLabel:"E"}
-    ],
-    note:"Begründung PG 4–5: Graumarkt-Vollzeitbetreuung kostet 1.500–2.500 €/Monat. Bei PG 3 liegt der Sachleistungsbetrag bei 1.432 €/Monat — dort wäre der Graumarkt teurer, kein Verdrängungsfall. Erst ab PG 4 (1.778 €) und PG 5 (2.200 €) trägt das Argument. (Sachleistungs-Caps §36, kanonisch.)" },
+/* ── 04 ─ Baustein 1 · Makromarkt ────────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 1 · Markt- &amp; Wettbewerbsanalyse', min:'Min. 2–6 · Baustein 1',
+  title:'Ein Markt, der nicht warten kann.',
+  lead:'Demografiegetrieben, konjunkturunabhängig, abgesichert durch SGB XI. Quellen: Destatis Pflegestatistik, IT.NRW, Bertelsmann Stiftung 2023.',
+  foot:'Baustein 1 · Makromarkt',
+  html:`<div class="g-auto">
+    <div class="k"><span class="k-lbl">Pflegebedürftige (D)</span><div class="k-num">5,0 Mio</div>
+      <p class="k-p">Prognose 2040: 6,8 Mio${F} — strukturelles Wachstum über zwei Jahrzehnte</p></div>
+    <div class="k"><span class="k-lbl">Ambulante Pflege (D)</span><div class="k-num">14 Mrd €</div>
+      <p class="k-p">Gesamtmarkt ~44 Mrd €/Jahr${F} · ~15.400 Dienste, ~3.100 in NRW${F}</p></div>
+    <div class="k"><span class="k-lbl">Marktwachstum p. a.</span><div class="k-num">+4–5 %</div>
+      <p class="k-p">Babyboomer erreichen ab 2030 das Hochpflegealter${A}</p></div>
+    <div class="k"><span class="k-lbl">Fachkräftelücke</span><div class="k-num crit">~200.000</div>
+      <p class="k-p">Offene Pflegestellen bundesweit${F} — der limitierende Faktor</p></div>
+  </div>
+  <div class="g-2" style="margin-top:var(--sp-4)">
+    <div class="k ok"><div class="k-t">Kreis Soest altert überdurchschnittlich</div>
+      <p class="k-p">Anteil 65+ steigt von ~22,8 % auf ~30 % bis 2040${F} — bei leicht sinkender Gesamtbevölkerung. Jeder demografische Trend arbeitet für unser Geschäftsmodell.</p></div>
+    <div class="k warn"><div class="k-t">Zwei Marktrisiken im Blick</div>
+      <p class="k-p">Wachsender 24h-Betreuungs-Graumarkt (<b>500.000–600.000</b> Kräfte bundesweit)${A} und steigende Betriebskosten durch Pflege-Mindestlohn und Energie.</p></div>
+  </div>
+  <details class="fix"><summary>1 Korrektur — Graumarkt-Kräfte als Bandbreite</summary><div class="fix-body">Graumarkt-Kräfte <span class="was">600.000</span> → <b>500.000–600.000</b>. Der Punktwert suggerierte eine Genauigkeit, die die Quellenlage bei einem informellen Markt nicht trägt. Entschieden am 07.08.2026, gilt auch für die SWOT-Folie.</div></details>${LEGENDE}` },
 
-  { kind:"cover",
-    eyebrow:"Testballon — Ergebnis",
-    title:"Technik geprüft, Inhalt wartet auf Sprint 2",
-    lead:"Vollbild, Pfeiltasten, Folienzähler, Esc, ein Stylesheet (lz-tokens.css) — ohne zweiten :root-Block. Nächster Schritt: dieselbe Bühne mit dem echten Sprint-2-Baustein-Board (Markenkern, Preisarchitektur, Kampagne, App-Showcase, KI-Reflexion) füllen.",
-    chips:["Sprint 2 · Pitch 07.09.2026","20 + 10 Minuten"] }
+/* ── 05 ─ Baustein 1 · Regionalmarkt ─────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 1 · Unser Versorgungsgebiet', min:'Min. 2–6 · Baustein 1',
+  title:'~4.000 Pflegebedürftige. Wir erreichen erst 180.',
+  foot:'Baustein 1 · Regionalmarkt Kreis Soest',
+  html:`<div class="g-2">
+    <div>
+      <div class="k" style="margin-bottom:var(--sp-3)"><span class="k-lbl">Marktpotenzial</span><div class="k-num">3,0 Mio €</div>
+        <p class="k-p">~3.995 Pflegebedürftige · ~60.900 Einwohner${F} · realisiert: 2,1 Mio €${F}</p></div>
+      <div class="k"><span class="k-lbl">Penetrationsrate</span><div class="k-num warn">4,5 %</div>
+        <p class="k-p">180 aktive Fälle${F} — das ist nicht unser Problem. Das ist unsere Chance.</p></div>
+    </div>
+    <div>
+      <div class="tbl-scroll"><table class="s-tbl">
+        <thead><tr><th>Standort</th><th>Einw.</th><th>65+</th><th>Pflegebed.</th><th>Potenzial</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Erwitte (Hauptsitz)</td><td class="num">~20.200</td><td class="num">23,5 %</td><td class="num">~1.300</td><td class="num">~1,0 Mio €</td><td class="st-ok">Kern · profitabel</td></tr>
+          <tr><td>Bad Sassendorf (Kurort)</td><td class="num">~13.100</td><td class="num">26,2 %</td><td class="num">~920</td><td class="num">~0,7 Mio €</td><td class="st-ok">Premium-Potenzial</td></tr>
+          <tr><td>Anröchte</td><td class="num">~8.400</td><td class="num">23,0 %</td><td class="num">~545</td><td class="num">~0,4 Mio €</td><td>Solide</td></tr>
+          <tr><td>Rüthen</td><td class="num">~10.700</td><td class="num">24,1 %</td><td class="num">~685</td><td class="num">~0,5 Mio €</td><td class="st-bad">Nicht kostendeckend</td></tr>
+          <tr><td>Lippetal</td><td class="num">~8.500</td><td class="num">23,8 %</td><td class="num">~545</td><td class="num">~0,4 Mio €</td><td class="st-bad">Nicht kostendeckend</td></tr>
+        </tbody>
+      </table></div>
+      <div class="k warn" style="margin-top:var(--sp-4)"><div class="k-t">Ehrliche Diagnose statt Schönfärberei</div>
+        <p class="k-p">Rüthen und Lippetal leiden unter geringer Siedlungsdichte und hohen Fahrkosten. Das Ehrenamtsnetzwerk kann dort kostensenkend wirken — die Wirtschaftlichkeitsanalyse ist Maßnahme Nr. 1 im 90-Tage-Plan.</p></div>
+    </div>
+  </div>
+  <details class="fix"><summary>2 Befunde — Einwohnerzahl Erwitte, Marktpotenzial herabgestuft</summary><div class="fix-body">Erwitte <span class="was">~16.200</span> → <b>20.200 Einwohner</b>: die Tabelle summierte sich nicht auf ihre eigene Gesamtzahl — 56.900 statt der darüber genannten 60.900. Mit dem kanonischen Wert 20.200 stimmt die Summe exakt.
+    Und das <b>Marktpotenzial 3,0 Mio €</b> ist von Fakt auf <b>Offen</b>${O} herabgestuft: es ist in den Basisdaten ausdrücklich als Schwachstelle markiert und passt nicht zu ~3.995 Pflegebedürftigen.</div></details>${LEGENDE}` },
+
+/* ── 06 ─ Baustein 1 · Wettbewerbsmatrix ─────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 1 · Wettbewerbsmatrix', min:'Min. 2–6 · Baustein 1',
+  title:'Zehn Anbieter. Keiner deckt die Fläche wie wir.',
+  lead:'Legende: <span class="p-full">●</span> Präsenz bestätigt · <span class="p-part">◐</span> Teilpräsenz · <span class="p-none">○</span> nicht vertreten — Kriterien: Standortpräsenz, Trägertyp, strategische Relevanz.',
+  foot:'Baustein 1 · 9 Wettbewerber × 5 Standorte',
+  html:`<div class="tbl-scroll"><table class="s-tbl">
+    <thead><tr><th>Anbieter</th><th>Typ</th><th>Erw</th><th>B.Sa</th><th>Anr</th><th>Rüt</th><th>Lip</th><th>Strategischer Kommentar</th></tr></thead>
+    <tbody>
+      ${[['LebensZeit gGmbH','Gemeinnützig','fffff','Einzige vollständige Flächendeckung mit eigenem Netzwerk',1],
+         ['Caritas-Sozialstation Hellweg','Freigemeinn.','fffff','Stärkstes Netzwerk; Bindung über Kirchenzugehörigkeit',0],
+         ['24h-Betreuung / Graumarkt','Inoffiziell','fffff','~500.000–600.000 Kräfte bundesweit; Preisdruck bei Pflegegrad <b>4–5</b>',0],
+         ['DRK Kreisverband Soest','Freigemeinn.','fffpf','Hausnotruf-Marktführer; Pflege oft Nebengeschäft',0],
+         ['Diakonie Sozialstation Soest','Freigemeinn.','ffpnn','Fokus Soest-Stadt; ländliche Präsenz nur partiell',0],
+         ['Johanniter-Unfall-Hilfe Soest','Freigemeinn.','ffpnf','App-gestützte Services; Einstiegskonkurrent Prävention',0],
+         ['AWO Sozialstation Soest','Freigemeinn.','ffnnn','Urban orientiert, geringe Flächendeckung',0],
+         ['Malteser Hilfsdienst Soest','Freigemeinn.','ffnnn','Häusliche Pflege, Mahlzeitendienst',0],
+         ['Pflegedienst Sommer (Soest)','Privat','pfnnn','Kleinanbieter, saisonale Kapazitäten',0],
+         ['Careship / Pflegefinder','Digital','ppnnn','Wachstumssegment; zielt auf Angehörige als Nutzer',0]]
+        .map(([n,t,p,c,me])=>`<tr${me?' class="me"':''}><td>${n}</td><td>${t}</td>${
+          [...p].map(ch=>`<td style="text-align:center">${ch==='f'?'<span class="p-full">●</span>':ch==='p'?'<span class="p-part">◐</span>':'<span class="p-none">○</span>'}</td>`).join('')
+        }<td>${c}</td></tr>`).join('')}
+    </tbody>
+  </table></div>
+  <details class="fix"><summary>2 Korrekturen — Pflegegrad-Bereich, Zählbasis im Titel</summary><div class="fix-body">Graumarkt-Preisdruck <span class="was">Pflegegrad 3–5</span> → <b>Pflegegrad 4–5</b>: Die Vollzeitbetreuung kostet 1.500–2.500 €/Monat, bei PG 3 liegt der Sachleistungsbetrag aber nur bei 1.432 €/Monat — dort wäre der Graumarkt <em>teurer</em> und damit kein Verdrängungsfall. Erst ab PG 4 (1.778 €) und PG 5 (2.200 €) trägt das Argument.
+    Außerdem Titel und Fußzeile geschärft: die Tabelle listet <b>9 Wettbewerber plus LebensZeit</b>, nicht zehn Wettbewerber.${O}</div></details>${LEGENDE}` },
+
+/* ── 07 ─ Baustein 1 · Bedrohungsanalyse ─────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 1 · Bedrohungsanalyse &amp; blinde Flecken', min:'Min. 2–6 · Baustein 1',
+  title:'Drei Gegner zählen wirklich — einen hätten wir fast übersehen.',
+  foot:'Baustein 1 · Bedrohungsranking',
+  html:`<div class="g-3">
+    <div class="k"><span class="k-lbl" style="color:var(--lz-red)">Bedrohung 9/10 · direkt</span>
+      <div class="k-t">Caritas-Sozialstation Hellweg</div>
+      <p class="k-p">Vollpräsenz in allen 5 Standorten, kirchliches Vertrauen, Förderzugang. Schwäche: Bürokratie, geringes Innovationstempo — unser Zeitvorteil.${A}</p></div>
+    <div class="k"><span class="k-lbl" style="color:var(--lz-red)">Bedrohung 8/10 · Substitut</span>
+      <div class="k-t">24h-Betreuung / Graumarkt</div>
+      <p class="k-p">1.500–2.500 €/Monat Vollzeitbetreuung${F} — preiskonkurrent bei Pflegegrad <b>4–5</b>. Rechtliche Grauzone, aber permanente Anwesenheit.</p></div>
+    <div class="k"><span class="k-lbl" style="color:var(--lz-red)">Bedrohung 7/10 · direkt</span>
+      <div class="k-t">DRK Kreisverband Soest</div>
+      <p class="k-p">Hausnotruf als Einstiegsleistung vor dem Pflegebedarf — wer dort beginnt, bleibt oft. Bundesmarke, Fahrdienste.${A}</p></div>
+  </div>
+  <div class="k" style="margin-top:var(--sp-4);background:var(--lz-green-3);border-color:transparent">
+    <span class="k-lbl" style="color:var(--lz-sage)">Blinde Flecken — von Claude aufgedeckt, von uns verifiziert</span>
+    <div class="g-2" style="margin-top:var(--sp-3)">
+      <p class="k-p" style="color:rgba(245,240,232,.9)"><b style="color:var(--lz-mint)">Der Graumarkt fehlte in unserer ersten Liste.</b> Claude fragte: „Wogegen verlieren Sie Kunden, die nie bei einem Anbieter anrufen?“ — Antwort: 24h-Betreuung. Heute Bedrohung Nr. 2.</p>
+      <p class="k-p" style="color:rgba(245,240,232,.9)"><b style="color:var(--lz-mint)">Die digitale Flanke ist offen.</b> Careship &amp; Co. sind nur in Erwitte und Bad Sassendorf aktiv. Das Zeitfenster für die Randgemeinden gehört noch uns — aber nicht mehr lange.</p>
+    </div>
+  </div>${LEGENDE}` },
+
+/* ── 08 ─ Baustein 1 · KI-Nachweis ───────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 1 · Pflichtnachweis: drei Prompt-Strategien', min:'Min. 2–6 · KI-Nachweis',
+  title:'Wie diese Analyse entstanden ist.',
+  foot:'Baustein 1 · Prompt-Strategien (Tagebuch Sessions 1–3)',
+  html:`<div class="g-3">
+    ${[['Strategie 1 · Kontext-Anker','',
+        '„Schaue bitte kritisch über das Skript, fasse zusammen und merke dir die wichtigsten Stichpunkte für spätere Aufgaben.“',
+        'Gebracht: Gemeinsame Datenbasis für alle Sessions — und ungefragt die Erkenntnis, dass Förderung, Personal und Digital EIN systemisches Risiko bilden.',
+        'Das Wort „kritisch" verwandelt Zusammenfassungen in Einschätzungen.'],
+       ['Strategie 2 · Rollen-Prompt mit Skala','',
+        '„Du bist ein erfahrener Strategieberater für den deutschen Pflegemarkt. Identifiziere mind. 5 Wettbewerber als Matrix mit begründeten Kriterien.“',
+        'Gebracht: Die komplette Wettbewerber-Matrix inkl. Trägertyp und Kommentar — auf dem ersten Versuch tabellenfertig.',
+        'Rolle + Format + Skala vorab spart Iterationsschleifen.'],
+       ['Strategie 3 · Blinde-Flecken-Inversion','amber',
+        '„Wo sind unsere blinden Flecken? Welche Wettbewerber übersehen wir, weil sie in keinem Verzeichnis stehen?“',
+        'Gebracht: Graumarkt (Bedrohung 8/10) und Digitalplattformen — beide fehlten in unserer Liste komplett.',
+        'Die wertvollste Frage ist nicht „Was siehst du?“, sondern „Was sehen wir nicht?“']]
+      .map(([p,cls,q,r,l])=>`<div class="k">
+        <span class="pill ${cls}">${p}</span>
+        <p class="prompt">${q}</p>
+        <p class="k-p">${r}</p>
+        <p class="k-p" style="border-top:1px solid var(--lz-hairline);padding-top:var(--sp-3);margin-top:var(--sp-4)"><b>Learning:</b> ${l}</p>
+      </div>`).join('')}
+  </div>` },
+
+/* ── 09 ─ Baustein 2 · Five Forces ───────────────────────────────────── */
+{ theme:'light', eyebrow:"Baustein 2 · Porter's Five Forces · Skala 1 (gering) – 5 (sehr hoch)", min:'Min. 6–10 · Baustein 2',
+  title:'Fünf Kräfte. Eine klare Diagnose.',
+  foot:'Baustein 2 · Five Forces Übersicht',
+  html:`${[['1 · Neue Wettbewerber',2,'o','<b>2/5 — gering.</b> MDK-Prüfung, Pflegekassenverträge und 12–24 Monate Vertrauensaufbau schützen wirksam. 520 Mitglieder und 45 Ehrenamtliche sind nicht kopierbar.'],
+        ['2 · Lieferantenmacht',4,'c','<b>4/5 — hoch. Die kritischste Kraft.</b> Fachkräfte (8 offene Stellen) und Fördermittelgeber (38 % des Umsatzes ≈ 800.000 €/Jahr) üben strukturellen Druck aus.'],
+        ['3 · Kundenmacht',2,'o','<b>2/5 — gering.</b> Keine vergleichbare lokale Alternative; emotionale Bindung macht einen Anbieterwechsel unwahrscheinlich.'],
+        ['4 · Substitute',3,'w','<b>3/5 — mittel, steigend.</b> Graumarkt verdrängt Stundenpflege bei Pflegegrad <b>4–5</b>; Digitalplattformen werden ab 2028+ relevant.'],
+        ['5 · Wettbewerbsintensität',3,'w','<b>3/5 — mittel.</b> Heute Alleinstellung in der Fläche — aber Caritas hält dieselbe Abdeckung, interne Defizite erhöhen den Druck.']]
+      .map(([n,v,cls,t])=>`<div class="force ${cls}">
+        <span class="force-n">${n}</span>
+        <span class="force-dots" role="img" aria-label="Bewertung ${v} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=v?'on':''}"></i>`).join('')}</span>
+        <span class="force-txt">${t}</span>
+      </div>`).join('')}
+  <details class="fix"><summary>1 Korrektur — Substitute betreffen Pflegegrad 4–5</summary><div class="fix-body">Substitute: <span class="was">Pflegegrad 3–5</span> → <b>Pflegegrad 4–5</b>, dieselbe Begründung wie in der Wettbewerbsmatrix. Die Kraftbewertung 3/5 bleibt davon unberührt — nur der betroffene Pflegegradbereich war zu weit gefasst.</div></details>` },
+
+/* ── 10 ─ Baustein 2 · Lieferantenmacht (dunkel) ─────────────────────── */
+{ theme:'dark', eyebrow:'Baustein 2 · Tiefenblick auf die kritischste Kraft', min:'Min. 6–10 · Baustein 2',
+  title:'Lieferantenmacht 4/5 — hier entscheidet sich unsere Zukunft.',
+  html:`<div class="g-2">
+    <div class="k"><span class="k-lbl">Lieferant 1 · Pflegefachkräfte</span><div class="k-num">8 Stellen</div>
+      <p class="k-p">seit über 6 Monaten unbesetzt${F} — bei ~200.000 offenen Pflegestellen bundesweit. Jede Lücke heißt: Pflegefälle ablehnen. Wachstum ist strukturell blockiert, solange sie besteht.</p></div>
+    <div class="k"><span class="k-lbl">Lieferant 2 · Fördermittelgeber</span><div class="k-num">~800.000 € / Jahr</div>
+      <p class="k-p">38 % des Umsatzes hängen an politisch nicht garantierten Fördertöpfen${F}. Eine Kürzung trifft die Liquidität ohne Puffer. Das 70 %-Ziel ist keine Kür — es ist Existenzsicherung.</p></div>
+  </div>
+  <p class="s-quote">„Beide Abhängigkeiten haben denselben Gegenspieler: Attraktivität. Für Fachkräfte durch moderne Arbeitsbedingungen — für Selbstzahler durch sichtbaren Mehrwert. Beides beginnt digital.“</p>` },
+
+/* ── 11 ─ Baustein 2 · Substitute & Rivalität ────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 2 · Die zwei mittleren Kräfte im Detail', min:'Min. 6–10 · Baustein 2',
+  title:'Wo der Druck wächst: Substitute &amp; Rivalität.',
+  foot:'Baustein 2 · Substitute &amp; Rivalität',
+  html:`<div class="g-2">
+    <div>
+      <span class="k-lbl" style="color:var(--lz-amber-ink)">Substitute · 3/5
+        <span class="force-dots w" style="margin-left:.6em;vertical-align:-2px" role="img" aria-label="Bewertung 3 von 5"><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i></i><i></i></span></span>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
+        <div class="k warn"><div class="k-t">24h-Graumarkt — heute</div><p class="k-p">Bei Pflegegrad <b>4–5</b> ersetzt Vollzeitbetreuung (1.500–2.500 €/Monat) unsere Stundenpflege. Gegenmittel: Qualität, Pflegegrad-Abrechnung, Rechtssicherheit.</p></div>
+        <div class="k warn"><div class="k-t">Digitale Plattformen — ab 2028</div><p class="k-p">Careship &amp; Co. wachsen über Angehörige. Schwäche: kein ländliches Netz. Antwort: das digitale Angebot selbst besetzen, bevor es jemand anderes tut.${A}</p></div>
+        <div class="k ok"><div class="k-t">Pflegende Angehörige</div><p class="k-p">~1,85 Mio Menschen werden nur mit Pflegegeld versorgt${A} — das größte stille Substitut und zugleich unser größter Beratungsmarkt (Pflegegrad 1–2).</p></div>
+      </div>
+    </div>
+    <div>
+      <span class="k-lbl" style="color:var(--lz-amber-ink)">Wettbewerbsintensität · 3/5
+        <span class="force-dots w" style="margin-left:.6em;vertical-align:-2px" role="img" aria-label="Bewertung 3 von 5"><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i></i><i></i></span></span>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
+        <div class="k ok"><div class="k-t">6 von 9 Wettbewerbern freigemeinnützig</div><p class="k-p">Preiskampf ist begrenzt — entschieden wird über Identität und Bindung. Genau dort sind 520 Mitglieder und 45 Ehrenamtliche unser Vorteil.${O}</p></div>
+        <div class="k warn"><div class="k-t">Caritas als Spiegelbild</div><p class="k-p">Gleiche Flächendeckung, gleiches Personalproblem — aber langsamer. Wer zuerst digitalisiert, gewinnt die nächste Dekade.${A}</p></div>
+        <div class="k crit"><div class="k-t">Der Druck kommt auch von innen</div><p class="k-p">Zwei defizitäre Standorte schwächen unsere Verteidigungsfähigkeit — Wettbewerbsintensität ist nicht nur extern.</p></div>
+      </div>
+    </div>
+  </div>
+  <details class="fix"><summary>1 Korrektur, 1 offener Punkt — Pflegegrad und Zählbasis „6 von 9“</summary><div class="fix-body">Graumarkt <span class="was">Pflegegrad 3–5</span> → <b>Pflegegrad 4–5</b>.
+    Die Zählung <b>„6 von 9"</b> ist innerhalb dieser Wettbewerbsmatrix richtig (9 Wettbewerber plus LebensZeit), steht aber im Widerspruch zum Wettbewerbs-Dashboard, das 10 Wettbewerber führt — es enthält zusätzlich Vitanas/Korian und sagt deshalb „6 von 10". <b>Vor dem Pitch auf eine Zählbasis festlegen.</b>${O}</div></details>${LEGENDE}` },
+
+/* ── 12 ─ Baustein 2 · KI-Nachweis Kritiker-Dialog ───────────────────── */
+{ theme:'light', eyebrow:'Baustein 2 · Pflichtnachweis: der Kritiker-Dialog mit Claude', min:'Min. 6–10 · KI-Nachweis',
+  title:'Wir haben unsere eigene Analyse angreifen lassen.',
+  lead:'Prompt, wortwörtlich: <em>„Übernimm die Rolle eines kritischen Analysten. Identifiziere drei Schwachstellen, formuliere provokante Investorenfragen, liefere überzeugende Antwortvorschläge.“</em>',
+  foot:'Baustein 2 · Kritiker-Dialog (Tagebuch Session 5)',
+  html:`${[['1 · Förderabhängigkeit — zu optimistisch bewertet','',
+        '38 % Förderanteil als „verwaltbar" behandelt; 70 %-Ziel in sechs Jahren nicht erreicht — bei Kaufkraftindex 96.',
+        '„Warum sollten wir glauben, dass die 70 % in zwei Jahren gelingen — in einer Region mit unterdurchschnittlicher Kaufkraft?“',
+        '2020–2026 war Investition in Fläche und Vertrauen. Jetzt Monetarisierung: 3 Selbstzahler-Pakete (PG 1–2) + Mitgliedschaftsausbau — Hebel auf 520 Mitglieder.'],
+       ['2 · Digitalisierungsrückstand — Querschnittswirkung übersehen',' ★ echter blinder Fleck',
+        'Wir stuften Plattformen erst ab 2028 als relevant ein. Übersehen: Fehlende Digitalisierung wirkt HEUTE — auf drei Kräfte gleichzeitig.',
+        '„Wie sollen Fachkräfte zu Ihnen kommen, wenn die Konkurrenz mit modernen Tools arbeitet?“',
+        'Deshalb Investitionssäule Nr. 1: Pflegedokumentation 2026 (−20 % Verwaltungszeit), Angehörigen-Plattform Q1 2027, digitales Recruiting.'],
+       ['3 · Personalengpass — strategische Sprengkraft unterschätzt','',
+        'Ohne Personal kein Wachstum bei 4,5 % Penetration. Es fehlte die Antwort auf besser zahlende Stadtarbeitgeber.',
+        '„Was macht Sie attraktiver als ein Pflegeheim in Dortmund, das 20 % mehr zahlt?“',
+        'Wir konkurrieren nicht mit Dortmund: Heimatnähe, Sinn, Gemeinschaft. Pflegeschul-Partnerschaften Soest/Lippstadt; Wachstum kontrolliert auf 300 Fälle bis 2028.']]
+      .map(([t,star,krit,frage,antw])=>`<div class="k" style="margin-bottom:var(--sp-3)">
+        <div class="k-t" style="font-size:1.1rem">${t}${star?`<span style="color:var(--lz-amber-ink);font-family:var(--font-body);font-size:.8rem">${star}</span>`:''}</div>
+        <div class="dlg">
+          <div class="dlg-col"><span class="k-lbl">Claudes Kritik</span><p class="k-p" style="margin-top:0">${krit}</p></div>
+          <div class="dlg-col"><span class="k-lbl">Investorenfrage</span><p class="k-p dlg-q" style="margin-top:0">${frage}</p></div>
+          <div class="dlg-col"><span class="k-lbl">Unsere Antwort</span><p class="k-p" style="margin-top:0">${antw}</p></div>
+        </div>
+      </div>`).join('')}
+  <div class="k warn"><p class="k-p" style="margin-top:0"><b>Fazit:</b> Die drei Risiken verstärken sich gegenseitig — ohne Digital kein Personal, ohne Personal kein Wachstum, ohne Wachstum keine Eigenfinanzierung. <b>Eine Digitalinvestition löst alle drei gleichzeitig.</b></p></div>` },
+
+/* ── 13 ─ Baustein 3 · Persona 1 ─────────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 3 · Persona 1 von 2 — die Nutzerin', min:'Min. 10–13 · Baustein 3',
+  title:'Für wen wir jeden Morgen losfahren.',
+  foot:'Baustein 3 · Persona 1 · Standortbezug Rüthen',
+  html:`<div class="persona">
+    <div class="p-card">
+      <div class="p-ini">EB</div>
+      <div class="p-name">Elisabeth Brinkmann</div>
+      <div class="p-facts">78 Jahre · verwitwet · Rüthen<br>ehem. Landwirtin · Pflegegrad 2<br>lebt allein am Ortsrand</div>
+      <div class="p-role">Pflegebedürftige · Nutzerin</div>
+      <p class="p-quote">„Ich will nicht weg von meinem Hof. Aber alleine schaffe ich es nicht mehr — und das zuzugeben, war das Schwerste.“</p>
+    </div>
+    <div>
+      <div class="g-2">
+        <div class="k"><span class="k-lbl">Alltag &amp; Bedürfnisse</span>
+          <ul class="s-list"><li>Tochter 60 km entfernt in Paderborn; der Bus fährt dreimal täglich</li><li>Hilfe bei Haushalt, Medikamentenplan, Weg zum Hausarzt</li><li>Will zu Hause alt werden — der Hof ist ihre Identität</li><li>Kennt „ihre" Pflegekraft beim Namen — und erwartet das zurück</li></ul></div>
+        <div class="k"><span class="k-lbl">Ängste &amp; Hemmschwellen</span>
+          <ul class="s-list"><li>„Ins Heim müssen" — die größte Angst überhaupt</li><li>Fremden die Tür öffnen; ständig wechselnde Gesichter</li><li>Der Tochter „zur Last fallen" — verschweigt Stürze</li><li>Technik: Smartphone nur zum Telefonieren</li></ul></div>
+      </div>
+      <div class="k" style="margin-top:var(--sp-3)"><span class="k-lbl">Erwartungen an LebensZeit</span>
+        <ul class="s-list"><li>Eine feste Bezugspflegekraft — Verlässlichkeit schlägt Geschwindigkeit</li><li>Menschen „von hier", die ihre Welt kennen und Plattdeutsch verstehen</li><li>Hilfe, die ihre Selbstständigkeit verlängert, statt sie zu ersetzen</li><li>Ein Anruf genügt — keine Hotline, keine Warteschleife, keine App-Pflicht</li></ul></div>
+    </div>
+  </div>
+  <details class="fix"><summary>Offener Punkt — Personas-Set 1 gegen Set 2, nicht geändert</summary><div class="fix-body">${O} Diese Persona ist Set 1 aus dem Investorpitch. Inzwischen ist <b>Set 2 maßgeblich</b>: Hildegard Stemmer (79, PG 2) und Markus Dörre (51) aus dem Personas-Handout — sie stehen im Kundenportal und im Cockpit und tragen Baustein 3 in Sprint 2. Umbenannt wurde hier nichts, weil die Iterationsfolie zwei Folien weiter genau die Entstehung von Brinkmann und Koch belegt und der Pflichtnachweis daran hängt. <b>Entscheidung vor dem Pitch: Set 1 als historischen Sprint-1-Stand kennzeichnen oder die Folien auf Set 2 umstellen.</b></div></details>` },
+
+/* ── 14 ─ Baustein 3 · Persona 2 ─────────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 3 · Persona 2 von 2 — die Entscheiderin', min:'Min. 10–13 · Baustein 3',
+  title:'Wer wirklich über Pflege entscheidet — und bezahlt.',
+  foot:'Baustein 3 · Persona 2 · Link zur Angehörigen-Plattform',
+  html:`<div class="persona">
+    <div class="p-card alt">
+      <div class="p-ini">SK</div>
+      <div class="p-name">Sabine Koch</div>
+      <div class="p-facts">52 Jahre · verheiratet, 2 Kinder<br>Bürokauffrau (Teilzeit) · Erwitte<br>Mutter (79, PG 3) in Anröchte</div>
+      <div class="p-role">Berufstätige Angehörige · Kundin</div>
+      <p class="p-quote">„Ich pflege nicht — ich manage Pflege. Zwischen Job, Familie und Mutter. Und niemand sagt mir, ob ich es richtig mache.“</p>
+    </div>
+    <div>
+      <div class="g-2">
+        <div class="k"><span class="k-lbl">Alltag &amp; Bedürfnisse</span>
+          <ul class="s-list"><li>Fährt 3–4× pro Woche nach Anröchte; organisiert alles telefonisch nebenbei</li><li>Sandwich-Generation: Kinder (17, 20), Job, Haushalt — und die Pflege</li><li>Braucht Entlastung, Transparenz und EINE verlässliche Anlaufstelle</li><li>Will wissen, wie es der Mutter geht — ohne dreimal täglich anzurufen</li></ul></div>
+        <div class="k"><span class="k-lbl">Ängste &amp; Hemmschwellen</span>
+          <ul class="s-list"><li>Schuldgefühle: „Mache ich genug?“ — bei jeder Entscheidung</li><li>Angst, dass etwas passiert und sie es zu spät erfährt</li><li>Pflegekosten und Pflegegrad-Bürokratie überfordern sie</li><li>Eigene Erschöpfung — kommt in keinem Pflegeplan vor</li></ul></div>
+      </div>
+      <div class="k ok" style="margin-top:var(--sp-3)"><span class="k-lbl">Erwartungen an LebensZeit — Schlüssel zur Strategie</span>
+        <ul class="s-list"><li>Erreichbarkeit und proaktive Statusmeldungen — gern digital, gern als App</li><li>Ehrliche Beratung zu Pflegegraden, Kosten und Entlastungsleistungen</li><li>Flexibilität, wenn sich der Zustand der Mutter ändert</li><li><b>Sie wählt den Anbieter, sie unterschreibt, sie zahlt zu — sie ist die eigentliche Kundin.</b></li></ul></div>
+    </div>
+  </div>
+  <details class="fix"><summary>Hinweis — Entlastungsbetrag und Kurzzeitpflege auf Stand 2025</summary><div class="fix-body">Falls diese Folie im Pitch um Zahlen ergänzt wird: der Entlastungsbetrag liegt seit 1. Januar 2025 bei <b>131 €/Monat bzw. 1.572 €/Jahr</b>${F} — der im Personas-Handout genannte Wert 125 € ist der Stand davor. Verhinderungs- und Kurzzeitpflege haben seit 1. Juli 2025 einen <b>gemeinsamen Jahresbetrag bis 3.539 €</b>${F}; die isolierte Nennung von § 39 ist überholt.</div></details>${LEGENDE}` },
+
+/* ── 15 ─ Baustein 3 · KI-Nachweis Iteration ─────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 3 · Pflichtnachweis: iterative Entwicklung in drei Schritten', min:'Min. 10–13 · KI-Nachweis',
+  title:'Von der Schablone zur Erkenntnis.',
+  foot:'Baustein 3 · Iterationsdokumentation (Prompt-Tagebuch)',
+  html:`<div class="chain">
+    ${[['V1','Einfacher Start — bewusst generisch',
+        '„Entwickle eine detaillierte Persona für einen typischen Kunden: Name, Alter, Alltag, Bedürfnisse, Ängste, Zitat.“',
+        'Ergebnis: „Helga, 75, freundlich, braucht Hilfe im Haushalt.“ Korrekt — aber austauschbar. Nicht pitch-tauglich.'],
+       ['V2','Regionale Verankerung',
+        '„Zu generisch. Verankere die Persona im Kreis Soest: ÖPNV-Realität, Hofstrukturen, Kaufkraftindex 96, Distanz zu Angehörigen.“',
+        'Ergebnis: Elisabeth Brinkmann entsteht — mit Bus, Hof und Tochter in Paderborn. Die Persona erklärt plötzlich den Standort Rüthen.'],
+       ['V3','Kritiker-Frage — der Durchbruch',
+        '„Nimm die Gegenposition ein: Welche entscheidende Persona fehlt uns — und warum ist sie wirtschaftlich wichtiger?“',
+        'Claude: „Die zahlende Entscheiderin fehlt.“ So entstand Sabine Koch — und das stärkste Argument für die Angehörigen-Plattform.']]
+      .map(([v,t,q,r])=>`<div class="k">
+        <div class="v-tag">${v}</div>
+        <div class="k-t" style="font-size:1rem;font-family:var(--font-body);font-weight:500">${t}</div>
+        <p class="prompt" style="margin-top:var(--sp-3)">${q}</p>
+        <p class="k-p" style="margin-top:auto;padding-top:var(--sp-4)">${r}</p>
+      </div>`).join('')}
+  </div>
+  <div class="k" style="margin-top:var(--sp-4);background:var(--lz-green-3);border-color:transparent">
+    <p class="prompt" style="color:var(--lz-cream-2);margin:0">Die wichtigste Erkenntnis kam nicht aus einer Antwort — sie kam aus einer Gegenfrage. Die Nutzerin ist nicht die Kundin. Diese Unterscheidung prägt unsere gesamte Strategie.</p>
+  </div>` },
+
+/* ── 16 ─ Baustein 4 · SWOT ──────────────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 4 · Strategische SWOT', min:'Min. 13–17 · Baustein 4',
+  title:'Die Lage, ungeschönt.',
+  foot:'Baustein 4 · SWOT-Analyse',
+  html:`<div class="g-2">
+    <div class="k ok"><span class="k-lbl">S · Stärken · intern</span>
+      <ul class="s-list"><li>Einzige Flächendeckung — 5 Standorte, strukturell schwer kopierbar</li><li>Ehrenamtsnetzwerk (45) — Kostenvorteil + Bindung, einmalig im Markt</li><li>Außergewöhnliches Vertrauen — günstige Kundengewinnung</li><li>gGmbH-Struktur — Förderfähigkeit + Glaubwürdigkeit</li></ul></div>
+    <div class="k warn"><span class="k-lbl">W · Schwächen · intern</span>
+      <ul class="s-list"><li>Förderabhängigkeit 38 % — 70 %-Eigenfinanzierungsziel verfehlt</li><li>Rüthen &amp; Lippetal defizitär — Quersubventionierung belastet</li><li>8 offene Stellen &gt; 6 Monate — Wachstum strukturell blockiert</li><li>Digitalisierungsrückstand — Telefon als Hauptkanal</li></ul></div>
+    <div class="k"><span class="k-lbl" style="color:var(--lz-green-2)">O · Chancen · extern</span>
+      <ul class="s-list"><li>Demografie — Anteil 65+ im Kreis Soest steigt auf ~30 % bis 2040</li><li>Digitale Angehörigenkommunikation — kaum Wettbewerb im Kreis</li><li>Bad Sassendorf — Kurort-Demografie mit Premium-Potenzial</li><li>520 Mitglieder — Basis für Community-Finanzierung</li></ul></div>
+    <div class="k crit"><span class="k-lbl">T · Risiken · extern</span>
+      <ul class="s-list"><li>Fachkräftemangel verschärft sich — ~200.000 offene Stellen</li><li>Graumarkt wächst — verdrängt Stundenpflege bei <b>PG 4–5</b></li><li>Kostenexplosion — Pflege-Mindestlohn und Energie</li><li>Förderpolitik ungewiss — bei 38 % Abhängigkeit existenziell</li></ul></div>
+  </div>
+  <details class="fix"><summary>Diese Folie war im Original schon korrekt</summary><div class="fix-body">— sie nennt PG 4–5 und das 70 %-Ziel richtig. Die drei entschiedenen SWOT-Korrekturen (Premium statt „Familie", 500.000–600.000 Graumarkt-Kräfte, PG 4–5) betrafen die Folien 3, 4, 6, 9 und 11 und sind dort jeweils markiert.</div></details>` },
+
+/* ── 17 ─ Baustein 4 · Stoßrichtung (dunkel) ─────────────────────────── */
+{ theme:'dark', eyebrow:'Baustein 4 · Die eine priorisierte Stoßrichtung 2026–2031', min:'Min. 13–17 · Baustein 4',
+  title:'Digital zuerst. Alles andere folgt daraus.',
+  lead:'Aus der SWOT folgt <b>eine Entscheidung</b>: Die digitale Vernetzung von Standorten, Angehörigen und Pflegekräften ist der einzige Hebel, der alle drei Kernschwächen gleichzeitig adressiert — und unsere stärkste Chance besetzt, bevor es ein Wettbewerber tut. <b>Das Zeitfenster schließt sich bis 2028.</b>',
+  foot:'Ziel 2028: 300 betreute Fälle · Eigenfinanzierung ≥ 70 % · alle 5 Standorte kostendeckend',
+  html:`<div class="g-3">
+    <div class="k"><span class="k-lbl">Wirkung 1</span><div class="k-t">Digitalisierung gewinnt Personal</div>
+      <p class="k-p">Digitale Pflegedokumentation spart ~20 % Verwaltungszeit${E} und macht uns als Arbeitgeber konkurrenzfähig — die Antwort auf 8 offene Stellen.</p></div>
+    <div class="k"><span class="k-lbl">Wirkung 2</span><div class="k-t">Die Plattform gewinnt Sabine</div>
+      <p class="k-p">Die Angehörigen-Plattform bedient die zahlende Entscheiderin (Persona 2) — Statusmeldungen, Beratung, Buchbarkeit. Kein Wettbewerber im Kreis Soest bietet das.${F}</p></div>
+    <div class="k"><span class="k-lbl">Wirkung 3</span><div class="k-t">Selbstzahler heben die Quote</div>
+      <p class="k-p">Digital buchbare Servicepakete für Pflegegrad 1–2 plus Mitgliedschaftsausbau heben die Eigenfinanzierung von 62 % auf 70 %+ bis 2027.${E}</p></div>
+  </div>
+  <details class="fix"><summary>Hinweis — die 70 %-Lücke ist eine Ratio, kein fester Betrag</summary><div class="fix-body">${O} Die Lücke zur 70 %-Eigenfinanzierung ist keine feste Summe, sondern eine Verhältnisrechnung: auf einem Wachstumspfad braucht es <b>~567 k€ zusätzlichen Eigenumsatz</b>, nicht die in früheren Fassungen genannten ~170 k€. Wer im Q&amp;A nach dem Betrag fragt, bekommt diese Zahl.</div></details>` },
+
+/* ── 18 ─ Baustein 4 · 90-Tage-Plan ──────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 4 · Konkrete erste Maßnahmen', min:'Min. 13–17 · Baustein 4',
+  title:'Die ersten 90 Tage.',
+  lead:'Keine Absichtserklärungen — ein Plan mit Verantwortlichkeiten, Terminen und messbaren Ergebnissen.',
+  foot:'Baustein 4 · 90-Tage-Plan',
+  html:`<div class="g-3">
+    ${[['Fundament','Tag 1–30',[
+         ['warn','Wirtschaftlichkeitsanalyse Rüthen &amp; Lippetal','Entscheidung Fortführung vs. Restrukturierung — inkl. Szenario „Ehrenamt als Kostenhebel"'],
+         ['ok','Anbieterauswahl Pflegedokumentation','Shortlist (z. B. MediFox DAN, Snap), Pilotstandort: Erwitte'],
+         ['ok','Wettbewerbs-Monitoring aufsetzen','Quartalsweise Erfassung neuer Anbieter und Preise im Kreis Soest']]],
+       ['Pilot','Tag 31–60',[
+         ['ok','Pilotstart digitale Pflegedokumentation','In Erwitte — Ziel: −20 % Verwaltungszeit, Messung nach 4 Wochen'],
+         ['ok','Kooperationsgespräche Pflegeschulen','Soest &amp; Lippstadt — Azubi-Partnerprogramm gegen die 8 offenen Stellen'],
+         ['warn','Konzept Angehörigen-Kommunikation','MVP: wöchentliche digitale Statusmeldung für Angehörige (Persona Sabine)']]],
+       ['Markteintritt','Tag 61–90',[
+         ['ok','Launch: 3 Selbstzahler-Servicepakete','Für Pflegegrad 1–2 — direkter Vertrieb an 520 Fördermitglieder'],
+         ['ok','MVP Angehörigen-Info live','Pilotgruppe 30 Familien, Feedbackschleife für die Plattform 2027'],
+         ['warn','Investorenreview Tag 90','Pilotergebnisse, Standortentscheidung, Freigabe Ausbaustufe 2']]]]
+      .map(([ph,tag,items])=>`<div class="k">
+        <div class="k-t" style="font-size:1.4rem;margin-bottom:2px">${ph}</div>
+        <span class="k-lbl">${tag}</span>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-4);margin-top:var(--sp-3)">
+          ${items.map(([s,t,d])=>`<div><p class="k-p" style="margin-top:0"><span aria-hidden="true" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${s==='ok'?'var(--lz-green)':'var(--lz-amber)'};margin-right:.5em;vertical-align:1px"></span><b>${t}</b> — ${d}</p></div>`).join('')}
+        </div>
+      </div>`).join('')}
+  </div>
+  <details class="fix"><summary>Hinweis — der wirtschaftliche Kern braucht 2,4–3,1 VZÄ</summary><div class="fix-body">${O} Die Umsatzwirkung des Bestandsausschöpfungs-Strangs (~168 k€/Jahr) bedeutet 67–83 zusätzliche Leistungsstunden je Woche, also <b>2,4–3,1 Vollzeitäquivalente</b>. Der wirtschaftliche Kern kommt also <em>nicht</em> ohne einen Teil der acht offenen Stellen aus — eine frühere Fassung behauptete das Gegenteil.</div></details>` },
+
+/* ── 19 ─ Baustein 4 · KI-Nachweis Teufelsadvokat ────────────────────── */
+{ theme:'light', eyebrow:'Baustein 4 · Pflichtnachweis: Claude veränderte die Stoßrichtung', min:'Min. 13–17 · KI-Nachweis',
+  title:'Der Teufelsadvokat hatte recht.',
+  lead:'Prompt: <em>„Spiele den Teufelsadvokaten: Welche drei Argumente sprechen gegen diese Stoßrichtung? Sei maximal kritisch — geh davon aus, dass du NICHT investieren willst.“</em>',
+  foot:'Baustein 4 · Teufelsadvokat-Dialog',
+  html:`<div class="g-2">
+    <div class="k">
+      <span class="k-lbl">Unser ursprünglicher Plan</span>
+      <div class="k-t">Drei gleichrangige Säulen: Finanzen + Digital + Personal</div>
+      <p class="k-p">Alle drei Baustellen parallel: Eigenfinanzierung erhöhen, digitalisieren, Personal gewinnen — jede Säule mit eigenem Budget und eigener Verantwortung.</p>
+      <div class="k warn" style="margin-top:var(--sp-4)"><p class="k-p" style="margin-top:0"><b>Claudes Einwand:</b> <em>„Drei Prioritäten sind keine Priorität. Mit 2,1 Mio € Umsatz und 8 unbesetzten Stellen fehlen Ihnen Kapital und Kapazität für drei parallele Programme. Welche Investition zahlt auf alle drei ein?“</em></p></div>
+    </div>
+    <div class="k" style="background:var(--lz-green-3);border-color:transparent">
+      <span class="k-lbl" style="color:var(--lz-sage)">Unsere Entscheidung nach dem Dialog</span>
+      <div class="k-t" style="color:var(--lz-mint)">Eine Stoßrichtung: Digital als Hebel für alles.</div>
+      <p class="k-p" style="color:rgba(245,240,232,.88)">Wir haben die Strategie umgebaut: Digitalisierung ist die <b style="color:var(--lz-cream)">eine</b> priorisierte Investition — Personalgewinnung und Eigenfinanzierung sind ihre messbaren Wirkungen, keine eigenen Programme.</p>
+      <p class="k-p" style="color:rgba(245,240,232,.88)">Zusätzlich übernommen: der Investorenreview an Tag 90 als harter Meilenstein — Claudes Vorschlag, um Verbindlichkeit gegenüber Kapitalgebern zu zeigen.</p>
+    </div>
+  </div>` },
+
+/* ── 20 ─ Baustein 5 · Vorgehensmodell ───────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 5 · Unser KI-Vorgehensmodell (Herzstück, separat bewertet)', min:'Min. 17–20 · Pflicht',
+  title:'Claude war kein Werkzeug. Claude war Kollege, Kritiker und Coach.',
+  foot:'Baustein 5 · Vorgehensmodell',
+  html:`<div class="g-auto">
+    ${[['1 · Kontext-Anker','Sprint-Skript einspielen und kritisch zusammenfassen lassen — gemeinsame Datenbasis für alle Sessions.','Session 2 · Basis aller Bausteine'],
+       ['2 · Prompt-Creator-Methode','Claude entwickelt den Prompt mit uns — durch Rückfragen zu Tiefe, Skala, Format. Unser wirkungsvollster Ansatz.','Session 3 · pitch-ready in 4 Stufen'],
+       ['3 · Zwei-Stufen-Kritik','Erst Analyse aufbauen, dann separat angreifen lassen. Rollentrennung erzeugt schärfere Ergebnisse.','Sessions 4+5 · fand den blinden Fleck'],
+       ['4 · Iterieren &amp; testen','Nichts ungeprüft übernehmen: Personas dreistufig verfeinert, HTML-Outputs im Browser getestet.','Sessions 1, 6, 7 · Qualitätssicherung']]
+      .map(([t,p,s])=>`<div class="k"><div class="k-t" style="font-size:1.05rem;font-family:var(--font-body);font-weight:500">${t}</div><p class="k-p">${p}</p><p class="k-p" style="font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;margin-top:var(--sp-4);opacity:.75">${s}</p></div>`).join('')}
+  </div>
+  <div class="g-auto" style="margin-top:var(--sp-4)">
+    ${[['Dokumentierte Sessions','7','Alle Prompts wortwörtlich im Prompt-Tagebuch — liegt den Investoren vor',''],
+       ['Kritiker-Einsätze','5 / 7','In fünf von sieben Sessions wurde Claude gezielt als Gegner eingesetzt',''],
+       ['Echte blinde Flecken','3','Graumarkt · Digital-Querschnittswirkung · fehlende Entscheiderin-Persona',''],
+       ['Strategie-Änderungen','2','Von 3 Säulen zu 1 Stoßrichtung · Persona-Fokus auf Angehörige','warn']]
+      .map(([l,n,p,cls])=>`<div class="k"><span class="k-lbl">${l}</span><div class="k-num${cls?' warn':''}">${n}</div><p class="k-p">${p}${F}</p></div>`).join('')}
+  </div>` },
+
+/* ── 21 ─ Baustein 5 · Live-Beispiele ────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 5 · Live-Beispiele aus den Claude-Dialogen — wortwörtlich', min:'Min. 17–20 · Baustein 5',
+  title:'Drei Momente, die den Sprint geprägt haben.',
+  foot:'Baustein 5 · Live-Beispiele (Tagebuch Sessions 2, 3, 6)',
+  html:`<div class="g-3">
+    ${[['Wirkungsvollster Prompt','',
+        "„Ich brauche einen richtig guten Prompt für Porter's Five Forces. Sei mein Prompt Creator. Frage mich zunächst, was meine Fragestellung ist, und verfeinere iterativ.“",
+        'Claude führte einen vierstufigen Dialog, schlug eigenständig die 1–5-Skala vor und begründete die Wahl. Ergebnis: zwei pitch-ready Prompts. Warum er gut war: Er liefert keinen Prompt — er startet einen Prozess.'],
+       ['Überraschendster Moment','',
+        '„Schaue bitte kritisch über das Skript und fasse zusammen.“',
+        'Ungefragt erkannte Claude die Wechselwirkung zwischen Förderabhängigkeit, Personal und Digitalisierung als EIN systemisches Risiko — Wochen bevor der kritische Analyst denselben Punkt zum Kern der Investmentstory machte.'],
+       ['Ehrlichster Moment','amber',
+        '„Da scheint etwas schiefgelaufen zu sein — das Dashboard ist nicht bedienbar. Kannst du das überprüfen?“',
+        'Claudes erster HTML-Export scheiterte still an korrumpierten UTF-8-Zeichen. Erst auf Hinweis diagnostizierte er die Ursache selbst und baute neu. Lektion: KI-Ergebnisse sind Entwürfe, keine Lieferungen.']]
+      .map(([t,cls,q,r])=>`<div class="k"><span class="pill ${cls}">${t}</span><p class="prompt">${q}</p><p class="k-p" style="border-top:1px solid var(--lz-hairline);padding-top:var(--sp-3);margin-top:var(--sp-4)">${r}</p></div>`).join('')}
+  </div>` },
+
+/* ── 22 ─ Baustein 5 · Grenzen ───────────────────────────────────────── */
+{ theme:'light', eyebrow:'Baustein 5 · Grenzen von Claude — und was wir in Sprint 2 anders machen', min:'Min. 17–20 · Baustein 5',
+  title:'Ehrliche Bilanz statt KI-Euphorie.',
+  foot:'Baustein 5 · Abschlussreflexion',
+  html:`<div class="g-2">
+    <div>
+      <span class="k-lbl">Wo Claude an Grenzen stieß</span>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
+        <div class="k crit"><div class="k-t">Zu wohlwollend in der Kritiker-Rolle</div><p class="k-p">Selbst als „kritischer Analyst" blieb die Kritik weicher als ein echter Investor. Härte muss explizit eingefordert werden.</p></div>
+        <div class="k crit"><div class="k-t">Technische Outputs scheitern still</div><p class="k-p">Lauffähig erscheinender Code kann an Encoding scheitern — ohne eigenen Test wäre der Bug unbemerkt geblieben.</p></div>
+        <div class="k warn"><div class="k-t">Regionale Detailzahlen brauchen Prüfung</div><p class="k-p">Marktdaten gegen Destatis / IT.NRW plausibilisiert — Verantwortung für Zahlen bleibt bei uns.</p></div>
+      </div>
+    </div>
+    <div>
+      <span class="k-lbl">Drei Konsequenzen für Sprint 2</span>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
+        <div class="k ok"><div class="k-t">1 · Kritiker schärfer briefen</div><p class="k-p">Neuer Standard: „Sei maximal kritisch. Geh davon aus, dass du NICHT investieren willst — überzeuge mich vom Gegenteil.“</p></div>
+        <div class="k ok"><div class="k-t">2 · Testen vor Weiterarbeiten</div><p class="k-p">Jeder technische Output wird direkt geprüft, bevor der nächste Schritt beginnt — kein Vertrauen ohne Verifikation.</p></div>
+        <div class="k ok"><div class="k-t">3 · Kürzer und direktiver prompten</div><p class="k-p">Weniger Kontextballast, mehr Rolle und klares Outputformat — die präzisesten Prompts waren die klarsten, nicht die längsten.</p></div>
+      </div>
+    </div>
+  </div>
+  <p class="s-quote">Claude ist kein Werkzeug, das Aufgaben erledigt — er ist ein Denkpartner, der besser wird, je klarer man ihm sagt, was man will. Der größte Gewinn ist die Iteration.</p>` },
+
+/* ── 23 ─ Investment Case (dunkel) ───────────────────────────────────── */
+{ theme:'dark', eyebrow:'Der Investment Case', min:'Min. 19–20 · Abschluss',
+  title:'Was wir Ihnen heute anbieten.',
+  foot:'Bereit für Ihre Fragen — 10 Minuten Q&amp;A',
+  html:`<div class="g-3">
+    <div class="k"><div class="k-num">95,5 %</div>
+      <p class="k-p">des Marktes vor unserer Haustür sind noch unerschlossen — in einem Markt, der bis 2040 demografisch garantiert wächst.${F}</p></div>
+    <div class="k"><div class="k-num">1 Hebel</div>
+      <p class="k-p">Eine fokussierte Digitalinvestition adressiert Personal, Eigenfinanzierung und Wettbewerbsschutz gleichzeitig — analytisch hergeleitet, kritisch geprüft.</p></div>
+    <div class="k"><div class="k-num">90 Tage</div>
+      <p class="k-p">bis zum ersten messbaren Beweis: Pilotdaten, Standortentscheidung, Investorenreview. Sie investieren nicht in ein Versprechen — sondern in einen Plan.</p></div>
+  </div>
+  <p class="s-quote center">„Wir wissen, wo wir stehen. Wir wissen, wo wir hinwollen.<br>Und wir wissen, was wir dafür brauchen.“</p>` },
+
+/* ── 24 ─ Schluss ────────────────────────────────────────────────────── */
+{ theme:'light', kind:'cover',
+  logo:true,
+  title:'Nah. Vernetzt. <em>Nachhaltig.</em>',
+  meta:['Dr. Maria Holthaus · Geschäftsführung',
+        'Hauptsitz Erwitte · Kreis Soest · NRW',
+        'KI-Pionierzirkel Sprint 1 · Volksbank Hellweg eG · 15. Juni 2026'] }
 ];
 
-/* ══════════════════════════════════════════════════════════════════════
-   2. LAYOUT — kennt nur die "kind"-Felder oben, keine Inhalte.
-   ══════════════════════════════════════════════════════════════════════ */
-function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
+/* ══════════════════════════════════════════════════════════════════════════
+   2. LAYOUT — kennt nur theme/kind/eyebrow/min/title/lead/html/foot/meta.
+   Das Pentagon-Symbol trägt currentColor, die Farbe kommt vom Container
+   (.t-light → Originalgrün, .t-dark → Mintgrün). Nie Weiß, nie Hex im SVG.
+   ══════════════════════════════════════════════════════════════════════════ */
+const SYMBOL = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
+  <circle cx="50" cy="19" r="6.5" fill="currentColor"/><circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
+  <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/><circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
+  <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/><circle cx="50" cy="50" r="9.5" fill="currentColor"/>
+</svg>`;
 
 function renderSlide(s){
-  var chips = (s.chips||[]).map(function(c){ return '<span class="chip">'+esc(c)+'</span>'; }).join("");
-  var head = '<p class="eyebrow">'+esc(s.eyebrow||"")+'</p><h1>'+esc(s.title||"")+'</h1>' +
-             (s.lead ? '<p class="lead">'+esc(s.lead)+'</p>' : "");
-
-  if (s.kind === "cover"){
-    return head + (chips ? '<div class="meta-row">'+chips+'</div>' : "");
-  }
-  if (s.kind === "stats"){
-    var stats = (s.stats||[]).map(function(x){
-      return '<div class="stat"><div class="num">'+esc(x.num)+'</div><div class="lbl">'+esc(x.lbl)+'</div></div>';
-    }).join("");
-    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<div class="stat-grid">'+stats+'</div>';
-  }
-  if (s.kind === "grid"){
-    var cards = (s.cards||[]).map(function(c){
-      return '<div class="pcard"><b>'+esc(c.t)+'</b><p>'+esc(c.p)+'</p></div>';
-    }).join("");
-    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<div class="card-grid">'+cards+'</div>';
-  }
-  if (s.kind === "personas"){
-    var pc = (s.personas||[]).map(function(p){
-      return '<div class="persona"><h3>'+esc(p.name)+'</h3><div class="role">'+esc(p.role)+'</div>' +
-             '<p>'+esc(p.text)+'</p><p class="quote">'+esc(p.quote)+'</p></div>';
-    }).join("");
-    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<div class="persona-grid">'+pc+'</div>';
-  }
-  if (s.kind === "list"){
-    var items = (s.items||[]).map(function(i){ return "<li>"+esc(i)+"</li>"; }).join("");
-    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") + '<ul class="check">'+items+'</ul>';
-  }
-  if (s.kind === "fixes"){
-    var rows = (s.rows||[]).map(function(r){
-      return '<tr><td>'+esc(r.label)+'</td>' +
-             '<td class="was">'+esc(r.was)+'</td>' +
-             '<td class="now">'+esc(r.now)+' <span class="tag '+r.tag+'">'+esc(r.tagLabel)+'</span></td></tr>';
-    }).join("");
-    return head.replace("<h1>","<h2>").replace("</h1>","</h2>") +
-      '<table class="fix-table"><thead><tr><th>Feld</th><th>Vorher</th><th>Nachher</th></tr></thead><tbody>'+rows+'</tbody></table>' +
-      (s.note ? '<p class="lead" style="margin-top:1.2rem;font-size:.92rem">'+esc(s.note)+'</p>' : "") +
-      '<p class="faeo-legend">F Fakt (belegt) · A Annahme (plausibel, unbelegt) · E Empfehlung (eigener Vorschlag) · O Offen</p>';
-  }
-  return head;
+  return '<div class="slide-inner">' + renderInner(s) + '</div>';
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   3. BÜHNENSTEUERUNG
-   ══════════════════════════════════════════════════════════════════════ */
-(function(){
-  "use strict";
-  var deck = document.getElementById("deck");
-  var progress = document.getElementById("deckProgress");
-  var countEl = document.getElementById("deckCount");
-  var i = 0;
+function renderInner(s){
+  if (s.kind === 'cover'){
+    return `<div class="s-cover" style="margin:auto;text-align:center">
+      ${s.logo ? `<span class="lz-logo">${SYMBOL}
+        <span><span class="lz-mark">LebensZeit</span> <span class="lz-sub">gGmbH</span></span>
+        <span class="lz-tagline">Pflege · Gesundheit · Gemeinschaft</span>
+        <span class="lz-tagline" style="opacity:.6;letter-spacing:.24em">nah · vernetzt · nachhaltig</span>
+      </span>` : ''}
+      <div class="s-rule"></div>
+      <h1>${s.title}</h1>
+      <p class="s-meta">${(s.meta||[]).join('<br>')}</p>
+    </div>`;
+  }
+  return `<div class="s-head">
+      <span class="s-eyebrow">${s.eyebrow||''}</span>
+      ${s.min ? `<span class="s-min">${s.min}</span>` : ''}
+    </div>
+    <h2>${s.title||''}</h2>
+    ${s.lead ? `<p class="s-lead">${s.lead}</p>` : ''}
+    ${s.html ? `<div class="s-body">${s.html}</div>` : ''}
+    <div class="s-foot">
+      <span class="lz-logo-compact">${SYMBOL}<span class="lz-mark">LebensZeit</span></span>
+      <span>${s.foot||''}</span>
+    </div>`;
+}
 
-  SLIDES.forEach(function(s, idx){
-    var sec = document.createElement("section");
-    sec.className = "slide";
+/* ══════════════════════════════════════════════════════════════════════════
+   3. BÜHNENSTEUERUNG
+   ══════════════════════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
+  const deck = document.getElementById('deck');
+  const hud  = deck.querySelector('.deck-hud');
+  const progress = document.getElementById('deckProgress');
+  const countEl  = document.getElementById('deckCount');
+  const toc = document.getElementById('toc');
+  const tocList = document.getElementById('tocList');
+  let i = 0;
+
+  /* Folien aufbauen */
+  SLIDES.forEach((s, idx) => {
+    const sec = document.createElement('section');
+    sec.className = 'slide t-' + (s.theme || 'light');
+    sec.setAttribute('aria-roledescription', 'Folie');
+    sec.setAttribute('aria-label', `Folie ${idx+1} von ${SLIDES.length}`);
     sec.dataset.index = idx;
     if (idx !== 0) sec.hidden = true;
     sec.innerHTML = renderSlide(s);
-    deck.insertBefore(sec, document.querySelector(".deck-hud"));
+    deck.insertBefore(sec, toc);
   });
-  var slideEls = deck.querySelectorAll(".slide");
+  const slides = deck.querySelectorAll('.slide');
+
+  /* Verzeichnis */
+  SLIDES.forEach((s, idx) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button';
+    /* Titel enthaelt <em>; fuer das Verzeichnis nur den Text nehmen */
+    const tmp = document.createElement('span'); tmp.innerHTML = s.title || '';
+    b.textContent = tmp.textContent;
+    b.addEventListener('click', () => { show(idx); toggleToc(false); });
+    li.appendChild(b); tocList.appendChild(li);
+  });
+  const tocBtns = tocList.querySelectorAll('button');
+
+  /* ── Einpassung ───────────────────────────────────────────────────────
+     Verkleinert den Folieninhalt so weit, dass er in den Rahmen passt.
+     Erst der lineare Schätzwert, dann in wenigen Schritten wieder
+     vergrößern, solange es noch passt — der lineare Wert schießt immer
+     über das Ziel, weil der Text nach dem Verkleinern günstiger umbricht.
+     Untergrenze 0,62; darunter würde die kleinste Stufe (0,80rem) unter
+     die typografische Untergrenze des Projekts fallen.
+     Kein zoom im Browser? Dann bleibt es beim Scrollen — kein Ausfall. */
+  const canZoom = window.CSS && CSS.supports && CSS.supports('zoom', '0.8');
+  const FIT_MIN = 0.68;
+
+  /* Auf dem Telefon wird NICHT eingepasst. Dort bräuchten fast alle Folien
+     den Anschlag von 0,68 und wären damit unlesbar — 0,80rem mal 0,68 liegt
+     weit unter der typografischen Untergrenze des Projekts. Am Telefon ist
+     Scrollen die richtige Bedienung, am Projektor das Einpassen. */
+  const shouldFit = () => window.innerWidth >= 820 && window.innerHeight >= 480;
+
+  function fitSlide(slide){
+    if (!slide) return;
+    const inner = slide.querySelector('.slide-inner');
+    if (!inner) return;
+    if (!canZoom || !shouldFit()) { inner.style.removeProperty('--fit'); return; }
+
+    const set = v => inner.style.setProperty('--fit', String(v));
+
+    /* Messgrundlage — zweimal nachgemessen, beide naheliegenden Wege sind falsch:
+         scrollHeight des Rahmens ändert sich unter zoom überhaupt nicht.
+         getBoundingClientRect des gezoomten Elements liefert seine Größe im
+         EIGENEN, noch nicht skalierten Koordinatenraum (Chrome 141: zoom 0.5
+         gesetzt, Rechteckhöhe unverändert 861 px).
+       Richtig ist deshalb: Rechteckhöhe MAL Zoomfaktor = Sichthöhe.
+       min-height wird zum Messen abgeschaltet, sonst ist der Inhalt per
+       Definition immer genau so hoch wie der Rahmen. */
+    const prevMin = inner.style.minHeight;
+    inner.style.minHeight = '0px';
+    const avail  = slide.getBoundingClientRect().height - 2;
+    const visual = v => { set(v); return inner.getBoundingClientRect().height * v; };
+
+    let z = 1;
+    const natural = visual(1);
+    if (natural > avail && natural > 0) {
+      z = Math.max(FIT_MIN, avail / natural);
+      /* Der lineare Schätzwert schießt über das Ziel, weil der Inhalt im
+         verkleinerten Zustand in einem breiteren Koordinatenraum liegt und
+         der Text günstiger umbricht — deshalb halbschrittig wieder
+         vergrößern, solange es passt. */
+      for (let k = 0; k < 6 && z < 0.995; k++) {
+        const t = Math.min(1, z + (1 - z) * 0.5);
+        if (visual(t) <= avail) z = t; else break;
+      }
+      /* Sicherheitsnetz für den umgekehrten Fall: bricht der Text nach dem
+         Verkleinern ungünstiger um, reicht der Schätzwert nicht. */
+      let guard = 0;
+      while (visual(z) > avail && z > FIT_MIN && guard++ < 12) z = Math.max(FIT_MIN, z - 0.025);
+      set(z);
+    }
+    inner.style.minHeight = prevMin;
+    if (z >= 0.999) inner.style.removeProperty('--fit');
+  }
 
   function show(n){
     n = Math.max(0, Math.min(SLIDES.length - 1, n));
-    slideEls[i].hidden = true;
+    slides[i].hidden = true;
     i = n;
-    slideEls[i].hidden = false;
-    slideEls[i].scrollTop = 0;
-    countEl.textContent = (i+1) + " / " + SLIDES.length;
-    progress.style.width = ((i+1) / SLIDES.length * 100) + "%";
+    const cur = slides[i];
+    cur.hidden = false;
+    cur.scrollTop = 0;
+    fitSlide(cur);
+    countEl.textContent = (i+1) + ' / ' + SLIDES.length;
+    progress.style.width = ((i+1) / SLIDES.length * 100) + '%';
+    /* Die Bedienleiste liegt ueber der Folie und muss ihre Helligkeit kennen:
+       auf der dunklen Folie waere Creme-auf-Creme unlesbar. */
+    const dark = (SLIDES[i].theme === 'dark');
+    document.body.classList.toggle('on-dark', dark);
+    progress.style.background = dark ? 'var(--lz-mint)' : 'var(--lz-green)';
+    tocBtns.forEach((b, x) => b.setAttribute('aria-current', x === i ? 'true' : 'false'));
+    history.replaceState(null, '', '#' + (i+1));
   }
-  function next(){ show(i+1); }
-  function prev(){ show(i-1); }
+  const next = () => show(i+1);
+  const prev = () => show(i-1);
 
-  document.getElementById("deckNext").addEventListener("click", next);
-  document.getElementById("deckPrev").addEventListener("click", prev);
+  function toggleToc(force){
+    const open = (typeof force === 'boolean') ? force : !toc.classList.contains('open');
+    toc.classList.toggle('open', open);
+    document.getElementById('deckToc').setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) tocBtns[i] && tocBtns[i].focus();
+  }
 
-  document.addEventListener("keydown", function(e){
-    if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown"){ e.preventDefault(); next(); }
-    else if (e.key === "ArrowLeft" || e.key === "Backspace" || e.key === "PageUp"){ e.preventDefault(); prev(); }
-    else if (e.key === "Home"){ show(0); }
-    else if (e.key === "End"){ show(SLIDES.length - 1); }
-    else if (e.key === "f" || e.key === "F"){ toggleFullscreen(); }
-    else if (e.key === "Escape"){
-      if (document.fullscreenElement) { /* Browser schließt Vollbild selbst; Klassen-Fallback räumen wir mit auf. */ }
-      else { location.href = "/investoren"; }
+  document.getElementById('deckNext').addEventListener('click', next);
+  document.getElementById('deckPrev').addEventListener('click', prev);
+  document.getElementById('deckToc').addEventListener('click', () => toggleToc());
+  countEl.addEventListener('click', () => toggleToc());
+
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('.toc') && e.key !== 'Escape' && e.key !== '0') return;
+    switch (e.key) {
+      case 'ArrowRight': case 'PageDown': case ' ': e.preventDefault(); next(); break;
+      case 'ArrowLeft':  case 'PageUp': case 'Backspace': e.preventDefault(); prev(); break;
+      case 'Home': show(0); break;
+      case 'End':  show(SLIDES.length - 1); break;
+      case '0':    e.preventDefault(); toggleToc(); break;
+      case 'f': case 'F': toggleFullscreen(); break;
+      case 'Escape':
+        if (toc.classList.contains('open')) { toggleToc(false); }
+        else if (!document.fullscreenElement) { location.href = '/investoren'; }
+        break;
     }
   });
 
-  /* Vollbild — Ausnahme dokumentiert in <style>: Warnbalken verschwindet nur hier. */
+  /* Vollbild — Warnbalken-Ausnahme ist im <style> dokumentiert. */
   function toggleFullscreen(){
-    if (!document.fullscreenElement){
-      (document.documentElement.requestFullscreen || function(){ document.body.classList.toggle("lz-is-fullscreen", true); }).call(document.documentElement);
+    if (!document.fullscreenElement) {
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen().catch(() => document.body.classList.add('lz-is-fullscreen'));
+      else document.body.classList.toggle('lz-is-fullscreen');
     } else {
       document.exitFullscreen();
     }
   }
-  document.getElementById("deckFull").addEventListener("click", toggleFullscreen);
-  document.addEventListener("fullscreenchange", function(){
-    document.body.classList.toggle("lz-is-fullscreen", !!document.fullscreenElement);
+  document.getElementById('deckFull').addEventListener('click', toggleFullscreen);
+  document.addEventListener('fullscreenchange', () => {
+    document.body.classList.toggle('lz-is-fullscreen', !!document.fullscreenElement);
+    if (window.lzMeasureTick) window.lzMeasureTick();
   });
 
-  /* Klick auf die rechte/linke Bühnenhälfte blättert ebenfalls (Maus/Touch ohne Pfeile) */
-  deck.addEventListener("click", function(e){
-    if (e.target.closest(".deck-hud") || e.target.closest(".deck-exit")) return;
-    var r = deck.getBoundingClientRect();
-    if (e.clientX - r.left > r.width / 2) next(); else prev();
-  });
+  /* Wischen auf dem Telefon. Nur waagerecht und nur ausserhalb eines
+     Scrollbereichs, sonst kollidiert es mit dem Scrollen der Folie und
+     dem seitlichen Scrollen der Praesenzmatrix. */
+  let tx = 0, ty = 0, tracking = false;
+  deck.addEventListener('touchstart', e => {
+    if (e.target.closest('.tbl-scroll, .toc')) { tracking = false; return; }
+    tracking = true; tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, {passive:true});
+  deck.addEventListener('touchend', e => {
+    if (!tracking) return;
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.8) { dx < 0 ? next() : prev(); }
+  }, {passive:true});
 
-  show(0);
+  /* Neu einpassen, wenn sich die Rahmenhöhe oder der Inhalt ändert:
+     Fenstergröße, Vollbild-Wechsel, Drehen des Telefons, und beim Auf- oder
+     Zuklappen eines Korrekturhinweises. Die Schriften werden abgewartet —
+     vorher misst man Rückfallmetrik und passt auf die falsche Höhe ein. */
+  /* Höhe der Bedienleiste an das Layout melden, damit die Folie unten
+     genug Platz freihält. Gemessen statt geschätzt — die Leiste wächst mit
+     der Schriftgröße und auf schmalen Geräten. */
+  function measureHud(){
+    const h = Math.ceil(hud.getBoundingClientRect().height);
+    if (h > 0) deck.style.setProperty('--hud-h', h + 'px');
+  }
+
+  let rt;
+  const refit = () => { clearTimeout(rt); rt = setTimeout(() => { measureHud(); fitSlide(slides[i]); }, 120); };
+  window.addEventListener('resize', refit);
+  window.addEventListener('orientationchange', refit);
+  document.addEventListener('fullscreenchange', refit);
+  deck.addEventListener('toggle', e => { if (e.target.classList.contains('fix')) fitSlide(slides[i]); }, true);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+
+  /* Einstieg ueber #12 erlaubt das Verlinken einzelner Folien */
+  measureHud();
+  const fromHash = parseInt((location.hash || '').replace('#',''), 10);
+  show(Number.isFinite(fromHash) && fromHash >= 1 ? fromHash - 1 : 0);
 })();
 </script>
 

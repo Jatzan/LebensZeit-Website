@@ -90,6 +90,20 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
 .note .chk{grid-column:2;grid-row:1 / span 4;align-self:start;display:flex;align-items:center;gap:9px;font-size:0.88rem;color:var(--text2);white-space:nowrap;cursor:pointer;user-select:none;}
 .note .chk input{width:20px;height:20px;accent-color:var(--green);cursor:pointer;}
 .note .chk-fixed{color:var(--green);font-weight:500;cursor:default;}
+
+/* ── Mobil ────────────────────────────────────────────────────────────
+   Diese Seite hatte keine einzige Medienabfrage. Die zweite Rasterspalte
+   traegt „erledigt" mit white-space:nowrap und braucht 75 px; bei 390 px
+   Viewport blieben davon 29 uebrig. Weil die 1fr-Spur als Grid-Element den
+   Vorgabewert min-width:auto hat, konnte sie nicht ausweichen — das Raster
+   wurde 436 px breit und weitete damit die GANZE Seite auf (nachgemessen
+   scrollWidth 436 bei clientWidth 390). Unter 560 px steht der Schalter
+   deshalb unter dem Text statt daneben. */
+@media (max-width: 560px){
+  .note{grid-template-columns:minmax(0,1fr);gap:6px;}
+  .note > *{min-width:0;}
+  .note .chk{grid-column:1;grid-row:auto;justify-self:start;margin-top:6px;}
+}
 .note.done h3,.note.done p{text-decoration:line-through;color:var(--text3);}
 .note.done .badge{opacity:.5;}
 

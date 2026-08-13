@@ -134,7 +134,7 @@ header.site {
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-row { display: flex; justify-content: space-between; gap: 24px; padding-block: 26px; flex-wrap: wrap; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .trust-item { display: flex; flex-direction: column; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
 .trust-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .5px; }
@@ -265,7 +265,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 /* ---- KPI-Schnellleiste ---- */
 .kpi-strip { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 28px 0; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-block: 28px; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .kpi-item { display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; }
 .kpi-item .num { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--green); line-height: 1; }
 .kpi-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .4px; }
@@ -303,6 +303,22 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 .tbd { display:inline-block; background:var(--cream-warm, #FBF4E6); border:1px dashed var(--amber); color:var(--amber-deep, #6B4A12);
        font-size:11px; letter-spacing:.3px; padding:1px 8px; border-radius:10px; }
+
+/* ---- Nebeneingang Praesentationsschicht ----
+   Textlink statt Knopf oder Band: die Praesentation zeigt dieselben Inhalte
+   wie die Bausteinkarten darueber, sie ist kein zusaetzliches Angebot. Steht
+   deshalb unter den Karten und traegt kein eigenes Gewicht. Die 48px
+   Trefferflaeche kommt ueber die Polsterung, nicht ueber eine Knopfform. */
+.pres-link { margin-top: 34px; padding-top: 22px; border-top: 0.5px solid var(--border);
+             display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.pres-link a { display: inline-flex; align-items: center; gap: 9px; font-size: 14px; color: var(--green);
+               padding: 12px 0; min-height: 48px; }
+.pres-link a svg { width: 15px; height: 15px; flex: 0 0 auto; opacity: .8; }
+.pres-link a:hover { color: var(--green2); }
+.pres-link a:hover svg { opacity: 1; }
+.pres-meta { font-size: 12px; color: var(--text3); letter-spacing: .3px; }
+.inv-theme .pres-link a { color: var(--amber-ink); }
+.inv-theme .pres-link a:hover { color: var(--green2); }
 
 @media (max-width: 1024px) {
   .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 18px; }
@@ -523,18 +539,6 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     </div>
   </div>
 
-  <!-- LIVE-PRÄSENTATION — Testballon der Präsentationsschicht -->
-  <section class="block" style="padding-bottom:0;">
-    <div class="wrap">
-      <div class="cta-band">
-        <p class="eyebrow" style="color:var(--mint);margin-bottom:10px;">Neu · Testballon</p>
-        <h2>Live-Präsentation ansehen</h2>
-        <p>Vollbild-Durchklick durch Sprint 1 — Testballon für die Präsentationsschicht, die den Pitch am 7. September trägt.</p>
-        <a class="btn btn-primary" href="/praesentation">Präsentation starten →</a>
-      </div>
-    </div>
-  </section>
-
   <!-- SEKTION-KARTEN -->
   <section class="block">
     <div class="wrap">
@@ -582,6 +586,17 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <span class="go">Öffnen →</span>
         </a>
       </div>
+
+      <!-- Praesentationsschicht — dezenter Nebeneingang UNTER den Bausteinkarten.
+           Bewusst kein cta-band: die Bausteinkarten bleiben der Hauptweg, die
+           Praesentation ist eine zweite Darstellung derselben Inhalte. -->
+      <p class="pres-link">
+        <a href="/praesentation">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1.6" y="2.4" width="12.8" height="9" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.1"/><line x1="8" y1="11.4" x2="8" y2="13.6" stroke="currentColor" stroke-width="1.1"/><line x1="5.4" y1="13.6" x2="10.6" y2="13.6" stroke="currentColor" stroke-width="1.1"/></svg>
+          Dieselben Unterlagen als Präsentation ansehen
+        </a>
+        <span class="pres-meta">Vollbild · 24 Folien · Pfeiltasten</span>
+      </p>
     </div>
   </section>
 

@@ -129,7 +129,7 @@ header.site {
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-row { display: flex; justify-content: space-between; gap: 24px; padding-block: 26px; flex-wrap: wrap; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .trust-item { display: flex; flex-direction: column; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size:2.125rem; color: var(--green); }
 .trust-item .lbl { font-size:0.8rem; color: var(--text2); letter-spacing: .5px; }
@@ -408,7 +408,8 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   </section>
 
   <div class="kpi-strip" style="background:var(--cream2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-    <div class="wrap kpi-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:32px 0;">
+    <!-- padding-block statt "padding:32px 0": die Kurzform loescht inline die 32px Seitenpolsterung von .wrap, die Kacheln klebten am Bildschirmrand. -->
+    <div class="wrap kpi-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-block:32px;">
       <div class="kpi-item" style="text-align:center;"><span class="num" style="font-family:'Cormorant Garamond',serif;font-size:2.375rem;color:var(--green);">5</span><span class="lbl" style="font-size:0.8rem;color:var(--text2);">Standorte im Kreis Soest</span></div>
       <div class="kpi-item" style="text-align:center;"><span class="num" style="font-family:'Cormorant Garamond',serif;font-size:2.375rem;color:var(--green);">60.900</span><span class="lbl" style="font-size:0.8rem;color:var(--text2);">Einwohner im Versorgungsgebiet</span></div>
       <div class="kpi-item" style="text-align:center;"><span class="num" style="font-family:'Cormorant Garamond',serif;font-size:2.375rem;color:var(--green);">180</span><span class="lbl" style="font-size:0.8rem;color:var(--text2);">aktiv betreute Pflegefälle</span></div>

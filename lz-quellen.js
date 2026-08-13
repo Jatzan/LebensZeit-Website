@@ -594,6 +594,65 @@
     d.querySelector(".cls").addEventListener("click", function (e) { e.stopPropagation(); closePops(); });
     d.addEventListener("click", function (e) { e.stopPropagation(); });
     host.appendChild(d);
+    place(d, host);
+  }
+
+  /* ---------- 6b. Popover in den sichtbaren Bereich ruecken ----------
+     Das Popover stand fest auf top:26px, right:0 relativ zum Traeger. Bei
+     Bauteilen am rechten oder unteren Rand lief es aus dem Bild — im Cockpit
+     besonders, weil #main eigenstaendig scrollt und body auf overflow:hidden
+     steht, es dort also nicht einmal erreichbar war.
+     Gemessen wird nach dem Einhaengen, weil die Breite erst dann feststeht.
+     Verschoben wird nur so weit wie noetig, und nur ueber die Kanten, die
+     tatsaechlich anstossen: waagerecht wandert es nach links (bzw. klappt
+     auf die linke Traegerkante), senkrecht ueber das Bauteil statt darunter.
+     Die Werte gehen als Inline-Stil ans Element, damit die Regel im
+     Stylesheet unangetastet bleibt und der Normalfall ohne JS stimmt. */
+  var PAD = 8;      // Mindestabstand zum Bildrand
+  var GAP = 6;      // Abstand zum Traeger, wenn nach oben geklappt wird
+  var TOP = 26;     // Normalfall aus dem Stylesheet: unter dem Badge
+
+  function place(pop, host) {
+    /* Der Traeger traegt .lz-src-host{position:relative}, das Popover
+       position:absolute — left/top rechnen also im Traeger-Koordinatensystem.
+       Gemessen wird erst nach dem Einhaengen, weil Breite und Hoehe vorher
+       nicht feststehen. */
+    var hr = host.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth;
+    var vh = document.documentElement.clientHeight;
+    var w = pop.offsetWidth, h = pop.offsetHeight;
+
+    /* ── waagerecht ───────────────────────────────────────────────────
+       Ausgangslage ist right:0, also rechte Kante am Traeger. Von dort nur
+       so weit schieben, wie noetig, und links nachpruefen — sonst kippt das
+       Popover bei schmalen Traegern am linken Rand wieder heraus. */
+    var left = hr.width - w;
+    if (hr.left + left < PAD) left = PAD - hr.left;
+    if (hr.left + left + w > vw - PAD) left = (vw - PAD - w) - hr.left;
+    if (hr.left + left < PAD) left = PAD - hr.left;
+
+    /* ── senkrecht ────────────────────────────────────────────────────
+       Bevorzugt unter dem Badge. Passt es dort nicht, ueber den Traeger.
+       Passt es auch dort nicht, Oberkante an den Bildrand und innen
+       scrollbar — im Cockpit war das der eigentliche Schaden: body steht
+       auf overflow:hidden und #main scrollt eigenstaendig, ein nach unten
+       hinausragendes Popover war dort gar nicht erreichbar. */
+    var top = TOP;
+    if (hr.top + top + h > vh - PAD) {
+      if (hr.top - h - GAP >= PAD) {
+        top = -h - GAP;
+      } else {
+        top = PAD - hr.top;
+        if (h > vh - PAD * 2) {
+          pop.style.maxHeight = (vh - PAD * 2) + "px";
+          pop.style.overflowY = "auto";
+        }
+      }
+    }
+
+    pop.style.right = "auto";
+    pop.style.left = Math.round(left) + "px";
+    pop.style.top = Math.round(top) + "px";
   }
   function build() {
     clear();

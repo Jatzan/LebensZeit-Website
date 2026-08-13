@@ -134,7 +134,7 @@ header.site {
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-row { display: flex; justify-content: space-between; gap: 24px; padding-block: 26px; flex-wrap: wrap; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .trust-item { display: flex; flex-direction: column; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
 .trust-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .5px; }
@@ -264,7 +264,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 /* ---- KPI-Schnellleiste ---- */
 .kpi-strip { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 28px 0; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-block: 28px; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .kpi-item { display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; }
 .kpi-item .num { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--green); line-height: 1; }
 .kpi-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .4px; }
@@ -634,6 +634,14 @@ function toggleNav(btn) {
   var open = links.classList.toggle('open');
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
+
+/* Abmelden. Der Verweis in der Navigation ruft logout(event) auf; die Funktion
+   war hier nicht definiert und der Klick warf einen ReferenceError — nur das
+   href hat die Navigation gerettet. Diese Unterseite fuehrt kein eigenes Gate
+   (das steht nur auf investoren.html), deshalb bleibt es beim Aufraeumen der
+   Sitzungsmarke; das href traegt den Sprung nach /investoren, wo das Gate
+   wieder erscheint. Kein preventDefault, sonst passierte nichts mehr. */
+function logout(ev) { try { sessionStorage.removeItem('lz-invest'); } catch (e) {} }
 </script>
 <script src="/lz-notes.js" defer></script>
 <script src="/lz-quellen.js" defer></script>

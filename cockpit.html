@@ -46,7 +46,7 @@ a#loginLogo:hover{opacity:.82}
 .login-btn:hover{background:var(--mint)}
 .login-meta{margin-top:16px;text-align:center;font-size:0.8rem;color:var(--n-dim)}
 
-#app{display:none;position:fixed;inset:var(--tick-h,2.25rem) 0 0 0}
+#app{display:none;position:fixed;inset:var(--tick-h,2.375rem) 0 0 0}  /* Rueckfallwert vereinheitlicht: stand hier als 2.25rem, ueberall sonst 2.375rem. Ohne JS lag der Inhalt dadurch 2px unter der Leiste. */
 #app.on{display:grid;grid-template-columns:236px 1fr;grid-template-rows:56px 1fr 26px;grid-template-areas:"side head" "side main" "side foot"}
 #side{grid-area:side;display:flex;flex-direction:column;overflow-y:auto}
 .side-logo{padding:16px 16px 12px;display:flex;gap:10px;align-items:center}
@@ -754,7 +754,19 @@ R.tour=m=>{
 };
 const OVERVIEW=[[51.55,8.28],11];
 function initMap(){
-  if(!document.getElementById("map"))return;
+  const mapEl=document.getElementById("map");
+  if(!mapEl)return;
+  /* Leaflet kommt vom CDN. Ist es nicht da — gesperrtes Firmennetz, Offline-
+     Vorfuehrung, CDN-Ausfall —, warf initMap() bisher "L is not defined" und
+     der Kartenbereich blieb einfach leer: ein stiller Fehlschlag, genau die
+     Sorte, die im Prompt-Tagebuch als Lektion steht. Jetzt sagt die Flaeche,
+     was fehlt; die Tourenliste darunter bleibt unabhaengig davon nutzbar. */
+  if(typeof L==="undefined"){
+    mapEl.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;padding:24px;'+
+      'text-align:center;font-size:var(--fs-micro,0.88rem);line-height:1.5;color:var(--text-2,#93A493)">'+
+      'Kartenbibliothek nicht geladen (Leaflet, externes CDN).<br>Die Tourenliste unter der Karte ist davon nicht betroffen.</div>';
+    return;
+  }
   if(LMAP){LMAP.remove();LMAP=null;}
   LMAP=L.map("map",{scrollWheelZoom:false}).setView(OVERVIEW[0],OVERVIEW[1]);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(LMAP);
@@ -1191,6 +1203,12 @@ function render(){
   mainEl.scrollTop=0;
   initTables();
   if(window.LZQuellen && window.LZQuellen.isOn()) window.LZQuellen.rebuild();
+  /* Dasselbe gilt fuer das To-Do-Overlay. Es fehlte hier: buildPins() laeuft
+     einmal beim Laden, haengt seine Pins als Kinder in #main — und die naechste
+     Zeile darueber loescht sie wieder. Nachgemessen: nach der Anmeldung waren
+     von sechs Pins null im Dokument. Rebuild nach jedem render(), analog zu
+     LZQuellen eine Zeile hoeher. */
+  if(window.LZNotes) window.LZNotes.rebuild();
 }
 </script>
 <script src="/lz-notes.js" defer></script>

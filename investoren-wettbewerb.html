@@ -309,6 +309,66 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
   /* Chart wrap */
   .chart-wrap { position: relative; }
+
+  /* ══ Mobil — nachgemessen an 390 px ═══════════════════════════════════
+     Befund: scrollWidth 500 px bei clientWidth 390 px. Weil eine einzige
+     Ueberbreite den GESAMTEN Viewport aufweitet und nicht nur ihr Element,
+     stand die ganze Seite auf 500 px. Sichtbare Folge war genau der falsche
+     Rand: jede Sektion lag danach bei left=20 w=350 statt left=0 w=390 —
+     die Seite wirkte eingerueckt, mit Creme ringsum.
+
+     Ursache war nicht die Praesenzmatrix (die scrollt korrekt), sondern die
+     Kennzahlen-Reihe. Per Ausblende-Test isoliert: ohne .bench-bars fiel die
+     Seite von 500 auf 394 px, ohne .delta auf 433 px. Rechnung im 310-px-
+     Kasten: .bench-label 200 + Luecke 10 + .bench-bars (min. 70 + 6 + Inhalt)
+     + Luecke 10 + .delta 56 = ueber 352 px Mindestbreite. Label und Delta sind
+     flex-shrink:0, und .bench-bars ist als Flex-Element mit dem Vorgabewert
+     min-width:auto nicht unter seine Inhaltsbreite komprimierbar — deshalb
+     half auch kein flex:1.
+
+     Das Dashboard kam als Desktop-Tab-App und hatte ausser der .two-col-Regel
+     keine eigene Mobilregel. Hier steht sie nach — bewusst NACH den Grund-
+     regeln, sonst ueberschreiben diese sie bei gleicher Spezifitaet. */
+  @media (max-width: 760px) {
+    .bench-row   { flex-wrap: wrap; gap: 6px 10px; margin-bottom: 18px; }
+    .bench-label { width: 100%; font-weight: 500; }
+    .bench-bars  { flex: 1 1 0; min-width: 0; }   /* hebt die min-width:auto-Sperre auf */
+    .bench-bar-label { width: 62px; }
+    .bench-bar-wrap  { min-width: 0; }
+    .delta       { width: auto; min-width: 46px; }
+    .threat-row  { flex-wrap: wrap; gap: 4px 10px; }
+    .threat-name { width: 100%; }
+    .threat-bar-wrap { min-width: 0; }
+    .threat-score { margin-left: auto; }
+  }
+
+  /* Diagramme tragen ihre Breite inline (z. B. width:320px; flex-shrink:0).
+     max-width ist eine ANDERE Eigenschaft als width und klammert den Inline-
+     Wert deshalb ohne !important. Alle sechs Diagramme laufen mit
+     responsive:true und maintainAspectRatio:false, folgen also dem Kasten. */
+  .chart-wrap { max-width: 100%; }
+  .chart-wrap + div, .chart-wrap ~ div { min-width: 0; }
+
+  /* Letzte 4 px: zwei .section lagen mit 342 px in einer 286 px breiten
+     .two-col-Spur. Grid- und Flex-Elemente tragen den Vorgabewert
+     min-width:auto und koennen nicht unter ihre Inhaltsbreite schrumpfen.
+     Die Inhaltsbreite kam vom Canvas: ein <canvas> hat eine eigene
+     Pixelbreite als Eigenmass (ohne Chart.js die Vorgabe 300x150, mit
+     Chart.js der Wert, den es hineinschreibt) und wirkt damit wie ein
+     Element mit festem width. Beides abgestellt: Spuren duerfen
+     schrumpfen, das Canvas skaliert mit.
+     Nachgemessen mit einem Stub, der Chart.js' Groessenverhalten
+     nachbildet (responsive:true, maintainAspectRatio:false):
+     scrollWidth == clientWidth bei 390, 768 und 1440 px. */
+  .two-col > *, .comp-grid > *, .standort-grid > *, .kpi-grid > * { min-width: 0; }
+  canvas { max-width: 100%; }
+
+  /* Praesenzmatrix scrollt bewusst, statt zu schrumpfen: acht Spalten mit
+     white-space:nowrap sind unter 600 px nicht mehr lesbar. Muster wie
+     .tbl-scroll im Cockpit. */
+  .matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+  .matrix-wrap > .matrix { min-width: 600px; }
+  @media (min-width: 860px) { .matrix-wrap > .matrix { min-width: 0; } }
 </style>
 </head>
 <body class="env-invest inv-theme">
@@ -437,7 +497,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <div class="legend-item"><div class="legend-dot" style="background:#888780; border-radius:50%;"></div> Konzern / Stationär (1) · Vitanas, Korian</div>
           </div>
           <div style="margin-top: 12px; font-size: 12px; color: var(--text-2); max-width: 320px; line-height: 1.6;">
-            6 von 9 relevanten Wettbewerbern sind wie LebensZeit freigemeinnützig – Preiskampf ist begrenzt,
+            <!-- Zaehlung gegen die Datenreihe geprueft: das Wettbewerber-Array fuehrt 10 Eintraege
+                 (6 freigemeinnuetzig, je 1 privat, inoffiziell, digital, Konzern) — LebensZeit selbst
+                 ist darin nicht enthalten. Die Legende darueber summiert sich ebenfalls auf 10.
+                 Hier stand weiter "6 von 9"; der Wert galt fuer die aeltere Liste ohne
+                 Vitanas/Korian, wie sie noch im Investorpitch steht. -->
+            6 von 10 relevanten Wettbewerbern sind wie LebensZeit freigemeinnützig – Preiskampf ist begrenzt,
             aber Kundenbindung über konfessionelle oder gesellschaftliche Identität ist entscheidend.
           </div>
         </div>

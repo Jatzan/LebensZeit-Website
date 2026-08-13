@@ -129,7 +129,7 @@ header.site {
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 26px 0; }
+.trust-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-block: 26px; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size:2.125rem; color: var(--green); }
 .trust-item .lbl { font-size:0.8rem; color: var(--text2); letter-spacing: .5px; }

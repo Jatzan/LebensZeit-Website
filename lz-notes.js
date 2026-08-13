@@ -113,9 +113,9 @@
       title: "--status-ok für helle Umgebungen",
       text: "Fehlte bisher ganz — jede Seite hatte sich ein eigenes Grün erfunden (#2f7d3a, #2E7038, #276b31, #BFDDC3). Festgelegt auf --lz-green. Offen bleibt: Salbeigrün als Füllfläche auf hellem Grund ist gegen jede helle Fläche zu schwach (2,05 bis 2,52:1) — gehört in die generelle Statusfarben-Klärung." },
 
-    { id: "n-tick-h-ueberdeckung", page: "allgemein", selector: "main", status: "offen",
+    { id: "n-tick-h-ueberdeckung", page: "allgemein", selector: "main", status: "offen", done: true,
       title: "Anmeldeflächen decken den Warnbalken ab",
-      text: "cockpit.html #login liegt mit fest verdrahteten 22px über einer 38px hohen Leiste, investoren.html .gate mit inset:0 und z-index 200 sogar vollständig darüber. lz-notes.js setzt --tick-h jetzt auf allen Seiten; beide Flächen müssen darauf umgestellt werden. Schritt 3 und 4." },
+      text: "BEHOBEN 13.08.2026. Beide Flaechen lesen --tick-h: cockpit.html #login und investoren.html .gate. Uebrig war ein abweichender Rueckfallwert — #app stand auf 2.25rem, ueberall sonst 2.375rem; ohne JS lag der Inhalt dadurch zwei Pixel unter der Leiste. Vereinheitlicht, jetzt 13 Vorkommen mit demselben Wert." },
 
     { id: "n-done-cockpit-mobil", page: "cockpit", selector: "main", status: "offen", done: true,
       title: "Cockpit mobil: Schublade statt Scrollleiste",
@@ -141,25 +141,25 @@
       title: "Quellen-Popover war im Cockpit unlesbar",
       text: "Das Popover stand fest auf Weiß, während --text im Cockpit die Nachtinte #DFE7DC ist — 1,26:1. Jetzt Nachtpanel mit 11,91:1. Zusätzlich tragen alle sieben Kategorien getrennte Töne für hell und dunkel: Datenbasis-Grün lag auf der Nachtfläche bei 1,6:1, der gestrichelte Rahmen war nicht zu sehen. Plakettentinte kippt mit (Weiß auf dunklen Hellwerten, Nachtinte auf hellen Dunkelwerten)." },
 
-    { id: "n-personalstamm-rollenmix", page: "cockpit", selector: "main", status: "offen",
+    { id: "n-personalstamm-rollenmix", page: "cockpit", selector: "#main[data-mod=\"pers\"] > .panel", status: "offen",
       title: "Rollenmix im Personalstamm weicht vom Steckbrief ab",
       text: "Kopfzahl 56 und FTE 45,6 stimmen, der Mix nicht: Steckbrief 20 Fachkräfte / 13 Hilfskräfte / 5 Hauswirtschaft / 5 Verwaltung, Simulation 18 / 14 / 0 / 4 plus 6 Azubis und 1 Qualitätsmanagement. Ursache: die 6 Azubis stehen im Steckbrief neben den 56, in der Simulation darin — sie verdrängen die Hauswirtschaft. Examinierte 23 statt 25. Vor dem Pitch angleichen, weil B2 auf dem Qualifikationsmix aufbaut." },
 
-    { id: "n-tourenzahl", page: "cockpit", selector: "main", status: "auszubauen",
+    { id: "n-tourenzahl", page: "cockpit", selector: "#main[data-mod=\"tour\"] > .panel", status: "auszubauen",
       title: "Touren stark verkürzt dargestellt",
       text: "Der Steckbrief nennt 3–4 Touren je Standort früh und ~2 spät (C.3), also rund 25 am Tag. Die Simulation zeigt 6. Für die Vorführung tragfähig, für eine Aussage zur Tourenoptimierung nicht — entweder aufstocken oder im Pitch als Ausschnitt kennzeichnen." },
 
-    { id: "n-namensraeume", page: "cockpit", selector: "main", status: "auszubauen",
+    { id: "n-namensraeume", page: "cockpit", selector: "#main[data-mod=\"pers\"] > .panel", status: "auszubauen",
       title: "Drei getrennte Namensräume für Personen",
       text: "Die Anmeldung nennt Holthaus, Brandt und Yilmaz, der Personalstamm 56 andere Namen, die Tourenliste sechs weitere Pflegekräfte (Weber, Yilmaz, Nowak, Köhler, Brinkmann, Busch-Kranz). Keiner der drei Bestände überschneidet sich sauber. Fällt auf, sobald jemand im Pitch zwei Ansichten nebeneinander legt." },
 
-        { id: "n-cockpit-notizen-anker", page: "cockpit", selector: "main", status: "offen",
+        { id: "n-cockpit-notizen-anker", page: "cockpit", selector: "main", status: "offen", done: true,
       title: "To-Do-Pins im Cockpit ohne sichtbaren Anker",
-      text: "Die Notiz-Pins hängen an Selektoren, die im Cockpit entweder nicht existieren oder in einem Bereich liegen, den render() neu schreibt — sie erscheinen nicht sichtbar verankert. Analog zum Quellen-Overlay lösen: Selektoren je Modul verengen (#main[data-mod=…]) und buildPins() nach jedem render() erneut aufrufen. Josh gemeldet 07.08.2026." },
+      text: "BEHOBEN 13.08.2026. Zwei Ursachen. Erstens: render() schreibt #main komplett neu, buildPins() lief nur einmal beim Laden — nachgemessen waren nach der Anmeldung von sechs Pins null im Dokument. render() ruft jetzt LZNotes.rebuild(), genau wie eine Zeile hoeher LZQuellen.rebuild(). Zweitens hingen alle sechs offenen Cockpit-Notizen am Selektor \"main\", standen also auf jedem Modul uebereinander. Jetzt auf Modulselektoren verengt, wie die Quellen-Registry es schon macht: Rollenmix, Namensraeume und Personalstamm-Nachtrag auf #main[data-mod=\"pers\"], Tourenzahl auf \"tour\", MediFox auf \"home\". Nachgemessen je Modul: Uebersicht 2/2 sichtbar, Personal 4/4, Touren 2/2, Klienten 1/1." },
 
-    { id: "n-quellen-popover-rand", page: "allgemein", selector: "main", status: "offen",
+    { id: "n-quellen-popover-rand", page: "allgemein", selector: "main", status: "offen", done: true,
       title: "Quellen-Popover laufen über den Rand",
-      text: "Das Popover steht fest auf top:26px, right:0 relativ zum Trägerelement. Bei Bauteilen am rechten oder unteren Rand ragt es aus dem sichtbaren Bereich — im Cockpit besonders, weil #main eigenständig scrollt und body auf overflow:hidden steht. Position vor dem Öffnen gegen den Viewport prüfen und bei Bedarf nach links oder oben kippen. Josh gemeldet 07.08.2026." },
+      text: "BEHOBEN 13.08.2026. Das Popover stand fest auf top:26px, right:0 relativ zum Traeger. place() rueckt es jetzt nach dem Einhaengen in den sichtbaren Bereich — waagerecht nur so weit wie noetig und mit Nachpruefung der linken Kante, senkrecht ueber den Traeger, wenn unten kein Platz ist, sonst Oberkante an den Rand und innen scrollbar. Der eigentliche Schaden lag im Cockpit: body steht auf overflow:hidden und #main scrollt eigenstaendig, ein nach unten hinausragendes Popover war dort gar nicht erreichbar. Nachgemessen 49 Popover auf fuenf Seiten in Desktop und 390px: alle im Bild, vorher 24 ausserhalb." },
 
     { id: "n-done-env-invest", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "env-invest ausgerollt",
@@ -209,9 +209,9 @@
       title: "Baustein-Board auf Stand gebracht",
       text: "Das Board stand auf dem Juli-Stand: Baustein 1 „In Arbeit\\\", Baustein 3 „Kaum begonnen\\\", Baustein 4 „V1 steht\\\", alle Termine abgelaufen, Verantwortlichkeit fünfmal „offen\\\". Status jetzt an vorhandenen Artefakten festgemacht — B1 steht (Option C), B2 blockiert (Personalkosten), B3 Kennzahlen liegen vor, B4 lauffähig aber ohne ausgewiesene Iterationsstufen, B5 Material da und Reflexion offen. Spalte „Verantwortlich\\\" durch „Beleg\\\" ersetzt, weil eine Zuordnung im Team das Board nicht selbst trifft. Restzeit bis zum Pitch wird gerechnet statt getippt — eine feste Zahl war genau der Grund, warum das Board veraltet ist." },
 
-    { id: "n-sprint-tabs-1-3-6", page: "sprints", selector: "main", status: "offen",
+    { id: "n-sprint-tabs-1-3-6", page: "sprints", selector: "main", status: "offen", done: true,
       title: "Sprint-Reiter 1 und 3 bis 6 nicht geprüft",
-      text: "Aktualisiert wurde nur der Reiter Sprint 2. Was in den übrigen fünf Reitern steht, ist gegen den heutigen Stand nicht nachgesehen — insbesondere Sprint 1, der abgeschlossen ist und entsprechend ausgewiesen sein sollte." },
+      text: "GEPRUEFT 13.08.2026. Sprint 1 war bereits korrekt als abgeschlossen ausgewiesen (Reiterpunkt done, Abzeichen \"Abgeschlossen\", Pitch 15. Juni 2026). Echter Befund in den Reitern 3 bis 6: sie nannten je ein Handlungsfeld wie eine Zuteilung. Die Phasenuebersicht gibt das nicht her — sie nennt elf Handlungsfelder als Pool, alle zwei Monate kommt daraus eine Aufgabe, und woertlich: \"Die Themenpakete koennen situationsbedingt angepasst werden.\" Vergeben sind bisher nur Sprint 1 (Marktanalyse) und Sprint 2 (Vertrieb und Marketing), neun Felder sind offen. Die vier Reiter tragen jetzt das Abzeichen \"Handlungsfeld · Annahme\", den vollstaendigen Pool und den Hinweis, dass das genannte Feld eine Annahme ist." },
 
     { id: "n-done-kundenportal-gebaut", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
       title: "Kundenportal als Website gebaut",
@@ -253,9 +253,9 @@
       title: "Logos verlinkt, Unterstrich entfernt",
       text: "Alle drei Logos im Portal — Anmeldung, Kopfzeile, Schublade — führen auf die Startseite. Der Unterstrich beim Überfahren ist raus; stattdessen wird das Logo leicht heller, damit die Wortmarke ungestört bleibt." },
 
-    { id: "n-portal-formulare-ohne-pruefung", page: "kundenportal", selector: "main", status: "auszubauen",
+    { id: "n-portal-formulare-ohne-pruefung", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
       title: "Portalformulare prüfen nichts",
-      text: "SEPA-Mandat und Bankverbindung nehmen jede Eingabe an — keine IBAN-Prüfziffer, keine Pflichtfeldkontrolle, kein Schutz gegen doppeltes Absenden. Für die Vorführung ausreichend, vor einer echten Nutzung nicht. Ebenso ist die Adressänderung eine mailto-Verknüpfung; ohne eingerichtetes E-Mail-Programm passiert nichts, der Hinweistext nennt deshalb die Telefonnummer." },
+      text: "BEHOBEN 13.08.2026. Das Feldschema traegt jetzt eine dritte Angabe: \"iban\" oder \"pflicht\". Die IBAN wird nach ISO 13616 geprueft — Laenge je Land, erste vier Zeichen nach hinten, Buchstaben zu Zahlen, Rest modulo 97 muss 1 sein; stellenweise gerechnet, weil eine deutsche IBAN als Zahl 20 Stellen hat und nicht mehr exakt in eine Gleitkommazahl passt. Dazu Pflichtfelder, Fehlermeldung am Feld mit aria-invalid und aria-describedby, und ein Riegel gegen doppeltes Absenden. Dabei fiel auf, dass beide vorbelegten Demo-IBANs ihre eigene Pruefziffer nicht erfuellten (DE21… und DE64…) — korrigiert auf DE93 4145 0075 0000 123456 und DE07 4166 0022 0000 987654. Pruefer gegen 12 Testvektoren belegt, im Browser vom SEPA-Mandat bis zur Bestaetigung durchgespielt. Die mailto-Adressaenderung war bereits mit Warnkasten und Telefonnummer abgesichert." },
 
     { id: "n-done-portal-feldposition", page: "kundenportal", selector: "main", status: "offen", done: true,
       title: "Antwortfeld erschien mobil außerhalb des Sichtfelds",
@@ -357,9 +357,9 @@
       title: "Doppelte Beschriftung „Übersicht“",
       text: "Der erste Reiter hieß „Übersicht“ wie der Navigationspunkt, der auf die Investoren-Startseite führt — zwei gleiche Beschriftungen mit verschiedenen Zielen auf einem Bildschirm. Reiter heißt jetzt „Überblick“." },
 
-    { id: "n-logout-undefiniert", page: "allgemein", selector: "main", status: "offen",
+    { id: "n-logout-undefiniert", page: "allgemein", selector: "main", status: "offen", done: true,
       title: "logout() ist auf den Investorenseiten nicht definiert",
-      text: "Alle Investorenseiten rufen im Abmelden-Verweis onclick='logout(event)' auf, definieren die Funktion aber nirgends — der Klick wirft einen ReferenceError, nur das href rettet die Navigation. Auf investoren-wettbewerb.html ist sie jetzt definiert; die übrigen sechs Seiten brauchen dieselbe Ergänzung." },
+      text: "BEHOBEN 13.08.2026. Alle sieben Investorenseiten rufen im Abmelden-Verweis onclick=\"logout(event)\" auf; definiert war die Funktion nur auf investoren.html (mit Gate-Rueckkehr) und investoren-wettbewerb.html. Auf den fuenf Unterseiten kennzahlen, markt, swot, finanzierung und kontakt warf der Klick einen ReferenceError, nur das href hat die Navigation gerettet. Dort jetzt ergaenzt: Sitzungsmarke aufraeumen, kein preventDefault, das href traegt den Sprung nach /investoren, wo das Gate wieder erscheint." },
 
     { id: "n-done-dashboard-umgebaut", page: "investoren-wettbewerb", selector: "main", status: "auszubauen", done: true,
       title: "Wettbewerbs-Dashboard war strukturell keine Investorenseite",
@@ -401,13 +401,13 @@
     { id: "n-cockpit-1b", page: "cockpit", selector: "main", status: "offen", done: true,
       title: "Cockpit Stufe 1b erledigt",
       text: "Ebene B: Reiter im Klientenprofil rollenabhängig sperren (sichtbar, deaktiviert, Tooltip) + Ausnahmezugriff ▲ mit Grund-Abfrage und Zugriffsprotokoll." },
-    { id: "n-cockpit-roster", page: "cockpit", selector: "main", status: "offen",
+    { id: "n-cockpit-roster", page: "cockpit", selector: "#main[data-mod=\"pers\"] > .panel", status: "offen",
       title: "Personalstamm-Nachtrag",
       text: "Brandt (Disposition), Holthaus (GF) und Yilmaz (Pflegekraft) sind Login-/Website-Namen, fehlen aber im 56er-Roster (DB.belegschaft). Nachtragen oder abgleichen." },
     { id: "n-cockpit-stufe2", page: "cockpit", selector: "main", status: "auszubauen", done: true,
       title: "Cockpit Stufe 2 erledigt",
       text: "Sechs rollenspezifische Übersichtsseiten als Einstieg — Aufgaben und Abweichungen, nicht Statistik; einheitliches Muster (2–3 Kennzahlen + Aufgabenliste)." },
-    { id: "n-cockpit-medifox", page: "cockpit", selector: "main", status: "auszubauen",
+    { id: "n-cockpit-medifox", page: "cockpit", selector: "#main[data-mod=\"home\"] > .panel", status: "auszubauen",
       title: "MediFox-Herkunftskennzeichnung",
       text: "Gespiegelte Datenblöcke markieren (Quelle: MediFox DAN, Stand 06:00); im Altsystem 2024 zusätzlich eine Störmeldung, dass der Export nach MediFox fehlgeschlagen ist. MediFox ist kein Altsystem." },
     { id: "n-done-cockpit-stufe3", page: "cockpit", selector: "main", status: "auszubauen", done: true,
@@ -426,9 +426,9 @@
     { id: "n-done-r-bruecke-zirkel", page: "allgemein", selector: "main", status: "offen", done: true,
       title: "Zirkel bei --r vermieden",
       text: "Der Patch legte --r: var(--radius) auf :root — dort liefert es immer 24 px und setzt die 14 px von env-invest und env-intern still ausser Kraft (nachgemessen). Auf * verlegt entstand ein echter Zirkel, weil die Umgebungsklassen selbst --radius: var(--r) setzen: beide Werte fielen aus. Loesung ohne Bruecke: die 102 Aufrufe var(--r) in den Seiten sind auf var(--radius) umgestellt, der Rohwert 14 px bleibt fuer die Umgebungsdefinitionen." },
-    { id: "n-done-cockpit-mobil", page: "cockpit", selector: "main", status: "offen", done: true,
-      title: "Cockpit mobil: 420 px waren unerreichbar",
-      text: "Bestaetigter Befund: bei 390 px Breite war die Anwendung 810 px breit, body{overflow:hidden} liess 420 px unerreichbar — nicht bloss unbequem. Unter 900 px wird die 236-px-Seitenleiste jetzt eine horizontal scrollbare Zeile oben, Inhalt volle Breite. Nachgemessen: 0 px unerreichbar, Navigations-Tap-Ziel 48 px." },
+    { id: "n-done-cockpit-mobil-stufe1", page: "cockpit", selector: "main", status: "offen", done: true,
+      title: "Cockpit mobil, erste Stufe: 420 px waren unerreichbar",
+      text: "Bestaetigter Befund: bei 390 px Breite war die Anwendung 810 px breit, body{overflow:hidden} liess 420 px unerreichbar — nicht bloss unbequem. Erste Loesung: unter 900 px wurde die 236-px-Seitenleiste eine horizontal scrollbare Zeile oben, Inhalt volle Breite. Nachgemessen: 0 px unerreichbar, Navigations-Tap-Ziel 48 px. HINWEIS: diese Zwischenstufe ist inzwischen ueberholt, siehe n-done-cockpit-mobil (Schublade statt Scrollleiste). Der Eintrag trug bis 13.08.2026 dieselbe ID wie jener und war damit ein Duplikat in der Registry." },
     /* ----- Designgrundlage v1 (05.08.2026) ----- */
     { id: "n-done-cockpit-balken-doppelt", page: "cockpit", selector: "main", status: "offen", done: true,
       title: "Doppelter Warnbalken im Cockpit behoben",
@@ -497,9 +497,9 @@
     { id: "n-done-quellen-investoren", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Investorenbereich auf Quellen geprueft",
       text: "Alle 13 Kennzahlen der sechs Investorenseiten gegen die Unterlagen geprueft und mit Datei, Seite, Abschnitt und Belegstufe in die Registry aufgenommen (jetzt 47 Datenpunkte)." },
-    { id: "n-inv-umsatz-je-fall", page: "investoren-kennzahlen", selector: ".kpi-row .kpi-item:nth-child(3)", status: "offen",
+    { id: "n-inv-umsatz-je-fall", page: "investoren-kennzahlen", selector: ".kpi-row .kpi-item:nth-child(3)", status: "offen", done: true,
       title: "11.700 EUR je Pflegefall mischt Foerdermittel ein",
-      text: "Die Zahl ist belegt (SWOT S. 2: ~11.700 EUR je Fall, im Normbereich), entsteht aber aus Gesamtumsatz inklusive 38 % Foerdermitteln geteilt durch 180 Faelle. Aus reinem Pflegeumsatz (1,15 Mio EUR) waeren es ~6.400 EUR. Widerspricht der eigenen Regel, Pflegeumsatz und Foerdermittel getrennt auszuweisen — im Q&A angreifbar. Entweder beide Werte zeigen oder die Bezugsgroesse benennen." },
+      text: "BEHOBEN 13.08.2026. Beide Bezugsgroessen stehen jetzt da statt einer: Kachel benennt \"Gesamtumsatz je Pflegefall p. a. (inkl. Foerdermittel)\" fuer die ~11.700 EUR, die Benchmark-Tabelle fuehrt zusaetzlich \"nur Pflegeumsatz SGB XI/V\" mit ~6.400 EUR (1,15 Mio / 180). Im selben Zug die Kachel \"101 Team inkl. 45 Ehrenamtliche\" auf \"56 + 45\" aufgeloest — Kopfzahlen werden nicht addiert, dieselbe Regel wie bei Pflegeumsatz und Foerdermitteln." },
     { id: "n-inv-175mio", page: "investoren-markt", selector: ".bench", status: "offen",
       title: "Marktzeile 1,75 Mio ohne Beleg",
       text: "Die Makro-Tabelle nennt ambulante Dienste ~1,75 Mio (~35 % aller Pflegebeduerftigen) mit Quellenangabe Destatis 2021 — diese Zahl steht in keiner Sprint-Unterlage. Entweder Einzelnachweis nachtragen oder Zeile entfernen." },
@@ -576,8 +576,48 @@
       text: "Tagesansicht mit Störung (Disposition): Dienstag 07:12, 2 Krankmeldungen / 3 Touren; Vorschlagsliste prüft §37.3-Qualifikation und Zeitfenster, Ein-Klick-Umplanung; 2024-Telefonzettel-Version. Zugleich Sprint-4-Vorlage." },
 
     { id: "n-done-praesentationsschicht", page: "praesentation", selector: "main", status: "auszubauen", done: true,
-      title: "Präsentationsschicht gebaut (Testballon Sprint 1)",
-      text: "/praesentation.html: Vollbild-Foliendeck, Foliendaten (SLIDES) getrennt vom Layout, Pfeiltasten/Leertaste/Esc, Folienzähler, ein Stylesheet (lz-tokens.css), kein zweiter :root-Block. Vollbild-Ausnahme dokumentiert: Warnbalken verschwindet nur im Vollbild. Inhalt 1:1 aus Sprint 1 (abgeschlossen). Zwei Zusatzfolien zeigen die drei entschiedenen SWOT-Korrekturen (Premium statt „Familie“, 500.000–600.000 statt 600.000 Graumarkt-Kräfte, PG 4–5 statt PG 3–5) für den Sprint-2-Pitch. Einstieg über neue CTA auf /investoren nach Anmeldung." }
+      title: "Präsentationsschicht gebaut — Investorpitch Sprint 1, 24 Folien",
+      text: "/praesentation.html: Vollbild-Foliendeck mit allen 24 Folien des Investorpitch_20min.pdf — Reihenfolge, Eyebrows, Minutenmarken, Fußzeilen und die drei dunklen Akzentfolien (Lieferantenmacht, Stoßrichtung, Investment Case) folgen dem Original. Foliendaten (SLIDES) vollständig getrennt vom Layout, ein Stylesheet (lz-tokens.css), kein zweiter :root-Block. Bedienung: Pfeiltasten, Leertaste, Home/End, 0 für das Folienverzeichnis, F für Vollbild, Esc zurück, Wischen am Telefon, Direktlink je Folie über #12. Vollbild-Ausnahme dokumentiert: Warnbalken verschwindet nur im echten Vollbild. Einstieg als dezenter Textlink UNTER den Bausteinkarten auf /investoren (kein CTA-Band — die Präsentation zeigt dieselben Inhalte wie die Karten)." },
+
+    { id: "n-done-praesentation-einpassung", page: "praesentation", selector: "main", status: "auszubauen", done: true,
+      title: "Folien passen sich in den Rahmen ein statt zu scrollen",
+      text: "Gemessen: bei 1920x1080 passte alles, bei 1440x900 waren acht und bei 1280x800 elf Folien zu hoch (Folie 3 um 201 px, Folie 12 um 192 px). Eine Präsentation wird nicht gescrollt, deshalb verkleinert fitSlide() den Folieninhalt über die Eigenschaft --fit. Zwei Messwege waren nachweislich falsch: scrollHeight des Rahmens ändert sich unter zoom überhaupt nicht, und getBoundingClientRect des gezoomten Elements liefert seine Größe im eigenen, noch nicht skalierten Raum (Chrome 141: zoom 0.5 gesetzt, Rechteckhöhe unverändert 861 px). Richtig ist Rechteckhöhe MAL Zoomfaktor. Ergebnis: 1024x768 bis 1920x1080 ohne Überhang. Am Telefon wird bewusst NICHT eingepasst — dort bräuchten fast alle Folien den Anschlag 0,68 und wären unlesbar, Scrollen ist die richtige Bedienung. Korrekturhinweise sind eingeklappte <details>; beim Aufklappen wird neu eingepasst." },
+
+    { id: "n-done-wettbewerb-mobil-raender", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Ränder des Wettbewerbs-Dashboards mobil behoben",
+      text: "Befund: scrollWidth 500 px bei clientWidth 390 px. Weil eine einzige Überbreite den GESAMTEN Viewport aufweitet, stand die ganze Seite auf 500 px — jede Sektion lag danach bei left=20 w=350 statt left=0 w=390 und die Seite wirkte eingerückt mit Creme ringsum. Nicht die Präsenzmatrix war die Ursache (die scrollt korrekt), sondern die Kennzahlen-Reihe: per Ausblende-Test isoliert fiel die Seite ohne .bench-bars von 500 auf 394 px, ohne .delta auf 433 px. .bench-label 200 px und .delta 56 px sind flex-shrink:0, und .bench-bars ist als Flex-Element mit dem Vorgabewert min-width:auto nicht unter seine Inhaltsbreite komprimierbar — zusammen über 352 px Mindestbreite in einem 310-px-Kasten. Das Dashboard kam als Desktop-Tab-App und hatte außer der .two-col-Regel keine eigene Mobilregel. Nachgerüstet: Mobilblock ab 760 px, min-width:0 auf den Flex- und Grid-Elementen, canvas mit max-width:100 %, Matrix scrollt bewusst. Die letzten 4 px kamen von zwei .section in einer zu engen .two-col-Spur — ein <canvas> trägt eine eigene Pixelbreite als Eigenmaß und wirkt wie ein festes width. Geprüft mit einem Stub, der Chart.js' Größenverhalten nachbildet: scrollWidth == clientWidth bei 390, 768 und 1440 px." },
+
+    { id: "n-done-wrap-padding-block", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Kurzform „padding: X 0\" löschte die Seitenpolsterung von .wrap",
+      text: "Systemischer Fehler, 21 Dateien betroffen: .trust-row und .kpi-row setzen „padding: 26px 0\" bzw. „padding: 28px 0\". Beide Klassen stehen zusammen mit .wrap auf demselben Element — die Kurzform überschreibt damit die 32 px Seitenpolsterung von .wrap auf 0, die Kacheln klebten am Bildschirmrand (nachgemessen paddingLeft 0 statt 32px). Auf padding-block umgestellt, das kann die Seitenwerte nicht anfassen. Genutzt wird die Kombiklasse auf fünf Seiten: index, einzugsgebiet, investoren, investoren-kennzahlen, investoren-markt; die Regel selbst ist in alle 21 Dateien kopiert und dort überall korrigiert, damit eine später hinzugefügte Seite den Fehler nicht erbt. Auf einzugsgebiet.html stand derselbe Wert zusätzlich inline. Nachgemessen: alle .wrap-Elemente auf sechs Seiten tragen wieder 32 px." },
+
+    { id: "n-done-wettbewerb-zaehlung", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "„6 von 9\" im Dashboard auf „6 von 10\" berichtigt",
+      text: "Gegen die Datenreihe geprüft: das Wettbewerber-Array führt zehn Einträge (6 freigemeinnützig, je 1 privat, inoffiziell, digital, Konzern), LebensZeit selbst ist NICHT darin enthalten, und die Legende darüber summiert sich ebenfalls auf zehn. Im Text stand weiter „6 von 9\" — der Wert galt für die ältere Liste ohne Vitanas/Korian, wie sie noch im Investorpitch steht. Eine frühere Sitzung hatte diese Korrektur bereits vermerkt, sie war im Bestand aber nicht angekommen." },
+
+    { id: "n-zaehlbasis-wettbewerber", page: "allgemein", selector: "main", status: "offen",
+      title: "Zählbasis Wettbewerber: Pitch 9, Dashboard 10 — vereinheitlichen",
+      text: "Der Investorpitch listet neun Wettbewerber plus LebensZeit (Titel dort trotzdem „Zehn Wettbewerber\") und sagt folgerichtig „6 von 9\". Das Wettbewerbs-Dashboard führt zehn Wettbewerber — es enthält zusätzlich Vitanas/Korian als Konzern/stationär — und sagt „6 von 10\". Beide Aussagen sind in ihrem eigenen Bestand richtig, widersprechen sich aber nach außen. Vor dem Pitch am 07.09.2026 auf eine Zählbasis festlegen: entweder Vitanas/Korian in die Pitch-Matrix aufnehmen oder im Dashboard als nicht-ambulanten Sonderfall aus der Zählung herausnehmen." },
+
+    { id: "n-done-leaflet-auffangnetz", page: "cockpit", selector: "#main[data-mod=\"tour\"] > .panel", status: "offen", done: true,
+      title: "Kartenbibliothek fiel still aus",
+      text: "BEHOBEN 13.08.2026. Leaflet kommt vom CDN. Ist es nicht da — gesperrtes Firmennetz, Offline-Vorfuehrung, CDN-Ausfall —, warf initMap() „L is not defined“ und der Kartenbereich blieb einfach leer. Genau die Sorte stiller Fehlschlag, die im Prompt-Tagebuch als Lektion steht. initMap() prueft jetzt auf typeof L und schreibt sonst in die Flaeche, was fehlt; die Tourenliste darunter bleibt davon unabhaengig nutzbar." },
+
+    { id: "n-done-notes-anker-position", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Notizen-Overlay ueberschrieb die Positionierung seines Ankers",
+      text: "BEHOBEN 13.08.2026. Der Pin braucht einen positionierten Anker, dafuer setzte .lz-note-anchor position:relative — bedingungslos. Weil das eingespritzte Stylesheet nach dem Seiten-Stylesheet im Kopf landet, gewann es bei gleicher Spezifitaet und machte aus bereits positionierten Elementen relative. Aufgefallen an /praesentation: eine offene Notiz mit selector „main“ verwandelte die Buehne (position:fixed, inset 0) in ein relatives Element, gemessen 541 statt 861 px Hoehe, die Bedienleiste stand mitten auf der Seite. Die Klasse wird jetzt nur noch gesetzt, wenn das Wirtselement tatsaechlich static ist — betraf potenziell jede Seite." },
+
+    { id: "n-done-notizen-mobil", page: "notizen", selector: "main", status: "offen", done: true,
+      title: "To-Do-Seite weitete sich mobil auf",
+      text: "BEHOBEN 13.08.2026. notizen.html hatte keine einzige Medienabfrage. Die zweite Rasterspalte traegt „erledigt“ mit white-space:nowrap und braucht 75 px; bei 390 px Viewport blieben davon 29 uebrig. Weil die 1fr-Spur als Grid-Element den Vorgabewert min-width:auto hat, konnte sie nicht ausweichen — gemessen scrollWidth 436 bei clientWidth 390, und eine einzige Ueberbreite weitet die ganze Seite. Unter 560 px steht der Schalter jetzt unter dem Text statt daneben. Dieselbe Fehlerklasse wie im Wettbewerbs-Dashboard." },
+
+    { id: "n-done-notes-id-duplikat", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Doppelte Notiz-ID in der Registry",
+      text: "BEHOBEN 13.08.2026. Zwei inhaltlich verschiedene Eintraege trugen dieselbe ID n-done-cockpit-mobil: einmal die Zwischenstufe (Seitenleiste wird eine horizontal scrollbare Zeile), einmal die geltende Loesung (Schublade). Eine doppelte ID bedeutet einen gemeinsamen localStorage-Schluessel und einen doppelten Eintrag im Board. Die aeltere Stufe heisst jetzt n-done-cockpit-mobil-stufe1 und verweist auf ihre Nachfolgerin. Registry auf doppelte IDs geprueft: keine mehr." },
+
+    { id: "n-personas-set-praesentation", page: "praesentation", selector: "main", status: "offen",
+      title: "Personas-Set in der Präsentation: Set 1 gegen Set 2 entscheiden",
+      text: "Die Folien 13 bis 15 tragen unverändert Set 1 aus dem Investorpitch: Elisabeth Brinkmann (78, PG 2, Rüthen) und Sabine Koch (52, Erwitte). Maßgeblich ist inzwischen Set 2 — Hildegard Stemmer und Markus Dörre aus dem Personas-Handout, verwendet im Kundenportal, im Cockpit und in Baustein 3. Umbenannt wurde in der Präsentation bewusst nichts, weil Folie 15 (Iterationsdokumentation V1 bis V3) genau die Entstehung von Brinkmann und Koch belegt und der Pflichtnachweis für Baustein 3 daran hängt. Auf der Folie als offener Punkt gekennzeichnet. Entscheidung: Set 1 als historischen Sprint-1-Stand kennzeichnen oder die drei Folien auf Set 2 umstellen und den Pflichtnachweis neu formulieren." }
   ];
 
   /* ---------- 2. Status-Metadaten ---------- */
@@ -893,7 +933,16 @@
       var host = document.querySelector(n.selector);
       if (!host) return;   // kein Treffer -> kein Streu-Pin; Punkt bleibt im Board sichtbar
       if (!host) return;
-      host.classList.add("lz-note-anchor");
+      /* Der Pin braucht einen positionierten Anker. .lz-note-anchor setzt dafuer
+         position:relative — das darf aber nur passieren, wenn das Wirtselement
+         ueberhaupt noch statisch ist. Sonst ueberschreibt die eingespritzte
+         Regel eine bestehende Positionierung, und weil dieses Stylesheet nach
+         dem Seiten-Stylesheet im Kopf landet, gewinnt sie bei gleicher
+         Spezifitaet. Aufgefallen an /praesentation: eine offene Notiz mit
+         selector "main" machte aus der Buehne (position:fixed, inset 0)
+         ein relatives Element — gemessen 541 statt 861 px Hoehe, die
+         Bedienleiste stand mitten auf der Seite. */
+      if (getComputedStyle(host).position === "static") host.classList.add("lz-note-anchor");
       var i = offsetMap.get(host) || 0; offsetMap.set(host, i + 1);
       var meta = STATUS[n.status] || STATUS.offen;
 

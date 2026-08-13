@@ -134,7 +134,7 @@ header.site {
 
 /* ---- Vertrauensleiste ---- */
 .trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.trust-row { display: flex; justify-content: space-between; gap: 24px; padding: 26px 0; flex-wrap: wrap; }
+.trust-row { display: flex; justify-content: space-between; gap: 24px; padding-block: 26px; flex-wrap: wrap; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .trust-item { display: flex; flex-direction: column; }
 .trust-item .num { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--green); }
 .trust-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .5px; }
@@ -264,7 +264,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
 /* ---- KPI-Schnellleiste ---- */
 .kpi-strip { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
-.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 28px 0; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-block: 28px; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
 .kpi-item { display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; }
 .kpi-item .num { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--green); line-height: 1; }
 .kpi-item .lbl { font-size: 12px; color: var(--text2); letter-spacing: .4px; }
@@ -490,8 +490,8 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <div class="wrap kpi-row">
       <div class="kpi-item"><span class="num">2,1 Mio €</span><span class="lbl">Jahresumsatz</span></div>
       <div class="kpi-item"><span class="num">180</span><span class="lbl">aktiv betreute Pflegefälle</span></div>
-      <div class="kpi-item"><span class="num">~11.700 €</span><span class="lbl">Umsatz je Pflegefall p. a.</span></div>
-      <div class="kpi-item"><span class="num">101</span><span class="lbl">Team inkl. 45 Ehrenamtliche</span></div>
+      <div class="kpi-item"><span class="num">~11.700 €</span><span class="lbl">Gesamtumsatz je Pflegefall p. a. (inkl. Fördermittel)</span></div>
+      <div class="kpi-item"><span class="num">56 + 45</span><span class="lbl">Mitarbeitende und Ehrenamtliche</span></div>
     </div>
   </div>
 
@@ -510,7 +510,12 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
         </thead>
         <tbody>
           <tr><td>Jahresumsatz</td><td class="val">2,1 Mio €</td><td>1,5 Mio €</td><td class="flag-ok">über Schnitt</td></tr>
-          <tr><td>Umsatz je Pflegefall p. a.</td><td class="val">~11.700 €</td><td>Normbereich</td><td class="flag-ok">im Rahmen</td></tr>
+          <!-- Die Zahl ist belegt (SWOT S. 2), entsteht aber aus dem GESAMTumsatz inklusive 38 % Foerdermitteln
+               geteilt durch 180 Faelle. Das widerspricht der eigenen Regel, Pflegeumsatz und Foerdermittel
+               getrennt auszuweisen, und ist im Q&A angreifbar. Deshalb stehen jetzt beide Bezugsgroessen
+               da: 2,1 Mio / 180 = ~11.700 EUR, und 1,15 Mio Pflegeumsatz SGB XI/V / 180 = ~6.400 EUR. -->
+          <tr><td>Umsatz je Pflegefall p. a. — Gesamtumsatz</td><td class="val">~11.700 €</td><td>Normbereich</td><td class="flag-ok">im Rahmen</td></tr>
+          <tr><td>Umsatz je Pflegefall p. a. — nur Pflegeumsatz SGB XI/V</td><td class="val">~6.400 €</td><td>—</td><td>Bezugsgröße benannt</td></tr>
           <tr><td>Standorte / Flächendeckung</td><td class="val">5</td><td>1–2</td><td class="flag-ok">Alleinstellung</td></tr>
           <tr><td>Eigenfinanzierungsquote</td><td class="val">62 %</td><td>75–80 %</td><td class="flag-warn">unter Ziel (70 %)</td></tr>
           <tr><td>Förderanteil am Umsatz</td><td class="val">38 %</td><td>20–25 %</td><td class="flag-warn">kritisch hoch</td></tr>
@@ -627,6 +632,14 @@ function toggleNav(btn) {
   var open = links.classList.toggle('open');
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }
+
+/* Abmelden. Der Verweis in der Navigation ruft logout(event) auf; die Funktion
+   war hier nicht definiert und der Klick warf einen ReferenceError — nur das
+   href hat die Navigation gerettet. Diese Unterseite fuehrt kein eigenes Gate
+   (das steht nur auf investoren.html), deshalb bleibt es beim Aufraeumen der
+   Sitzungsmarke; das href traegt den Sprung nach /investoren, wo das Gate
+   wieder erscheint. Kein preventDefault, sonst passierte nichts mehr. */
+function logout(ev) { try { sessionStorage.removeItem('lz-invest'); } catch (e) {} }
 </script>
 <script src="/lz-notes.js" defer></script>
 <script src="/lz-quellen.js" defer></script>
