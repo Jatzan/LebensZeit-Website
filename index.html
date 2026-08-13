@@ -2,12 +2,532 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=/cockpit">
-<link rel="canonical" href="https://www.lebenszeit-ggmbh.de/cockpit">
-<title>LZ Cockpit · LebensZeit gGmbH</title>
-<script>location.replace('/cockpit');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LebensZeit gGmbH — Ambulante Pflege in NRW</title>
+<meta name="description" content="LebensZeit gGmbH — ambulante Pflege, nah, vernetzt und nachhaltig. Grundpflege, Behandlungspflege, Betreuung und Hauswirtschaft in NRW.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     MASTERTEMPLATE · LebensZeit gGmbH
+     Zentrales Stylesheet — gilt fuer alle Seiten.
+     Spaeter als style.css auslagern; pro Seite nur <main> tauschen.
+     ============================================================ -->
+<link rel="stylesheet" href="/lz-tokens.css">
+<style>
+/* Farb- und Maßtokens: siehe /lz-tokens.css (Einzelquelle) */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: var(--lh-body-env);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--green3); line-height: 1.15; }
+
+a { color: var(--green); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--green2); }
+
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+/* ---- Sichtbarer Fokus (Barrierefreiheit) ---- */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   LOGO — Horizontales Lockup, faerbt sich ueber currentColor.
+   Regel: niemals weiss. Heller HG -> dunkles Logo, dunkler HG -> helles.
+   ============================================================ */
+.logo-lockup { display: inline-flex; align-items: center; gap: 12px; color: var(--green); }
+.logo-lockup .sym { width: 38px; height: 38px; flex-shrink: 0; }
+.logo-lockup .txt { display: flex; flex-direction: column; line-height: 1; }
+.logo-lockup .name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size:1.38rem; letter-spacing: 2px; color: currentColor;
+}
+.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size:0.8rem; letter-spacing: 1px; opacity: .9; }
+.logo-lockup .tag {
+  font-family: 'Jost', sans-serif; font-size:0.8rem; letter-spacing: 2px;
+  text-transform: uppercase; color: currentColor; opacity: .9; margin-top: 4px;
+}
+
+/* ============================================================
+   HEADER / NAVIGATION
+   ============================================================ */
+header.site {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,240,232,0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a {
+  font-size:0.88rem; color: var(--text2); font-weight: 400;
+  letter-spacing: .3px; position: relative; padding: 4px 0;
+}
+.nav-links a:hover { color: var(--green); }
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
+  background: var(--green); transition: width .2s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.nav-cta::after { display: none; }
+.nav-cta {
+  background: var(--green); color: var(--cream) !important;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size:0.88rem; white-space: nowrap; line-height: 1;
+  letter-spacing: .3px; transition: background .15s, transform .15s;
+}
+.nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.nav-cta.secondary { background: transparent; color: var(--green) !important; border: 1px solid var(--green); }
+.nav-cta.secondary:hover { background: var(--green); color: var(--cream) !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--green); padding: 6px; }
+.nav-toggle svg { width: 26px; height: 26px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { position: relative; overflow: hidden; padding: 96px 0 88px; }
+.hero::before {
+  content: ''; position: absolute; right: -120px; top: -80px;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(168,201,160,.28), transparent 68%);
+  pointer-events: none;
+}
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+.eyebrow {
+  font-size:0.8rem; letter-spacing: 2.6px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 18px; font-weight: 500;
+}
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.125rem); margin-bottom: 22px; }
+.hero h1 em { font-style: italic; color: var(--green); }
+.hero p.lead { font-size:1.125rem; color: var(--text2); font-weight: 300; max-width: 30em; margin-bottom: 32px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 26px; border-radius: 40px; font-size:0.94rem;
+  letter-spacing: .3px; transition: all .15s; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--green); color: var(--cream) !important; }
+.btn-primary:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--green) !important; border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--cream2); border-color: var(--green); }
+
+.hero-art { display: flex; justify-content: center; }
+.hero-art svg { width: 100%; max-width: 510px; height: auto; }
+
+/* ---- Vertrauensleiste ---- */
+.trust { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--cream2); }
+.trust-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-block: 26px; } /* padding-block statt Kurzform: "padding: X 0" loescht auf .wrap-Elementen die 32px Seitenpolsterung — nachgemessen paddingLeft 0 statt 32px, die Kacheln klebten am Bildschirmrand. */
+.trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.trust-item .num { font-family: 'Cormorant Garamond', serif; font-size:2.125rem; color: var(--green); }
+.trust-item .lbl { font-size:0.8rem; color: var(--text2); letter-spacing: .5px; }
+/* Fiktiv-Laufband (oben) */
+.fiktiv-marquee { background: var(--red, #8C3A2A); color: #fff; overflow: hidden; white-space: nowrap; }
+.fiktiv-marquee .track { display: inline-block; padding: 7px 0; animation: fiktivscroll 60s linear infinite; }
+.fiktiv-marquee .track span { font-size:0.8rem; letter-spacing: 2px; text-transform: uppercase; padding: 0 36px; }
+@keyframes fiktivscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ============================================================
+   SECTION-HELFER
+   ============================================================ */
+section.block { padding: 80px 0; }
+.section-head { max-width: 38em; margin-bottom: 44px; }
+.section-head .eyebrow { margin-bottom: 12px; }
+.section-head h2 { font-size: clamp(1.875rem, 4vw, 2.75rem); margin-bottom: 12px; }
+.section-head p { color: var(--text2); font-weight: 300; font-size:1rem; }
+
+/* ---- Leistungs-Karten ---- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.card {
+  background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius);
+  padding: 28px 24px; transition: transform .18s, box-shadow .18s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(44,61,39,.08); }
+.card .ico { width: 40px; height: 40px; color: var(--green); margin-bottom: 16px; }
+.card h3 { font-size:1.438rem; margin-bottom: 8px; }
+.card p { font-size:0.88rem; color: var(--text2); font-weight: 300; }
+
+/* ---- CTA-Band ---- */
+.cta-band { background: var(--green); color: var(--cream); border-radius: var(--radius); padding: 52px 48px; text-align: center; }
+.cta-band h2 { color: var(--cream); font-size:2.375rem; margin-bottom: 12px; }
+.cta-band p { color: rgba(245,240,232,.92); font-weight: 300; margin-bottom: 26px; }
+.cta-band .btn-primary { background: var(--cream); color: var(--green3) !important; }
+.cta-band .btn-primary:hover { background: #fff; }
+
+/* ============================================================
+   FOOTER — dunkelgruen, Logo wird mintgruen
+   ============================================================ */
+footer.site { background: var(--green3); color: rgba(245,240,232,.7); padding: 64px 0 28px; }
+footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+.footer-grid p { font-size:0.8rem; font-weight: 300; max-width: 24em; }
+.footer-col h4 {
+  font-family: 'Jost', sans-serif; font-size:0.8rem; letter-spacing: 1.6px;
+  text-transform: uppercase; color: var(--mint); margin-bottom: 16px; font-weight: 500;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { color: rgba(245,240,232,.7); font-size:0.88rem; font-weight: 300; }
+.footer-col a:hover { color: var(--mint); }
+.footer-bottom {
+  border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  font-size:0.8rem; color: rgba(245,240,232,.72);
+}
+.footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .hero-art { order: -1; }
+  .hero-art svg { max-width: 340px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .nav-links {
+    position: absolute; top: 76px; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start; gap: 0;
+    background: var(--cream); border-bottom: 0.5px solid var(--border);
+    padding: 8px 32px 20px; display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; padding: 12px 0; width: 100%; }
+  .nav-links .nav-cta { margin-top: 8px; text-align: center; }
+  .nav-toggle { display: block; }
+}
+@media (max-width: 520px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .trust-row { grid-template-columns: repeat(2, 1fr); gap: 20px 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* HAUPTSEITEN-LESBARKEIT & KACHELN */
+/* Fließtextgröße kommt aus --fs-body (Rolle), nicht aus der Seite */
+.hero p.lead, .page-hero .lead { font-size:1.25rem; }
+.section-head p { font-size:1.03rem; }
+.card p { font-size:0.94rem; }
+.svc-body > p { font-size:0.94rem; } .svc-list li { font-size:0.94rem; }
+.value-box p { font-size:0.94rem; } .loc-card p { font-size:0.88rem; }
+.tier-list li { font-size:0.94rem; } .two-col p { font-size:1rem; } .two-col li { font-size:0.94rem; }
+.lb-card p { font-size:1rem; } .tl-item p { font-size:0.94rem; } .story p { font-size:1.03rem; }
+.aside-list span { font-size:0.88rem; } .ptab td, .ptab th { font-size:0.94rem; }
+@media (min-width:561px) and (max-width:1024px){ .cards { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .cards { grid-template-columns: 1fr; } }
+.loc-grid { grid-template-columns: repeat(4,1fr); }
+.loc-card.hq { grid-column: 1 / -1; }
+@media (max-width:1024px){ .loc-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .loc-grid { grid-template-columns: 1fr; } }
+
+
+/* Fiktiv-Banner -> Aufklapp-Menue */
+.fiktiv-bar { position: relative; z-index: 100; }
+.fiktiv-marquee { display: block; width: 100%; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: left; }
+.fiktiv-marquee:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
+/* Schwebendes Planspiel-Menü: vertikale Pills, öffnet nach unten, über der Seite */
+.fiktiv-menu {
+  position: absolute; top: 100%; left: 16px; margin-top: 10px;
+  display: flex; flex-direction: column; gap: 8px;
+  background: rgba(30,32,26,0.96); backdrop-filter: blur(6px);
+  border: 1px solid rgba(168,201,160,.25); border-radius: 16px;
+  padding: 14px; min-width: 240px;
+  box-shadow: 0 18px 44px rgba(0,0,0,.32);
+  animation: lzMenuIn .16s ease-out;
+}
+.fiktiv-menu[hidden] { display: none; }
+.fiktiv-menu-h { font-size:0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); padding: 2px 6px 4px; }
+.fiktiv-menu a {
+  display: block; color: var(--cream); background: rgba(168,201,160,.10);
+  border: 1px solid rgba(168,201,160,.22); border-radius: 30px;
+  padding: 12px 18px; font-size:0.94rem; letter-spacing: .3px; transition: background .12s, transform .12s;
+}
+.fiktiv-menu a:hover { background: var(--green); border-color: var(--green); transform: translateX(2px); }
+@keyframes lzMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+
+  /* ── Fiktiv-Balken: Pausensteuerung, Icons, Bedienelemente (Designgrundlage v1) ── */
+  .lz-ic{width:1em;height:1em;flex:0 0 auto;vertical-align:-.125em;margin-right:.45em;}
+  .fiktiv-menu a,.fiktiv-note-toggle{min-height:var(--tap-env);display:flex;align-items:center;}
+  .fiktiv-note-toggle{justify-content:space-between;gap:var(--sp-3);width:100%;
+    background:rgba(168,201,160,.10);border:1px solid var(--line-ui);border-radius:var(--r-pill);
+    color:var(--cream);font:inherit;font-size:var(--fs-ui);padding:0 1.1rem;cursor:pointer;}
+  .fiktiv-note-toggle>span:first-child{display:inline-flex;align-items:center;}
+  .btn,.nav-cta{min-height:var(--tap-env);border-radius:var(--r-pill);}
+  .btn-ghost,.nav-cta.secondary{border:1px solid var(--line-ui);}
+</style>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
 </head>
-<body>
-<p>Weiterleitung zum <a href="/cockpit">Betriebs-Cockpit</a> …</p>
+<body class="env-public">
+
+<!-- FIKTIV-LAUFBAND + Planspiel-Menü (schwebend) -->
+<div class="fiktiv-bar">
+  <div class="lz-tick" id="lzTick">
+  <button class="fiktiv-marquee" id="lzTrigger" aria-expanded="false" aria-controls="fiktivMenu" aria-label="Planspiel-Menü öffnen" onclick="lzToggleMenu()">
+    <div class="lz-tick-track"><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span><span>Fiktives Unternehmen · nur zu Schulungszwecken</span></div>
+  </button>
+    <button type="button" class="lz-tick-pause" id="lzTickPause" aria-pressed="false"
+            onclick="lzTickPause(event,this)">Pause</button>
+  </div>
+  <div class="fiktiv-menu" id="fiktivMenu" role="menu" aria-label="Planspiel-interne Daten" hidden>
+    <span class="fiktiv-menu-h">Planspiel-intern</span>
+    <a href='/unternehmensdaten' role='menuitem'>Unternehmensdaten</a>
+    <a href='/sprints' role='menuitem'>Sprint-Übersicht</a>
+    <a href='/website-status' role='menuitem'>Website-Status</a>
+    <a href='/notizen' role='menuitem'>To-Do's</a>
+    <a href='/prompt-tagebuch' role='menuitem'>Prompt-Tagebuch</a>
+    <div class="fiktiv-menu-sep"></div>
+    <button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class="lz-ic" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>To-Do's</span><span id="lzNotesState">Aus</span></button>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER — auf allen Seiten identisch
+     ============================================================ -->
+<header class="site">
+  <div class="wrap nav-bar">
+    <a aria-label='LebensZeit gGmbH Startseite' class='logo-lockup' href='/'>
+      <!-- Pentagon-Netzwerk-Symbol (currentColor) -->
+      <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
+          <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
+          <circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
+        </svg>
+      <span class="txt">
+        <span class="name">LebensZeit <sup>gGmbH</sup></span>
+        <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleNav(this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href='/leistungen'>Leistungen</a></li>
+      <li><a href='/ueber-uns'>Über uns</a></li>
+      <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
+      <li><a href='/preise'>Preise</a></li>
+      <li><a href='/aktuelles'>Aktuelles</a></li>
+      <li><a class='nav-cta secondary' href='/mitgliedschaft'>Mitglied werden</a></li>
+      <li><a class='nav-cta' href='/pflegeberatung'>Pflegeberatung anfragen</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN — pro Seite austauschbar. Hier: oeffentliche Startseite.
+     ============================================================ -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Ambulante Pflege in Nordrhein-Westfalen</p>
+        <h1>Pflege, die <em>bei Ihnen</em> zu Hause beginnt.</h1>
+        <p class="lead">LebensZeit begleitet pflegebedürftige Menschen in ihrem eigenen Zuhause — fachlich verlässlich, persönlich vertraut und gut vernetzt in der Nachbarschaft.</p>
+        <div class="hero-actions">
+          <a class='btn btn-primary' href='/pflegeberatung'>Kostenlose Erstberatung</a>
+          <a class='btn btn-ghost' href='/leistungen'>Leistungen ansehen</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <!-- Vereinfachtes Logo: Symbol + Schriftzug (ohne Werte), groesser -->
+        <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" aria-label="LebensZeit gGmbH">
+          <circle cx="240" cy="120" r="108" fill="none" stroke="#4A6741" stroke-width="1.4" opacity="0.22"/>
+          <circle cx="240" cy="120" r="80"  fill="none" stroke="#4A6741" stroke-width="1" opacity="0.4"/>
+          <circle cx="240" cy="34"  r="7" fill="#4A6741" opacity="0.85"/>
+          <circle cx="322" cy="93"  r="7" fill="#4A6741" opacity="0.85"/>
+          <circle cx="291" cy="190" r="7" fill="#4A6741" opacity="0.85"/>
+          <circle cx="189" cy="190" r="7" fill="#4A6741" opacity="0.85"/>
+          <circle cx="158" cy="93"  r="7" fill="#4A6741" opacity="0.85"/>
+          <line x1="240" y1="34"  x2="322" y2="93"  stroke="#4A6741" stroke-width="1" opacity="0.35"/>
+          <line x1="322" y1="93"  x2="291" y2="190" stroke="#4A6741" stroke-width="1" opacity="0.35"/>
+          <line x1="291" y1="190" x2="189" y2="190" stroke="#4A6741" stroke-width="1" opacity="0.35"/>
+          <line x1="189" y1="190" x2="158" y2="93"  stroke="#4A6741" stroke-width="1" opacity="0.35"/>
+          <line x1="158" y1="93"  x2="240" y2="34"  stroke="#4A6741" stroke-width="1" opacity="0.35"/>
+          <circle cx="240" cy="120" r="13" fill="#4A6741" opacity="0.9"/>
+          <circle cx="240" cy="120" r="25" fill="none" stroke="#4A6741" stroke-width="1" opacity="0.35"/>
+          <path d="M240 102 Q249 91 240 80 Q231 91 240 102Z" fill="#4A6741" opacity="0.65"/>
+          <text x="240" y="262" font-family="Georgia, serif" font-size="52" letter-spacing="6" text-anchor="middle" fill="#2C3D27">LebensZeit</text>
+          <text x="240" y="289" font-family="Jost, sans-serif" font-size="16" letter-spacing="5" text-anchor="middle" fill="#4A6741" opacity="0.75">gGmbH</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERTRAUENSLEISTE (Platzhalterzahlen) -->
+  <div class="trust">
+    <div class="wrap trust-row">
+      <div class="trust-item"><span class="num">6–22 Uhr</span><span class="lbl">Früh- &amp; Spätdienst, 7 Tage</span></div>
+      <div class="trust-item"><span class="num">180</span><span class="lbl">betreute Pflegefälle (PG 2–5)</span></div>
+      <div class="trust-item"><span class="num">45</span><span class="lbl">Ehrenamtliche in der Nachbarschaft</span></div>
+      <div class="trust-item"><span class="num">5</span><span class="lbl">Standorte im Kreis Soest</span></div>
+    </div>
+  </div>
+
+  <!-- LEISTUNGEN -->
+  <section class="block">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Unsere Leistungen</p>
+        <h2>Versorgung aus einer Hand</h2>
+        <p>Vier Bausteine, die ineinandergreifen — abgestimmt auf den individuellen Pflegegrad und das Leben zu Hause.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+          <h3>Grundpflege</h3>
+          <p>Körperpflege, Mobilität und Unterstützung im Alltag — würdevoll und auf Augenhöhe.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M19 14c1.5-1.5 3-3.3 3-5.5A3.5 3.5 0 0 0 12 6a3.5 3.5 0 0 0-10 2.5C2 11 4 13 6 14"/><path d="M9 12h2l1 3 2-6 1 3h2"/></svg>
+          <h3>Behandlungspflege</h3>
+          <p>Medizinische Versorgung nach ärztlicher Verordnung — Wundversorgung, Medikamente, Injektionen.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M15 20c0-2 1.3-3.5 3-3.5s3 1.5 3 3.5"/></svg>
+          <h3>Betreuung</h3>
+          <p>Entlastung im Alltag, Gesellschaft und gemeinsame Zeit — auch zur Entlastung pflegender Angehöriger.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10 12 3l9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
+          <h3>Hauswirtschaft</h3>
+          <p>Ein gepflegtes Zuhause: Einkauf, Mahlzeiten und Haushaltsführung als Teil der Versorgung.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA-BAND -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Sie sind unsicher, welche Pflege passt?</h2>
+        <p>In einem kostenlosen Erstgespräch klären wir Bedarf, Pflegegrad und Eigenanteil — unverbindlich.</p>
+        <a class='btn btn-primary' href='/pflegeberatung'>Pflegeberatung anfragen</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER — auf allen Seiten identisch
+     ============================================================ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo-lockup">
+          <svg class="sym" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" stroke-width="3.5" opacity="0.55"/>
+          <circle cx="50" cy="19" r="6.5" fill="currentColor"/>
+          <circle cx="79.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="68.2" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="31.8" cy="75" r="6.5" fill="currentColor"/>
+          <circle cx="20.5" cy="40.5" r="6.5" fill="currentColor"/>
+          <circle cx="50" cy="50" r="9.5" fill="currentColor"/>
+        </svg>
+          <span class="txt">
+            <span class="name">LebensZeit <sup>gGmbH</sup></span>
+            <span class="tag">Pflege · Gesundheit · Gemeinschaft</span>
+          </span>
+        </div>
+        <p>Ambulanter Pflegedienst in Nordrhein-Westfalen. Gemeinnützig, in der Nachbarschaft verwurzelt, digital vernetzt.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pflege</h4>
+        <ul>
+          <li><a href='/leistungen'>Leistungen</a></li>
+          <li><a href='/pflegeberatung'>Pflegeberatung</a></li>
+          <li><a href='/preise'>Preise &amp; Eigenanteil</a></li>
+          <li><a href='/einzugsgebiet'>Einzugsgebiet</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Zugänge</h4>
+        <ul>
+          <li><a href='/investoren'>Investoren</a></li>
+          <li><a href='/partner'>Partner &amp; Zuweiser</a></li>
+          <li><a href='/karriere'>Karriere</a></li>
+          <li><a href='/cockpit'>Betriebs-Cockpit</a></li>
+          <li><a href='/kundenportal'>Kundenportal</a></li>
+          <li><a href='/kunden-app'>Kunden-App</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href='/impressum'>Impressum</a></li>
+          <li><a href='/datenschutz'>Datenschutz</a></li>
+          <li><a href='/barrierefreiheit'>Barrierefreiheit</a></li>
+          <li><a href='/kontakt'>Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 LebensZeit gGmbH · Fiktives Unternehmen · KI-Pionierzirkel</span>
+      <span class="values">nah · vernetzt · nachhaltig</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Planspiel-Menü (schwebend) */
+function lzToggleMenu(force){
+  var m=document.getElementById('fiktivMenu'), t=document.getElementById('lzTrigger');
+  var open = (typeof force==='boolean') ? force : m.hasAttribute('hidden');
+  if(open){ m.removeAttribute('hidden'); } else { m.setAttribute('hidden',''); }
+  t.setAttribute('aria-expanded', open?'true':'false');
+}
+document.addEventListener('click', function(e){
+  var bar=document.querySelector('.fiktiv-bar');
+  if(bar && !bar.contains(e.target)) lzToggleMenu(false);
+});
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') lzToggleMenu(false); });
+</script>
+<script>
+/* Mobile-Navigation */
+function toggleNav(btn) {
+  var links = document.getElementById('navLinks');
+  var open = links.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+</script>
+<script src="/lz-notes.js" defer></script>
+<script src="/lz-quellen.js" defer></script>
+<script>
+function lzTickPause(ev,btn){
+  ev.stopPropagation();
+  var t=document.getElementById('lzTick'); if(!t) return;
+  var p=t.classList.toggle('is-paused');
+  btn.setAttribute('aria-pressed', p?'true':'false');
+  btn.textContent = p ? 'Weiter' : 'Pause';
+}
+</script>
 </body>
 </html>
