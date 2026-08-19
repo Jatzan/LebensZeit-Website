@@ -361,9 +361,12 @@ hr{ border:0; border-top:1px solid var(--line) }
      das nicht auf — ab der zweiten Ausbaustufe schon. */
   --cream:      var(--lz-cream);
   --cream2:     var(--lz-cream-2);
-  --cream3:     var(--lz-cream-3);
   --cream-warm: var(--lz-cream-warm);
-  --parchment:  var(--lz-parchment);
+  /* --cream3 und --parchment sind hier entfallen: gemessen null Aufrufe in allen
+     47 Dateien der Auslieferung. Die Rohtokens --lz-cream-3 und --lz-parchment
+     bleiben natuerlich, nur die Altnamen sind weg. Erster wirklich abbaubarer
+     Teil der Bruecke — die uebrigen 20 Namen tragen zusammen 2.380 Aufrufe,
+     allein --green 631. Zaehlstand siehe n-tokens-bruecke-abbauen. */
   --green:      var(--lz-green);
   --green2:     var(--lz-green-2);
   --green3:     var(--lz-green-3);

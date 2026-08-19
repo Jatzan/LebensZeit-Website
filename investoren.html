@@ -514,7 +514,13 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
     <p class="gate-err" id="gateErr"></p>
     <button class="btn btn-primary" onclick="doLogin()">Anmelden</button>
 
-    <p class="gate-demo"><b>Demo-Zugang (fiktiv):</b> Benutzer <b>investor@lebenszeit-ggmbh.de</b> · Passwort <b>Pionier2026</b> — bereits vorausgefüllt, einfach auf „Anmelden" klicken.</p>
+    <!-- Entscheidung 13.08.2026: Das Gate bleibt bewusst rein optisch — es zeigt,
+         wie ein Investorenzugang aussieht, und schützt nichts. Damit das niemand
+         verwechselt, steht es hier ausdrücklich und nicht nur als „Demo".
+         Zur Einordnung: die Zugangsdaten stehen ohnehin sichtbar daneben, und
+         die Sperre liegt im sessionStorage, also im Browser des Besuchers. Eine
+         Formulierung, die mehr verspricht, wäre die eigentliche Irreführung. -->
+    <p class="gate-demo"><b>Demo-Zugang (fiktiv):</b> Benutzer <b>investor@lebenszeit-ggmbh.de</b> · Passwort <b>Pionier2026</b> — bereits vorausgefüllt, einfach auf „Anmelden" klicken.<br><b>Kein echter Zugriffsschutz:</b> die Anmeldung ist nachgebildet und gehört zum Planspiel.</p>
   </div>
 </div>
 

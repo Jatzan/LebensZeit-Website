@@ -59,10 +59,11 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
    Sprint und Kategorie je eine getönte Marke (.sp-chip / .cat-chip). */
 .filter.active.f-offen{background:var(--red);border-color:var(--red);color:#fff;}
 .filter.active.f-auszubauen{background:var(--amber-ink);border-color:var(--amber-ink);color:#fff;}
-.filter.active.f-spaeter{background:var(--green);border-color:var(--green);color:#fff;}
-/* Erledigt trägt in der Liste keine eigene Marke, sondern Durchstreichung und
-   gedämpfte Schrift. Ohne diesen Unterschied wäre der Knopf von „Später" nicht
-   zu trennen — beide lösen auf dasselbe Grün auf. */
+/* „Später" gehört seit dem Umbau zur Sprintgruppe und trägt dort den
+   Sprint-Look (.f-sprint). Die alte Stand-Regel .f-spaeter ist entfallen.
+   Erledigt trägt in der Liste keine eigene Marke, sondern Durchstreichung und
+   gedämpfte Schrift — ohne diesen Unterschied wäre der Knopf vom Grün der
+   Sprintmarken nicht zu trennen. */
 .filter.active.f-erledigt{background:var(--status-ok);border-color:var(--status-ok);color:#fff;text-decoration:line-through;text-decoration-thickness:1px;text-underline-offset:2px;}
 
 .filter.active.f-p1,.filter.active.f-p2,.filter.active.f-p3{font-weight:600;letter-spacing:.3px;}
@@ -112,6 +113,9 @@ header.page p.lead{font-size:1.06rem;color:var(--text2);max-width:62ch;margin-to
 .note-top .badge{margin-bottom:0;}
 .sp-chip{font-size:0.8rem;letter-spacing:.4px;text-transform:uppercase;font-weight:600;color:var(--green3);background:rgba(74,103,65,.10);border:1px solid var(--border);border-radius:20px;padding:3px 9px;}
 .sp-chip.sp-none{color:var(--text-2);background:transparent;font-weight:500;}
+/* Späterer Sprint: dieselbe Marke, aber gestrichelt — sichtbar noch nicht
+   terminiert, ohne eine sechste Farbe in ein schon farbiges Board zu tragen. */
+.sp-chip.sp-later{border-style:dashed;border-color:var(--forest);color:var(--forest);}
 .cat-chip{font-size:0.8rem;letter-spacing:.4px;text-transform:uppercase;font-weight:600;color:var(--amber-ink);background:rgba(176,122,42,.10);border:1px solid rgba(176,122,42,.30);border-radius:20px;padding:3px 9px;}
 .prio{display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;}
 .prio i{width:7px;height:7px;border-radius:50%;display:inline-block;}
@@ -218,7 +222,31 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
     "n-ueberuns-oton":2,"n-ueberuns-chronik":2,"n-cockpit-roster":2,"n-cockpit-medifox":2,"n-cockpit-stufe4":4,
     "n-asset-bibliothek":2,"n-review-report":2,"n-quellen-registry":2,"n-kundenportal-stub":3,"n-gate-optisch":3
   };
-  function sprintOf(n){ return SPRINTMAP[n.id] || null; }
+  /* „Später" ist eine Terminaussage, kein Bearbeitungsstand — es gehört zur
+     Sprint-Achse, nicht zum aktuellen Stand. Deshalb zwei Ableitungen:
+
+     sprintOf()  gibt 1, 2 oder "spaeter" zurück. Alles jenseits von Sprint 2
+                 fällt zusammen: die Zuordnung ab Sprint 3 ist laut
+                 Phasenübersicht ohnehin nur eine Annahme (elf Handlungsfelder
+                 als Pool, situationsbedingt vergeben), eine Aufschlüsselung in
+                 S3/S4 würde eine Genauigkeit behaupten, die es nicht gibt.
+                 Der Registry-Status "spaeter" zählt als Terminaussage mit.
+
+     standOf()   gibt den Bearbeitungsstand: offen oder auszubauen. Notizen mit
+                 Registry-Status "spaeter" sind Ausbaupunkte — nur eben nicht
+                 jetzt —, also auszubauen. So bleibt jede Notiz über beide
+                 Achsen auffindbar, ohne dass die Achsen sich vermischen.
+
+     Die Registry selbst bleibt unverändert: ihr status steuert auch die
+     Pinfarben auf den Seiten. Die Trennung passiert nur hier im Board. */
+  function sprintOf(n){
+    var s = SPRINTMAP[n.id];
+    if (s === 1 || s === 2) return s;
+    if (s || n.status === "spaeter") return "spaeter";
+    return null;
+  }
+  function standOf(n){ return n.status === "spaeter" ? "auszubauen" : n.status; }
+  var SPRINTLABEL = { 1: "Sprint 1", 2: "Sprint 2", spaeter: "Späterer Sprint" };
   var PRIOMAP = {"n-index-247":1,"n-eg-einwohner":1,"n-index-usp":1,"n-sprints-kampagne":1,"n-aktuelles-grammatik":1,"n-mobile-investor":1,
                  "n-ueberuns-oton":3,"n-sprints-reflexion":3,"n-gate-optisch":3,"n-markt-pg1":3,
                  "n-cockpit-1b":1,"n-cockpit-roster":1,"n-cockpit-stufe4":3,"n-quellen-registry":2,"n-ueberuns-chronik":2,"n-persona-alter":1,"n-tokens-weitere-umgebungen":1,"n-tick-pause-groesse":3,"n-logo-kompaktvariante":2,"n-typo-entscheidung":1,"n-logo-geometrie":3,"n-trust-vierte-kachel":2,"n-skript-tokens":3,"n-inv-umsatz-je-fall":1,"n-inv-175mio":1,"n-inv-zieljahre":1,"n-inv-branchenschnitt":2};
@@ -232,12 +260,22 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
     list.innerHTML = "";
 
     // Zusammenfassung
+    /* Vier disjunkte Körbe, damit die Summe stimmt: „Offen gesamt" ist genau
+       offen + auszubauen + später. Vorher zählte die Karte „Späterer Sprint"
+       den Registry-Status und stand damit als fünfte Stand-Angabe neben zwei
+       Achsen — dieselbe Vermischung wie beim Filterknopf. Jetzt entscheidet
+       zuerst der Termin: was auf einen späteren Sprint gelegt ist, zählt dort
+       und nicht noch einmal unter „Auszubauen". */
     var counts = {offen:0, auszubauen:0, spaeter:0, done:0};
-    notes.forEach(function(n){ if(LZ.isDone(n.id)) counts.done++; else counts[n.status]++; });
+    notes.forEach(function(n){
+      if (LZ.isDone(n.id)) { counts.done++; return; }
+      if (sprintOf(n) === "spaeter") { counts.spaeter++; return; }
+      counts[standOf(n)]++;
+    });
     var open = counts.offen+counts.auszubauen+counts.spaeter;
     document.getElementById("summary").innerHTML =
       card(open,"Offen gesamt","total") + card(counts.auszubauen,"Auszubauen","y") +
-      card(counts.spaeter,"Späterer Sprint","s") + card(counts.done,"Erledigt","g");
+      card(counts.spaeter,"Später eingeplant","s") + card(counts.done,"Erledigt","g");
     var tot = (open + counts.done) || 1;
     document.getElementById("progress").innerHTML =
       '<i style="width:'+(counts.done/tot*100)+'%;background:var(--status-ok)"></i>'+
@@ -254,7 +292,10 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
       var done = LZ.isDone(n.id);
       if(selStatus.size===0) return !done;
       if(done) return selStatus.has("erledigt");
-      return selStatus.has(n.status);
+      /* standOf statt n.status: der Knopf „Später" ist aus dieser Gruppe
+         entfallen, ein Filter auf "spaeter" hätte hier sonst nie getroffen und
+         die betroffenen Notizen wären bei jeder Stand-Auswahl verschwunden. */
+      return selStatus.has(standOf(n));
     });
 
     if(!shown.length){ list.innerHTML = '<p class="empty">Keine To-Do\'s in dieser Ansicht.</p>'; return; }
@@ -284,9 +325,15 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
         el.className = "note prio-"+prio + (done?" done":"");
         el.innerHTML =
           '<div class="note-top">'+
-            '<span class="badge b-'+n.status+'">'+esc(meta.label)+'</span>'+
+            /* Marke zeigt den Stand (offen/auszubauen), die Sprintmarke den
+               Termin. Vorher stand bei „spaeter"-Notizen „Späterer Sprint" als
+               Stand-Marke und daneben „ohne Sprint" als Sprintmarke — zwei
+               Angaben, die sich widersprachen. */
+            '<span class="badge b-'+standOf(n)+'">'+esc(LZ.status[standOf(n)].label)+'</span>'+
             '<span class="prio p'+prio+'"><i></i>'+PRIOLABEL[prio]+'</span>'+
-            (sprintOf(n) ? '<span class="sp-chip">Sprint '+sprintOf(n)+'</span>' : '<span class="sp-chip sp-none">ohne Sprint</span>')+
+            (sprintOf(n)
+              ? '<span class="sp-chip'+(sprintOf(n)==="spaeter"?" sp-later":"")+'">'+SPRINTLABEL[sprintOf(n)]+'</span>'
+              : '<span class="sp-chip sp-none">ohne Sprint</span>')+
             '<span class="cat-chip">'+esc(CATLABEL[catOf(n)])+'</span>'+
           '</div>'+
           '<h3>'+esc(n.title)+'</h3>'+
@@ -332,9 +379,12 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
     return g;
   }
   function fsep(){ var s=document.createElement("span"); s.className="fsep"; return s; }
-  fbar.appendChild(makeGroup([["offen","Offen"],["auszubauen","Auszubauen"],["spaeter","Später"],["erledigt","Erledigt"]], selStatus, function(v){return "f-"+v;}));
+  /* Erste Gruppe: aktueller Stand. „Später" ist hier entfallen — es sagt nichts
+     über den Bearbeitungsstand, sondern über den Termin, und steht deshalb in
+     der Sprintgruppe hinter S1 und S2. */
+  fbar.appendChild(makeGroup([["offen","Offen"],["auszubauen","Auszubauen"],["erledigt","Erledigt"]], selStatus, function(v){return "f-"+v;}));
   fbar.appendChild(fsep());
-  fbar.appendChild(makeGroup([["1","S1"],["2","S2"]], selSprint, "f-sprint"));
+  fbar.appendChild(makeGroup([["1","S1"],["2","S2"],["spaeter","Später"]], selSprint, "f-sprint"));
   fbar.appendChild(fsep());
   fbar.appendChild(makeGroup([["1","Hoch"],["2","Mittel"],["3","Niedrig"]], selPrio, function(v){return "f-p"+v;}));
   fbar.appendChild(fsep());

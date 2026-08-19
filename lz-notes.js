@@ -46,9 +46,9 @@
       title: "USP zuspitzen (Baustein 1)",
       text: "KI-Kritik: Startseite noch generisch (vier Standardleistungen). Auf Option C zuspitzen — „Digitale Nähe – der sichtbare Pflegepartner für Angehörige\" (Persona Markus Dörre), nicht auf drei Säulen." },
 
-    { id: "n-aktuelles-grammatik", page: "aktuelles", selector: "h1", status: "offen",
+    { id: "n-aktuelles-grammatik", page: "aktuelles", selector: "h1", status: "offen", done: true,
       title: "Grammatik: „aus der Nachbarschaft\"",
-      text: "KI-Kritik: Überschrift „Neues aus dem Nachbarschaft\" → „Neues aus der Nachbarschaft\" korrigieren." },
+      text: "BEHOBEN 13.08.2026. „Neues aus dem Nachbarschaft\" → „Neues aus der Nachbarschaft\". Reiner Textfehler in der Seitenüberschrift von /aktuelles, eine Stelle." },
 
     { id: "n-ueberuns-oton", page: "ueber-uns", selector: ".lead-card", status: "spaeter",
       title: "O-Ton der Gründerin",
@@ -169,9 +169,9 @@
       title: "Warnbalken der Investorenseiten vereinheitlicht",
       text: "Die sechs Seiten liefen noch mit der alten .track-Spur und fester 60s-Dauer — dieselbe Ursache für weiche Schrift und Sprung, die auf den übrigen Seiten schon behoben war. Markup auf .lz-tick / .lz-tick-track umgestellt, eigene @keyframes fiktivscroll entfernt, Pause-Knopf ergänzt. Alle 27 Seiten laufen jetzt mit 1.988px Verschiebung und 7,5 px/s." },
 
-    { id: "n-bruecke-entfernen", page: "allgemein", selector: "main", status: "auszubauen",
-      title: "Kompatibilitätsbrücke kann noch nicht weg",
-      text: "Abschnitt 7 in lz-tokens.css bildet 22 Altnamen auf Rohwerte ab und sollte entfallen, sobald alle Seiten Rollen lesen. Nach dem env-invest-Rollout binden nur noch kundenportal.html, standortkarte.html und typo-vergleich.html die Tokendatei nicht ein; die übrigen lesen weiterhin Altnamen im Seiten-CSS. Erst env-portal abschließen, dann seitenweise auf Rollen umstellen, dann die Brücke ziehen." },
+    { id: "n-bruecke-entfernen", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Brücke geprüft — zwei Altnamen abgebaut, Doppeleintrag aufgelöst",
+      text: "GEPRÜFT 13.08.2026. Dieser Punkt und n-tokens-bruecke-abbauen beschrieben dieselbe Sache mit unterschiedlichem Stand — der Zählstand steht jetzt gesammelt dort, hier bleibt nur der Verweis. Gemessenes Ergebnis: die Brücke ist weiterhin unverzichtbar, 2.380 Aufrufe über 20 Namen. Abgebaut sind --cream3 und --parchment mit null Aufrufen." },
 
     { id: "n-done-footer-logo-entlinkt", page: "allgemein", selector: "main", status: "offen", done: true,
       title: "Fußzeilen-Logo entlinkt",
@@ -390,9 +390,9 @@
       title: "Gesamt-Review-Report",
       text: "Konsistenz-Durchlauf über alle Seiten ist erfolgt (Begriffe, Zahlen, Diskrepanzen). Ein zusammenhängender Review zu Lesbarkeit/Darstellung/Unterscheidbarkeit fehlt noch." },
 
-    { id: "n-gate-optisch", page: "allgemein", selector: "main", status: "spaeter",
-      title: "Investoren-Gate nur optisch",
-      text: "Das Gate ist kein echter Zugriffsschutz (Demo-Login vorbelegt) — bewusst so; nur als Punkt festgehalten." },
+    { id: "n-gate-optisch", page: "allgemein", selector: "main", status: "spaeter", done: true,
+      title: "Investoren-Gate bleibt bewusst nur optisch",
+      text: "ENTSCHIEDEN 13.08.2026 durch Josh: Das Gate bleibt rein optisch. Es zeigt, wie ein Investorenzugang aussieht, und schützt nichts — die Zugangsdaten stehen sichtbar daneben, die Sperre liegt im sessionStorage, also im Browser des Besuchers. Damit das niemand verwechselt, steht es jetzt ausdrücklich im Gate: „Kein echter Zugriffsschutz: die Anmeldung ist nachgebildet und gehört zum Planspiel.\" Die vorherige Fassung nannte nur „Demo-Zugang (fiktiv)\", während die Zeile darüber „Vertraulicher Zugang\" versprach. Ein echter Zugriffsschutz wäre auf einer statischen Seite ohne Server ohnehin nicht herstellbar; die ehrliche Formulierung ist hier die Umsetzung, nicht der Verzicht darauf." },
 
     /* ----- Betriebs-Cockpit (Ausbaustufe 2) ----- */
     { id: "n-done-cockpit1a", page: "cockpit", selector: "main", status: "auszubauen", done: true,
@@ -444,8 +444,8 @@
       title: "Fehler in der Kompatibilitaetsbruecke behoben",
       text: "Die Bruecke stand auf :root und loeste die Altnamen deshalb immer gegen die hellen Rootwerte auf — dadurch blieb das Cockpit hell, obwohl env-cockpit gesetzt war. Custom Properties werden dort ersetzt, wo sie deklariert sind. Bruecke auf * verlegt; derselbe Fehler steckte im Cockpit-Namensraum --n-*, der jetzt auf .env-cockpit steht." },
     { id: "n-invest-portal-tokens", page: "allgemein", selector: "main", status: "auszubauen",
-      title: "env-invest und env-portal noch offen",
-      text: "Investorenbereich (6 Seiten) und Kundenportal sind noch nicht auf die Tokens umgestellt. Investoren bekommen laut Designgrundlage Amber-Ink als Akzent und Radius 14px, das Portal warmes Creme, Waldgruen im Logo, 1,19rem Fliesstext und 56px Tap-Ziele." },
+      title: "env-portal noch offen — env-invest ist durch",
+      text: "Stand 13.08.2026 halbiert. Der Investorenbereich ist durch: alle sieben Seiten tragen env-invest samt inv-theme, Amber-Ink als Akzent und Radius aus der Rolle, und die 370 festen Pixelschriftgrössen sind auf rem umgestellt (siehe n-done-invest-rem). Offen bleibt allein das Kundenportal: kundenportal.html bindet lz-tokens.css nicht ein und trägt noch einen eigenen :root-Block — genau die Ausgangslage, die die Investorenseiten vor dem Rollout hatten. Laut Designgrundlage bekommt es warmes Creme, Waldgrün im Logo, 1,19rem Fliesstext und 56px Tippziele. Ablauf identisch zum env-invest-Rollout, siehe auch n-env-portal-festschreiben." },
     /* ----- Designgrundlage v1 (05.08.2026) ----- */
     { id: "n-done-tokens-public", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Designgrundlage v1 im oeffentlichen Bereich umgesetzt",
@@ -454,8 +454,8 @@
       title: "Tokens auf intern und Cockpit ausgerollt",
       text: "env-intern (5 Planspiel-Seiten) und env-cockpit umgesetzt. Cockpit: 94 px-Schriftgroessen auf rem (74 davon unter 12,8 px, kleinste 8,5 px), 64 Farbwerte auf semantische Rollen, neun Statustoene auf die vier Tinten zusammengefuehrt, Warnbalken mit Pausensteuerung ergaenzt (Vollbildhuelle misst die Balkenhoehe). Offen bleiben env-invest und env-portal." },
     { id: "n-tokens-bruecke-abbauen", page: "allgemein", selector: "main", status: "spaeter",
-      title: "Kompatibilitaetsbruecke entfernen",
-      text: "lz-tokens.css enthaelt eine Bruecke, die Altnamen (--cream, --green, --text2 …) auf die semantischen Rollen abbildet, damit die Migration seitenweise laufen kann. Sobald alle Bauteile Rollen lesen, entfaellt Abschnitt 7 der Datei." },
+      title: "Kompatibilitätsbrücke: noch nicht abbaubar, Zählstand 2.380 Aufrufe",
+      text: "GEPRÜFT 13.08.2026 auf die Frage, ob der Abbau noch relevant ist. Antwort: relevant ja, möglich nein — und zwar mit großem Abstand. Abschnitt 7 in lz-tokens.css bildet Altnamen auf Rohwerte ab; gezählt über alle 47 Dateien der Auslieferung hängen daran 2.380 var()-Aufrufe. Die großen Brocken: --green 631, --cream 309, --text2 295, --border 259, --green3 186, --mint 155, --sage 104, --cream2 88, --green2 73, --amber 46, --red 42, --amber-ink 42, --forest 40, --maxw 26, --cream-warm 21, --amber-deep 10, --text3 8, --green-deep 8, --red-err 7, --mint-soft 1. Ein Abbau in einem Schritt bräche die Farbgebung praktisch der gesamten Website. Sofort erledigt wurde der einzige risikofreie Teil: --cream3 und --parchment hatten null Aufrufe und sind entfallen (die Rohtokens --lz-cream-3 und --lz-parchment bleiben). Der Rest braucht den Weg, der im Punkt schon stand: seitenweise auf Rollen umstellen, dann zählen, dann ziehen. Solange die Zählung nicht bei null steht, ist der Abbau kein Aufräumen, sondern ein Ausfall. Frühere Fassung dieses Punktes nannte die Brücke „sollte entfallen, sobald alle Seiten Rollen lesen\" — ohne Zahl, weshalb sie zweimal als beinahe fertig eingeschätzt wurde." },
     { id: "n-tick-pause-groesse", page: "allgemein", selector: ".lz-tick-pause", status: "offen", done: true,
       title: "Pausenknopf auf 0,80rem angehoben",
       text: "Die Designgrundlage setzt fuer .lz-tick-pause font-size:.72rem (11,5 px) fest und verletzt damit ihre eigene Untergrenze von 0,80rem. Bewusst uebernommen wie geliefert. Entscheidung: entweder auf 0,8rem anheben oder die Ausnahme im Dokument benennen, wie beim 44px-Tap-Ziel im Cockpit." },
@@ -481,9 +481,9 @@
     { id: "n-done-tagebuch-sprint1", page: "prompt-tagebuch", selector: ".sx-log", status: "auszubauen", done: true,
       title: "Prompt-Tagebuch Sprint 1 eingearbeitet",
       text: "24 Sessions aus dem Teamdokument im aktuellen Design uebernommen: aufklappbare Karten mit allen neun Feldern, Baustein- und Strategie-Chips, Kritiker-Kennzeichnung, plus die vier Prompt-Strategien und die Abschluss-Reflexion." },
-    { id: "n-persona-alter", page: "sprints", selector: ".bst", status: "offen",
-      title: "Hildegard Stemmer: Alter und Pflegegrad widersprechen sich",
-      text: "Das Personas-Handout (S. 1) fuehrt sie mit 79 Jahren und Pflegegrad 2 in Ruethen-Meiste, das Betriebs-Cockpit mit 82 Jahren und Pflegegrad 3. Auch das Session-Log nennt 79/PG 2. Vor dem Pitch auf einen Wert festlegen." },
+    { id: "n-persona-alter", page: "sprints", selector: ".bst", status: "offen", done: true,
+      title: "Hildegard Stemmer auf 79 Jahre und Pflegegrad 2 vereinheitlicht",
+      text: "BEHOBEN 13.08.2026. Keine Ermessensfrage, sondern eine Quellenfrage: das Personas-Handout führt sie wörtlich als „Hildegard Stemmer, 79 · Ruethen-Meiste · Pflegebeduerftige · Pflegegrad 2 · Rente ~1.050 EUR/Monat\" (im Projekt nachgelesen), das Session-Log nennt dasselbe, und Baustein 1 aus Sprint 2 arbeitet ausschliesslich mit diesem Set. Nur das Cockpit führte 82/PG 3 — und mit ihm Kundenportal und Kunden-App, die den Wert übernommen hatten. Nach der Kennzahlenregel gilt die neuere, korrigierte Fassung. Angepasst an drei Stellen. Wichtig dabei: der Pflegegrad zieht die abgeleiteten Zahlen mit, denn der Sachleistungsbetrag hängt daran — Cap von 1.432 EUR (PG 3) auf 761 EUR (PG 2), und bei unveränderter Ausschöpfung von 41 Prozent abgerufen 587 auf 312 und offen 845 auf 449. Ein reiner Austausch der Zahl 3 gegen 2 hätte eine Klientin mit PG 2 und einem PG-3-Budget erzeugt." },
     /* ----- Datenpruefung Five Forces & Investorenbereich ----- */
     { id: "n-done-inv-haupttext", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Investorenbereich: Haupttext vollstaendig verlinkt",
@@ -582,6 +582,14 @@
     { id: "n-done-praesentation-einpassung", page: "praesentation", selector: "main", status: "auszubauen", done: true,
       title: "Folien passen sich in den Rahmen ein statt zu scrollen",
       text: "Gemessen: bei 1920x1080 passte alles, bei 1440x900 waren acht und bei 1280x800 elf Folien zu hoch (Folie 3 um 201 px, Folie 12 um 192 px). Eine Präsentation wird nicht gescrollt, deshalb verkleinert fitSlide() den Folieninhalt über die Eigenschaft --fit. Zwei Messwege waren nachweislich falsch: scrollHeight des Rahmens ändert sich unter zoom überhaupt nicht, und getBoundingClientRect des gezoomten Elements liefert seine Größe im eigenen, noch nicht skalierten Raum (Chrome 141: zoom 0.5 gesetzt, Rechteckhöhe unverändert 861 px). Richtig ist Rechteckhöhe MAL Zoomfaktor. Ergebnis: 1024x768 bis 1920x1080 ohne Überhang. Am Telefon wird bewusst NICHT eingepasst — dort bräuchten fast alle Folien den Anschlag 0,68 und wären unlesbar, Scrollen ist die richtige Bedienung. Korrekturhinweise sind eingeklappte <details>; beim Aufklappen wird neu eingepasst." },
+
+    { id: "n-done-board-stand-sprint", page: "notizen", selector: "main", status: "auszubauen", done: true,
+      title: "To-Do-Board: „Später\" von der Stand-Achse auf die Sprint-Achse",
+      text: "BEHOBEN 13.08.2026. Das Board mischte zwei Achsen. In der Gruppe „aktueller Stand\" stand ein Knopf „Später\" neben Offen, Auszubauen und Erledigt — „später\" sagt aber nichts über den Bearbeitungsstand, sondern über den Termin. Derselbe Fehler in der Karte „Späterer Sprint\", die als vierte Stand-Angabe neben zwei Achsen stand, und in der Notizmarke: Punkte mit Registry-Status „spaeter\" trugen „Späterer Sprint\" als Stand-Marke und daneben „ohne Sprint\" als Sprintmarke — zwei Angaben, die sich widersprachen. Umgebaut: Stand-Gruppe jetzt Offen · Auszubauen · Erledigt, Sprintgruppe S1 · S2 · Später. Zwei Ableitungen trennen die Achsen, ohne die Registry anzufassen (deren status steuert auch die Pinfarben auf den Seiten): standOf() bildet „spaeter\" auf „auszubauen\" ab, denn es sind Ausbaupunkte, nur eben nicht jetzt; sprintOf() gibt 1, 2 oder „spaeter\", wobei alles jenseits von Sprint 2 zusammenfällt — die Zuordnung ab Sprint 3 ist laut Phasenübersicht ohnehin nur eine Annahme, eine Aufschlüsselung in S3/S4 würde eine Genauigkeit behaupten, die es nicht gibt. Die Karten sind jetzt disjunkt, „Offen gesamt\" ist genau offen plus auszubauen plus später: nachgemessen 41 = 19 + 19 + 3. Beim Umbau abgesichert: der Statusfilter prüft standOf() statt n.status, sonst wären die drei später-Punkte bei jeder Stand-Auswahl aus der Liste gefallen. Die Sprintmarke „Späterer Sprint\" ist gestrichelt statt in einer sechsten Farbe." },
+
+    { id: "n-done-sprints-praes-pille", page: "sprints", selector: "#tabs", status: "auszubauen", done: true,
+      title: "Präsentation als Pille in der Reiterzeile der Sprint-Übersicht",
+      text: "BEHOBEN 13.08.2026. Der Einstieg lag bisher nur im Planspiel-Menü (dort ebenfalls als Pille, gemessen 30px Radius auf allen Seiten) und als Textlink auf /investoren — auf der Sprint-Übersicht selbst, wo die Sprints in Pillenform stehen, fehlte er. Jetzt am Ende der Reiterzeile: „Präsentation Sprint 1 →\", Klasse .tab für die Form, .tab-go für den Unterschied — gestrichelter Rahmen in Waldgrün, kein Statuspunkt davor, denn es ist ein Weg aus der Seite heraus und kein Reiter. Der Reiter-Handler prüft jetzt auf data-t und lässt das Element durch; ohne diese Prüfung hätte er t auf undefined gesetzt, alle Reiter ausgeschaltet und kein Panel stehen gelassen — die Seite wäre beim Klick kurz leer geworden, bevor der Verweis greift. margin-left:auto schiebt die Pille ans rechte Ende, unter 640px entfällt das." },
 
     { id: "n-done-invest-rem", page: "*", selector: "main", status: "auszubauen", done: true,
       title: "Investorenseiten: 370 Schriftgrößen von px auf rem",
