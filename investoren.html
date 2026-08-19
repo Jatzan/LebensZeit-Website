@@ -309,16 +309,31 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
    wie die Bausteinkarten darueber, sie ist kein zusaetzliches Angebot. Steht
    deshalb unter den Karten und traegt kein eigenes Gewicht. Die 48px
    Trefferflaeche kommt ueber die Polsterung, nicht ueber eine Knopfform. */
-.pres-link { margin-top: 34px; padding-top: 22px; border-top: 0.5px solid var(--border);
-             display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.pres-link a { display: inline-flex; align-items: center; gap: 9px; font-size: 0.875rem; color: var(--green);
-               padding: 12px 0; min-height: 48px; }
-.pres-link a svg { width: 15px; height: 15px; flex: 0 0 auto; opacity: .8; }
-.pres-link a:hover { color: var(--green2); }
-.pres-link a:hover svg { opacity: 1; }
-.pres-meta { font-size: 0.75rem; color: var(--text3); letter-spacing: .3px; }
-.inv-theme .pres-link a { color: var(--amber-ink); }
-.inv-theme .pres-link a:hover { color: var(--green2); }
+/* Pillenreihe, Maße aus .tab der Sprint-Übersicht übernommen: Radius 30px,
+   Polsterung 9px/16px, 0.88rem, Statuspunkt 8px davor. Bewusst dieselbe Form,
+   damit die Reihe auf beiden Seiten als dasselbe Bauteil gelesen wird. */
+.pres-row { margin-top: 34px; padding-top: 22px; border-top: 0.5px solid var(--border);
+            display: flex; align-items: center; gap: 10px 16px; flex-wrap: wrap; }
+.pres-row-h { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+              color: var(--text3); font-weight: 600; }
+.pres-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pres-pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 30px;
+             border: 1px solid var(--border); background: var(--cream); color: var(--green);
+             padding: 9px 16px; min-height: 44px; font-size: 0.88rem; white-space: nowrap; }
+.pres-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--status-ok); flex: 0 0 8px; }
+.pres-pill .dot.plan { background: var(--text3); }
+.pres-pill-go { opacity: .7; }
+.pres-pill:hover { border-color: var(--green); color: var(--green2); }
+/* Sprint 2 ist noch kein Ziel — als Platz sichtbar, aber nicht anklickbar.
+   Ein Verweis auf eine Präsentation, die es nicht gibt, wäre ein toter Weg;
+   ein unsichtbarer Platz würde nicht zeigen, dass die Reihe wächst. */
+.pres-pill.is-soon { color: var(--text3); border-style: dashed; cursor: default; }
+.pres-pill.is-soon:hover { border-color: var(--border); color: var(--text3); }
+.pres-meta { font-size: 0.75rem; color: var(--text3); letter-spacing: .3px; margin-left: auto; }
+.inv-theme .pres-pill { color: var(--amber-ink); }
+.inv-theme .pres-pill:hover { color: var(--green2); }
+.inv-theme .pres-pill.is-soon { color: var(--text3); }
+@media (max-width: 560px) { .pres-meta { margin-left: 0; } }
 
 @media (max-width: 1024px) {
   .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 18px; }
@@ -596,13 +611,25 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       <!-- Praesentationsschicht — dezenter Nebeneingang UNTER den Bausteinkarten.
            Bewusst kein cta-band: die Bausteinkarten bleiben der Hauptweg, die
            Praesentation ist eine zweite Darstellung derselben Inhalte. -->
-      <p class="pres-link">
-        <a href="/praesentation">
-          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1.6" y="2.4" width="12.8" height="9" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.1"/><line x1="8" y1="11.4" x2="8" y2="13.6" stroke="currentColor" stroke-width="1.1"/><line x1="5.4" y1="13.6" x2="10.6" y2="13.6" stroke="currentColor" stroke-width="1.1"/></svg>
-          Dieselben Unterlagen als Präsentation ansehen
-        </a>
+      <!-- Einziger Einstieg in die Praesentation. Vorher ein Textverweis, jetzt
+           eine Pille in der Form der Sprint-Uebersicht: dort steht je Sprint eine
+           Pille, und genauso soll diese Reihe mit jedem weiteren Pitch wachsen —
+           Sprint 2 kommt spaeter als zweite Pille daneben. Deshalb eine Reihe und
+           kein einzelner Knopf. Die frueheren Einstiege im Planspiel-Menue und in
+           der Reiterzeile der Sprint-Uebersicht sind entfallen: die Praesentation
+           ist der Investorenpitch, ihr Publikum sitzt hier. -->
+      <div class="pres-row">
+        <span class="pres-row-h">Als Präsentation</span>
+        <div class="pres-pills">
+          <a class="pres-pill" href="/praesentation">
+            <span class="dot"></span>Sprint 1<span class="pres-pill-go" aria-hidden="true">→</span>
+          </a>
+          <span class="pres-pill is-soon" aria-disabled="true" title="Pitch am 7. September 2026">
+            <span class="dot plan"></span>Sprint 2<span class="pres-pill-go" aria-hidden="true">·</span>
+          </span>
+        </div>
         <span class="pres-meta">Vollbild · 24 Folien · Pfeiltasten</span>
-      </p>
+      </div>
     </div>
   </section>
 

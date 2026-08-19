@@ -25,6 +25,17 @@ a{color:var(--green);text-decoration:none;}a:hover{color:var(--green2);}
 .lz-intbar a:hover{color:#fff;}
 .lz-intbar a.here{color:#fff;border-bottom:2px solid var(--sage);padding-bottom:2px;}
 .lz-intbar .spacer{margin-left:auto;}
+/* Logo als Weg zur Startseite. Farbe ueber currentColor, damit die Regel
+   „auf dunklen Flaechen heller" an einer Stelle steht: Mintgruen auf --green3.
+   Die Wortmarke bleibt in Georgia — die einzige Schrift, die dafuer zulaessig
+   ist. Tippziel ueber min-height, nicht ueber Polsterung, sonst waechst die
+   Leistenhoehe und der Warnbalken-Abstand --tick-h stimmt nicht mehr. */
+.lz-intbar .lz-intbar-logo{display:inline-flex;align-items:center;gap:9px;
+  color:var(--mint);min-height:28px;text-decoration:none;}
+.lz-intbar .lz-intbar-logo:hover{color:#fff;}
+.lz-intbar .lz-intbar-logo svg{width:24px;height:24px;flex:0 0 24px;}
+.lz-intbar .lz-intbar-logo .wm{font-family:Georgia,'Times New Roman',serif;
+  font-size:1rem;letter-spacing:1.4px;line-height:1;}
 
 header.page{padding:48px 0 8px;}
 header.page .eyebrow{font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;color: var(--amber-ink);font-weight:600;margin-bottom:10px;}
@@ -150,7 +161,19 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
     <a href="/notizen" class="here">To-Do's</a>
     <a href="/prompt-tagebuch">Prompt-Tagebuch</a>
     <a href="/cockpit">Betriebs-Cockpit</a>
-    <a href="/" class="spacer">← zur Website</a>
+    <!-- Logo statt Textknopf. Die Leiste liegt auf Dunkelgruen (--green3), laut
+         Logo-Farbregel gilt dort Mintgruen — nie Weiss. Kompaktstufe: Pentagon
+         plus Wortmarke in Georgia, ohne Claims, weil unter 40px nur die Kurzform
+         zulaessig ist. Das Logo ist der uebliche Weg zur Startseite; der frueher
+         hier stehende Knopf „← zur Website" sagte dasselbe in Worten. -->
+    <a href="/" class="spacer lz-intbar-logo" aria-label="Zur Startseite von LebensZeit gGmbH" title="Zur Startseite">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7" opacity="0.55"/>
+        <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+        <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+        <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="19" fill="currentColor"/>
+      </svg><span class="wm">LebensZeit</span>
+    </a>
   </div>
 </div>
 
@@ -286,7 +309,11 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
     // gefiltert
     var shown = notes.filter(function(n){
       if(pageFilter && n.page!==pageFilter) return false;
-      if(selSprint.size>0){ var sp=sprintOf(n); if(!(sp && selSprint.has(String(sp)))) return false; }
+      /* sprintOf() gibt null fuer „ohne Sprint" — das laesst sich nicht als
+         Filterwert fuehren, deshalb der Ersatzwert "ohne". Vorher fiel jede
+         nicht zugeordnete Notiz bei jeder Sprintauswahl heraus, ohne dass es
+         einen Knopf gab, sie zu holen. */
+      if(selSprint.size>0){ var sp=sprintOf(n) || "ohne"; if(!selSprint.has(String(sp))) return false; }
       if(selPrio.size>0 && !selPrio.has(String(prioOf(n)))) return false;
       if(selCat.size>0 && !selCat.has(catOf(n))) return false;
       var done = LZ.isDone(n.id);
@@ -384,7 +411,10 @@ footer{padding:24px 0 40px;color:var(--text2);font-size:0.8rem;text-align:center
      der Sprintgruppe hinter S1 und S2. */
   fbar.appendChild(makeGroup([["offen","Offen"],["auszubauen","Auszubauen"],["erledigt","Erledigt"]], selStatus, function(v){return "f-"+v;}));
   fbar.appendChild(fsep());
-  fbar.appendChild(makeGroup([["1","S1"],["2","S2"],["spaeter","Später"]], selSprint, "f-sprint"));
+  /* „ohne Sprint" ist der vierte Zustand dieser Achse und der einzige, der sich
+     vorher nicht filtern liess — obwohl er mit Abstand der haeufigste ist. Genau
+     das ist die Arbeitsliste: Punkte, die noch keinem Pitch zugeordnet sind. */
+  fbar.appendChild(makeGroup([["1","S1"],["2","S2"],["spaeter","Später"],["ohne","ohne Sprint"]], selSprint, "f-sprint"));
   fbar.appendChild(fsep());
   fbar.appendChild(makeGroup([["1","Hoch"],["2","Mittel"],["3","Niedrig"]], selPrio, function(v){return "f-p"+v;}));
   fbar.appendChild(fsep());

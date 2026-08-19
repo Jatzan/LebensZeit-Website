@@ -207,8 +207,8 @@ body.bare #island,body.bare #statusbar,body.bare #homebar{display:none}
 #login.weg{display:none}
 .login-brand{text-align:center;margin:auto 0 0}
 .login-brand h1{font-size:29px;font-weight:700;color:var(--text);margin:14px 0 4px;letter-spacing:-.4px}
-.login-claim{font-size:14px;color:var(--text-secondary)}
-.login-rule{width:44px;height:1.5px;background:var(--hairline);margin:20px auto}
+/* .login-claim und .login-rule sind mit ihren Elementen entfallen, ebenso
+   .login-foot weiter unten — siehe Kommentar im Anmeldeschirm. */
 .login-question{font-size:15px;font-weight:600;color:var(--text-tertiary);text-align:center;margin-bottom:16px}
 .role-card{width:100%;padding:18px;border-radius:var(--radius-card);margin-bottom:12px;text-align:left;
   display:block;transition:transform .2s var(--spring)}
@@ -216,9 +216,7 @@ body.bare #island,body.bare #statusbar,body.bare #homebar{display:none}
 .role-label{font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--lz-accent);display:block}
 .role-name{font-size:19px;font-weight:600;color:var(--text);margin:5px 0 2px;display:block}
 .role-sub{font-size:13px;color:var(--text-tertiary);display:block}
-.login-foot{margin:auto 0 0;text-align:center;font-size:11px;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--text-faint);padding-top:20px}
-.fiktiv{margin-top:14px;padding:11px 14px;border-radius:12px;background:var(--tint-warn);
+.fiktiv{margin:14px 0 auto;padding:11px 14px;border-radius:12px;background:var(--tint-warn);
   font-size:12px;color:var(--status-warn);text-align:center;line-height:1.45;font-weight:500}
 .appearance{position:absolute;top:calc(var(--safe-top) + 6px);right:20px;z-index:810;width:38px;height:38px;
   border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--lz-accent)}
@@ -245,13 +243,18 @@ body.bare #island,body.bare #statusbar,body.bare #homebar{display:none}
         <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
       </svg>
       <h1>LebensZeit</h1>
-      <p class="login-claim">Pflege &middot; Gesundheit &middot; Gemeinschaft</p>
-      <div class="login-rule"></div>
     </div>
+    <!-- Ausgeduennt 13.08.2026: der Anmeldeschirm trug Logo, Claim-Zeile,
+         Trennstrich, Frage, Fiktiv-Hinweis in zwei Zeilen UND die Wertezeile
+         „nah · vernetzt · nachhaltig" — sechs Textbloecke vor zwei Knoepfen, auf
+         einer Flaeche von 390px. Geblieben sind Logo, Wortmarke, die Frage und
+         der Fiktiv-Hinweis in einer Zeile. Claim und Wertezeile entfallen: unter
+         40px Logohoehe ist laut Designgrundlage ohnehin nur die Kurzform ohne
+         Claims zulaessig, und die Wertezeile sagte dasselbe ein zweites Mal.
+         Der Fiktiv-Hinweis bleibt — er ist Pflicht, nicht Schmuck. -->
     <p class="login-question">Wer sind Sie?</p>
     <div id="rollen"></div>
-    <p class="fiktiv">Fiktives Unternehmen &mdash; nur zu Schulungszwecken.<br>Alle Personen und Daten sind erfunden.</p>
-    <p class="login-foot">nah &middot; vernetzt &middot; nachhaltig</p>
+    <p class="fiktiv">Fiktives Unternehmen &mdash; alle Personen und Daten sind erfunden.</p>
   </div>
   <div class="navbar" id="navbar" hidden>
     <button class="navbar-btn" id="zurueck" hidden aria-label="Zur&uuml;ck">

@@ -193,9 +193,9 @@
       title: "Rollenfarbe Blau in der App",
       text: "Die Rollenkarte Pflegekraft ist blau (#185FA5, in der App --status-info). Blau gehört nicht zur Markenpalette; im Websystem ist Petrol #33566B als Informationston hinterlegt. Entweder angleichen oder als bewusste Plattformabweichung festhalten." },
 
-    { id: "n-env-portal-festschreiben", page: "kundenportal", selector: "main", status: "offen",
-      title: "env-portal jetzt festschreibbar",
-      text: "Die Umstellung des Kundenportals wartete laut Rückmeldung auf den Abgleich mit dem App-Prototyp. Der liegt jetzt vor. kundenportal.html trägt noch einen eigenen :root-Block wie vorher die Investorenseiten und bindet lz-tokens.css nicht ein — gleicher Ablauf wie beim env-invest-Rollout möglich." },
+    { id: "n-env-portal-festschreiben", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "env-portal war bereits festgeschrieben — Punkt war veraltet",
+      text: "GEPRÜFT 13.08.2026. Der Punkt beschrieb einen Stand, den es nicht mehr gab: kundenportal.html bindet lz-tokens.css ein, trägt env-portal am body und hat keinen eigenen :root-Block. Im Browser nachgemessen greifen die Rollen vollständig — Fliesstext 1.19rem, Zeilenhöhe 1.7, Tippziele 56px, Fläche warmes Creme #FBF4E6, Radius 24px, Logo über var(--logo) in Waldgrün. Null feste Pixelschriftgrössen. Siehe n-invest-portal-tokens für die Lehre daraus." },
 
     { id: "n-done-greenc-fehlte", page: "website-status", selector: "main", status: "offen", done: true,
       title: "Statusleiste und Fertig-Punkt waren farblos",
@@ -305,9 +305,9 @@
       title: "Iterationsstufen V1–V3 noch nicht ausgewiesen",
       text: "Baustein 4 verlangt drei dokumentierte Iterationsstufen. Vorschlag: V1 = SwiftUI-Portierung (app-demo.html), V2 = Kunden-App mit korrekten Personas und Wochenübersicht (dieser Stand), V3 = nach dem Team-Feedback. Muss im Pitch belegbar sein, steht bisher nirgends." },
 
-    { id: "n-zwei-apps-nebeneinander", page: "kundenportal", selector: "main", status: "offen",
-      title: "Zwei Apps in der Portal-Anmeldung",
-      text: "Die Anmeldung bietet jetzt Kunden-App und SwiftUI-Prototyp nebeneinander an — für den Vergleich im Team gewollt, für den Pitch verwirrend. Vor dem 7. September auf eine festlegen." },
+    { id: "n-zwei-apps-nebeneinander", page: "kundenportal", selector: "main", status: "offen", done: true,
+      title: "Auf die Kunden-App festgelegt, doppelter App-Weg aufgelöst",
+      text: "ENTSCHIEDEN 13.08.2026 durch Josh: Die App liegt hinter den Zugangsdaten, und zwar die neue Kunden-App. Vorher zeigte die Auswahl „Anmelden als\" auf /app, den älteren Angehörigen-Prototyp, während ein zweiter Verweis unter dem Anmeldeknopf auf /kunden-app führte — zwei verschiedene Apps aus derselben Karte, und der untere Weg umging die Anmeldung, die der obere verlangt. Jetzt: Auswahlgruppe „Kunden-App\" mit Ziel /kunden-app, separater Verweis entfallen. Der ältere Prototyp /app bleibt erreichbar, ist aber nur noch aus der Sprint-Übersicht verlinkt, wo er als Arbeitsstand hingehört." },
 
     { id: "n-done-kunden-app", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Kunden-App als eigene Datei gebaut",
@@ -443,9 +443,9 @@
     { id: "n-done-bruecke-fix", page: "allgemein", selector: "main", status: "offen", done: true,
       title: "Fehler in der Kompatibilitaetsbruecke behoben",
       text: "Die Bruecke stand auf :root und loeste die Altnamen deshalb immer gegen die hellen Rootwerte auf — dadurch blieb das Cockpit hell, obwohl env-cockpit gesetzt war. Custom Properties werden dort ersetzt, wo sie deklariert sind. Bruecke auf * verlegt; derselbe Fehler steckte im Cockpit-Namensraum --n-*, der jetzt auf .env-cockpit steht." },
-    { id: "n-invest-portal-tokens", page: "allgemein", selector: "main", status: "auszubauen",
-      title: "env-portal noch offen — env-invest ist durch",
-      text: "Stand 13.08.2026 halbiert. Der Investorenbereich ist durch: alle sieben Seiten tragen env-invest samt inv-theme, Amber-Ink als Akzent und Radius aus der Rolle, und die 370 festen Pixelschriftgrössen sind auf rem umgestellt (siehe n-done-invest-rem). Offen bleibt allein das Kundenportal: kundenportal.html bindet lz-tokens.css nicht ein und trägt noch einen eigenen :root-Block — genau die Ausgangslage, die die Investorenseiten vor dem Rollout hatten. Laut Designgrundlage bekommt es warmes Creme, Waldgrün im Logo, 1,19rem Fliesstext und 56px Tippziele. Ablauf identisch zum env-invest-Rollout, siehe auch n-env-portal-festschreiben." },
+    { id: "n-invest-portal-tokens", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "env-invest und env-portal sind beide durch",
+      text: "GEPRÜFT 13.08.2026, beide Umgebungen sind durch. Investorenbereich: alle sieben Seiten tragen env-invest samt inv-theme, Amber-Ink als Akzent und Radius aus der Rolle, und die 370 festen Pixelschriftgrössen sind auf rem umgestellt (siehe n-done-invest-rem). Kundenportal: war entgegen dem Wortlaut dieses Punktes ebenfalls längst umgestellt. Im Browser nachgemessen bindet kundenportal.html lz-tokens.css ein, trägt env-portal am body, hat NULL eigene :root-Blöcke und null feste Pixelschriftgrössen, und die Umgebungsrollen greifen: --fs-body 1.19rem (Fliesstext 19,04px), --lh-body-env 1.7, --tap-env 56px, --surface #FBF4E6 warmes Creme, --radius 24px. Das Logo liest var(--logo), unter env-portal also Waldgrün auf warmem Creme — genau die Vorgabe der Designgrundlage. Lehre daraus, und der eigentliche Grund für diesen Nachtrag: der Punkt stand als offen im Board und wurde in einer Antwort an Josh ungeprüft weitergegeben. Ein Registry-Eintrag ist eine Behauptung über den Code, kein Beweis — bei Ständen aus früheren Sitzungen zuerst messen, dann berichten." },
     /* ----- Designgrundlage v1 (05.08.2026) ----- */
     { id: "n-done-tokens-public", page: "allgemein", selector: "main", status: "auszubauen", done: true,
       title: "Designgrundlage v1 im oeffentlichen Bereich umgesetzt",
@@ -582,6 +582,18 @@
     { id: "n-done-praesentation-einpassung", page: "praesentation", selector: "main", status: "auszubauen", done: true,
       title: "Folien passen sich in den Rahmen ein statt zu scrollen",
       text: "Gemessen: bei 1920x1080 passte alles, bei 1440x900 waren acht und bei 1280x800 elf Folien zu hoch (Folie 3 um 201 px, Folie 12 um 192 px). Eine Präsentation wird nicht gescrollt, deshalb verkleinert fitSlide() den Folieninhalt über die Eigenschaft --fit. Zwei Messwege waren nachweislich falsch: scrollHeight des Rahmens ändert sich unter zoom überhaupt nicht, und getBoundingClientRect des gezoomten Elements liefert seine Größe im eigenen, noch nicht skalierten Raum (Chrome 141: zoom 0.5 gesetzt, Rechteckhöhe unverändert 861 px). Richtig ist Rechteckhöhe MAL Zoomfaktor. Ergebnis: 1024x768 bis 1920x1080 ohne Überhang. Am Telefon wird bewusst NICHT eingepasst — dort bräuchten fast alle Folien den Anschlag 0,68 und wären unlesbar, Scrollen ist die richtige Bedienung. Korrekturhinweise sind eingeklappte <details>; beim Aufklappen wird neu eingepasst." },
+
+    { id: "n-done-cockpit-ordner-weg", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Ordner cockpit/ aus der Auslieferung entfernt, Schlussstrich zentral",
+      text: "BEHOBEN 13.08.2026. In der Auslieferung lag als einziger Ordner ein cockpit/ mit einer index.html, die per meta-refresh und location.replace auf /cockpit weiterleitete — eine Sonderlösung für genau eine von 24 Seiten. Nachgeprüft war sie doppelt sinnlos: es verweist nirgends etwas auf /cockpit/ mit Schlussstrich, und live liefert /cockpit/ trotz des Ordners 404 (geprüft, ebenso /notizen/ und /sprints/, die nie einen solchen Ordner hatten). Ordner entfernt, das Verzeichnis ist wieder flach. Die eigentliche Frage — Adressen mit Schlussstrich — löst jetzt 404.html für ALLE Seiten: endet der Pfad auf einem Strich, wird einmalig ohne Strich nachgeschlagen. Zwei Sicherungen gegen eine Schleife: die Ersatzadresse endet nie auf einem Strich, und ein Merker in der Sitzung lässt pro Adresse genau einen Versuch zu. Ohne verfügbaren Speicher wird gar nicht weitergeleitet — lieber die 404-Seite als eine mögliche Endlosschleife." },
+
+    { id: "n-done-praes-einstieg-investoren", page: "investoren", selector: "main", status: "auszubauen", done: true,
+      title: "Präsentation: ein Einstieg, unten auf der Investoren-Startseite",
+      text: "BEHOBEN 13.08.2026. Die Präsentation hatte drei Einstiege: Planspiel-Menü, Reiterzeile der Sprint-Übersicht und Textverweis auf /investoren. Zwei davon am falschen Ort — die Präsentation ist der Investorenpitch, ihr Publikum sind die fiktiven Investoren, nicht das Planspiel-Team. Beide entfallen. Geblieben ist der Platz unten auf der Investoren-Startseite, dort aber nicht mehr als Textverweis, sondern als Pillenreihe in der Form der Sprint-Übersicht: Maße aus deren .tab übernommen (Radius 30px, Polsterung 9/16px, 0.88rem, Statuspunkt 8px), damit die Reihe auf beiden Seiten als dasselbe Bauteil gelesen wird. Sie ist als Reihe angelegt, nicht als einzelner Knopf, weil sie mit jedem Pitch wächst — Sprint 2 steht schon als gestrichelte, nicht anklickbare Pille daneben. Beides bewusst: ein Verweis auf eine Präsentation, die es nicht gibt, wäre ein toter Weg, ein unsichtbarer Platz würde nicht zeigen, dass die Reihe wächst. Die Absicherung im Reiter-Handler der Sprint-Übersicht (kein data-t, kein Umschalten) bleibt stehen, obwohl die Pille dort wieder weg ist — sie kostet nichts und verhindert eine leere Seite." },
+
+    { id: "n-done-portal-burger-app", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
+      title: "Kundenportal: Burger überall, App hinter den Zugangsdaten, Fusszeile ergänzt",
+      text: "BEHOBEN 13.08.2026, vier Punkte. Erstens die Bereiche: das Portal hatte zwei Navigationen, eine waagerechte Reiterzeile für den Desktop und die Schublade fürs Telefon, beide aus derselben Liste gebaut und beide mit eigenem Zustand. Acht Bereiche in einer Zeile brachen bei 860px auf zwei Zeilen um, also ein zweiter waagerechter Balken unter der Kopfzeile. nav.reiter ist komplett entfallen, Markup, CSS und Aufbau; es gibt nur noch die Schublade, auf jeder Breite. Zweitens die App: die Auswahl „Anmelden als\" zeigte auf /app, den älteren Prototyp, während ein zweiter Verweis unter dem Knopf auf /kunden-app führte. Jetzt liegt die Kunden-App in der Auswahl, der separate Verweis ist weg — ein Weg, und er führt durch die Anmeldung. Drittens die Fusszeile: es gab schon eine schmale, sie bleibt schmal. Eine vierspaltige Marketing-Fusszeile gehört nicht in einen angemeldeten Bereich; ergänzt sind nur das Logo als Weg zurück auf die Website (die Kopfzeile hat es, die Fusszeile nicht, und gescrollt wird nach unten) und der Leistungskatalog. Viertens der Anmeldeschirm der Kunden-App: er trug Logo, Claim-Zeile, Trennstrich, Frage, zweizeiligen Fiktiv-Hinweis und die Wertezeile „nah · vernetzt · nachhaltig\" — sechs Textblöcke vor zwei Knöpfen auf 390px Breite. Claim und Wertezeile entfallen (unter 40px Logohöhe ist laut Designgrundlage ohnehin nur die Kurzform ohne Claims zulässig, und die Wertezeile sagte dasselbe ein zweites Mal), der Fiktiv-Hinweis steht jetzt in einer Zeile. Er bleibt, weil er Pflicht ist und nicht Schmuck." },
 
     { id: "n-done-board-stand-sprint", page: "notizen", selector: "main", status: "auszubauen", done: true,
       title: "To-Do-Board: „Später\" von der Stand-Achse auf die Sprint-Achse",
@@ -837,24 +849,23 @@
   var WIKI_LZ = "https://lebenszeit-ggmbh.atlassian.net/wiki/spaces/LZ";
   function ensureMenuFooter() {
     var menu = document.getElementById("fiktivMenu");
-    if (!menu || document.getElementById("lzMenuSprint1")) return !!menu;
+    if (!menu || document.getElementById("lzMenuWiki")) return !!menu;
 
     function sep() { var d = document.createElement("div"); d.className = "fiktiv-menu-sep"; return d; }
     function head(t) {
       var s = document.createElement("span");
       s.className = "fiktiv-menu-h"; s.textContent = t; return s;
     }
-    menu.appendChild(sep());
-    menu.appendChild(head("Präsentationen"));
-    var a = document.createElement("a");
-    a.id = "lzMenuSprint1"; a.href = "/praesentation"; a.setAttribute("role", "menuitem");
-    a.textContent = "Sprint 1";
-    a.setAttribute("aria-label", "Sprint 1 — Investorenpitch als Präsentation");
-    menu.appendChild(a);
-
+    /* Der Einstieg in die Praesentation stand hier als Gruppe „Praesentationen ·
+       Sprint 1" und ist am 13.08.2026 wieder entfallen. Grund: die Praesentation
+       ist der Investorenpitch, ihr Publikum sind die fiktiven Investoren — nicht
+       das Planspiel-Team. Sie hat genau einen Einstieg, unten auf der
+       Investoren-Startseite, und waechst dort mit jedem weiteren Pitch. Drei
+       Einstiege an drei Stellen waren einer zu viel und zwei am falschen Ort. */
     menu.appendChild(sep());
     menu.appendChild(head("Wissensbasis"));
     var w = document.createElement("a");
+    w.id = "lzMenuWiki";
     w.className = "lz-menu-ext"; w.href = WIKI_LZ;
     w.target = "_blank"; w.rel = "noopener noreferrer";
     w.setAttribute("role", "menuitem");

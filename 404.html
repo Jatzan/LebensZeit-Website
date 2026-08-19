@@ -435,6 +435,29 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 </footer>
 
 <script>
+/* Adressen mit Schlussstrich einmalig ohne Strich nachschlagen.
+   GitHub Pages loest /cockpit auf cockpit.html auf, /cockpit/ dagegen nicht —
+   das lief in einen 404. Bisher stand dafuer ein handgemachter Ordner
+   cockpit/index.html mit Weiterleitung in der Auslieferung: eine Sonderloesung
+   fuer genau eine von 24 Seiten, die live ohnehin 404 lieferte, und der einzige
+   Ordner im sonst flachen Verzeichnis. Der Ordner ist entfallen; die Regel steht
+   jetzt hier und gilt fuer alle Seiten.
+   Zwei Sicherungen gegen eine Schleife: die Ersatzadresse endet nie auf einem
+   Strich, und ein Merker in der Sitzung laesst pro Adresse genau einen Versuch
+   zu. Wer wirklich auf einer nicht vorhandenen Seite landet, sieht diese Seite. */
+(function () {
+  var p = location.pathname;
+  if (p.length < 2 || p.charAt(p.length - 1) !== "/") return;
+  var ziel = p.slice(0, -1);
+  try {
+    var merker = "lz-404-" + ziel;
+    if (sessionStorage.getItem(merker)) return;
+    sessionStorage.setItem(merker, "1");
+  } catch (e) { return; }   /* kein Speicher, keine Schleifensicherung, kein Versuch */
+  location.replace(ziel + location.search + location.hash);
+})();
+</script>
+<script>
 /* Planspiel-Menü (schwebend) */
 function lzToggleMenu(force){
   var m=document.getElementById('fiktivMenu'), t=document.getElementById('lzTrigger');

@@ -85,13 +85,6 @@ a.lockup:hover{opacity:.82}
 .knopf{display:block;width:100%;min-height:var(--tap-env);border:0;border-radius:var(--radius);
   background:var(--lz-green);color:var(--lz-cream);font-size:1.06rem;font-weight:500;cursor:pointer}
 .knopf:hover{background:var(--lz-green-2)}
-.zweitzugang{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
-.zweitzugang .zz-h{display:block;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
-  color:var(--text-2);font-weight:600;margin-bottom:8px}
-.zweitzugang a{font-size:1rem;font-weight:500;color:var(--lz-green);text-decoration:underline;
-  text-underline-offset:3px}
-.zweitzugang a:hover{color:var(--lz-green-2)}
-.zweitzugang p{font-size:.85rem;color:var(--text-3);margin-top:5px;line-height:1.5}
 .gatefuss{text-align:center;font-size:.88rem;color:var(--text-3);margin-top:20px}
 
 /* ── Kopf ───────────────────────────────────────────── */
@@ -109,20 +102,19 @@ header .oben .rechts{margin-left:auto;display:flex;align-items:center;gap:12px}
 .knopf-rand{min-height:var(--tap-env);padding:0 20px;border-radius:var(--radius);
   border:1px solid var(--lz-green);background:transparent;color:var(--lz-green);cursor:pointer;font-size:.94rem}
 .knopf-rand:hover{background:rgba(74,103,65,.10)}
-#burger{display:none;align-items:center;justify-content:center;gap:10px;
+/* Burger auf ALLEN Breiten. Die Reiterzeile stand nur am Desktop und zeigte
+   acht Bereiche gleichzeitig — auf 860px umgebrochen in zwei Zeilen, damit ein
+   zweiter waagerechter Balken unter der Kopfzeile. Ein Menue, ein Ort: die
+   Bereiche liegen jetzt ueberall in der Schublade, das Portal hat damit dieselbe
+   Bedienung auf Telefon und Rechner. nav.reiter ist komplett entfallen. */
+#burger{display:inline-flex;align-items:center;justify-content:center;gap:10px;
   min-height:var(--tap-env);padding:0 18px;border-radius:var(--radius);
   border:1px solid var(--lz-green);background:transparent;color:var(--lz-green);cursor:pointer;font-size:1rem}
 #burger svg{width:24px;height:24px}
 
 /* ── Navigation ─────────────────────────────────────── */
-nav.reiter{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:73px;z-index:55}
-nav.reiter .in{max-width:860px;margin:0 auto;padding:4px 22px;display:flex;flex-wrap:wrap;gap:2px}
-nav.reiter button{display:inline-flex;align-items:center;gap:9px;min-height:var(--tap-env);
-  padding:0 15px;border:0;background:none;color:var(--text-2);cursor:pointer;font-size:1rem;
-  white-space:nowrap;border-bottom:3px solid transparent}
-nav.reiter button svg{width:26px;height:26px;flex:0 0 26px}
-nav.reiter button[aria-current="page"]{color:var(--lz-green-3);border-bottom-color:var(--lz-green);font-weight:500}
-nav.reiter button:hover{color:var(--lz-green-3)}
+/* Die waagerechte Reiterzeile nav.reiter ist am 13.08.2026 entfallen — siehe
+   Kommentar am Burger. Es gibt nur noch die Schublade. */
 
 #schublade{position:fixed;inset:var(--tick-h,2.375rem) 0 0 0;z-index:150;background:var(--surface);
   display:none;flex-direction:column;overflow-y:auto}
@@ -259,10 +251,16 @@ section.karte > p.unter{color:var(--text-2);font-size:.94rem;margin-bottom:16px}
 a.mitglied:hover{background:rgba(90,110,82,.20)}
 
 footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40px;font-size:.88rem;color:var(--text-2)}
+footer.portal .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px}
+/* Kompaktstufe: 26px Symbol, Wortmarke ohne Claims, Farbe aus der Rolle --logo
+   (unter .env-portal Waldgruen auf warmem Creme). */
+.lockup.klein .sym{width:26px;height:26px;flex:0 0 26px}
+.lockup.klein .name{font-size:1.06rem;letter-spacing:1.4px}
+footer.portal .fz-links{display:inline-flex;gap:6px;flex-wrap:wrap}
+footer.portal .fz-fiktiv{margin-left:auto;color:var(--text-3)}
+@media(max-width:640px){ footer.portal .fz-fiktiv{margin-left:0} }
 
 @media(max-width:860px){
-  nav.reiter{display:none}
-  #burger{display:inline-flex}
   header .oben .person > span:not(.avatar){display:none}
   .stufen,.dienste{grid-template-columns:1fr}
 }
@@ -311,8 +309,8 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
           <option value="stemmer">Hildegard Stemmer · Pflegekundin · Rüthen</option>
           <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
         </optgroup>
-        <optgroup label="Prototyp">
-          <option value="app">App-Prototyp (SwiftUI-Portierung) · alle Rollen</option>
+        <optgroup label="Kunden-App">
+          <option value="app">Kunden-App · dieselben Inhalte auf dem Telefon</option>
         </optgroup>
       </select>
     </div>
@@ -326,17 +324,11 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
     </div>
     <p class="gatehinweis" id="gatehinweis"></p>
     <button type="button" class="knopf" id="anmeldeknopf" onclick="anmelden()">Anmelden</button>
-    <!-- Separater Zugang zur Kunden-App. Der Direktlink in der Fusszeile ist auf
-         allen 22 Seiten entfallen — der Weg in die App fuehrt jetzt ausschliesslich
-         ueber das Kundenportal. Damit ist das hier der einzige Einstieg und
-         gehoert unter die Anmeldung als eigener Block, nicht als graue Beizeile
-         ueber dem Formular, wo er vorher stand. Bewusst ausserhalb des
-         Anmeldevorgangs: ein zweiter Weg, keine Auswahl im Formular. -->
-    <div class="zweitzugang">
-      <span class="zz-h">Separater Zugang</span>
-      <a href="/kunden-app">Kunden-App öffnen</a>
-      <p>Dieselben Inhalte, für das Telefon gebaut.</p>
-    </div>
+    <!-- Hier stand ein Block „Separater Zugang" zur Kunden-App. Entfallen am
+         13.08.2026: die App liegt jetzt in der Auswahl „Anmelden als" oben, also
+         hinter den Zugangsdaten. Zwei Wege zur selben App auf einer Karte waren
+         eine Doppelung, und der untere Weg umging die Anmeldung, die der obere
+         verlangt. -->
     <p class="gatefuss">LebensZeit gGmbH · Erwitte, Kreis Soest</p>
   </div>
 </div>
@@ -364,8 +356,6 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
     </div>
   </div></header>
 
-  <nav class="reiter" aria-label="Portalbereiche"><div class="in" id="reiter"></div></nav>
-
   <div id="schublade" aria-label="Menü">
     <div class="kopfz">
       <a class="lockup" href="/" title="Zur Startseite">
@@ -386,9 +376,26 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
 
   <main class="wrap" id="inhalt"></main>
 
+  <!-- Eine Fusszeile gab es hier schon, als schmale Textzeile. Sie bleibt schmal:
+       eine vierspaltige Marketing-Fusszeile wie auf der oeffentlichen Website
+       gehoert nicht in einen angemeldeten Bereich — wer drin ist, ist keine
+       Interessentin mehr. Ergaenzt sind nur das Logo als Weg zurueck auf die
+       Website (die Kopfzeile hat es, die Fusszeile nicht, und gescrollt wird nach
+       unten) und der Leistungskatalog, der bewusst dort und nicht hier liegt. -->
   <footer class="portal"><div class="wrap">
-    LebensZeit gGmbH · Fiktives Unternehmen im KI-Pionierzirkel ·
-    <a href="/leistungen">Leistungen</a> · <a href="/kontakt">Kontakt</a>
+    <a class="lockup klein" href="/" title="Zur Website von LebensZeit gGmbH">
+      <svg class="sym" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7" opacity="0.55"/>
+        <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
+        <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
+        <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="19" fill="currentColor"/>
+      </svg><span class="name">LebensZeit</span>
+    </a>
+    <span class="fz-links">
+      <a href="/leistungen">Leistungen</a> · <a href="/kontakt">Kontakt</a> ·
+      <a href="/preise">Preise &amp; Eigenanteil</a>
+    </span>
+    <span class="fz-fiktiv">Fiktives Unternehmen im KI-Pionierzirkel</span>
   </div></footer>
 </div>
 
@@ -418,10 +425,15 @@ var BEREICHE = [
 /* ── Zugänge. Portalkonten führen ins Portal, App-Konten springen in den
       Prototyp — deshalb steht der Verweis nicht mehr in der Fußzeile. ── */
 var APP = {
-  app: { kennung: "demo@app-prototyp.beispiel", ziel: "/app",
-         hinweis: "\u00d6ffnet den App-Prototyp \u2014 dieselben Inhalte auf einem Telefon, " +
-                  "mit allen Rollen zur Auswahl.",
-         knopf: "Zum App-Prototyp" }
+  /* Ziel ist die NEUE Kunden-App. Vorher stand hier /app, der aeltere
+     Angehoerigen-Prototyp — zusammen mit dem separaten Verweis unter dem Login
+     waren damit zwei verschiedene Apps aus derselben Anmeldung erreichbar
+     (Punkt n-zwei-apps-nebeneinander). Aufgeloest: die Kunden-App liegt hinter
+     den Zugangsdaten, der separate Verweis unter dem Login ist entfallen. Damit
+     gibt es genau einen Weg in die App, und er fuehrt ueber das Portal. */
+  app: { kennung: "demo@kunden-app.beispiel", ziel: "/kunden-app",
+         hinweis: "\u00d6ffnet die Kunden-App \u2014 dieselben Inhalte, f\u00fcr das Telefon gebaut.",
+         knopf: "Zur Kunden-App" }
 };
 var KONTEN = {
   stemmer: {
@@ -1041,22 +1053,20 @@ document.getElementById("inhalt").addEventListener("click", function(e){
   }
 });
 function geh(a){ ansicht = a; schublade(false); zeichne();
-  document.querySelectorAll("#reiter button, #schubladeListe button").forEach(function(b){
+  document.querySelectorAll("#schubladeListe button").forEach(function(b){
     if (b.dataset.ans === ansicht) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
   });
 }
 
 function bauNavigation(){
-  document.getElementById("reiter").innerHTML = BEREICHE.map(function(b){
-    return '<button type="button" data-ans="'+b[0]+'">'+svg(b[0])+esc(b[1])+'</button>';
-  }).join("");
+  /* Nur noch eine Liste: die Schublade. Die frueher parallel gebaute Reiterzeile
+     ist entfallen, damit auch ihr Aufbau — sonst haetten die beiden Listen
+     unterschiedliche Zustaende halten koennen. */
   document.getElementById("schubladeListe").innerHTML = BEREICHE.map(function(b){
     return '<li><button type="button" data-ans="'+b[0]+'">'+svg(b[0],28)+esc(b[1])+'</button></li>';
   }).join("");
-  ["reiter","schubladeListe"].forEach(function(id){
-    document.getElementById(id).addEventListener("click", function(e){
-      var b = e.target.closest("button[data-ans]"); if(!b) return; geh(b.dataset.ans);
-    });
+  document.getElementById("schubladeListe").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-ans]"); if(!b) return; geh(b.dataset.ans);
   });
 }
 
