@@ -1186,7 +1186,14 @@ R.tag=m=>{
 function render(){
   const m=S.mode, mod=MODULES.find(x=>x.id===S.mod);
   document.getElementById("crumb").textContent=mod.n;
-  document.getElementById("sideLogo").innerHTML=logoSVG(m==="neu"?"var(--accent)":"#5a6e52",34);
+  /* Beide Farben aus dem Tokensystem, keine harten Hexwerte mehr. Der Altmodus
+     trug #5a6e52 (Waldgruen) — laut Logo-Farbregel die Farbe fuer warmes Beige.
+     Die Seitenleiste des Altsystems ist aber #f4f4f4, also hell und neutral, und
+     dort gilt Originalgruen. Nachgerechnet ist es auch der bessere Wert:
+     5,77:1 gegen 5,04:1. Dass der Altmodus bewusst bieder aussieht, tragen
+     Tahoma, die graue Rahmung und die gedaempfte Wortmarke (#444) — dafuer muss
+     das Logo nicht gegen die eigene Farbregel verstossen. */
+  document.getElementById("sideLogo").innerHTML=logoSVG(m==="neu"?"var(--accent)":"var(--lz-green)",34);
   document.getElementById("sysline").textContent=m==="neu"?"LZ Cockpit v2.5.0 · verbunden":"PflegeVerwaltung 2024 (Build 8.1.44) · \\\\SRV-ERW-01";
   document.getElementById("footVer").textContent=m==="neu"?"LZ Cockpit v2.5.0":"PflegeVerwaltung 2024 · Lizenz: 5 Arbeitsplätze";
   document.getElementById("footSave").textContent=m==="neu"?"Alle Änderungen gespeichert ✓":"Zuletzt gespeichert vor 3 Std.";

@@ -507,7 +507,16 @@
   /* ---------- 4. Zustand ---------- */
   var KEY = "lz-quellen-visible";
   var on = false;
-  function load() { try { return window.localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  /* Erststart-Vorbelegung: EIN — dieselbe Regel wie beim To-Do-Schalter.
+     Vorher lieferte getItem null und null === "1" war falsch, die Belege waren
+     also beim ersten Besuch unsichtbar. "0" (bewusst ausgeschaltet) bleibt aus. */
+  function load() {
+    try {
+      var v = window.localStorage.getItem(KEY);
+      if (v === null) { save(true); return true; }
+      return v === "1";
+    } catch (e) { return true; }
+  }
   function save(v) { try { window.localStorage.setItem(KEY, v ? "1" : "0"); } catch (e) {} }
 
   function slug() {
@@ -685,9 +694,21 @@
   /* Gleiche Ampel wie beim To-Do-Schalter (Regeln stehen in lz-notes.js):
      gruen = eingeblendet, rot = ausgeblendet, daneben die Zahl der Belege.
      Die Farbe traegt den Zustand nicht allein — Zahl und aria-label tun es mit. */
+  /* Gezaehlt wird, was auch erscheinen KANN — nicht, was in der Registry steht.
+     Auf /praesentation traf das auseinander: dort greifen nur die drei
+     Sammeleintraege mit page "*" auf .logo-lockup, header.site und footer.site,
+     und keines dieser drei Elemente existiert auf der Buehne (eigene Wortmarke
+     .lz-logo, keine Seitenkopf- und Fusszeile). Der Schalter meldete „3", zu
+     sehen war nichts. Ein Zaehler, der auf nichts zeigt, ist schlimmer als
+     keiner: er laesst den Nutzer nach Belegen suchen, die es nicht gibt. */
+  function countVisible() {
+    return mine().filter(function (e) {
+      try { return !!document.querySelectorAll(e.sel)[e.idx || 0]; } catch (err) { return false; }
+    }).length;
+  }
   function syncLabel() {
     var s = document.getElementById("lzSrcState");
-    var count = mine().length;
+    var count = countVisible();
     if (s) s.textContent = String(count);
     var l = document.getElementById("lzSrcLamp");
     if (l) {
@@ -713,7 +734,13 @@
     b.setAttribute("role", "menuitem");
     b.innerHTML = "<span><svg class=\"lz-ic\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"7\" cy=\"7\" r=\"4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"/><line x1=\"10.5\" y1=\"10.5\" x2=\"14\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.3\"/></svg>Datenquellen</span><span class=\"lz-state\"><span class=\"lz-lamp is-off\" id=\"lzSrcLamp\"></span><span id=\"lzSrcState\">0</span></span>";
     b.addEventListener("click", function () { toggle(); });
-    menu.appendChild(b);
+    /* Direkt hinter den To-Do-Schalter, nicht ans Menueende: unter den Schaltern
+       stehen inzwischen die Fussgruppen (Sprint 1, Confluence). Ein appendChild
+       haette den Quellenschalter je nach Ladereihenfolge der beiden Skripte
+       hinter oder vor ihnen einsortiert — die Menuefolge war damit zufaellig. */
+    var notes = document.getElementById("lzNotesToggle");
+    if (notes && notes.parentNode === menu) menu.insertBefore(b, notes.nextSibling);
+    else menu.appendChild(b);
     syncLabel();
     return true;
   }
@@ -721,12 +748,18 @@
   /* ---------- 9. Start ---------- */
   function init() {
     injectCSS();
+    /* Zustand VOR dem Einhaengen laden. Vorher lief mountToggle() zuerst und rief
+       syncLabel() mit on === false — die Lampe stand danach auf Rot und der
+       Zaehler auf 0, obwohl die Belege eingeblendet waren. Aufgefallen erst mit
+       der neuen Erststart-Vorbelegung EIN, der Fehler steckte aber schon vorher
+       drin: er traf jeden, der die Belege eingeschaltet und neu geladen hat. */
+    on = load();
     if (!mountToggle()) {
       var tries = 0;
       var iv = setInterval(function () { if (mountToggle() || ++tries > 20) clearInterval(iv); }, 100);
     }
-    on = load();
     if (on) build();
+    syncLabel();
     document.addEventListener("click", function () { closePops(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePops(); });
   }

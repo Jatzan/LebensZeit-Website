@@ -85,6 +85,13 @@ a.lockup:hover{opacity:.82}
 .knopf{display:block;width:100%;min-height:var(--tap-env);border:0;border-radius:var(--radius);
   background:var(--lz-green);color:var(--lz-cream);font-size:1.06rem;font-weight:500;cursor:pointer}
 .knopf:hover{background:var(--lz-green-2)}
+.zweitzugang{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.zweitzugang .zz-h{display:block;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-2);font-weight:600;margin-bottom:8px}
+.zweitzugang a{font-size:1rem;font-weight:500;color:var(--lz-green);text-decoration:underline;
+  text-underline-offset:3px}
+.zweitzugang a:hover{color:var(--lz-green-2)}
+.zweitzugang p{font-size:.85rem;color:var(--text-3);margin-top:5px;line-height:1.5}
 .gatefuss{text-align:center;font-size:.88rem;color:var(--text-3);margin-top:20px}
 
 /* ── Kopf ───────────────────────────────────────────── */
@@ -295,7 +302,6 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
       </a>
       <h1>Kundenportal</h1>
       <p>Ihre Termine, Unterlagen und der Draht zum Pflegeteam.</p>
-      <p style="font-size:.85rem;color:var(--text-3);margin-top:6px">Lieber als App? <a href="/kunden-app">Kunden-App öffnen</a></p>
     </div>
 
     <div class="feld">
@@ -320,6 +326,17 @@ footer.portal{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40
     </div>
     <p class="gatehinweis" id="gatehinweis"></p>
     <button type="button" class="knopf" id="anmeldeknopf" onclick="anmelden()">Anmelden</button>
+    <!-- Separater Zugang zur Kunden-App. Der Direktlink in der Fusszeile ist auf
+         allen 22 Seiten entfallen — der Weg in die App fuehrt jetzt ausschliesslich
+         ueber das Kundenportal. Damit ist das hier der einzige Einstieg und
+         gehoert unter die Anmeldung als eigener Block, nicht als graue Beizeile
+         ueber dem Formular, wo er vorher stand. Bewusst ausserhalb des
+         Anmeldevorgangs: ein zweiter Weg, keine Auswahl im Formular. -->
+    <div class="zweitzugang">
+      <span class="zz-h">Separater Zugang</span>
+      <a href="/kunden-app">Kunden-App öffnen</a>
+      <p>Dieselben Inhalte, für das Telefon gebaut.</p>
+    </div>
     <p class="gatefuss">LebensZeit gGmbH · Erwitte, Kreis Soest</p>
   </div>
 </div>

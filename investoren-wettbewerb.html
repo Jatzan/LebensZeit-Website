@@ -39,13 +39,13 @@ a:hover { color: var(--green2); }
    Erzaehlung aus section.block-Abschnitten ist. Struktur jetzt angeglichen, nicht
    nur die Farben. */
 .conf-bar { background: var(--green3); color: rgba(245,240,232,.75); text-align: center;
-  font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; padding: 7px 0; }
-.eyebrow { font-size: 11.5px; letter-spacing: 2.6px; text-transform: uppercase;
+  font-size: 0.6875rem; letter-spacing: 1.2px; text-transform: uppercase; padding: 7px 0; }
+.eyebrow { font-size: 0.71875rem; letter-spacing: 2.6px; text-transform: uppercase;
   color: var(--green); margin-bottom: 12px; font-weight: 500; }
 .inv-hero { padding: 64px 0 36px; }
 .inv-hero h1 { font-size: clamp(34px, 5vw, 56px); margin-bottom: 16px; font-family: 'Cormorant Garamond', serif; font-weight: 500; }
 .inv-hero h1 em { font-style: italic; }
-.inv-hero .lead { font-size: 18px; font-weight: 300; max-width: 46em; }
+.inv-hero .lead { font-size: 1.125rem; font-weight: 300; max-width: 46em; }
 .inv-theme .inv-hero {
   background: linear-gradient(135deg, var(--green-deep, #243120) 0%, var(--green) 145%);
   color: var(--cream); position: relative; overflow: hidden;
@@ -67,7 +67,7 @@ section.block:first-of-type { padding-top: 8px; }
 .section-head .eyebrow { margin-bottom: 12px; }
 .section-head h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 12px;
   font-family: 'Cormorant Garamond', serif; font-weight: 500; color: var(--green3); }
-.section-head p { color: var(--text-2); font-weight: 300; font-size: 16px; }
+.section-head p { color: var(--text-2); font-weight: 300; font-size: 1rem; }
 section.block .section-head .eyebrow { color: var(--accent-ink); }
 
 /* ── Kopf- und Fusszeile, uebernommen aus den uebrigen Investorenseiten ──
@@ -80,11 +80,11 @@ section.block .section-head .eyebrow { color: var(--accent-ink); }
 .logo-lockup .txt { display: flex; flex-direction: column; line-height: 1; }
 .logo-lockup .name {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 22px; letter-spacing: 2px; color: currentColor;
+  font-size: 1.375rem; letter-spacing: 2px; color: currentColor;
 }
-.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 1px; opacity: .9; }
+.logo-lockup .name sup { font-family: 'Jost', sans-serif; font-size: 0.5625rem; letter-spacing: 1px; opacity: .9; }
 .logo-lockup .tag {
-  font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 2px;
+  font-family: 'Jost', sans-serif; font-size: 0.5625rem; letter-spacing: 2px;
   text-transform: uppercase; color: currentColor; opacity: .9; margin-top: 4px;
 }
 header.site {
@@ -96,7 +96,7 @@ header.site {
 .nav-bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
 .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
 .nav-links a {
-  font-size: 14px; color: var(--text2); font-weight: 400;
+  font-size: 0.875rem; color: var(--text2); font-weight: 400;
   letter-spacing: .3px; position: relative; padding: 4px 0;
 }
 .nav-links a:hover { color: var(--green); }
@@ -108,7 +108,7 @@ header.site {
 .nav-links a.nav-cta::after { display: none; }
 .nav-cta {
   background: var(--green); color: var(--cream) !important;
-  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 14px; white-space: nowrap; line-height: 1;
+  display: inline-flex; align-items: center; padding: 12px 28px; border-radius: 40px; font-size: 0.875rem; white-space: nowrap; line-height: 1;
   letter-spacing: .3px; transition: background .15s, transform .15s;
 }
 .nav-cta:hover { background: var(--green2); color: var(--cream) !important; transform: translateY(-1px); }
@@ -119,18 +119,18 @@ header.site {
 footer.site { background: var(--green3); color: rgba(245,240,232,.7); padding: 64px 0 28px; }
 footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.footer-grid p { font-size: 13px; font-weight: 300; max-width: 24em; }
+.footer-grid p { font-size: 0.8125rem; font-weight: 300; max-width: 24em; }
 .footer-col h4 {
-  font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.6px;
+  font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 1.6px;
   text-transform: uppercase; color: var(--mint); margin-bottom: 16px; font-weight: 500;
 }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col a { color: rgba(245,240,232,.7); font-size: 14px; font-weight: 300; }
+.footer-col a { color: rgba(245,240,232,.7); font-size: 0.875rem; font-weight: 300; }
 .footer-col a:hover { color: var(--mint); }
 .footer-bottom {
   border-top: 0.5px solid rgba(168,201,160,.2); margin-top: 44px; padding-top: 22px;
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  font-size: 12px; color: rgba(245,240,232,.72);
+  font-size: 0.75rem; color: rgba(245,240,232,.72);
 }
 .footer-bottom .values { letter-spacing: 2px; color: var(--sage); }
   @media (max-width: 1024px) {
@@ -191,11 +191,11 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   .header { margin-bottom: 28px; }
   .header-top { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; }
   .brand { display: flex; align-items: center; gap: 12px; }
-  .logo { width: 40px; height: 40px; border-radius: 8px; background: var(--d3); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 500; font-size: 14px; flex-shrink: 0; }
-  .brand-text h1 { font-size: 20px; font-weight: 500; color: var(--text); }
-  .brand-text p { font-size: 12px; color: var(--text-2); }
-  .header-meta { font-size: 12px; color: var(--text-3); text-align: right; }
-  .notice { margin-top: 8px; font-size: 11px; color: var(--text-3); background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 6px; padding: 6px 12px; display: inline-block; }
+  .logo { width: 40px; height: 40px; border-radius: 8px; background: var(--d3); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 500; font-size: 0.875rem; flex-shrink: 0; }
+  .brand-text h1 { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+  .brand-text p { font-size: 0.75rem; color: var(--text-2); }
+  .header-meta { font-size: 0.75rem; color: var(--text-3); text-align: right; }
+  .notice { margin-top: 8px; font-size: 0.6875rem; color: var(--text-3); background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 6px; padding: 6px 12px; display: inline-block; }
 
 
 
@@ -203,9 +203,9 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
   .kpi { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 22px 22px 20px; transition: transform .18s, box-shadow .18s; }
   .kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(44,61,39,.08); }
-  .kpi-label { font-size: 11px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-  .kpi-value { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; line-height: 1; }
-  .kpi-sub { font-size: 11.5px; color: var(--text-3); margin-top: 6px; }
+  .kpi-label { font-size: 0.6875rem; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .kpi-value { font-family: 'Cormorant Garamond', serif; font-size: 2.125rem; font-weight: 500; line-height: 1; }
+  .kpi-sub { font-size: 0.71875rem; color: var(--text-3); margin-top: 6px; }
   .kpi.highlight { background: var(--d3-flaeche); border-color: var(--d3); }
   .kpi.highlight .kpi-value { color: var(--d3); }
   .kpi.warn { background: var(--d2-flaeche); border-color: var(--d2); }
@@ -217,7 +217,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
   /* Section */
   .section { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
-  .section-title { font-size: 13px; font-weight: 500; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .section-title { font-size: 0.8125rem; font-weight: 500; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
 
   /* Two-col layout */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -225,30 +225,30 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
 
   /* Threat bar */
   .threat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .threat-name { width: 220px; font-size: 13px; flex-shrink: 0; }
-  .threat-name .sub { font-size: 11px; color: var(--text-3); }
+  .threat-name { width: 220px; font-size: 0.8125rem; flex-shrink: 0; }
+  .threat-name .sub { font-size: 0.6875rem; color: var(--text-3); }
   .threat-bar-wrap { flex: 1; height: 28px; background: var(--lz-cream-2); border-radius: 4px; overflow: hidden; }
-  .threat-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; font-weight: 500; transition: width 0.5s ease; }
-  .threat-score { width: 30px; font-size: 13px; font-weight: 500; text-align: right; flex-shrink: 0; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+  .threat-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 0.6875rem; font-weight: 500; transition: width 0.5s ease; }
+  .threat-score { width: 30px; font-size: 0.8125rem; font-weight: 500; text-align: right; flex-shrink: 0; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.625rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
   .badge-hoch { background: var(--d4-flaeche); color: var(--d4); }
   .badge-mittel { background: var(--d2-flaeche); color: var(--d2); }
   .badge-niedrig { background: var(--d6-flaeche); color: var(--d6); }
 
   /* Presence matrix */
   .matrix-wrap { overflow-x: auto; }
-  .matrix { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .matrix th { font-size: 11px; font-weight: 500; color: var(--text-2); text-align: center; padding: 6px 8px; border-bottom: 0.5px solid var(--line-ui); background: var(--lz-cream-2); white-space: nowrap; }
+  .matrix { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+  .matrix th { font-size: 0.6875rem; font-weight: 500; color: var(--text-2); text-align: center; padding: 6px 8px; border-bottom: 0.5px solid var(--line-ui); background: var(--lz-cream-2); white-space: nowrap; }
   .matrix th.left { text-align: left; min-width: 180px; }
   .matrix td { text-align: center; padding: 7px 8px; border-bottom: 0.5px solid var(--line); vertical-align: middle; }
-  .matrix td.name { text-align: left; font-size: 12px; padding-left: 4px; }
-  .matrix td.name .sub { font-size: 10px; color: var(--text-3); }
+  .matrix td.name { text-align: left; font-size: 0.75rem; padding-left: 4px; }
+  .matrix td.name .sub { font-size: 0.625rem; color: var(--text-3); }
   .matrix tr:last-child td { border-bottom: none; }
   .matrix tr:hover td { background: var(--lz-cream-2); }
-  .pres-full { width: 22px; height: 22px; border-radius: 50%; background: var(--d3); display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; }
-  .pres-part { width: 22px; height: 22px; border-radius: 50%; background: var(--d2-flaeche); border: 1.5px solid var(--d2); display: inline-flex; align-items: center; justify-content: center; color: var(--d2); font-size: 10px; }
-  .pres-none { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 10px; }
-  .intensity-cell { font-size: 11px; font-weight: 500; }
+  .pres-full { width: 22px; height: 22px; border-radius: 50%; background: var(--d3); display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 0.625rem; }
+  .pres-part { width: 22px; height: 22px; border-radius: 50%; background: var(--d2-flaeche); border: 1.5px solid var(--d2); display: inline-flex; align-items: center; justify-content: center; color: var(--d2); font-size: 0.625rem; }
+  .pres-none { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 0.625rem; }
+  .intensity-cell { font-size: 0.6875rem; font-weight: 500; }
 
   /* Competitor cards */
   .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
@@ -258,45 +258,45 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
   .comp-card.mittel { border-left: 3px solid var(--d2); }
   .comp-card.niedrig { border-left: 3px solid var(--d6); }
   .comp-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
-  .comp-name { font-size: 13px; font-weight: 500; }
-  .comp-type { font-size: 10px; color: var(--text-3); margin-top: 2px; }
-  .comp-body { font-size: 12px; color: var(--text-2); line-height: 1.5; }
-  .comp-tag { display: inline-block; background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 4px; padding: 2px 6px; font-size: 10px; color: var(--text-2); margin: 2px 2px 0 0; }
+  .comp-name { font-size: 0.8125rem; font-weight: 500; }
+  .comp-type { font-size: 0.625rem; color: var(--text-3); margin-top: 2px; }
+  .comp-body { font-size: 0.75rem; color: var(--text-2); line-height: 1.5; }
+  .comp-tag { display: inline-block; background: var(--lz-cream-2); border: 0.5px solid var(--line); border-radius: 4px; padding: 2px 6px; font-size: 0.625rem; color: var(--text-2); margin: 2px 2px 0 0; }
   .comp-strengths { margin-top: 8px; }
-  .comp-strengths p { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .comp-strengths p { font-size: 0.625rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
 
   /* Benchmark */
   .bench-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .bench-label { width: 200px; font-size: 12px; flex-shrink: 0; }
+  .bench-label { width: 200px; font-size: 0.75rem; flex-shrink: 0; }
   .bench-bars { flex: 1; }
   .bench-bar-group { display: flex; flex-direction: column; gap: 3px; }
   .bench-bar-row { display: flex; align-items: center; gap: 6px; }
-  .bench-bar-label { width: 70px; font-size: 10px; color: var(--text-2); text-align: right; flex-shrink: 0; }
+  .bench-bar-label { width: 70px; font-size: 0.625rem; color: var(--text-2); text-align: right; flex-shrink: 0; }
   .bench-bar-wrap { flex: 1; height: 16px; background: var(--lz-cream-2); border-radius: 3px; overflow: hidden; }
   .bench-bar { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-right: 6px; justify-content: flex-end; }
-  .bench-val { font-size: 10px; font-weight: 500; white-space: nowrap; }
+  .bench-val { font-size: 0.625rem; font-weight: 500; white-space: nowrap; }
   .bar-lz { background: var(--d3); }
   .bar-ind { background: var(--line-ui); }
-  .delta { font-size: 11px; font-weight: 500; width: 56px; text-align: right; flex-shrink: 0; }
+  .delta { font-size: 0.6875rem; font-weight: 500; width: 56px; text-align: right; flex-shrink: 0; }
   .delta.pos { color: var(--d3); }
   .delta.neg { color: var(--d4); }
   .delta.warn { color: var(--d2); }
 
   /* Legend */
   .legend { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
-  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-2); }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.6875rem; color: var(--text-2); }
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
   /* Standort detail */
   .standort-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
   .standort-card { background: var(--lz-white); border: 0.5px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
-  .standort-name { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
-  .standort-sub { font-size: 11px; color: var(--text-3); margin-bottom: 12px; }
+  .standort-name { font-size: 0.875rem; font-weight: 500; margin-bottom: 3px; }
+  .standort-sub { font-size: 0.6875rem; color: var(--text-3); margin-bottom: 12px; }
   .standort-stat { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 0.5px solid var(--line); }
   .standort-stat:last-child { border-bottom: none; }
-  .stat-label { font-size: 11px; color: var(--text-2); }
-  .stat-val { font-size: 13px; font-weight: 500; }
-  .profit { color: var(--d4); font-size: 10px; margin-left: 4px; }
+  .stat-label { font-size: 0.6875rem; color: var(--text-2); }
+  .stat-val { font-size: 0.8125rem; font-weight: 500; }
+  .profit { color: var(--d4); font-size: 0.625rem; margin-left: 4px; }
   .profit.ok { color: var(--d3); }
 
   /* Intensity dots */
@@ -492,7 +492,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <div class="legend-item"><div class="legend-dot" style="background:#6B5BD6; border-radius:50%;"></div> Digital / Plattform (1) · Careship, Pflegefinder</div>
             <div class="legend-item"><div class="legend-dot" style="background:#888780; border-radius:50%;"></div> Konzern / Stationär (1) · Vitanas, Korian</div>
           </div>
-          <div style="margin-top: 12px; font-size: 12px; color: var(--text-2); max-width: 320px; line-height: 1.6;">
+          <div style="margin-top: 12px; font-size: 0.75rem; color: var(--text-2); max-width: 320px; line-height: 1.6;">
             <!-- Zaehlung gegen die Datenreihe geprueft: das Wettbewerber-Array fuehrt 10 Eintraege
                  (6 freigemeinnuetzig, je 1 privat, inoffiziell, digital, Konzern) — LebensZeit selbst
                  ist darin nicht enthalten. Die Legende darueber summiert sich ebenfalls auf 10.
@@ -515,13 +515,13 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       <div class="section-title">Geografische Präsenz aller Wettbewerber</div>
       <div class="legend" style="margin-bottom: 14px;">
         <div class="legend-item">
-          <div style="width:18px;height:18px;border-radius:50%;background:var(--d3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;flex-shrink:0;">✓</div> Vollpräsenz
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--d3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.5625rem;flex-shrink:0;">✓</div> Vollpräsenz
         </div>
         <div class="legend-item">
-          <div style="width:18px;height:18px;border-radius:50%;background:var(--d2-flaeche);border:1.5px solid var(--d2);display:flex;align-items:center;justify-content:center;color:var(--d2);font-size:9px;flex-shrink:0;">~</div> Teilpräsenz
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--d2-flaeche);border:1.5px solid var(--d2);display:flex;align-items:center;justify-content:center;color:var(--d2);font-size:0.5625rem;flex-shrink:0;">~</div> Teilpräsenz
         </div>
         <div class="legend-item">
-          <div style="width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:9px;flex-shrink:0;">–</div> Nicht vertreten
+          <div style="width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:0.5625rem;flex-shrink:0;">–</div> Nicht vertreten
         </div>
       </div>
       <div class="matrix-wrap">
@@ -541,7 +541,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
           <tbody id="matrix-body"></tbody>
           <tfoot>
             <tr style="background: var(--lz-cream-2);">
-              <td class="name" style="font-weight:500; font-size:11px; color: var(--text-2);">Wettbewerber mit Präsenz</td>
+              <td class="name" style="font-weight:500; font-size:0.6875rem; color: var(--text-2);">Wettbewerber mit Präsenz</td>
               <td></td>
               <td class="intensity-cell" style="color: var(--d4);">8</td>
               <td class="intensity-cell" style="color: var(--d4);">8–9</td>
@@ -559,20 +559,20 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       <div class="section-title">Strategische Implikationen aus der Präsenzanalyse</div>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;">
         <div style="padding: 12px; background: var(--d6-flaeche); border-radius: 8px; border: 0.5px solid var(--d6);">
-          <div style="font-size: 11px; font-weight: 500; color: var(--d6); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Alleinstellung</div>
-          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Rüthen: Nur Caritas + Graumarkt als Hauptkonkurrenten. Trotz Defizit beste strukturelle Ausgangsposition für Marktführerschaft.</div>
+          <div style="font-size: 0.6875rem; font-weight: 500; color: var(--d6); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Alleinstellung</div>
+          <div style="font-size: 0.75rem; color: var(--text); line-height: 1.5;">Rüthen: Nur Caritas + Graumarkt als Hauptkonkurrenten. Trotz Defizit beste strukturelle Ausgangsposition für Marktführerschaft.</div>
         </div>
         <div style="padding: 12px; background: var(--d4-flaeche); border-radius: 8px; border: 0.5px solid var(--d4);">
-          <div style="font-size: 11px; font-weight: 500; color: var(--d4); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Härtester Wettbewerb</div>
-          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Erwitte & Bad Sassendorf: 8–9 Wettbewerber aktiv. Kundenbindung durch Servicequalität und Ehrenamtsnetz kritisch wichtig.</div>
+          <div style="font-size: 0.6875rem; font-weight: 500; color: var(--d4); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Härtester Wettbewerb</div>
+          <div style="font-size: 0.75rem; color: var(--text); line-height: 1.5;">Erwitte & Bad Sassendorf: 8–9 Wettbewerber aktiv. Kundenbindung durch Servicequalität und Ehrenamtsnetz kritisch wichtig.</div>
         </div>
         <div style="padding: 12px; background: var(--d2-flaeche); border-radius: 8px; border: 0.5px solid var(--d2);">
-          <div style="font-size: 11px; font-weight: 500; color: var(--d2); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Graumarkt-Gefahr</div>
-          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Einziger Wettbewerber mit Vollpräsenz in allen 5 Standorten neben Caritas. Besonders bei Pflegegrad 3–5 direkter Preiskonkurrent.</div>
+          <div style="font-size: 0.6875rem; font-weight: 500; color: var(--d2); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Graumarkt-Gefahr</div>
+          <div style="font-size: 0.75rem; color: var(--text); line-height: 1.5;">Einziger Wettbewerber mit Vollpräsenz in allen 5 Standorten neben Caritas. Besonders bei Pflegegrad 3–5 direkter Preiskonkurrent.</div>
         </div>
         <div style="padding: 12px; background: var(--d1-flaeche); border-radius: 8px; border: 0.5px solid var(--d1);">
-          <div style="font-size: 11px; font-weight: 500; color: var(--d1); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Digitale Flanke</div>
-          <div style="font-size: 12px; color: var(--text); line-height: 1.5;">Careship/Plattformen aktuell nur in Erwitte + Bad Sassendorf. Zeitfenster für eigene digitale Angebote in Randgemeinden nutzen.</div>
+          <div style="font-size: 0.6875rem; font-weight: 500; color: var(--d1); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Digitale Flanke</div>
+          <div style="font-size: 0.75rem; color: var(--text); line-height: 1.5;">Careship/Plattformen aktuell nur in Erwitte + Bad Sassendorf. Zeitfenster für eigene digitale Angebote in Randgemeinden nutzen.</div>
         </div>
       </div>
     </div>
@@ -625,7 +625,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
             <div class="legend-item"><div class="legend-dot" style="background:#B87A15;"></div> Diakonie Sozialstation</div>
             <div class="legend-item"><div class="legend-dot" style="background:#888780;"></div> 24h / Graumarkt</div>
           </div>
-          <div style="font-size: 11px; color: var(--text-2); line-height: 1.7; max-width: 280px;">
+          <div style="font-size: 0.6875rem; color: var(--text-2); line-height: 1.7; max-width: 280px;">
             <strong style="font-weight: 500;">Bewertungsdimensionen</strong><br>
             Flächendeckung · Markenbekanntheit · Digitalisierung · Preisattraktivität · Fachkräftebasis · Finanzstärke<br><br>
             Skala: 1 (schwach) – 10 (sehr stark)<br>
@@ -693,7 +693,7 @@ footer.site .logo-lockup { color: var(--mint); margin-bottom: 18px; }
       <div class="chart-wrap" style="height: 240px;">
         <canvas id="growthChart" role="img" aria-label="Balkendiagramm: Marktanteil LebensZeit und verbleibendes Potenzial je Standort">Marktanteil LebensZeit vs. verbleibendes Potenzial je Standort.</canvas>
       </div>
-      <div style="margin-top: 12px; font-size: 12px; color: var(--text-2); line-height: 1.6;">
+      <div style="margin-top: 12px; font-size: 0.75rem; color: var(--text-2); line-height: 1.6;">
         LebensZeit deckt aktuell ~4,5 % der geschätzten 3.995 Pflegebedürftigen in den 5 Standortgemeinden ab.
         Das adressierbare Potenzial für einen flächendeckenden Marktführer liegt bei ~3,0 Mio. €/Jahr.
         Derzeit werden davon ca. 2,1 Mio. € realisiert – <strong style="font-weight:500; color: var(--d3);">Eigenfinanzierungsanteil muss von 62 % auf 70 % steigen</strong>.
@@ -786,7 +786,7 @@ function renderThreatBars() {
       </div>
       <div class="threat-bar-wrap">
         <div class="threat-bar" style="width:${c.threat*10}%; background:${threatColors[c.level]};">
-          <span style="color:#fff; font-size:11px;">${c.threat}/10</span>
+          <span style="color:#fff; font-size:0.6875rem;">${c.threat}/10</span>
         </div>
       </div>
       <span class="badge badge-${c.level === 'hoch' ? 'hoch' : c.level === 'niedrig' ? 'niedrig' : 'mittel'}">${c.level.toUpperCase()}</span>
@@ -806,7 +806,7 @@ function renderMatrix() {
       </td>
       <td><span class="badge badge-${c.level === 'hoch' ? 'hoch' : c.level === 'niedrig' ? 'niedrig' : 'mittel'}">${c.level.toUpperCase()}</span></td>
       ${c.presence.map(p => `<td>${presMap[p]}</td>`).join('')}
-      <td style="font-size:11px; color: ${levelColors[c.level]}; font-weight:500;">${c.threat}/10</td>
+      <td style="font-size:0.6875rem; color: ${levelColors[c.level]}; font-weight:500;">${c.threat}/10</td>
     </tr>
   `).join('');
 }
@@ -829,7 +829,7 @@ function renderCompCards() {
         <p>Stärken</p>
         ${c.strengths.map(s => `<span class="comp-tag">${s}</span>`).join('')}
       </div>
-      <div style="margin-top:8px; font-size:11px; color: var(--text-3);">Schwäche: ${c.weaknesses.slice(0,80)}${c.weaknesses.length>80?'…':''}</div>
+      <div style="margin-top:8px; font-size:0.6875rem; color: var(--text-3);">Schwäche: ${c.weaknesses.slice(0,80)}${c.weaknesses.length>80?'…':''}</div>
     </div>
   `).join('');
 }
@@ -865,7 +865,7 @@ function renderStandortCards() {
         <span class="stat-label">Wettb.-Intensität</span>
         <span class="stat-val" style="color: ${intensityPerLoc[i]>=7 ? 'var(--d4)' : intensityPerLoc[i]>=4 ? 'var(--d2)' : 'var(--d6)'};">${intensityPerLoc[i]}/10</span>
       </div>
-      ${s.status==='warn' ? '<div style="margin-top:8px; font-size:10px; background: var(--d2-flaeche); color: var(--d2); border-radius:4px; padding: 4px 8px; font-weight:500;">Nicht kostendeckend</div>' : ''}
+      ${s.status==='warn' ? '<div style="margin-top:8px; font-size:0.625rem; background: var(--d2-flaeche); color: var(--d2); border-radius:4px; padding: 4px 8px; font-weight:500;">Nicht kostendeckend</div>' : ''}
     </div>
   `).join('');
 }
@@ -919,6 +919,25 @@ renderBenchRows();
 const isDark = false; // Investorenumgebung ist dauerhaft hell
 const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)';
 const labelColor = isDark ? '#b4b2a9' : '#5f5e5a';
+
+/* Chart.js kommt von einem externen CDN. Fehlt es (Netzsperre, Offline-Vorschau,
+   CDN-Ausfall), warf der erste new Chart(...) einen ReferenceError und riss den
+   REST dieses Skriptblocks mit — auch die Diagramme, die danach kommen. Sichtbar
+   blieben leere Flächen ohne Hinweis. Dieselbe stille Art Fehler wie die
+   Leaflet-Karte im Cockpit und wie der UTF-8-Fall im Prompt-Tagebuch: „KI- und
+   Fremdergebnisse sind Entwürfe, keine Lieferungen." Deshalb ein Hinweis in
+   jedem Diagrammrahmen statt eines abgebrochenen Skripts. */
+if (typeof Chart === 'undefined') {
+  document.querySelectorAll('.chart-wrap, canvas').forEach(function (el) {
+    var host = el.tagName === 'CANVAS' ? (el.parentElement || el) : el;
+    if (host.dataset.lzChartHinweis) return;
+    host.dataset.lzChartHinweis = '1';
+    host.innerHTML = '<div style="padding:20px;text-align:center;font-size:0.8125rem;' +
+      'color:var(--text-2);border:0.5px dashed var(--border);border-radius:var(--radius)">' +
+      'Diagrammbibliothek nicht geladen (Chart.js, externes CDN).<br>' +
+      'Die Tabellen und Kennzahlen auf dieser Seite sind davon nicht betroffen.</div>';
+  });
+} else {
 
 new Chart(document.getElementById('intensityChart'), {
   type: 'bar',
@@ -1047,6 +1066,8 @@ new Chart(document.getElementById('growthChart'), {
     }
   }
 });
+
+} /* Ende else-Zweig der Chart.js-Prüfung oben */
 </script>
 <footer class="site">
   <div class="wrap">
@@ -1088,7 +1109,6 @@ new Chart(document.getElementById('growthChart'), {
           <li><a href='/karriere'>Karriere</a></li>
           <li><a href='/cockpit'>Betriebs-Cockpit</a></li>
           <li><a href='/kundenportal'>Kundenportal</a></li>
-          <li><a href='/kunden-app'>Kunden-App</a></li>
         </ul>
       </div>
 

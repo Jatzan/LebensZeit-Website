@@ -56,6 +56,23 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+/* Leaflet kommt von einem externen CDN (unpkg). Fehlt es — Netzsperre, Offline,
+   CDN-Ausfall —, warf die erste Zeile einen ReferenceError und der ganze Block
+   brach ab: zurueck blieb eine leere Flaeche ohne jeden Hinweis. Diese Datei
+   liegt als iframe in einzugsgebiet.html, der Fehler war dort also unsichtbar
+   im Rahmen versteckt. Dieselbe stille Art Fehler wie beim Cockpit-Kartenmodul
+   und beim Wettbewerbsdashboard, deshalb dieselbe Loesung: sichtbarer Hinweis
+   statt abgebrochenem Skript. Die Legende darunter bleibt lesbar. */
+if (typeof L === 'undefined') {
+  var mapEl = document.getElementById('map');
+  if (mapEl) {
+    mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;' +
+      'height:100%;padding:24px;text-align:center;font-size:0.88rem;line-height:1.5;' +
+      'color:#5f5e5a;background:#F5F0E8">Kartenbibliothek nicht geladen ' +
+      '(Leaflet, externes CDN).<br>Die Standortliste im Einzugsgebiet ist davon nicht betroffen.</div>';
+  }
+} else {
+
 const map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([51.575, 8.29], 11);
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -137,6 +154,8 @@ locations.forEach(loc => {
 });
 
 setTimeout(() => map.invalidateSize(), 300);
+
+} /* Ende else-Zweig der Leaflet-Pruefung oben */
 </script>
 
 </body>

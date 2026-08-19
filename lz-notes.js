@@ -583,6 +583,38 @@
       title: "Folien passen sich in den Rahmen ein statt zu scrollen",
       text: "Gemessen: bei 1920x1080 passte alles, bei 1440x900 waren acht und bei 1280x800 elf Folien zu hoch (Folie 3 um 201 px, Folie 12 um 192 px). Eine Präsentation wird nicht gescrollt, deshalb verkleinert fitSlide() den Folieninhalt über die Eigenschaft --fit. Zwei Messwege waren nachweislich falsch: scrollHeight des Rahmens ändert sich unter zoom überhaupt nicht, und getBoundingClientRect des gezoomten Elements liefert seine Größe im eigenen, noch nicht skalierten Raum (Chrome 141: zoom 0.5 gesetzt, Rechteckhöhe unverändert 861 px). Richtig ist Rechteckhöhe MAL Zoomfaktor. Ergebnis: 1024x768 bis 1920x1080 ohne Überhang. Am Telefon wird bewusst NICHT eingepasst — dort bräuchten fast alle Folien den Anschlag 0,68 und wären unlesbar, Scrollen ist die richtige Bedienung. Korrekturhinweise sind eingeklappte <details>; beim Aufklappen wird neu eingepasst." },
 
+    { id: "n-done-invest-rem", page: "*", selector: "main", status: "auszubauen", done: true,
+      title: "Investorenseiten: 370 Schriftgrößen von px auf rem",
+      text: "BEHOBEN 13.08.2026. Der Hinweis stimmte zur Hälfte. Falsch war „keine env-invest-Klasse gesetzt\": alle sieben Investorenseiten tragen <body class=\"env-invest inv-theme\">, geprüft. Richtig waren die festen Pixelwerte: 370 font-size-Angaben in px, 42 bis 70 je Datei. Feste Pixel ignorieren die Schriftgrößeneinstellung des Browsers — genau das, was das rem-System verhindern soll. Umgestellt mit dem Faktor 1/16. Nachgewiesen pixelgleich: die berechnete Schriftgröße aller 2.502 Elemente der sieben Seiten wurde vor und nach der Umstellung verglichen, null Abweichungen. Dabei aufgefallen und korrigiert: 11,5px und 13,5px brauchen fünf Nachkommastellen (0.71875rem, 0.84375rem) — auf vier gerundet ergaben sich 11,5008px, sichtbar nur im Messwert, aber vermeidbar. Wirkungsnachweis: bei einer Wurzelgröße von 20px wächst die Summe der Schriftgrößen auf /investoren-swot von 4.699 auf 5.063 px, vorher blieb sie unverändert. Keine Überbreite bei 1440 und 390 px, keine Skriptfehler. NICHT angefasst: 148 der 370 Werte liegen unter der Projektuntergrenze von 0.80rem (12,8px, in lz-tokens.css als „absolute Untergrenze\" bezeichnet) — 69-mal 12px, 36-mal 11px, 18-mal 10px, 17-mal 9px, 8-mal 11,5px. Das Anheben ist eine sichtbare Gestaltungsentscheidung: 9px auf 12,8px sind 42 Prozent mehr, und ein pauschales Anheben würde die Abstufung innerhalb dieses Bandes einebnen (9, 10, 11, 11,5 und 12 px fielen auf einen Wert zusammen). Braucht eine Entscheidung, siehe n-invest-schriftuntergrenze." },
+
+    { id: "n-invest-schriftuntergrenze", page: "*", selector: "main", status: "offen",
+      title: "148 Schriftgrößen unter der eigenen Untergrenze 0.80rem",
+      text: "Auf den sieben Investorenseiten liegen 148 von 370 Schriftgrößen unter 0.80rem, das lz-tokens.css selbst als absolute Untergrenze führt: 69-mal 0.75rem, 36-mal 0.6875rem, 18-mal 0.625rem, 17-mal 0.5625rem, 8-mal 0.71875rem. Betroffen sind vor allem Tabellenköpfe, Eyebrows, Chip-Beschriftungen und die Präsenzmatrix. Zwei Wege: (a) alles unterhalb der Grenze auf 0.80rem heben — regelkonform, aber die Abstufung im kleinen Band verschwindet und die Matrix wird breiter, sie scrollt dort ohnehin schon; (b) das Band gestaffelt anheben, etwa 0.5625/0.625 auf 0.80 und 0.6875/0.71875/0.75 auf 0.84, dann bleibt eine Abstufung erhalten, aber es entstehen zwei Werte ausserhalb der Tokenleiter. Entscheidung offen." },
+
+    { id: "n-done-app-zugang-portal", page: "kundenportal", selector: "main", status: "auszubauen", done: true,
+      title: "Kunden-App nur noch über das Kundenportal erreichbar",
+      text: "BEHOBEN 13.08.2026. Der Direktlink „Kunden-App\" stand in der Fusszeilen-Spalte „Zugänge\" auf 22 Seiten und damit gleichrangig neben Investoren, Partner, Karriere, Cockpit und Kundenportal — die App ist aber kein eigener Zugang, sondern eine Darstellungsform des Portals. Auf allen 22 Seiten entfernt. Der Weg führt jetzt ausschliesslich über /kundenportal. Der dortige Verweis stand als graue Beizeile („Lieber als App?\") ÜBER dem Anmeldeformular und wäre als einziger Einstieg zu unauffällig gewesen; er sitzt jetzt unter dem Anmeldeknopf als eigener Block „Separater Zugang\" mit Trennlinie, unterstrichenem Verweis und einer Zeile Erklärung. Bewusst ausserhalb des Anmeldevorgangs: ein zweiter Weg, keine Auswahl im Formular." },
+
+    { id: "n-done-cockpit-alt-logofarbe", page: "cockpit", selector: "#side", status: "auszubauen", done: true,
+      title: "Alt-Modus: Logofarbe tokenbasiert und regelkonform",
+      text: "BEHOBEN 13.08.2026. render() setzte die Logofarbe im Altsystem-Modus hart auf #5a6e52 (Waldgrün) — der einzige harte Hexwert in der Logoausgabe. Waldgrün ist laut Logo-Farbregel die Farbe für warme Beige- und Cremeflächen. Die Seitenleiste des Altmodus ist aber #f4f4f4, gemessen rgb(244,244,244), also hell und neutral, und dort gilt Originalgrün. Der ursprüngliche Hinweis vermutete einen dunklen Hintergrund — das trifft nur auf den neuen Modus zu (#111813), der bereits korrekt var(--accent), also Salbeigrün, verwendet. Jetzt var(--lz-green) im Alt- und var(--accent) im Neumodus, beide aus dem Tokensystem. Nachgerechnet ist Originalgrün auch der bessere Wert: 5,77:1 gegen 5,04:1 auf #f4f4f4. Der biedere Eindruck des Altmodus hängt an Tahoma, der grauen Rahmung und der gedämpften Wortmarke (#444) — dafür muss das Logo nicht gegen die eigene Farbregel verstossen. Geprüft durch Umschalten: Neumodus rgb(138,172,133), Altmodus rgb(74,103,65)." },
+
+    { id: "n-done-fiktiv-banner-vollstaendig", page: "*", selector: "main", status: "auszubauen", done: true,
+      title: "Fiktiv-Banner: Bestandsaufnahme und letzte Lücke geschlossen",
+      text: "GEPRÜFT 13.08.2026. Der Hinweis, der Balken fehle auf kundenportal.html, notizen.html und website-status.html, ist überholt: er steht dort nicht im Markup, wird aber von ensureBar() in lz-notes.js eingefügt — im Browser gemessen liegt auf allen drei Seiten genau ein .fiktiv-bar, mit korrekt gesetztem --tick-h. Ebenso überholt der Hinweis, der Cockpit-Balken habe keine Verlinkung: der Balkentext IST der Auslöser, upgradeBar() macht daraus einen <button>, der das Planspiel-Menü öffnet. Ein <a href> wäre hier auch falsch — der Balken öffnet ein Menü, die Verweise stehen darin. Tatsächlich offen war eine andere Seite: typo-vergleich.html trug als einzige Datei der Auslieferung überhaupt keinen Fiktiv-Hinweis, weder Balken noch Fusszeilentext, und ist über ihre Adresse erreichbar, obwohl von nirgends verlinkt. lz-notes.js dort nachgetragen. Bewusst NICHT nachgetragen in standortkarte.html: die liegt als iframe in einzugsgebiet.html, die Elternseite trägt den Balken, ein zweiter im Rahmen wäre doppelt. Ebenfalls nicht angefasst app.html und app-demo.html — Zwei-Sperren-Regel, Änderungen dort brauchen Freigabe. Befund dazu: app-demo.html enthält KEINEN Fiktiv-Hinweis, kunden-app.html dagegen einen eigenen im App-Design. Dabei gefunden und behoben: standortkarte.html hatte keine Ausfallsicherung für Leaflet — fehlte das CDN, brach das Skript in der ersten Zeile ab und im iframe blieb eine leere Fläche ohne Hinweis, von aussen unsichtbar. Jetzt Hinweis statt Abbruch, wie im Cockpit und beim Wettbewerbsdashboard." },
+
+    { id: "n-done-pillmenue-vorbelegung", page: "*", selector: "main", status: "auszubauen", done: true,
+      title: "Pillmenü: Erststart mit To-Do's und Quellen ein, Fussgruppen ergänzt",
+      text: "BEHOBEN 13.08.2026. Vier Befunde am Planspiel-Menü. Erstens die Vorbelegung: beide Schalter lasen ihren Zustand mit getItem(...) === \"1\", und ein fehlender Schlüssel liefert null — beim ersten Besuch war also alles aus, und wer die Seite nicht kannte, fand weder Pins noch Belege. Jetzt wird zwischen „noch nie entschieden\" (null → ein, und gleich festgeschrieben) und „bewusst ausgeschaltet\" (\"0\" → bleibt aus) unterschieden; ohne Speicher gilt ebenfalls ein. Zweitens die Darstellung: in lz-quellen.js lief mountToggle() VOR dem Laden des Zustands und rief syncLabel() mit on === false — die Lampe stand auf Rot, der Zähler auf 0, während die Belege sichtbar waren. Der Fehler traf schon vorher jeden, der die Belege eingeschaltet und neu geladen hat; mit der neuen Vorbelegung fiel er nur endlich auf. Reihenfolge umgestellt, syncLabel() nach dem Aufbau. Drittens der Zähler selbst: gezählt wurden Registry-Treffer, nicht tatsächlich platzierbare Belege — auf /praesentation meldete der Schalter „3\", obwohl die drei Sammeleinträge (page \"*\") auf .logo-lockup, header.site und footer.site zeigen und keines davon auf der Bühne existiert. Gezählt wird jetzt, was auch erscheinen kann. Viertens neu: unten im Menü stehen „Präsentationen · Sprint 1\" (führt auf /praesentation) und „Wissensbasis · Confluence\" (Raum LZ, extern, mit sichtbarem Hinweis „extern · Login\" im Knopf statt im title — ein title erscheint erst nach Verweilen und am Telefon nie). Beide werden von ensureMenuFooter() ergänzt, nicht 21-mal im Markup: das Menü steht auf 21 Seiten inline und wird auf den übrigen von menuHTML() erzeugt, ein Codeweg deckt beide ab. Der Quellenschalter hängt sich dafür jetzt direkt hinter den To-Do-Schalter statt ans Menüende, sonst wäre die Menüfolge von der Ladereihenfolge der beiden Skripte abhängig gewesen. Das Menü ist damit auf 699 px gewachsen und stiess auf 375x667 unten aus dem Bild — es hängt absolut in einer fixierten Leiste und konnte nicht mitscrollen; jetzt begrenzt auf die Resthöhe unter dem Warnbalken mit eigenem Scrollen." },
+
+    { id: "n-done-wettbewerb-kopf-fuss", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
+      title: "Kopfzeile randlos, Fußzeile wieder mehrspaltig",
+      text: "BEHOBEN 13.08.2026. Zwei getrennte Ursachen, beide beim Übernehmen der Kopf- und Fußzeile aus den übrigen Investorenseiten entstanden. Erstens stand direkt nach <body> ein <div class=\"page\"> ohne schließendes Gegenstück; .page trägt max-width und 32 px Seitenpolsterung und zwang damit Warnbalken, Kopfzeile UND Fußzeile in die Inhaltsbreite — auf jeder anderen Investorenseite sind das freistehende Elemente direkt unter <body>. Kein Skript greift auf .page zu, die Breitenbegrenzung besorgt ohnehin .wrap in jeder Sektion, deshalb ist der Wrapper ganz entfallen. Zweitens standen die beiden responsiven Regeln der Fußzeile (grid-template-columns 1fr 1fr sowie 1fr) ohne umgebende @media-Klammer im Stylesheet — die Einspalter-Regel galt dadurch immer, unabhängig von der Fensterbreite, und die Fußzeile stand auch am Desktop untereinander. Wieder in @media (max-width:1024px) und @media (max-width:520px) verpackt, wie in investoren-swot.html. Gemessen: Kopfzeile 0 bis Viewportbreite bei 1440, 900 und 480 px, Fußzeile 4 / 2 / 1 Spalten, kein Abstand mehr zum Warnbalken. Dabei gefunden: Chart.js hat keine Ausfallsicherung — fehlt das CDN, riss der erste new Chart(...) den ganzen Skriptblock mit und ALLE Diagramme blieben leer, ohne Hinweis. Jetzt steht ein Hinweis im Diagrammrahmen, analog zur Leaflet-Sicherung im Cockpit." },
+
+    { id: "n-done-praesentation-raender-text", page: "praesentation", selector: "main", status: "auszubauen", done: true,
+      title: "Ränder im Vollbild vergrößert, Folientext ausgedünnt",
+      text: "BEHOBEN 13.08.2026. Zwei Befunde. Erstens die Ränder: die Polsterung von .slide-inner lag im gezoomten Koordinatenraum, wurde aber NICHT durch --fit geteilt — bisher galt das nur für die Leistenhöhe unten. Aus 84 px Seitenrand wurden bei --fit 0,72 sichtbare 60 px, die Folie wirkte randlos. Jetzt werden alle drei Polsterungen durch --fit geteilt und bleiben damit in Gerätepixeln konstant; verkleinert wird ausschließlich der Inhalt. Zusätzlich hebt eine eigene Vollbildregel ab 1200 px die Ränder deutlich an: gemessen 134 px seitlich bei 1920x1080, 101 px bei 1440x900. Zweitens der Text: 94 Textstellen gekürzt — Aufzählungen von vier auf drei Punkte (Personas, SWOT), Nebensätze ohne eigene Aussage gestrichen, wiederholte Aufzählungen entfernt (die fünf Standortnamen stehen ohnehin in der Tabelle auf Folie 5). Alle Zahlen mit F/A/E/O-Kennzeichnung, die wortwörtlichen Prompts der Pflichtnachweise und die eingeklappten Korrekturhinweise blieben unangetastet. Wirkung zusammen: der Einpassungsfaktor liegt jetzt bei 0,86 bis 1,00 statt bis 0,68, bei 1920x1080 muss keine einzige Folie mehr verkleinert werden. Drittens dabei gefunden: Chrome bildet scrollHeight des Rahmens aus der UNskalierten Höhe des gezoomten Kindes — der Rahmen hielt sich für zu klein und ließ sich um bis zu 130 px in leeren Raum schieben, obwohl sichtbar nichts abgeschnitten war (Folie 12 bei 1024x768). Passt der Inhalt nachgemessen, steht der Rahmen jetzt auf overflow:clip. clip auf beiden Achsen ist nötig: mit overflow-x:hidden aus dem Stylesheet rechnet Chrome ein overflow-y:clip auf hidden zurück, und ein hidden-Rahmen bleibt ein Scrollcontainer. Die lineare Schätzung in fitSlide() ist außerdem einer Bisektion gewichen — sie setzte Proportionalität zwischen Sichthöhe und --fit voraus, die mit konstanten Rändern nicht mehr gilt, und ihr Sicherheitsnetz konnte auslaufen, ohne die Passung erreicht zu haben." },
+
     { id: "n-done-wettbewerb-mobil-raender", page: "investoren-wettbewerb", selector: "main", status: "offen", done: true,
       title: "Ränder des Wettbewerbs-Dashboards mobil behoben",
       text: "Befund: scrollWidth 500 px bei clientWidth 390 px. Weil eine einzige Überbreite den GESAMTEN Viewport aufweitet, stand die ganze Seite auf 500 px — jede Sektion lag danach bei left=20 w=350 statt left=0 w=390 und die Seite wirkte eingerückt mit Creme ringsum. Nicht die Präsenzmatrix war die Ursache (die scrollt korrekt), sondern die Kennzahlen-Reihe: per Ausblende-Test isoliert fiel die Seite ohne .bench-bars von 500 auf 394 px, ohne .delta auf 433 px. .bench-label 200 px und .delta 56 px sind flex-shrink:0, und .bench-bars ist als Flex-Element mit dem Vorgabewert min-width:auto nicht unter seine Inhaltsbreite komprimierbar — zusammen über 352 px Mindestbreite in einem 310-px-Kasten. Das Dashboard kam als Desktop-Tab-App und hatte außer der .two-col-Regel keine eigene Mobilregel. Nachgerüstet: Mobilblock ab 760 px, min-width:0 auf den Flex- und Grid-Elementen, canvas mit max-width:100 %, Matrix scrollt bewusst. Die letzten 4 px kamen von zwei .section in einer zu engen .two-col-Spur — ein <canvas> trägt eine eigene Pixelbreite als Eigenmaß und wirkt wie ein festes width. Geprüft mit einem Stub, der Chart.js' Größenverhalten nachbildet: scrollWidth == clientWidth bei 390, 768 und 1440 px." },
@@ -652,8 +684,19 @@
 
   /* ---------- 4. Toggle-Zustand (Pins ein/aus) ---------- */
   var TKEY = "lz-notes-visible";
+  /* Erststart-Vorbelegung: EIN. Bisher war der Schalter aus, solange nichts
+     gespeichert war (getItem lieferte null, null === "1" ist falsch) — wer die
+     Seite zum ersten Mal öffnete, sah weder Pins noch Belege und musste erst
+     das Planspiel-Menü finden. Unterschieden wird jetzt zwischen „noch nie
+     entschieden“ (null → ein, und gleich festgeschrieben) und „bewusst
+     ausgeschaltet“ ("0" → bleibt aus). Ohne Speicher (Vorschau, privater
+     Modus) gilt ebenfalls ein: dort gibt es keine Entscheidung zu erinnern. */
   function loadVisible() {
-    try { return window.localStorage.getItem(TKEY) === "1"; } catch (e) { return false; }
+    try {
+      var v = window.localStorage.getItem(TKEY);
+      if (v === null) { saveVisible(true); return true; }
+      return v === "1";
+    } catch (e) { return true; }
   }
   function saveVisible(v) {
     try { window.localStorage.setItem(TKEY, v ? "1" : "0"); } catch (e) {}
@@ -738,8 +781,19 @@
         "box-shadow:0 0 0 1px rgba(245,240,232,.55);}" +
       ".lz-lamp.is-on{background:var(--lz-sage,#8AAC85);}" +
       ".lz-lamp.is-off{background:#B03A2E;}" +
+      /* Untergruppen am Fuss des Menues: Praesentationen und Wissensbasis.
+         Der externe Verweis traegt seinen Hinweis im Knopf, nicht im title —
+         ein title erscheint erst nach Verweilen und am Telefon nie. */
+      ".fiktiv-menu a.lz-menu-ext{display:flex;align-items:center;justify-content:space-between;gap:10px;}" +
+      ".lz-ext-hint{font-size:0.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.72;white-space:nowrap;}" +
             ".fiktiv-marquee:focus-visible{outline:2px solid #fff;outline-offset:-3px;}" +
             ".fiktiv-menu{position:absolute;top:100%;left:16px;margin-top:10px;display:flex;flex-direction:column;gap:8px;background:rgba(30,32,26,0.96);backdrop-filter:blur(6px);border:1px solid rgba(168,201,160,.25);border-radius:16px;padding:14px;min-width:240px;box-shadow:0 18px 44px rgba(0,0,0,.32);animation:lzMenuIn .16s ease-out;}" +
+      /* Das Menue ist mit den Fussgruppen auf 699 px gewachsen und stiess damit
+         auf kleinen Telefonen (375x667) unten aus dem Bild. Es haengt absolut in
+         einer fixierten Leiste, konnte also auch nicht mitscrollen. Deshalb eine
+         Hoehenbegrenzung auf den Rest des Bildschirms unter dem Warnbalken und
+         eigenes Scrollen; overscroll-behavior haelt den Impuls im Menue. */
+      ".fiktiv-menu{max-height:calc(100vh - var(--tick-h, 2.375rem) - 24px);overflow-y:auto;overscroll-behavior:contain;}" +
       ".fiktiv-menu[hidden]{display:none;}" +
       ".fiktiv-menu-h{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage, #8AAC85);padding:2px 6px 4px;}" +
       ".fiktiv-menu a{display:block;color:var(--cream, #F5F0E8);background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:0.94rem;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
@@ -760,6 +814,46 @@
         '<div class="fiktiv-menu-sep"></div>' +
         '<button type="button" class="fiktiv-note-toggle" role="menuitem" id="lzNotesToggle" onclick="lzToggleNotes()"><span><svg class="lz-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="9" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>To-Do\'s</span><span class="lz-state"><span class="lz-lamp is-off" id="lzNotesLamp"></span><span id="lzNotesState">0</span></span></button>' +
       '</div>';
+  }
+
+  /* ---------- 6a2. Fussgruppen des Planspiel-Menues ----------
+     Ergänzt das Menü unten um „Sprint 1" (die Präsentation) und den Verweis in
+     die Wissensbasis. Bewusst hier und nicht 21-mal im Markup: das Menü steht
+     auf 21 Seiten inline und wird auf den übrigen von menuHTML() erzeugt — ein
+     Codeweg deckt beide Fälle ab und kann nicht auf einer Seite vergessen
+     werden. Idempotent über die IDs.
+     Das Confluence-Ziel ist der Raum LZ, in dem Kanon, Entscheidungslog und
+     Prompt-Tagebuch liegen. Es braucht eine Atlassian-Anmeldung, deshalb steht
+     „extern · Login" im Knopf: dieser Menüteil ist Planspiel-intern, das Team
+     hat den Zugang, aber niemand soll blind in eine Anmeldemaske klicken. */
+  var WIKI_LZ = "https://lebenszeit-ggmbh.atlassian.net/wiki/spaces/LZ";
+  function ensureMenuFooter() {
+    var menu = document.getElementById("fiktivMenu");
+    if (!menu || document.getElementById("lzMenuSprint1")) return !!menu;
+
+    function sep() { var d = document.createElement("div"); d.className = "fiktiv-menu-sep"; return d; }
+    function head(t) {
+      var s = document.createElement("span");
+      s.className = "fiktiv-menu-h"; s.textContent = t; return s;
+    }
+    menu.appendChild(sep());
+    menu.appendChild(head("Präsentationen"));
+    var a = document.createElement("a");
+    a.id = "lzMenuSprint1"; a.href = "/praesentation"; a.setAttribute("role", "menuitem");
+    a.textContent = "Sprint 1";
+    a.setAttribute("aria-label", "Sprint 1 — Investorenpitch als Präsentation");
+    menu.appendChild(a);
+
+    menu.appendChild(sep());
+    menu.appendChild(head("Wissensbasis"));
+    var w = document.createElement("a");
+    w.className = "lz-menu-ext"; w.href = WIKI_LZ;
+    w.target = "_blank"; w.rel = "noopener noreferrer";
+    w.setAttribute("role", "menuitem");
+    w.setAttribute("aria-label", "Confluence-Raum LebensZeit — öffnet extern, Anmeldung erforderlich");
+    w.innerHTML = "<span>Confluence</span><span class=\"lz-ext-hint\">extern · Login</span>";
+    menu.appendChild(w);
+    return true;
   }
 
   function bindBar() {
@@ -1022,6 +1116,13 @@
        Leiste einzufuegen. */
     if (upgradeBar() === "fehlt") ensureBar();
     upgradeToggle();
+    /* Das Menue kann von ensureBar() gerade erst erzeugt worden sein oder auf
+       Seiten mit spaeter nachgeladenem Markup noch fehlen — deshalb derselbe
+       Wiederholversuch wie beim Quellen-Schalter. */
+    if (!ensureMenuFooter()) {
+      var t = 0;
+      var iv = setInterval(function () { if (ensureMenuFooter() || ++t > 20) clearInterval(iv); }, 100);
+    }
     if (loadVisible()) document.body.classList.add("lz-notes-active");
     buildPins();
     watchTick();

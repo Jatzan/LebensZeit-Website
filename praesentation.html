@@ -61,17 +61,34 @@ body{
    der Text bricht im verkleinerten Zustand günstiger um.
    min-height wird durch --fit geteilt, damit die Fußzeile trotz Verkleinerung
    auf der Unterkante sitzt (Prozentwerte gelten vor dem Zoom). */
+/* Ränder als eigene Größen, damit der Vollbildmodus sie anheben kann.
+   ALLE drei werden durch --fit geteilt — das ist der Kern der Sache:
+   die Polsterung liegt im gezoomten Koordinatenraum, eine feste Angabe
+   schrumpft also mit dem Inhalt. Vorher galt das nur für die Leistenhöhe
+   unten, weshalb bei --fit 0,72 aus 84 px Seitenrand sichtbare 60 px
+   wurden und die Folie randlos wirkte — genau der gemeldete Effekt.
+   Geteilt bleibt der Rand in Gerätepixeln konstant; verkleinert wird
+   ausschließlich der Inhalt. --hud-h setzt das Skript. */
 .slide-inner{
+  --pad-t: clamp(26px,4.4vw,66px);
+  --pad-x: clamp(20px,5vw,88px);
+  --pad-b: clamp(18px,2.4vw,34px);
   min-height:calc(100% / var(--fit, 1));
   display:flex; flex-direction:column;
-  /* Die Bedienleiste liegt absolut über der Folie, ihre Höhe muss unten
-     freigehalten werden. Geteilt durch --fit, weil die Polsterung im
-     gezoomten Raum liegt: eine feste Polsterung schrumpft mit und die
-     Fußzeile rutschte unter die Leiste — nachgemessen bei 1280x800,
-     Folie 3 mit 14 px Überdeckung. --hud-h setzt das Skript. */
-  padding:clamp(26px,4.4vw,68px) clamp(20px,5vw,84px)
-          calc(clamp(16px,2.2vw,30px) + var(--hud-h, 60px) / var(--fit, 1));
+  max-width:calc(1780px / var(--fit, 1)); margin-inline:auto;
+  padding:calc(var(--pad-t) / var(--fit, 1)) calc(var(--pad-x) / var(--fit, 1))
+          calc((var(--pad-b) + var(--hud-h, 60px)) / var(--fit, 1));
   zoom:var(--fit, 1);
+}
+/* Im Vollbild ist der Bildschirm die Bühne, nicht ein Fenster — dort darf
+   der Rand deutlich großzügiger sein. Erst ab 1200 px, damit kleine
+   Notebooks im Vollbild nicht auf einen Briefmarkeninhalt schrumpfen. */
+@media (min-width:1200px){
+  :fullscreen .slide-inner, body.lz-is-fullscreen .slide-inner{
+    --pad-t: clamp(44px,5.2vh,88px);
+    --pad-x: clamp(64px,7vw,150px);
+    --pad-b: clamp(30px,3.6vh,56px);
+  }
 }
 
 /* Folienkopf — Eyebrow links, Minutenmarke rechts, wie im Original */
@@ -486,33 +503,33 @@ const SLIDES = [
 /* ── 02 ─ Agenda ─────────────────────────────────────────────────────── */
 { theme:'light', eyebrow:'Agenda · 20 Minuten + 10 Minuten Q&A', min:'Min. 0–2',
   title:'Fünf Bausteine. Eine Frage: Kennen wir unseren Markt wirklich?',
-  lead:'Unser Investor wollte vor weiteren Entscheidungen genau das wissen. Heute liefern wir die Antwort — und zeigen nicht nur, <b>was</b> wir erarbeitet haben, sondern <b>wie</b>: Das KI-Vorgehensmodell ist integraler Bestandteil jedes Bausteins, kein Anhang.',
+  lead:'Wir zeigen nicht nur, <b>was</b> wir erarbeitet haben, sondern <b>wie</b>. Das KI-Vorgehensmodell steckt in jedem Baustein, nicht im Anhang.',
   foot:'Sprint 1 · Markt & Wettbewerb',
   html:`<div class="g-auto">
-    ${[['Baustein 1 · Min. 2–6','Markt &amp; Wettbewerb','Marktgröße, Wettbewerbsmatrix, blinde Flecken — plus drei Prompt-Strategien dahinter.'],
-       ['Baustein 2 · Min. 6–10',"Porter's Five Forces",'Fünf Kräfte (Skala 1–5) — und der Dialog mit Claude als kritischem Analysten, live.'],
-       ['Baustein 3 · Min. 10–13','Zwei Personas','Wer entscheidet wirklich über Pflege? Zwei Profile, in drei Schritten geschärft.'],
-       ['Baustein 4 · Min. 13–17','SWOT &amp; Stoßrichtung','Eine priorisierte Strategie, 90-Tage-Plan — und wie Claudes Kritik sie verändert hat.'],
-       ['Baustein 5 · Min. 17–20','KI-Vorgehens&shy;modell','7 dokumentierte Sessions, Methoden, Grenzen — das Herzstück des Lernprozesses.']]
+    ${[['Baustein 1 · Min. 2–6','Markt &amp; Wettbewerb','Marktgröße, Matrix, blinde Flecken.'],
+       ['Baustein 2 · Min. 6–10',"Porter's Five Forces",'Fünf Kräfte, Skala 1–5. Plus Kritiker-Dialog.'],
+       ['Baustein 3 · Min. 10–13','Zwei Personas','Wer entscheidet wirklich über Pflege?'],
+       ['Baustein 4 · Min. 13–17','SWOT &amp; Stoßrichtung','Eine priorisierte Strategie, 90-Tage-Plan.'],
+       ['Baustein 5 · Min. 17–20','KI-Vorgehens&shy;modell','7 Sessions, Methoden, Grenzen.']]
       .map(([l,t,p],i)=>`<div class="k${i===4?' warn':''}"><span class="k-lbl">${l}</span><div class="k-t">${t}</div><p class="k-p">${p}</p></div>`).join('')}
   </div>` },
 
 /* ── 03 ─ Ausgangslage ───────────────────────────────────────────────── */
 { theme:'light', eyebrow:'Ausgangslage', min:'Min. 0–2',
   title:'LebensZeit auf einen Blick.',
-  lead:'Gegründet 2020 in Erwitte · gGmbH · Geschäftsführung Dr. Maria Holthaus · Pflege und Gesundheit im ländlichen Raum — nah, vernetzt, nachhaltig.',
+  lead:'Gegründet 2020 in Erwitte · gGmbH · Geschäftsführung Dr. Maria Holthaus.',
   foot:'Ausgangslage',
   html:`<div class="g-2" style="grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
     <div>
       <div class="g-22" style="margin-bottom:var(--sp-4)">
         <div class="k"><span class="k-lbl">Standorte</span><div class="k-num">5</div>
-          <p class="k-p">Erwitte · Bad Sassendorf · Anröchte · Rüthen · Lippetal — einzige Flächendeckung der Region${F}</p></div>
+          <p class="k-p">Einzige Flächendeckung der Region${F}</p></div>
         <div class="k"><span class="k-lbl">Umsatz</span><div class="k-num">2,1 Mio €</div>
-          <p class="k-p">Pflegeumsatz SGB XI/V ~1,15 Mio €${F} · Fördermittel ~0,80 Mio €${F} · übrige Erlöse ~0,15 Mio €${A} (Selbstzahler, Mitgliedsbeiträge) — Eigenfinanzierung 62 %, Ziel 70 %${F}</p></div>
+          <p class="k-p">Pflege SGB XI/V ~1,15 Mio €${F} · Fördermittel ~0,80 Mio €${F} · übrige ~0,15 Mio €${A}<br>Eigenfinanzierung 62 %, Ziel 70 %${F}</p></div>
         <div class="k"><span class="k-lbl">Mitarbeitende</span><div class="k-num">56</div>
-          <p class="k-p">34 Festangestellte · 22 Teilzeit · davon 8 Stellen unbesetzt${F}<br>Zusätzlich 45 Ehrenamtliche als Alleinstellungsmerkmal${F}</p></div>
+          <p class="k-p">34 Festangestellte · 22 Teilzeit · 8 Stellen offen${F}<br>plus 45 Ehrenamtliche${F}</p></div>
         <div class="k"><span class="k-lbl">Netzwerk</span><div class="k-num">520</div>
-          <p class="k-p">Fördermitglieder: Basis 300 · Aktiv 170 · Premium 50${F} · 180 aktiv betreute Pflegefälle PG 2–5${F}</p></div>
+          <p class="k-p">Fördermitglieder Basis 300 · Aktiv 170 · Premium 50${F}<br>180 Pflegefälle PG 2–5${F}</p></div>
       </div>
       <details class="fix"><summary>3 Korrekturen gegenüber dem Original — Mitgliedsstufe, Kopfzahl, Umsatzaufteilung</summary><div class="fix-body">Mitgliedsstufe <span class="was">Familie</span> → <b>Premium</b> — kanonisch ist Basis/Aktiv/Premium, „Familie" ist ein bekannter Fehler in zwei Quelldokumenten.
         <span class="was">Team 101</span> → <b>56 Mitarbeitende und 45 Ehrenamtliche getrennt</b>: 101 addiert Angestellte und Ehrenamt zu einer Kopfzahl, dieselbe Art Fehler wie Pflegeumsatz plus Fördermittel.
@@ -521,10 +538,10 @@ const SLIDES = [
     <div>
       <span class="k-lbl">Was uns stark macht — und was uns bremst</span>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
-        <div class="k ok"><div class="k-t">Außergewöhnliches Vertrauen</div><p class="k-p">Höchste Bekanntheit und Weiterempfehlung — günstigste Kundengewinnung im Markt.${A}</p></div>
-        <div class="k crit"><div class="k-t">Zwei Standorte defizitär</div><p class="k-p">Rüthen −38 k€ und Lippetal −30 k€ Deckungsbeitrag${F} — Quersubventionierung belastet.</p></div>
-        <div class="k crit"><div class="k-t">8 offene Stellen seit über 6 Monaten</div><p class="k-p">Kapazitätsengpass blockiert Wachstum direkt — bei nur 4,5 % Marktdurchdringung.${F}</p></div>
-        <div class="k warn"><div class="k-t">Digitalisierungsgrad gering</div><p class="k-p">Kommunikation überwiegend telefonisch — digitale Vernetzung fehlt.${F}</p></div>
+        <div class="k ok"><div class="k-t">Außergewöhnliches Vertrauen</div><p class="k-p">Höchste Bekanntheit und Weiterempfehlung im Markt.${A}</p></div>
+        <div class="k crit"><div class="k-t">Zwei Standorte defizitär</div><p class="k-p">Rüthen −38 k€, Lippetal −30 k€ Deckungsbeitrag.${F}</p></div>
+        <div class="k crit"><div class="k-t">8 offene Stellen seit über 6 Monaten</div><p class="k-p">Wachstum blockiert — bei 4,5 % Marktdurchdringung.${F}</p></div>
+        <div class="k warn"><div class="k-t">Digitalisierungsgrad gering</div><p class="k-p">Kommunikation überwiegend telefonisch.${F}</p></div>
       </div>
     </div>
   </div>${LEGENDE}` },
@@ -532,23 +549,23 @@ const SLIDES = [
 /* ── 04 ─ Baustein 1 · Makromarkt ────────────────────────────────────── */
 { theme:'light', eyebrow:'Baustein 1 · Markt- &amp; Wettbewerbsanalyse', min:'Min. 2–6 · Baustein 1',
   title:'Ein Markt, der nicht warten kann.',
-  lead:'Demografiegetrieben, konjunkturunabhängig, abgesichert durch SGB XI. Quellen: Destatis Pflegestatistik, IT.NRW, Bertelsmann Stiftung 2023.',
+  lead:'Demografiegetrieben, konjunkturunabhängig, abgesichert durch SGB XI. Quellen: Destatis, IT.NRW, Bertelsmann 2023.',
   foot:'Baustein 1 · Makromarkt',
   html:`<div class="g-auto">
     <div class="k"><span class="k-lbl">Pflegebedürftige (D)</span><div class="k-num">5,0 Mio</div>
-      <p class="k-p">Prognose 2040: 6,8 Mio${F} — strukturelles Wachstum über zwei Jahrzehnte</p></div>
+      <p class="k-p">Prognose 2040: 6,8 Mio${F}</p></div>
     <div class="k"><span class="k-lbl">Ambulante Pflege (D)</span><div class="k-num">14 Mrd €</div>
       <p class="k-p">Gesamtmarkt ~44 Mrd €/Jahr${F} · ~15.400 Dienste, ~3.100 in NRW${F}</p></div>
     <div class="k"><span class="k-lbl">Marktwachstum p. a.</span><div class="k-num">+4–5 %</div>
       <p class="k-p">Babyboomer erreichen ab 2030 das Hochpflegealter${A}</p></div>
     <div class="k"><span class="k-lbl">Fachkräftelücke</span><div class="k-num crit">~200.000</div>
-      <p class="k-p">Offene Pflegestellen bundesweit${F} — der limitierende Faktor</p></div>
+      <p class="k-p">Offene Pflegestellen bundesweit${F} — der Engpass</p></div>
   </div>
   <div class="g-2" style="margin-top:var(--sp-4)">
     <div class="k ok"><div class="k-t">Kreis Soest altert überdurchschnittlich</div>
-      <p class="k-p">Anteil 65+ steigt von ~22,8 % auf ~30 % bis 2040${F} — bei leicht sinkender Gesamtbevölkerung. Jeder demografische Trend arbeitet für unser Geschäftsmodell.</p></div>
+      <p class="k-p">Anteil 65+ steigt von ~22,8 % auf ~30 % bis 2040${F} — bei sinkender Gesamtbevölkerung.</p></div>
     <div class="k warn"><div class="k-t">Zwei Marktrisiken im Blick</div>
-      <p class="k-p">Wachsender 24h-Betreuungs-Graumarkt (<b>500.000–600.000</b> Kräfte bundesweit)${A} und steigende Betriebskosten durch Pflege-Mindestlohn und Energie.</p></div>
+      <p class="k-p">24h-Graumarkt (<b>500.000–600.000</b> Kräfte)${A} und steigende Kosten durch Pflege-Mindestlohn und Energie.</p></div>
   </div>
   <details class="fix"><summary>1 Korrektur — Graumarkt-Kräfte als Bandbreite</summary><div class="fix-body">Graumarkt-Kräfte <span class="was">600.000</span> → <b>500.000–600.000</b>. Der Punktwert suggerierte eine Genauigkeit, die die Quellenlage bei einem informellen Markt nicht trägt. Entschieden am 07.08.2026, gilt auch für die SWOT-Folie.</div></details>${LEGENDE}` },
 
@@ -575,7 +592,7 @@ const SLIDES = [
         </tbody>
       </table></div>
       <div class="k warn" style="margin-top:var(--sp-4)"><div class="k-t">Ehrliche Diagnose statt Schönfärberei</div>
-        <p class="k-p">Rüthen und Lippetal leiden unter geringer Siedlungsdichte und hohen Fahrkosten. Das Ehrenamtsnetzwerk kann dort kostensenkend wirken — die Wirtschaftlichkeitsanalyse ist Maßnahme Nr. 1 im 90-Tage-Plan.</p></div>
+        <p class="k-p">Geringe Siedlungsdichte, hohe Fahrkosten. Das Ehrenamt kann dort kostensenkend wirken — Wirtschaftlichkeitsanalyse ist Maßnahme Nr. 1.</p></div>
     </div>
   </div>
   <details class="fix"><summary>2 Befunde — Einwohnerzahl Erwitte, Marktpotenzial herabgestuft</summary><div class="fix-body">Erwitte <span class="was">~16.200</span> → <b>20.200 Einwohner</b>: die Tabelle summierte sich nicht auf ihre eigene Gesamtzahl — 56.900 statt der darüber genannten 60.900. Mit dem kanonischen Wert 20.200 stimmt die Summe exakt.
@@ -584,21 +601,21 @@ const SLIDES = [
 /* ── 06 ─ Baustein 1 · Wettbewerbsmatrix ─────────────────────────────── */
 { theme:'light', eyebrow:'Baustein 1 · Wettbewerbsmatrix', min:'Min. 2–6 · Baustein 1',
   title:'Zehn Anbieter. Keiner deckt die Fläche wie wir.',
-  lead:'Legende: <span class="p-full">●</span> Präsenz bestätigt · <span class="p-part">◐</span> Teilpräsenz · <span class="p-none">○</span> nicht vertreten — Kriterien: Standortpräsenz, Trägertyp, strategische Relevanz.',
+  lead:'<span class="p-full">●</span> Präsenz · <span class="p-part">◐</span> Teilpräsenz · <span class="p-none">○</span> nicht vertreten',
   foot:'Baustein 1 · 9 Wettbewerber × 5 Standorte',
   html:`<div class="tbl-scroll"><table class="s-tbl">
     <thead><tr><th>Anbieter</th><th>Typ</th><th>Erw</th><th>B.Sa</th><th>Anr</th><th>Rüt</th><th>Lip</th><th>Strategischer Kommentar</th></tr></thead>
     <tbody>
-      ${[['LebensZeit gGmbH','Gemeinnützig','fffff','Einzige vollständige Flächendeckung mit eigenem Netzwerk',1],
-         ['Caritas-Sozialstation Hellweg','Freigemeinn.','fffff','Stärkstes Netzwerk; Bindung über Kirchenzugehörigkeit',0],
-         ['24h-Betreuung / Graumarkt','Inoffiziell','fffff','~500.000–600.000 Kräfte bundesweit; Preisdruck bei Pflegegrad <b>4–5</b>',0],
-         ['DRK Kreisverband Soest','Freigemeinn.','fffpf','Hausnotruf-Marktführer; Pflege oft Nebengeschäft',0],
-         ['Diakonie Sozialstation Soest','Freigemeinn.','ffpnn','Fokus Soest-Stadt; ländliche Präsenz nur partiell',0],
-         ['Johanniter-Unfall-Hilfe Soest','Freigemeinn.','ffpnf','App-gestützte Services; Einstiegskonkurrent Prävention',0],
+      ${[['LebensZeit gGmbH','Gemeinnützig','fffff','Einzige vollständige Flächendeckung',1],
+         ['Caritas-Sozialstation Hellweg','Freigemeinn.','fffff','Stärkstes Netzwerk, kirchliche Bindung',0],
+         ['24h-Betreuung / Graumarkt','Inoffiziell','fffff','500.000–600.000 Kräfte; Preisdruck bei PG <b>4–5</b>',0],
+         ['DRK Kreisverband Soest','Freigemeinn.','fffpf','Hausnotruf-Marktführer, Pflege Nebengeschäft',0],
+         ['Diakonie Sozialstation Soest','Freigemeinn.','ffpnn','Fokus Soest-Stadt, ländlich nur partiell',0],
+         ['Johanniter-Unfall-Hilfe Soest','Freigemeinn.','ffpnf','App-gestützte Services, Prävention',0],
          ['AWO Sozialstation Soest','Freigemeinn.','ffnnn','Urban orientiert, geringe Flächendeckung',0],
          ['Malteser Hilfsdienst Soest','Freigemeinn.','ffnnn','Häusliche Pflege, Mahlzeitendienst',0],
          ['Pflegedienst Sommer (Soest)','Privat','pfnnn','Kleinanbieter, saisonale Kapazitäten',0],
-         ['Careship / Pflegefinder','Digital','ppnnn','Wachstumssegment; zielt auf Angehörige als Nutzer',0]]
+         ['Careship / Pflegefinder','Digital','ppnnn','Wachstumssegment, zielt auf Angehörige',0]]
         .map(([n,t,p,c,me])=>`<tr${me?' class="me"':''}><td>${n}</td><td>${t}</td>${
           [...p].map(ch=>`<td style="text-align:center">${ch==='f'?'<span class="p-full">●</span>':ch==='p'?'<span class="p-part">◐</span>':'<span class="p-none">○</span>'}</td>`).join('')
         }<td>${c}</td></tr>`).join('')}
@@ -614,19 +631,19 @@ const SLIDES = [
   html:`<div class="g-3">
     <div class="k"><span class="k-lbl" style="color:var(--lz-red)">Bedrohung 9/10 · direkt</span>
       <div class="k-t">Caritas-Sozialstation Hellweg</div>
-      <p class="k-p">Vollpräsenz in allen 5 Standorten, kirchliches Vertrauen, Förderzugang. Schwäche: Bürokratie, geringes Innovationstempo — unser Zeitvorteil.${A}</p></div>
+      <p class="k-p">Vollpräsenz an allen 5 Standorten, kirchliches Vertrauen. Schwäche: langsam — unser Zeitvorteil.${A}</p></div>
     <div class="k"><span class="k-lbl" style="color:var(--lz-red)">Bedrohung 8/10 · Substitut</span>
       <div class="k-t">24h-Betreuung / Graumarkt</div>
-      <p class="k-p">1.500–2.500 €/Monat Vollzeitbetreuung${F} — preiskonkurrent bei Pflegegrad <b>4–5</b>. Rechtliche Grauzone, aber permanente Anwesenheit.</p></div>
+      <p class="k-p">1.500–2.500 €/Monat${F} — preiskonkurrent bei PG <b>4–5</b>. Grauzone, aber rund um die Uhr da.</p></div>
     <div class="k"><span class="k-lbl" style="color:var(--lz-red)">Bedrohung 7/10 · direkt</span>
       <div class="k-t">DRK Kreisverband Soest</div>
-      <p class="k-p">Hausnotruf als Einstiegsleistung vor dem Pflegebedarf — wer dort beginnt, bleibt oft. Bundesmarke, Fahrdienste.${A}</p></div>
+      <p class="k-p">Hausnotruf als Einstieg vor dem Pflegebedarf — wer dort beginnt, bleibt oft.${A}</p></div>
   </div>
   <div class="k" style="margin-top:var(--sp-4);background:var(--lz-green-3);border-color:transparent">
     <span class="k-lbl" style="color:var(--lz-sage)">Blinde Flecken — von Claude aufgedeckt, von uns verifiziert</span>
     <div class="g-2" style="margin-top:var(--sp-3)">
       <p class="k-p" style="color:rgba(245,240,232,.9)"><b style="color:var(--lz-mint)">Der Graumarkt fehlte in unserer ersten Liste.</b> Claude fragte: „Wogegen verlieren Sie Kunden, die nie bei einem Anbieter anrufen?“ — Antwort: 24h-Betreuung. Heute Bedrohung Nr. 2.</p>
-      <p class="k-p" style="color:rgba(245,240,232,.9)"><b style="color:var(--lz-mint)">Die digitale Flanke ist offen.</b> Careship &amp; Co. sind nur in Erwitte und Bad Sassendorf aktiv. Das Zeitfenster für die Randgemeinden gehört noch uns — aber nicht mehr lange.</p>
+      <p class="k-p" style="color:rgba(245,240,232,.9)"><b style="color:var(--lz-mint)">Die digitale Flanke ist offen.</b> Careship &amp; Co. sind nur in Erwitte und Bad Sassendorf aktiv. Das Zeitfenster gehört noch uns.</p>
     </div>
   </div>${LEGENDE}` },
 
@@ -637,15 +654,15 @@ const SLIDES = [
   html:`<div class="g-3">
     ${[['Strategie 1 · Kontext-Anker','',
         '„Schaue bitte kritisch über das Skript, fasse zusammen und merke dir die wichtigsten Stichpunkte für spätere Aufgaben.“',
-        'Gebracht: Gemeinsame Datenbasis für alle Sessions — und ungefragt die Erkenntnis, dass Förderung, Personal und Digital EIN systemisches Risiko bilden.',
+        'Gemeinsame Datenbasis — und ungefragt die Erkenntnis: Förderung, Personal und Digital sind EIN Risiko.',
         'Das Wort „kritisch" verwandelt Zusammenfassungen in Einschätzungen.'],
        ['Strategie 2 · Rollen-Prompt mit Skala','',
         '„Du bist ein erfahrener Strategieberater für den deutschen Pflegemarkt. Identifiziere mind. 5 Wettbewerber als Matrix mit begründeten Kriterien.“',
-        'Gebracht: Die komplette Wettbewerber-Matrix inkl. Trägertyp und Kommentar — auf dem ersten Versuch tabellenfertig.',
+        'Die komplette Wettbewerber-Matrix — im ersten Versuch tabellenfertig.',
         'Rolle + Format + Skala vorab spart Iterationsschleifen.'],
        ['Strategie 3 · Blinde-Flecken-Inversion','amber',
         '„Wo sind unsere blinden Flecken? Welche Wettbewerber übersehen wir, weil sie in keinem Verzeichnis stehen?“',
-        'Gebracht: Graumarkt (Bedrohung 8/10) und Digitalplattformen — beide fehlten in unserer Liste komplett.',
+        'Graumarkt (8/10) und Digitalplattformen — beide fehlten komplett.',
         'Die wertvollste Frage ist nicht „Was siehst du?“, sondern „Was sehen wir nicht?“']]
       .map(([p,cls,q,r,l])=>`<div class="k">
         <span class="pill ${cls}">${p}</span>
@@ -659,11 +676,11 @@ const SLIDES = [
 { theme:'light', eyebrow:"Baustein 2 · Porter's Five Forces · Skala 1 (gering) – 5 (sehr hoch)", min:'Min. 6–10 · Baustein 2',
   title:'Fünf Kräfte. Eine klare Diagnose.',
   foot:'Baustein 2 · Five Forces Übersicht',
-  html:`${[['1 · Neue Wettbewerber',2,'o','<b>2/5 — gering.</b> MDK-Prüfung, Pflegekassenverträge und 12–24 Monate Vertrauensaufbau schützen wirksam. 520 Mitglieder und 45 Ehrenamtliche sind nicht kopierbar.'],
-        ['2 · Lieferantenmacht',4,'c','<b>4/5 — hoch. Die kritischste Kraft.</b> Fachkräfte (8 offene Stellen) und Fördermittelgeber (38 % des Umsatzes ≈ 800.000 €/Jahr) üben strukturellen Druck aus.'],
-        ['3 · Kundenmacht',2,'o','<b>2/5 — gering.</b> Keine vergleichbare lokale Alternative; emotionale Bindung macht einen Anbieterwechsel unwahrscheinlich.'],
-        ['4 · Substitute',3,'w','<b>3/5 — mittel, steigend.</b> Graumarkt verdrängt Stundenpflege bei Pflegegrad <b>4–5</b>; Digitalplattformen werden ab 2028+ relevant.'],
-        ['5 · Wettbewerbsintensität',3,'w','<b>3/5 — mittel.</b> Heute Alleinstellung in der Fläche — aber Caritas hält dieselbe Abdeckung, interne Defizite erhöhen den Druck.']]
+  html:`${[['1 · Neue Wettbewerber',2,'o','<b>2/5 — gering.</b> MDK-Prüfung, Kassenverträge, 12–24 Monate Vertrauensaufbau. 520 Mitglieder und 45 Ehrenamtliche sind nicht kopierbar.'],
+        ['2 · Lieferantenmacht',4,'c','<b>4/5 — hoch. Die kritischste Kraft.</b> Fachkräfte (8 offene Stellen) und Fördermittelgeber (38 % ≈ 800.000 €/Jahr).'],
+        ['3 · Kundenmacht',2,'o','<b>2/5 — gering.</b> Keine vergleichbare lokale Alternative, hohe emotionale Bindung.'],
+        ['4 · Substitute',3,'w','<b>3/5 — mittel, steigend.</b> Graumarkt bei PG <b>4–5</b>, Digitalplattformen ab 2028.'],
+        ['5 · Wettbewerbsintensität',3,'w','<b>3/5 — mittel.</b> Alleinstellung in der Fläche, aber Caritas hält dieselbe Abdeckung.']]
       .map(([n,v,cls,t])=>`<div class="force ${cls}">
         <span class="force-n">${n}</span>
         <span class="force-dots" role="img" aria-label="Bewertung ${v} von 5">${[1,2,3,4,5].map(i=>`<i class="${i<=v?'on':''}"></i>`).join('')}</span>
@@ -676,9 +693,9 @@ const SLIDES = [
   title:'Lieferantenmacht 4/5 — hier entscheidet sich unsere Zukunft.',
   html:`<div class="g-2">
     <div class="k"><span class="k-lbl">Lieferant 1 · Pflegefachkräfte</span><div class="k-num">8 Stellen</div>
-      <p class="k-p">seit über 6 Monaten unbesetzt${F} — bei ~200.000 offenen Pflegestellen bundesweit. Jede Lücke heißt: Pflegefälle ablehnen. Wachstum ist strukturell blockiert, solange sie besteht.</p></div>
+      <p class="k-p">seit über 6 Monaten unbesetzt${F} — bei ~200.000 offenen Stellen bundesweit. Jede Lücke heißt: Pflegefälle ablehnen.</p></div>
     <div class="k"><span class="k-lbl">Lieferant 2 · Fördermittelgeber</span><div class="k-num">~800.000 € / Jahr</div>
-      <p class="k-p">38 % des Umsatzes hängen an politisch nicht garantierten Fördertöpfen${F}. Eine Kürzung trifft die Liquidität ohne Puffer. Das 70 %-Ziel ist keine Kür — es ist Existenzsicherung.</p></div>
+      <p class="k-p">38 % des Umsatzes hängen an nicht garantierten Fördertöpfen${F}. Das 70 %-Ziel ist keine Kür — es ist Existenzsicherung.</p></div>
   </div>
   <p class="s-quote">„Beide Abhängigkeiten haben denselben Gegenspieler: Attraktivität. Für Fachkräfte durch moderne Arbeitsbedingungen — für Selbstzahler durch sichtbaren Mehrwert. Beides beginnt digital.“</p>` },
 
@@ -691,18 +708,18 @@ const SLIDES = [
       <span class="k-lbl" style="color:var(--lz-amber-ink)">Substitute · 3/5
         <span class="force-dots w" style="margin-left:.6em;vertical-align:-2px" role="img" aria-label="Bewertung 3 von 5"><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i></i><i></i></span></span>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
-        <div class="k warn"><div class="k-t">24h-Graumarkt — heute</div><p class="k-p">Bei Pflegegrad <b>4–5</b> ersetzt Vollzeitbetreuung (1.500–2.500 €/Monat) unsere Stundenpflege. Gegenmittel: Qualität, Pflegegrad-Abrechnung, Rechtssicherheit.</p></div>
-        <div class="k warn"><div class="k-t">Digitale Plattformen — ab 2028</div><p class="k-p">Careship &amp; Co. wachsen über Angehörige. Schwäche: kein ländliches Netz. Antwort: das digitale Angebot selbst besetzen, bevor es jemand anderes tut.${A}</p></div>
-        <div class="k ok"><div class="k-t">Pflegende Angehörige</div><p class="k-p">~1,85 Mio Menschen werden nur mit Pflegegeld versorgt${A} — das größte stille Substitut und zugleich unser größter Beratungsmarkt (Pflegegrad 1–2).</p></div>
+        <div class="k warn"><div class="k-t">24h-Graumarkt — heute</div><p class="k-p">Bei PG <b>4–5</b> ersetzt Vollzeitbetreuung (1.500–2.500 €/Monat) unsere Stundenpflege. Gegenmittel: Qualität und Rechtssicherheit.</p></div>
+        <div class="k warn"><div class="k-t">Digitale Plattformen — ab 2028</div><p class="k-p">Careship &amp; Co. wachsen über Angehörige, haben aber kein ländliches Netz. Antwort: selbst besetzen.${A}</p></div>
+        <div class="k ok"><div class="k-t">Pflegende Angehörige</div><p class="k-p">~1,85 Mio Menschen nur mit Pflegegeld${A} — größtes stilles Substitut, größter Beratungsmarkt (PG 1–2).</p></div>
       </div>
     </div>
     <div>
       <span class="k-lbl" style="color:var(--lz-amber-ink)">Wettbewerbsintensität · 3/5
         <span class="force-dots w" style="margin-left:.6em;vertical-align:-2px" role="img" aria-label="Bewertung 3 von 5"><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i class="on" style="background:var(--lz-amber)"></i><i></i><i></i></span></span>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
-        <div class="k ok"><div class="k-t">6 von 9 Wettbewerbern freigemeinnützig</div><p class="k-p">Preiskampf ist begrenzt — entschieden wird über Identität und Bindung. Genau dort sind 520 Mitglieder und 45 Ehrenamtliche unser Vorteil.${O}</p></div>
+        <div class="k ok"><div class="k-t">6 von 9 Wettbewerbern freigemeinnützig</div><p class="k-p">Preiskampf begrenzt — entschieden wird über Identität und Bindung. Dort sind 520 Mitglieder und 45 Ehrenamtliche unser Vorteil.${O}</p></div>
         <div class="k warn"><div class="k-t">Caritas als Spiegelbild</div><p class="k-p">Gleiche Flächendeckung, gleiches Personalproblem — aber langsamer. Wer zuerst digitalisiert, gewinnt die nächste Dekade.${A}</p></div>
-        <div class="k crit"><div class="k-t">Der Druck kommt auch von innen</div><p class="k-p">Zwei defizitäre Standorte schwächen unsere Verteidigungsfähigkeit — Wettbewerbsintensität ist nicht nur extern.</p></div>
+        <div class="k crit"><div class="k-t">Der Druck kommt auch von innen</div><p class="k-p">Zwei defizitäre Standorte schwächen unsere Verteidigung.</p></div>
       </div>
     </div>
   </div>
@@ -717,15 +734,15 @@ const SLIDES = [
   html:`${[['1 · Förderabhängigkeit — zu optimistisch bewertet','',
         '38 % Förderanteil als „verwaltbar" behandelt; 70 %-Ziel in sechs Jahren nicht erreicht — bei Kaufkraftindex 96.',
         '„Warum sollten wir glauben, dass die 70 % in zwei Jahren gelingen — in einer Region mit unterdurchschnittlicher Kaufkraft?“',
-        '2020–2026 war Investition in Fläche und Vertrauen. Jetzt Monetarisierung: 3 Selbstzahler-Pakete (PG 1–2) + Mitgliedschaftsausbau — Hebel auf 520 Mitglieder.'],
+        '2020–2026 war Aufbau. Jetzt Monetarisierung: 3 Selbstzahler-Pakete (PG 1–2) plus Mitgliedschaftsausbau — Hebel auf 520 Mitglieder.'],
        ['2 · Digitalisierungsrückstand — Querschnittswirkung übersehen',' ★ echter blinder Fleck',
-        'Wir stuften Plattformen erst ab 2028 als relevant ein. Übersehen: Fehlende Digitalisierung wirkt HEUTE — auf drei Kräfte gleichzeitig.',
+        'Plattformen erst ab 2028 eingestuft. Übersehen: fehlende Digitalisierung wirkt HEUTE, auf drei Kräfte.',
         '„Wie sollen Fachkräfte zu Ihnen kommen, wenn die Konkurrenz mit modernen Tools arbeitet?“',
-        'Deshalb Investitionssäule Nr. 1: Pflegedokumentation 2026 (−20 % Verwaltungszeit), Angehörigen-Plattform Q1 2027, digitales Recruiting.'],
+        'Investitionssäule Nr. 1: Pflegedokumentation 2026 (−20 % Verwaltungszeit), Angehörigen-Plattform Q1 2027.'],
        ['3 · Personalengpass — strategische Sprengkraft unterschätzt','',
-        'Ohne Personal kein Wachstum bei 4,5 % Penetration. Es fehlte die Antwort auf besser zahlende Stadtarbeitgeber.',
+        'Ohne Personal kein Wachstum. Die Antwort auf besser zahlende Stadtarbeitgeber fehlte.',
         '„Was macht Sie attraktiver als ein Pflegeheim in Dortmund, das 20 % mehr zahlt?“',
-        'Wir konkurrieren nicht mit Dortmund: Heimatnähe, Sinn, Gemeinschaft. Pflegeschul-Partnerschaften Soest/Lippstadt; Wachstum kontrolliert auf 300 Fälle bis 2028.']]
+        'Wir konkurrieren nicht mit Dortmund: Heimatnähe, Sinn, Gemeinschaft. Plus Pflegeschul-Partnerschaften Soest/Lippstadt.']]
       .map(([t,star,krit,frage,antw])=>`<div class="k" style="margin-bottom:var(--sp-3)">
         <div class="k-t" style="font-size:1.1rem">${t}${star?`<span style="color:var(--lz-amber-ink);font-family:var(--font-body);font-size:.8rem">${star}</span>`:''}</div>
         <div class="dlg">
@@ -751,12 +768,12 @@ const SLIDES = [
     <div>
       <div class="g-2">
         <div class="k"><span class="k-lbl">Alltag &amp; Bedürfnisse</span>
-          <ul class="s-list"><li>Tochter 60 km entfernt in Paderborn; der Bus fährt dreimal täglich</li><li>Hilfe bei Haushalt, Medikamentenplan, Weg zum Hausarzt</li><li>Will zu Hause alt werden — der Hof ist ihre Identität</li><li>Kennt „ihre" Pflegekraft beim Namen — und erwartet das zurück</li></ul></div>
+          <ul class="s-list"><li>Tochter 60 km entfernt in Paderborn, Bus dreimal täglich</li><li>Hilfe bei Haushalt, Medikamenten, Arztwegen</li><li>Will zu Hause alt werden — der Hof ist ihre Identität</li></ul></div>
         <div class="k"><span class="k-lbl">Ängste &amp; Hemmschwellen</span>
-          <ul class="s-list"><li>„Ins Heim müssen" — die größte Angst überhaupt</li><li>Fremden die Tür öffnen; ständig wechselnde Gesichter</li><li>Der Tochter „zur Last fallen" — verschweigt Stürze</li><li>Technik: Smartphone nur zum Telefonieren</li></ul></div>
+          <ul class="s-list"><li>„Ins Heim müssen" — die größte Angst überhaupt</li><li>Ständig wechselnde Gesichter an der Tür</li><li>Der Tochter „zur Last fallen" — verschweigt Stürze</li></ul></div>
       </div>
       <div class="k" style="margin-top:var(--sp-3)"><span class="k-lbl">Erwartungen an LebensZeit</span>
-        <ul class="s-list"><li>Eine feste Bezugspflegekraft — Verlässlichkeit schlägt Geschwindigkeit</li><li>Menschen „von hier", die ihre Welt kennen und Plattdeutsch verstehen</li><li>Hilfe, die ihre Selbstständigkeit verlängert, statt sie zu ersetzen</li><li>Ein Anruf genügt — keine Hotline, keine Warteschleife, keine App-Pflicht</li></ul></div>
+        <ul class="s-list"><li>Eine feste Bezugspflegekraft — Verlässlichkeit vor Geschwindigkeit</li><li>Menschen „von hier", die Plattdeutsch verstehen</li><li>Ein Anruf genügt — keine Hotline, keine App-Pflicht</li></ul></div>
     </div>
   </div>
   <details class="fix"><summary>Offener Punkt — Personas-Set 1 gegen Set 2, nicht geändert</summary><div class="fix-body">${O} Diese Persona ist Set 1 aus dem Investorpitch. Inzwischen ist <b>Set 2 maßgeblich</b>: Hildegard Stemmer (79, PG 2) und Markus Dörre (51) aus dem Personas-Handout — sie stehen im Kundenportal und im Cockpit und tragen Baustein 3 in Sprint 2. Umbenannt wurde hier nichts, weil die Iterationsfolie zwei Folien weiter genau die Entstehung von Brinkmann und Koch belegt und der Pflichtnachweis daran hängt. <b>Entscheidung vor dem Pitch: Set 1 als historischen Sprint-1-Stand kennzeichnen oder die Folien auf Set 2 umstellen.</b></div></details>` },
@@ -776,12 +793,12 @@ const SLIDES = [
     <div>
       <div class="g-2">
         <div class="k"><span class="k-lbl">Alltag &amp; Bedürfnisse</span>
-          <ul class="s-list"><li>Fährt 3–4× pro Woche nach Anröchte; organisiert alles telefonisch nebenbei</li><li>Sandwich-Generation: Kinder (17, 20), Job, Haushalt — und die Pflege</li><li>Braucht Entlastung, Transparenz und EINE verlässliche Anlaufstelle</li><li>Will wissen, wie es der Mutter geht — ohne dreimal täglich anzurufen</li></ul></div>
+          <ul class="s-list"><li>Fährt 3–4× pro Woche nach Anröchte, organisiert alles telefonisch</li><li>Sandwich-Generation: Kinder (17, 20), Job, Haushalt, Pflege</li><li>Braucht Entlastung und EINE verlässliche Anlaufstelle</li></ul></div>
         <div class="k"><span class="k-lbl">Ängste &amp; Hemmschwellen</span>
-          <ul class="s-list"><li>Schuldgefühle: „Mache ich genug?“ — bei jeder Entscheidung</li><li>Angst, dass etwas passiert und sie es zu spät erfährt</li><li>Pflegekosten und Pflegegrad-Bürokratie überfordern sie</li><li>Eigene Erschöpfung — kommt in keinem Pflegeplan vor</li></ul></div>
+          <ul class="s-list"><li>Schuldgefühle: „Mache ich genug?“</li><li>Angst, dass etwas passiert und sie es zu spät erfährt</li><li>Eigene Erschöpfung — kommt in keinem Pflegeplan vor</li></ul></div>
       </div>
       <div class="k ok" style="margin-top:var(--sp-3)"><span class="k-lbl">Erwartungen an LebensZeit — Schlüssel zur Strategie</span>
-        <ul class="s-list"><li>Erreichbarkeit und proaktive Statusmeldungen — gern digital, gern als App</li><li>Ehrliche Beratung zu Pflegegraden, Kosten und Entlastungsleistungen</li><li>Flexibilität, wenn sich der Zustand der Mutter ändert</li><li><b>Sie wählt den Anbieter, sie unterschreibt, sie zahlt zu — sie ist die eigentliche Kundin.</b></li></ul></div>
+        <ul class="s-list"><li>Proaktive Statusmeldungen — gern digital, gern als App</li><li>Ehrliche Beratung zu Pflegegraden und Kosten</li><li><b>Sie wählt den Anbieter, sie unterschreibt, sie zahlt zu — sie ist die eigentliche Kundin.</b></li></ul></div>
     </div>
   </div>
   <details class="fix"><summary>Hinweis — Entlastungsbetrag und Kurzzeitpflege auf Stand 2025</summary><div class="fix-body">Falls diese Folie im Pitch um Zahlen ergänzt wird: der Entlastungsbetrag liegt seit 1. Januar 2025 bei <b>131 €/Monat bzw. 1.572 €/Jahr</b>${F} — der im Personas-Handout genannte Wert 125 € ist der Stand davor. Verhinderungs- und Kurzzeitpflege haben seit 1. Juli 2025 einen <b>gemeinsamen Jahresbetrag bis 3.539 €</b>${F}; die isolierte Nennung von § 39 ist überholt.</div></details>${LEGENDE}` },
@@ -817,11 +834,11 @@ const SLIDES = [
   foot:'Baustein 4 · SWOT-Analyse',
   html:`<div class="g-2">
     <div class="k ok"><span class="k-lbl">S · Stärken · intern</span>
-      <ul class="s-list"><li>Einzige Flächendeckung — 5 Standorte, strukturell schwer kopierbar</li><li>Ehrenamtsnetzwerk (45) — Kostenvorteil + Bindung, einmalig im Markt</li><li>Außergewöhnliches Vertrauen — günstige Kundengewinnung</li><li>gGmbH-Struktur — Förderfähigkeit + Glaubwürdigkeit</li></ul></div>
+      <ul class="s-list"><li>Einzige Flächendeckung — 5 Standorte</li><li>Ehrenamtsnetzwerk (45) — Kostenvorteil und Bindung</li><li>Außergewöhnliches Vertrauen — günstige Kundengewinnung</li><li>gGmbH-Struktur — Förderfähigkeit + Glaubwürdigkeit</li></ul></div>
     <div class="k warn"><span class="k-lbl">W · Schwächen · intern</span>
-      <ul class="s-list"><li>Förderabhängigkeit 38 % — 70 %-Eigenfinanzierungsziel verfehlt</li><li>Rüthen &amp; Lippetal defizitär — Quersubventionierung belastet</li><li>8 offene Stellen &gt; 6 Monate — Wachstum strukturell blockiert</li><li>Digitalisierungsrückstand — Telefon als Hauptkanal</li></ul></div>
+      <ul class="s-list"><li>Förderabhängigkeit 38 % — 70 %-Eigenfinanzierungsziel verfehlt</li><li>Rüthen &amp; Lippetal defizitär</li><li>8 offene Stellen &gt; 6 Monate — Wachstum blockiert</li><li>Digitalisierungsrückstand — Telefon als Hauptkanal</li></ul></div>
     <div class="k"><span class="k-lbl" style="color:var(--lz-green-2)">O · Chancen · extern</span>
-      <ul class="s-list"><li>Demografie — Anteil 65+ im Kreis Soest steigt auf ~30 % bis 2040</li><li>Digitale Angehörigenkommunikation — kaum Wettbewerb im Kreis</li><li>Bad Sassendorf — Kurort-Demografie mit Premium-Potenzial</li><li>520 Mitglieder — Basis für Community-Finanzierung</li></ul></div>
+      <ul class="s-list"><li>Anteil 65+ steigt auf ~30 % bis 2040</li><li>Digitale Angehörigenkommunikation — kaum Wettbewerb im Kreis</li><li>Bad Sassendorf — Premium-Potenzial</li><li>520 Mitglieder — Basis für Community-Finanzierung</li></ul></div>
     <div class="k crit"><span class="k-lbl">T · Risiken · extern</span>
       <ul class="s-list"><li>Fachkräftemangel verschärft sich — ~200.000 offene Stellen</li><li>Graumarkt wächst — verdrängt Stundenpflege bei <b>PG 4–5</b></li><li>Kostenexplosion — Pflege-Mindestlohn und Energie</li><li>Förderpolitik ungewiss — bei 38 % Abhängigkeit existenziell</li></ul></div>
   </div>
@@ -830,35 +847,35 @@ const SLIDES = [
 /* ── 17 ─ Baustein 4 · Stoßrichtung (dunkel) ─────────────────────────── */
 { theme:'dark', eyebrow:'Baustein 4 · Die eine priorisierte Stoßrichtung 2026–2031', min:'Min. 13–17 · Baustein 4',
   title:'Digital zuerst. Alles andere folgt daraus.',
-  lead:'Aus der SWOT folgt <b>eine Entscheidung</b>: Die digitale Vernetzung von Standorten, Angehörigen und Pflegekräften ist der einzige Hebel, der alle drei Kernschwächen gleichzeitig adressiert — und unsere stärkste Chance besetzt, bevor es ein Wettbewerber tut. <b>Das Zeitfenster schließt sich bis 2028.</b>',
+  lead:'Die digitale Vernetzung von Standorten, Angehörigen und Pflegekräften ist der einzige Hebel, der alle drei Kernschwächen zugleich adressiert. <b>Das Zeitfenster schließt sich bis 2028.</b>',
   foot:'Ziel 2028: 300 betreute Fälle · Eigenfinanzierung ≥ 70 % · alle 5 Standorte kostendeckend',
   html:`<div class="g-3">
     <div class="k"><span class="k-lbl">Wirkung 1</span><div class="k-t">Digitalisierung gewinnt Personal</div>
-      <p class="k-p">Digitale Pflegedokumentation spart ~20 % Verwaltungszeit${E} und macht uns als Arbeitgeber konkurrenzfähig — die Antwort auf 8 offene Stellen.</p></div>
+      <p class="k-p">Digitale Pflegedokumentation spart ~20 % Verwaltungszeit${E} — und macht uns als Arbeitgeber konkurrenzfähig.</p></div>
     <div class="k"><span class="k-lbl">Wirkung 2</span><div class="k-t">Die Plattform gewinnt Sabine</div>
-      <p class="k-p">Die Angehörigen-Plattform bedient die zahlende Entscheiderin (Persona 2) — Statusmeldungen, Beratung, Buchbarkeit. Kein Wettbewerber im Kreis Soest bietet das.${F}</p></div>
+      <p class="k-p">Die Angehörigen-Plattform bedient die zahlende Entscheiderin — Status, Beratung, Buchbarkeit. Kein Wettbewerber im Kreis bietet das.${F}</p></div>
     <div class="k"><span class="k-lbl">Wirkung 3</span><div class="k-t">Selbstzahler heben die Quote</div>
-      <p class="k-p">Digital buchbare Servicepakete für Pflegegrad 1–2 plus Mitgliedschaftsausbau heben die Eigenfinanzierung von 62 % auf 70 %+ bis 2027.${E}</p></div>
+      <p class="k-p">Buchbare Servicepakete für PG 1–2 plus Mitgliedschaftsausbau heben die Eigenfinanzierung von 62 % auf 70 %.${E}</p></div>
   </div>
   <details class="fix"><summary>Hinweis — die 70 %-Lücke ist eine Ratio, kein fester Betrag</summary><div class="fix-body">${O} Die Lücke zur 70 %-Eigenfinanzierung ist keine feste Summe, sondern eine Verhältnisrechnung: auf einem Wachstumspfad braucht es <b>~567 k€ zusätzlichen Eigenumsatz</b>, nicht die in früheren Fassungen genannten ~170 k€. Wer im Q&amp;A nach dem Betrag fragt, bekommt diese Zahl.</div></details>` },
 
 /* ── 18 ─ Baustein 4 · 90-Tage-Plan ──────────────────────────────────── */
 { theme:'light', eyebrow:'Baustein 4 · Konkrete erste Maßnahmen', min:'Min. 13–17 · Baustein 4',
   title:'Die ersten 90 Tage.',
-  lead:'Keine Absichtserklärungen — ein Plan mit Verantwortlichkeiten, Terminen und messbaren Ergebnissen.',
+  lead:'Keine Absichtserklärungen — Termine und messbare Ergebnisse.',
   foot:'Baustein 4 · 90-Tage-Plan',
   html:`<div class="g-3">
     ${[['Fundament','Tag 1–30',[
-         ['warn','Wirtschaftlichkeitsanalyse Rüthen &amp; Lippetal','Entscheidung Fortführung vs. Restrukturierung — inkl. Szenario „Ehrenamt als Kostenhebel"'],
-         ['ok','Anbieterauswahl Pflegedokumentation','Shortlist (z. B. MediFox DAN, Snap), Pilotstandort: Erwitte'],
-         ['ok','Wettbewerbs-Monitoring aufsetzen','Quartalsweise Erfassung neuer Anbieter und Preise im Kreis Soest']]],
+         ['warn','Wirtschaftlichkeitsanalyse Rüthen &amp; Lippetal','Fortführung oder Restrukturierung, inkl. Szenario Ehrenamt'],
+         ['ok','Anbieterauswahl Pflegedokumentation','Shortlist, Pilotstandort Erwitte'],
+         ['ok','Wettbewerbs-Monitoring aufsetzen','Quartalsweise Anbieter und Preise erfassen']]],
        ['Pilot','Tag 31–60',[
-         ['ok','Pilotstart digitale Pflegedokumentation','In Erwitte — Ziel: −20 % Verwaltungszeit, Messung nach 4 Wochen'],
-         ['ok','Kooperationsgespräche Pflegeschulen','Soest &amp; Lippstadt — Azubi-Partnerprogramm gegen die 8 offenen Stellen'],
-         ['warn','Konzept Angehörigen-Kommunikation','MVP: wöchentliche digitale Statusmeldung für Angehörige (Persona Sabine)']]],
+         ['ok','Pilotstart digitale Pflegedokumentation','Erwitte, Ziel −20 % Verwaltungszeit'],
+         ['ok','Kooperationsgespräche Pflegeschulen','Soest &amp; Lippstadt, Azubi-Partnerprogramm'],
+         ['warn','Konzept Angehörigen-Kommunikation','MVP: wöchentliche Statusmeldung für Angehörige']]],
        ['Markteintritt','Tag 61–90',[
-         ['ok','Launch: 3 Selbstzahler-Servicepakete','Für Pflegegrad 1–2 — direkter Vertrieb an 520 Fördermitglieder'],
-         ['ok','MVP Angehörigen-Info live','Pilotgruppe 30 Familien, Feedbackschleife für die Plattform 2027'],
+         ['ok','Launch: 3 Selbstzahler-Servicepakete','PG 1–2, Vertrieb an 520 Fördermitglieder'],
+         ['ok','MVP Angehörigen-Info live','Pilotgruppe 30 Familien'],
          ['warn','Investorenreview Tag 90','Pilotergebnisse, Standortentscheidung, Freigabe Ausbaustufe 2']]]]
       .map(([ph,tag,items])=>`<div class="k">
         <div class="k-t" style="font-size:1.4rem;margin-bottom:2px">${ph}</div>
@@ -879,14 +896,14 @@ const SLIDES = [
     <div class="k">
       <span class="k-lbl">Unser ursprünglicher Plan</span>
       <div class="k-t">Drei gleichrangige Säulen: Finanzen + Digital + Personal</div>
-      <p class="k-p">Alle drei Baustellen parallel: Eigenfinanzierung erhöhen, digitalisieren, Personal gewinnen — jede Säule mit eigenem Budget und eigener Verantwortung.</p>
+      <p class="k-p">Alle drei parallel: Eigenfinanzierung, Digitalisierung, Personal — je mit eigenem Budget.</p>
       <div class="k warn" style="margin-top:var(--sp-4)"><p class="k-p" style="margin-top:0"><b>Claudes Einwand:</b> <em>„Drei Prioritäten sind keine Priorität. Mit 2,1 Mio € Umsatz und 8 unbesetzten Stellen fehlen Ihnen Kapital und Kapazität für drei parallele Programme. Welche Investition zahlt auf alle drei ein?“</em></p></div>
     </div>
     <div class="k" style="background:var(--lz-green-3);border-color:transparent">
       <span class="k-lbl" style="color:var(--lz-sage)">Unsere Entscheidung nach dem Dialog</span>
       <div class="k-t" style="color:var(--lz-mint)">Eine Stoßrichtung: Digital als Hebel für alles.</div>
       <p class="k-p" style="color:rgba(245,240,232,.88)">Wir haben die Strategie umgebaut: Digitalisierung ist die <b style="color:var(--lz-cream)">eine</b> priorisierte Investition — Personalgewinnung und Eigenfinanzierung sind ihre messbaren Wirkungen, keine eigenen Programme.</p>
-      <p class="k-p" style="color:rgba(245,240,232,.88)">Zusätzlich übernommen: der Investorenreview an Tag 90 als harter Meilenstein — Claudes Vorschlag, um Verbindlichkeit gegenüber Kapitalgebern zu zeigen.</p>
+      <p class="k-p" style="color:rgba(245,240,232,.88)">Zusätzlich übernommen: der Investorenreview an Tag 90 als harter Meilenstein.</p>
     </div>
   </div>` },
 
@@ -895,15 +912,15 @@ const SLIDES = [
   title:'Claude war kein Werkzeug. Claude war Kollege, Kritiker und Coach.',
   foot:'Baustein 5 · Vorgehensmodell',
   html:`<div class="g-auto">
-    ${[['1 · Kontext-Anker','Sprint-Skript einspielen und kritisch zusammenfassen lassen — gemeinsame Datenbasis für alle Sessions.','Session 2 · Basis aller Bausteine'],
-       ['2 · Prompt-Creator-Methode','Claude entwickelt den Prompt mit uns — durch Rückfragen zu Tiefe, Skala, Format. Unser wirkungsvollster Ansatz.','Session 3 · pitch-ready in 4 Stufen'],
-       ['3 · Zwei-Stufen-Kritik','Erst Analyse aufbauen, dann separat angreifen lassen. Rollentrennung erzeugt schärfere Ergebnisse.','Sessions 4+5 · fand den blinden Fleck'],
-       ['4 · Iterieren &amp; testen','Nichts ungeprüft übernehmen: Personas dreistufig verfeinert, HTML-Outputs im Browser getestet.','Sessions 1, 6, 7 · Qualitätssicherung']]
+    ${[['1 · Kontext-Anker','Sprint-Skript einspielen, kritisch zusammenfassen lassen.','Session 2 · Basis aller Bausteine'],
+       ['2 · Prompt-Creator-Methode','Claude entwickelt den Prompt mit uns, per Rückfrage. Wirkungsvollster Ansatz.','Session 3 · pitch-ready in 4 Stufen'],
+       ['3 · Zwei-Stufen-Kritik','Erst aufbauen, dann separat angreifen lassen.','Sessions 4+5 · fand den blinden Fleck'],
+       ['4 · Iterieren &amp; testen','Nichts ungeprüft übernehmen — Personas dreistufig, Outputs im Browser getestet.','Sessions 1, 6, 7 · Qualitätssicherung']]
       .map(([t,p,s])=>`<div class="k"><div class="k-t" style="font-size:1.05rem;font-family:var(--font-body);font-weight:500">${t}</div><p class="k-p">${p}</p><p class="k-p" style="font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;margin-top:var(--sp-4);opacity:.75">${s}</p></div>`).join('')}
   </div>
   <div class="g-auto" style="margin-top:var(--sp-4)">
-    ${[['Dokumentierte Sessions','7','Alle Prompts wortwörtlich im Prompt-Tagebuch — liegt den Investoren vor',''],
-       ['Kritiker-Einsätze','5 / 7','In fünf von sieben Sessions wurde Claude gezielt als Gegner eingesetzt',''],
+    ${[['Dokumentierte Sessions','7','Alle Prompts wortwörtlich im Prompt-Tagebuch',''],
+       ['Kritiker-Einsätze','5 / 7','Claude gezielt als Gegner eingesetzt',''],
        ['Echte blinde Flecken','3','Graumarkt · Digital-Querschnittswirkung · fehlende Entscheiderin-Persona',''],
        ['Strategie-Änderungen','2','Von 3 Säulen zu 1 Stoßrichtung · Persona-Fokus auf Angehörige','warn']]
       .map(([l,n,p,cls])=>`<div class="k"><span class="k-lbl">${l}</span><div class="k-num${cls?' warn':''}">${n}</div><p class="k-p">${p}${F}</p></div>`).join('')}
@@ -916,13 +933,13 @@ const SLIDES = [
   html:`<div class="g-3">
     ${[['Wirkungsvollster Prompt','',
         "„Ich brauche einen richtig guten Prompt für Porter's Five Forces. Sei mein Prompt Creator. Frage mich zunächst, was meine Fragestellung ist, und verfeinere iterativ.“",
-        'Claude führte einen vierstufigen Dialog, schlug eigenständig die 1–5-Skala vor und begründete die Wahl. Ergebnis: zwei pitch-ready Prompts. Warum er gut war: Er liefert keinen Prompt — er startet einen Prozess.'],
+        'Vierstufiger Dialog, eigenständiger Vorschlag der 1–5-Skala, zwei pitch-ready Prompts. Er liefert keinen Prompt — er startet einen Prozess.'],
        ['Überraschendster Moment','',
         '„Schaue bitte kritisch über das Skript und fasse zusammen.“',
-        'Ungefragt erkannte Claude die Wechselwirkung zwischen Förderabhängigkeit, Personal und Digitalisierung als EIN systemisches Risiko — Wochen bevor der kritische Analyst denselben Punkt zum Kern der Investmentstory machte.'],
+        'Ungefragt erkannte Claude Förderabhängigkeit, Personal und Digitalisierung als EIN systemisches Risiko — Wochen vor dem Kritiker-Dialog.'],
        ['Ehrlichster Moment','amber',
         '„Da scheint etwas schiefgelaufen zu sein — das Dashboard ist nicht bedienbar. Kannst du das überprüfen?“',
-        'Claudes erster HTML-Export scheiterte still an korrumpierten UTF-8-Zeichen. Erst auf Hinweis diagnostizierte er die Ursache selbst und baute neu. Lektion: KI-Ergebnisse sind Entwürfe, keine Lieferungen.']]
+        'Der erste HTML-Export scheiterte still an korrumpierten UTF-8-Zeichen. Lektion: KI-Ergebnisse sind Entwürfe, keine Lieferungen.']]
       .map(([t,cls,q,r])=>`<div class="k"><span class="pill ${cls}">${t}</span><p class="prompt">${q}</p><p class="k-p" style="border-top:1px solid var(--lz-hairline);padding-top:var(--sp-3);margin-top:var(--sp-4)">${r}</p></div>`).join('')}
   </div>` },
 
@@ -935,7 +952,7 @@ const SLIDES = [
       <span class="k-lbl">Wo Claude an Grenzen stieß</span>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
         <div class="k crit"><div class="k-t">Zu wohlwollend in der Kritiker-Rolle</div><p class="k-p">Selbst als „kritischer Analyst" blieb die Kritik weicher als ein echter Investor. Härte muss explizit eingefordert werden.</p></div>
-        <div class="k crit"><div class="k-t">Technische Outputs scheitern still</div><p class="k-p">Lauffähig erscheinender Code kann an Encoding scheitern — ohne eigenen Test wäre der Bug unbemerkt geblieben.</p></div>
+        <div class="k crit"><div class="k-t">Technische Outputs scheitern still</div><p class="k-p">Lauffähig erscheinender Code scheiterte am Encoding — ohne eigenen Test unbemerkt.</p></div>
         <div class="k warn"><div class="k-t">Regionale Detailzahlen brauchen Prüfung</div><p class="k-p">Marktdaten gegen Destatis / IT.NRW plausibilisiert — Verantwortung für Zahlen bleibt bei uns.</p></div>
       </div>
     </div>
@@ -943,8 +960,8 @@ const SLIDES = [
       <span class="k-lbl">Drei Konsequenzen für Sprint 2</span>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)">
         <div class="k ok"><div class="k-t">1 · Kritiker schärfer briefen</div><p class="k-p">Neuer Standard: „Sei maximal kritisch. Geh davon aus, dass du NICHT investieren willst — überzeuge mich vom Gegenteil.“</p></div>
-        <div class="k ok"><div class="k-t">2 · Testen vor Weiterarbeiten</div><p class="k-p">Jeder technische Output wird direkt geprüft, bevor der nächste Schritt beginnt — kein Vertrauen ohne Verifikation.</p></div>
-        <div class="k ok"><div class="k-t">3 · Kürzer und direktiver prompten</div><p class="k-p">Weniger Kontextballast, mehr Rolle und klares Outputformat — die präzisesten Prompts waren die klarsten, nicht die längsten.</p></div>
+        <div class="k ok"><div class="k-t">2 · Testen vor Weiterarbeiten</div><p class="k-p">Jeder technische Output wird geprüft, bevor der nächste Schritt beginnt.</p></div>
+        <div class="k ok"><div class="k-t">3 · Kürzer und direktiver prompten</div><p class="k-p">Weniger Ballast, mehr Rolle und klares Format. Die klarsten Prompts waren die besten, nicht die längsten.</p></div>
       </div>
     </div>
   </div>
@@ -956,9 +973,9 @@ const SLIDES = [
   foot:'Bereit für Ihre Fragen — 10 Minuten Q&amp;A',
   html:`<div class="g-3">
     <div class="k"><div class="k-num">95,5 %</div>
-      <p class="k-p">des Marktes vor unserer Haustür sind noch unerschlossen — in einem Markt, der bis 2040 demografisch garantiert wächst.${F}</p></div>
+      <p class="k-p">des Marktes vor unserer Haustür sind unerschlossen — bei demografisch gesichertem Wachstum bis 2040.${F}</p></div>
     <div class="k"><div class="k-num">1 Hebel</div>
-      <p class="k-p">Eine fokussierte Digitalinvestition adressiert Personal, Eigenfinanzierung und Wettbewerbsschutz gleichzeitig — analytisch hergeleitet, kritisch geprüft.</p></div>
+      <p class="k-p">Eine Digitalinvestition adressiert Personal, Eigenfinanzierung und Wettbewerbsschutz gleichzeitig.</p></div>
     <div class="k"><div class="k-num">90 Tage</div>
       <p class="k-p">bis zum ersten messbaren Beweis: Pilotdaten, Standortentscheidung, Investorenreview. Sie investieren nicht in ein Versprechen — sondern in einen Plan.</p></div>
   </div>
@@ -1075,7 +1092,11 @@ function renderInner(s){
     if (!slide) return;
     const inner = slide.querySelector('.slide-inner');
     if (!inner) return;
-    if (!canZoom || !shouldFit()) { inner.style.removeProperty('--fit'); return; }
+    if (!canZoom || !shouldFit()) {
+      inner.style.removeProperty('--fit');
+      slide.style.overflowY = '';      /* zurueck auf Scrollen, siehe unten */
+      return;
+    }
 
     const set = v => inner.style.setProperty('--fit', String(v));
 
@@ -1095,23 +1116,50 @@ function renderInner(s){
     let z = 1;
     const natural = visual(1);
     if (natural > avail && natural > 0) {
-      z = Math.max(FIT_MIN, avail / natural);
-      /* Der lineare Schätzwert schießt über das Ziel, weil der Inhalt im
-         verkleinerten Zustand in einem breiteren Koordinatenraum liegt und
-         der Text günstiger umbricht — deshalb halbschrittig wieder
-         vergrößern, solange es passt. */
-      for (let k = 0; k < 6 && z < 0.995; k++) {
-        const t = Math.min(1, z + (1 - z) * 0.5);
-        if (visual(t) <= avail) z = t; else break;
+      /* Bisektion statt linearer Schätzung. Der lineare Weg (avail/natural,
+         danach halbschrittig zurück) hat funktioniert, solange die Sichthöhe
+         proportional zu --fit war. Seit die Ränder ebenfalls durch --fit
+         geteilt werden, gilt das nicht mehr: der Inhalt skaliert, der Rand
+         bleibt konstant. Die Bisektion braucht diese Annahme nicht und
+         endet zudem garantiert auf einem Wert, der nachgemessen passt —
+         das vorherige Sicherheitsnetz mit 12 Schritten à 0,025 konnte
+         auslaufen, ohne die Passung erreicht zu haben. */
+      let lo = FIT_MIN, hi = 1;
+      if (visual(lo) > avail) {
+        z = lo;                       /* Anschlag: lieber Restscrollen als unlesbar */
+      } else {
+        for (let k = 0; k < 9; k++) {
+          const mid = (lo + hi) / 2;
+          if (visual(mid) <= avail) lo = mid; else hi = mid;
+        }
+        z = lo;
       }
-      /* Sicherheitsnetz für den umgekehrten Fall: bricht der Text nach dem
-         Verkleinern ungünstiger um, reicht der Schätzwert nicht. */
-      let guard = 0;
-      while (visual(z) > avail && z > FIT_MIN && guard++ < 12) z = Math.max(FIT_MIN, z - 0.025);
       set(z);
     }
     inner.style.minHeight = prevMin;
     if (z >= 0.999) inner.style.removeProperty('--fit');
+
+    /* Dritte Eigenart von zoom, nachgemessen: Chrome bildet scrollHeight des
+       Rahmens aus der UNskalierten Höhe des gezoomten Kindes. Der Rahmen hält
+       sich deshalb für zu klein und ließ sich um bis zu 130 px in leeren Raum
+       schieben, obwohl sichtbar nichts abgeschnitten war — auf Folie 12 bei
+       1024x768 gemessen. Passt der Inhalt nachgemessen, wird das Scrollen
+       deshalb abgeschaltet. Nur am Anschlag FIT_MIN, wo der Inhalt wirklich
+       zu hoch bleibt, bleibt es erlaubt: lieber scrollen als abschneiden.
+       Verglichen wird gegen die Rahmenhöhe selbst, nicht gegen avail: avail
+       hat 2 px Sicherheitsabzug, min-height füllt den Rahmen aber exakt aus —
+       gegen avail gemessen wäre die Prüfung immer negativ ausgefallen. */
+    const rahmen = slide.getBoundingClientRect().height;
+    const passt = inner.getBoundingClientRect().height * (z || 1) <= rahmen + 1;
+    /* clip, nicht hidden: ein hidden-Rahmen bleibt ein Scrollcontainer und
+       lässt sich per Skript, Tastatur und Trackpad-Impuls weiter verschieben.
+       clip macht ihn gar nicht erst zu einem — aber nur, wenn BEIDE Achsen
+       clip sind: mit overflow-x:hidden aus dem Stylesheet rechnet Chrome ein
+       overflow-y:clip wieder auf hidden zurück, dann war 130 px Leerlauf
+       weiter erreichbar (nachgemessen). Deshalb die Kurzform für beide. */
+    if (passt) slide.style.overflow = 'clip';
+    else { slide.style.removeProperty('overflow'); slide.style.overflowY = 'auto'; }
+    slide.scrollTop = 0;
   }
 
   function show(n){
