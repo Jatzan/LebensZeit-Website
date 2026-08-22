@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>LebensZeit Team</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+/* ============ Tokens ============ */
+:root{
+  --lz:#4A6741; --lz-600:#3D5936; --lz-700:#2F4529; --lz-300:#8AAC85; --lz-200:#A8C9A0;
+  --bg:#E9EDE5; --surface:#FFFFFF; --surface-2:#F5F8F2; --raised:#FFFFFF; --appbg:#F2F5EE;
+  --ink:#14241A; --ink-2:rgba(20,36,26,.74); --ink-3:rgba(20,36,26,.56); --ink-4:rgba(20,36,26,.40);
+  --line:rgba(20,36,26,.13); --line-2:rgba(20,36,26,.07);
+  --accent:#3D5936; --on-accent:#FFFFFF; --tint:rgba(74,103,65,.10);
+  --ok:#15803D; --warn:#B45309; --urgent:#DC2626; --info:#185FA5;
+  --ok-t:rgba(21,128,61,.12); --warn-t:rgba(180,83,9,.12); --urgent-t:rgba(220,38,38,.10); --info-t:rgba(24,95,165,.10);
+  --shadow:0 1px 2px rgba(20,36,26,.06),0 10px 26px -14px rgba(20,36,26,.22);
+  --shadow-lg:0 30px 80px -28px rgba(20,36,26,.5);
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B100C; --surface:#161F17; --surface-2:#1C271D; --raised:#202C21; --appbg:#0F160F;
+  --ink:#FFFFFF; --ink-2:rgba(255,255,255,.74); --ink-3:rgba(255,255,255,.56); --ink-4:rgba(255,255,255,.40);
+  --line:rgba(255,255,255,.14); --line-2:rgba(255,255,255,.07);
+  --accent:#A8C9A0; --on-accent:#10180F; --tint:rgba(74,103,65,.24);
+  --ok:#4ADE80; --warn:#FBBF24; --urgent:#F87171; --info:#6BA3E8;
+  --ok-t:rgba(74,222,128,.14); --warn-t:rgba(251,191,36,.14); --urgent-t:rgba(248,113,113,.13); --info-t:rgba(107,163,232,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 26px -14px rgba(0,0,0,.8);
+  --shadow-lg:0 30px 80px -24px rgba(0,0,0,.85);
+}}
+:root[data-theme="dark"]{
+  --bg:#0B100C; --surface:#161F17; --surface-2:#1C271D; --raised:#202C21; --appbg:#0F160F;
+  --ink:#FFFFFF; --ink-2:rgba(255,255,255,.74); --ink-3:rgba(255,255,255,.56); --ink-4:rgba(255,255,255,.40);
+  --line:rgba(255,255,255,.14); --line-2:rgba(255,255,255,.07);
+  --accent:#A8C9A0; --on-accent:#10180F; --tint:rgba(74,103,65,.24);
+  --ok:#4ADE80; --warn:#FBBF24; --urgent:#F87171; --info:#6BA3E8;
+  --ok-t:rgba(74,222,128,.14); --warn-t:rgba(251,191,36,.14); --urgent-t:rgba(248,113,113,.13); --info-t:rgba(107,163,232,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 26px -14px rgba(0,0,0,.8);
+  --shadow-lg:0 30px 80px -24px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;font-size:16px;line-height:1.5}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ============ Bühne ============ */
+.stage{min-height:100vh;display:grid;grid-template-columns:1fr;gap:0;
+  padding:22px clamp(14px,3vw,34px) 34px}
+@media(min-width:1080px){.stage{grid-template-columns:320px 1fr;gap:34px;align-items:start}}
+
+.rail{display:flex;flex-direction:column;gap:16px;position:relative}
+.rail>*{flex:none}
+@media(min-width:1080px){.rail{position:sticky;top:22px;max-height:calc(100vh - 44px);overflow:auto;padding-right:4px}}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{width:38px;height:38px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em}
+.brand-sub{font-size:12.5px;color:var(--ink-3);margin-top:1px}
+.rail-lede{font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--ink-2);
+  border-left:2px solid var(--lz-300);padding-left:13px}
+.rail-lede b{color:var(--ink);font-weight:600}
+.idx{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.idx-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding:11px 14px;border-bottom:1px solid var(--line-2)}
+.idx-h span:first-child{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.idx-h span:last-child{font-size:11px;color:var(--ink-4);font-family:var(--mono)}
+.idx-grp{padding:9px 14px 4px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:700}
+.idx a{display:flex;gap:9px;align-items:baseline;padding:7px 14px;text-decoration:none;color:var(--ink-2);font-size:13.5px}
+.idx a:hover{background:var(--tint);color:var(--ink)}
+.idx a[aria-current="true"]{background:var(--tint);color:var(--ink);font-weight:700;box-shadow:inset 3px 0 0 var(--accent)}
+.idx a i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink-4);flex:none;min-width:38px}
+.note{font-size:12.5px;color:var(--ink-3);line-height:1.6}
+.note b{color:var(--ink-2)}
+
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tool{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:700;color:var(--ink-2);
+  transition:background .15s,border-color .15s}
+.tool:hover{background:var(--tint);border-color:var(--lz-300);color:var(--ink)}
+.tool[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:transparent}
+
+/* ============ Gerät ============ */
+.device{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+.phone{width:min(394px,100%);height:min(854px,calc(100vh - 120px));min-height:600px;position:relative;
+  background:var(--appbg);border-radius:46px;box-shadow:var(--shadow-lg),0 0 0 11px #1b211c,0 0 0 12.5px rgba(255,255,255,.14);
+  overflow:hidden;display:flex;flex-direction:column;isolation:isolate}
+@media(max-width:640px){.phone{width:100%;height:calc(100vh - 150px);border-radius:26px;box-shadow:var(--shadow)}}
+.sbar{height:46px;flex:none;display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px;font-size:13.5px;font-weight:700;position:relative;z-index:5}
+.sbar .notch{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:104px;height:26px;
+  background:#12170f;border-radius:16px}
+.sbar em{font-style:normal;font-family:var(--mono);font-size:13px}
+.sig{display:flex;gap:5px;align-items:center;color:var(--ink-2)}
+.viewport{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative}
+.viewport::-webkit-scrollbar{display:none}
+.tabbar{flex:none;display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line-2);background:color-mix(in srgb,var(--appbg) 86%,transparent);
+  backdrop-filter:blur(16px);position:relative;z-index:4}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;
+  border-radius:13px;color:var(--ink-4);font-size:10.5px;font-weight:700;min-height:52px;justify-content:center}
+.tab svg{width:21px;height:21px}
+.tab[aria-selected="true"]{color:var(--accent);background:var(--tint)}
+.home{height:5px;width:130px;background:var(--ink-4);border-radius:99px;margin:0 auto 7px;opacity:.5}
+
+/* ============ App-Bausteine ============ */
+.view{display:none;padding:4px 17px 26px;animation:in .26s ease both}
+.view.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.h-view{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:3px 0 3px}
+.sub{font-size:13.5px;color:var(--ink-3)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:var(--shadow)}
+.stack{display:flex;flex-direction:column;gap:11px}
+.stack-s{display:flex;flex-direction:column;gap:7px}
+.mt{margin-top:17px}
+.hr{height:1px;background:var(--line-2);border:0;margin:12px 0}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:19px 0 9px}
+.sechead h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.sechead span{font-size:12px;color:var(--ink-4);font-family:var(--mono)}
+
+.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;
+  font-size:11.5px;font-weight:700;white-space:nowrap}
+.pill svg{width:12px;height:12px;flex:none}
+.p-ok{background:var(--ok-t);color:var(--ok)} .p-warn{background:var(--warn-t);color:var(--warn)}
+.p-urg{background:var(--urgent-t);color:var(--urgent)} .p-info{background:var(--info-t);color:var(--info)}
+.p-mut{background:var(--line-2);color:var(--ink-3)} .p-brand{background:var(--tint);color:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;
+  border-radius:14px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:15.5px;width:100%;
+  transition:filter .15s,transform .1s}
+.btn:hover{filter:brightness(1.08)} .btn:active{transform:scale(.985)}
+.btn[disabled]{opacity:.42;pointer-events:none}
+.btn-2{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn-2:hover{background:var(--tint)}
+.btn-danger{background:var(--urgent);color:#fff}
+.btn-s{min-height:40px;font-size:13.5px;padding:0 14px;width:auto;border-radius:11px}
+.btn-row{display:flex;gap:9px}
+
+.num{font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:12px 10px;text-align:left;
+  box-shadow:var(--shadow);position:relative;transition:border-color .15s,transform .1s}
+.kpi:hover{border-color:var(--lz-300)} .kpi:active{transform:scale(.985)}
+.kpi b{display:block;font-size:27px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi span{display:block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-top:3px}
+.kpi .dot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:99px;background:var(--urgent)}
+
+.bar{height:7px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--lz);border-radius:99px}
+
+.row{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:13px;box-shadow:var(--shadow);
+  transition:border-color .15s,transform .1s}
+button.row:hover{border-color:var(--lz-300)} button.row:active{transform:scale(.99)}
+.row-b{flex:1;min-width:0}
+.row-t{font-size:15px;font-weight:700;line-height:1.3}
+.row-s{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.row-x{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+
+.stopnum{width:30px;height:30px;flex:none;border-radius:99px;display:grid;place-items:center;
+  font-family:var(--mono);font-size:13px;font-weight:500;background:var(--line-2);color:var(--ink-3)}
+.stopnum.done{background:var(--ok-t);color:var(--ok)}
+.stopnum.now{background:var(--lz);color:#fff;box-shadow:0 0 0 0 rgba(74,103,65,.55);animation:ping 2.1s ease-out infinite}
+@keyframes ping{70%{box-shadow:0 0 0 11px rgba(74,103,65,0)}100%{box-shadow:0 0 0 0 rgba(74,103,65,0)}}
+
+.avatar{width:42px;height:42px;border-radius:99px;flex:none;display:grid;place-items:center;
+  color:#fff;font-weight:700;font-size:14px;letter-spacing:.02em}
+.banner{display:flex;gap:11px;padding:13px;border-radius:15px;background:var(--info-t);
+  border:1px solid color-mix(in srgb,var(--info) 26%,transparent)}
+.banner.warn{background:var(--warn-t);border-color:color-mix(in srgb,var(--warn) 26%,transparent)}
+.banner.ok{background:var(--ok-t);border-color:color-mix(in srgb,var(--ok) 26%,transparent)}
+.banner.urg{background:var(--urgent-t);border-color:color-mix(in srgb,var(--urgent) 30%,transparent)}
+.banner p{margin:0;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.banner strong{color:var(--ink)}
+
+.steps{display:flex;align-items:flex-start;gap:0;margin:4px 0}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-width:0}
+.step::before{content:"";position:absolute;top:12px;left:-50%;width:100%;height:2.5px;background:var(--line);z-index:0}
+.step:first-child::before{display:none}
+.step.done::before,.step.cur::before{background:var(--lz)}
+.step i{width:25px;height:25px;border-radius:99px;display:grid;place-items:center;background:var(--surface-2);
+  border:2px solid var(--line);z-index:1;font-style:normal}
+.step.done i{background:var(--lz);border-color:var(--lz);color:#fff}
+.step.cur i{background:var(--surface);border-color:var(--lz);color:var(--lz)}
+.step svg{width:12px;height:12px}
+.step b{font-size:10.5px;font-weight:700;color:var(--ink-4);text-align:center;line-height:1.25}
+.step.done b,.step.cur b{color:var(--ink-2)}
+.step.cur b{color:var(--accent)}
+
+.checkline{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.checkline:last-child{border-bottom:0}
+.box{width:25px;height:25px;border-radius:8px;border:2px solid var(--line);flex:none;display:grid;place-items:center;
+  background:var(--surface-2);transition:background .15s,border-color .15s}
+.box svg{width:14px;height:14px;opacity:0}
+.checkline.on .box{background:var(--ok);border-color:var(--ok)}
+.checkline.on .box svg{opacity:1;color:#fff}
+.checkline.on .ct{color:var(--ink-3);text-decoration:line-through}
+.ct{font-size:14.5px;font-weight:700;line-height:1.35}
+.cs{font-size:12px;color:var(--ink-3);margin-top:1px}
+
+.sheet-bg{position:absolute;inset:0;background:rgba(8,14,9,.5);backdrop-filter:blur(3px);z-index:20;
+  display:none;align-items:flex-end}
+.sheet-bg.on{display:flex;animation:fade .2s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet{background:var(--appbg);border-radius:24px 24px 0 0;width:100%;max-height:88%;overflow-y:auto;
+  padding:9px 17px calc(20px + env(safe-area-inset-bottom));animation:up .3s cubic-bezier(.2,.9,.3,1) both;
+  scrollbar-width:none;border-top:1px solid var(--line)}
+.sheet::-webkit-scrollbar{display:none}
+@keyframes up{from{transform:translateY(26px)}to{transform:none}}
+.grab{width:38px;height:4.5px;border-radius:99px;background:var(--ink-4);opacity:.45;margin:0 auto 13px}
+
+.seg{display:flex;background:var(--line-2);border-radius:12px;padding:3.5px;gap:3px}
+.seg button{flex:1;padding:8px 6px;border-radius:9px;font-size:13px;font-weight:700;color:var(--ink-3);min-height:38px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:7px 12px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;font-weight:700;
+  color:var(--ink-3);background:var(--surface);min-height:36px}
+.chip[aria-pressed="true"]{background:var(--tint);border-color:var(--lz-300);color:var(--accent)}
+
+.field{display:block;margin-bottom:12px}
+.field>span{display:block;font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%;min-height:48px;padding:12px 13px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
+.field textarea{min-height:88px;resize:vertical;line-height:1.5}
+.field input:focus,.field textarea:focus{border-color:var(--accent);outline:none}
+.opt{display:flex;gap:10px;align-items:center;padding:13px;border-radius:12px;border:1.5px solid var(--line);
+  background:var(--surface);width:100%;text-align:left;min-height:52px}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--tint)}
+.opt .mark{width:21px;height:21px;border-radius:99px;border:2px solid var(--line);flex:none;display:grid;place-items:center}
+.opt[aria-pressed="true"] .mark{border-color:var(--accent);background:var(--accent)}
+.opt[aria-pressed="true"] .mark::after{content:"";width:8px;height:8px;border-radius:99px;background:var(--on-accent)}
+.opt-t{font-size:14.5px;font-weight:700} .opt-s{font-size:12px;color:var(--ink-3);margin-top:1px}
+
+.toast{position:absolute;left:14px;right:14px;bottom:78px;z-index:30;padding:13px 15px;border-radius:14px;
+  background:var(--ok);color:#fff;font-size:13.5px;font-weight:700;box-shadow:var(--shadow-lg);
+  display:none;gap:10px;align-items:flex-start;line-height:1.45}
+.toast.on{display:flex;animation:up .3s cubic-bezier(.2,.9,.3,1) both}
+.toast svg{width:18px;height:18px;flex:none;margin-top:1px}
+
+.mapwrap{border-radius:17px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.mapwrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:11px;padding:11px 13px;border-top:1px solid var(--line-2);font-size:11.5px;color:var(--ink-3)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:99px;margin-right:5px;vertical-align:-1px}
+
+.caption{font-size:12.5px;color:var(--ink-3);text-align:center;max-width:56ch;line-height:1.6}
+.caption b{color:var(--ink-2)}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Ergaenzungen fuer die Einbettung in die Website · JO · 22.08.2026
+   Der Prototyp selbst ist unveraendert. Hier stehen nur die drei Dinge,
+   die er als eigenstaendige Seite im Verbund braucht.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* 1 · Platz fuer die Fiktiv-Leiste.
+   lz-notes.js setzt die Leiste als erstes Kind von <body>; sie steht im
+   Fluss (position:relative), nicht fixiert. Jede 100vh-Rechnung muss ihre
+   Hoehe deshalb abziehen, sonst ragt die Geraetehuelle unten heraus.
+   --tick-h wird von measureTick() auf <html> gesetzt; der Rueckfallwert
+   2.375rem ist derselbe wie an den 13 anderen Stellen im Bestand. */
+.stage{min-height:calc(100vh - var(--tick-h, 2.375rem))}
+.phone{height:min(854px,calc(100vh - 120px - var(--tick-h, 2.375rem)))}
+@media(max-width:640px){.phone{height:calc(100vh - 150px - var(--tick-h, 2.375rem))}}
+@media(min-width:1080px){.rail{max-height:calc(100vh - 44px - var(--tick-h, 2.375rem))}}
+
+/* 2 · Logo fuehrt auf die Startseite.
+   Marke, Groesse und Farbe bleiben unangetastet — es kommen nur Zeigerform
+   und ein Hover dazu, damit der Klick ueberhaupt auffindbar ist. */
+a.brand{text-decoration:none;color:inherit;border-radius:10px;
+  transition:opacity .15s}
+a.brand:hover .brand-name{color:var(--lz)}
+a.brand:hover .brand-mark{opacity:.82}
+
+/* 3 · Rueckweg ins Kundenportal.
+   Gleiche Pillenform wie die Werkzeuge daneben, aber als <a>, weil es eine
+   Navigation ist und kein Schalter. */
+a.tool{text-decoration:none}
+a.tool.zurueck{border-color:var(--lz-300);color:var(--ink);font-weight:700}
+a.tool.zurueck:hover{background:var(--accent);color:var(--on-accent);border-color:transparent}
+a.tool.zurueck svg{width:14px;height:14px;flex:none}
+
+</style>
+</head>
+<body>
+<div class="stage">
+  <aside class="rail">
+    <a class="brand" href="/" aria-label="Zur Startseite von LebensZeit gGmbH" title="Zur Startseite">
+      <svg class="brand-mark" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="35" fill="none" stroke="var(--lz-300)" stroke-width="1.2" opacity=".5"/>
+        <circle cx="40" cy="40" r="25" fill="none" stroke="var(--lz-300)" stroke-width="1" opacity=".7"/>
+        <g fill="var(--lz)"><circle cx="40" cy="14" r="4.6"/><circle cx="64" cy="30" r="4.6"/><circle cx="55" cy="58" r="4.6"/><circle cx="25" cy="58" r="4.6"/><circle cx="16" cy="30" r="4.6"/><circle cx="40" cy="40" r="7.4"/></g>
+        <path d="M40 14 64 30 55 58 25 58 16 30Z" fill="none" stroke="var(--lz)" stroke-width="1.1" opacity=".55"/>
+      </svg>
+      <div>
+        <div class="brand-name">LebensZeit Team</div>
+        <div class="brand-sub">Mitarbeiter-App · Prototyp V1</div>
+      </div>
+    </a>
+    <p class="rail-lede">Die Tour einer Pflegekraft von der Anmeldung bis zum Feierabend — mit <b>gezeichneter Tourkarte ohne Kartendienst</b>, Medikamentengabe, Wunddoku, Dienstplan und Vertretungsantrag.</p>
+    <div class="tools">
+      <!-- Rueckweg. Der Prototyp ist nur ueber das Kundenportal erreichbar
+           (E-020), deshalb fuehrt der Weg dorthin zurueck und nicht in die
+           Seitengeschichte des Browsers. -->
+      <a class="tool zurueck" href="/kundenportal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Zum Kundenportal</a>
+      <button class="tool" id="themeBtn" aria-pressed="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 010 18" fill="currentColor" stroke="none"/></svg>
+        Darstellung
+      </button>
+      <button class="tool" id="offlineBtn" aria-pressed="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3l18 18M8.5 16.4a5 5 0 017 0M5 12.9a10 10 0 0114 0"/></svg>
+        Funkloch
+      </button>
+    </div>
+    <nav class="idx" aria-label="Screens">
+      <div class="idx-h"><span>Screens</span><span>Bauplan §</span></div>
+      <div class="idx-grp">Schichtbeginn</div>
+      <a href="#" data-go="anmeldung"><i>§5 App</i>Dienst beginnen</a>
+      <a href="#" data-go="heute"><i>§5 Cock</i>Heute</a>
+      <div class="idx-grp">Unterwegs</div>
+      <a href="#" data-go="tour"><i>§5 App</i>Meine Tour</a>
+      <a href="#" data-go="stopp"><i>§5 App</i>Stopp-Detail</a>
+      <a href="#" data-go="meds"><i>§5 neu</i>Medikamentengabe</a>
+      <a href="#" data-go="wunde"><i>§5 neu</i>Wunddokumentation</a>
+      <a href="#" data-go="abschluss"><i>§5 App</i>Besuch abschließen</a>
+      <div class="idx-grp">Büro in der Tasche</div>
+      <a href="#" data-go="doku"><i>§5 Cock</i>Offene Dokumentation</a>
+      <a href="#" data-go="nachrichten"><i>§5 Cock</i>Nachrichten der PDL</a>
+      <div class="idx-grp">Meine Woche</div>
+      <a href="#" data-go="plan"><i>§5 neu</i>Mein Dienstplan</a>
+      <a href="#" data-go="antrag"><i>§5 neu</i>Abwesenheit / Vertretung</a>
+      <a href="#" data-go="profil"><i>§6</i>Profil &amp; Grenzen</a>
+    </nav>
+    <p class="note"><b>Nicht enthalten (§6):</b> Verträge, Rechnungen und Mitgliedschaft (Kundenportal) · Kennzahlen-Dashboards und Standortvergleiche (Cockpit) · Recruiting und Personalstamm (Cockpit).</p>
+    <p class="note"><b>Namensraum (§7):</b> Für die Rolle Pflegekraft erscheint durchgehend <b>Sandra Köhler</b> — derselbe Name, den das Kundenportal als Bezugs&shy;pflegekraft von Hildegard Stemmer führt und den die Tourdaten des Cockpits kennen. Katrin Lohmann, Elif Yilmaz und Andrea Schulte sind eigenständige Kolleginnen. Die Klientinnen der Tour stammen aus dem Klientenbestand des Cockpits.</p>
+  </aside>
+
+  <main class="device">
+    <div class="phone">
+      <div class="sbar"><div class="notch"></div><em id="clock">10:19</em>
+        <div class="sig" id="sig"><svg width="16" height="12" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><rect x="0" y="12" width="4" height="6" rx="1"/><rect x="6" y="8" width="4" height="10" rx="1"/><rect x="12" y="4" width="4" height="14" rx="1"/><rect x="18" y="0" width="4" height="18" rx="1" opacity=".35"/></svg>
+        <svg width="22" height="12" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1" y="1" width="20" height="12" rx="3.5"/><rect x="3" y="3" width="14" height="8" rx="2" fill="currentColor" stroke="none"/><path d="M23.5 5v4" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="viewport" id="vp"></div>
+      <div class="toast" id="toast"></div>
+      <nav class="tabbar" id="tabs" aria-label="Bereiche"></nav>
+      <div class="home"></div>
+      <div class="sheet-bg" id="sheetbg"><div class="sheet" id="sheet"></div></div>
+    </div>
+    <p class="caption" id="cap"><b>Dienst beginnen.</b> Sandra meldet sich an, bevor sie ins Auto steigt — die Tour liegt bereits offline auf dem Gerät.</p>
+  </main>
+</div>
+<script>
+(function(){
+"use strict";
+const $=(s,r)=>(r||document).querySelector(s), vp=$("#vp"), tabs=$("#tabs"), cap=$("#cap"),
+      sheetbg=$("#sheetbg"), sheet=$("#sheet"), toastEl=$("#toast");
+
+/* ---------- Symbole ---------- */
+const I={
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+ car:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h2m10 0h2M3 11l1.5-5.5A2 2 0 016.4 4h11.2a2 2 0 011.9 1.5L21 11M3 11h18v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>',
+ clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>',
+ route:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H15a3.5 3.5 0 000-7H9a3.5 3.5 0 010-7h6.5"/></svg>',
+ doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
+ cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+ pill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.8 8.8l6.4 6.4"/></svg>',
+ cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A2 2 0 015 6.5h2l1.5-2h7L17 6.5h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="13" r="3.6"/></svg>',
+ mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>',
+ warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10.3 3.9L2 18.2A2 2 0 003.7 21h16.6a2 2 0 001.7-2.8L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9.5v4M12 17.2h.01"/></svg>',
+ user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0115 0"/></svg>',
+ arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg>',
+ pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>'
+};
+
+/* ---------- Zustand ---------- */
+const S={
+ offline:false, dienst:false, stage:1, /* 0 geplant,1 unterwegs,2 gleich da,3 angekommen,4 abgeschlossen */
+ aufgaben:{augen:false,rr:false,meds:false,trink:false},
+ medsGiven:{augen:false}, wundeFoto:false, dokuOffen:4, msgQuittiert:false, antragStep:1, antragArt:"tausch",
+ stops:[
+  {n:1,zeit:"07:15",name:"Heinrich Weber",ort:"Anröchte, Am Wieskamp 6",pg:1,auf:"Grundpflege, Kompressionsstrümpfe",tag:"Sturzrisiko",st:"done",fin:"abgeschlossen 07:42",km:"8,2 km"},
+  {n:2,zeit:"08:05",name:"Hildegard Stemmer",ort:"Rüthen-Meiste, Am Möhnesee 10",pg:2,auf:"Medikamentenplan prüfen, Frühstück reichen",tag:"kogn. Verschlechterung",st:"done",fin:"abgeschlossen 08:47",km:"11,4 km"},
+  {n:3,zeit:"09:15",name:"Renate Rasche",ort:"Rüthen, Am Stadtwall 38",pg:2,auf:"Haushalt, Begleitung Hausarzt",tag:"Vertretung für Katrin Lohmann",st:"done",fin:"abgeschlossen 09:52",km:"6,1 km"},
+  {n:4,zeit:"10:30",name:"Irmgard Rüther",ort:"Erwitte, Hellweg 15",pg:2,auf:"Augentropfen, Blutdruck, Medikamente",tag:"Penicillin-Allergie",st:"now",fin:"noch 6,8 km · 11 Min.",km:"17,9 km"},
+  {n:5,zeit:"11:35",name:"Elfriede Koch",ort:"Bad Sassendorf, Am Kurpark 9",pg:3,auf:"Insulin, Medikamente stellen, Verbandwechsel",tag:"Wunddoku fällig",st:"open",fin:"geplant",km:"12,3 km"},
+  {n:6,zeit:"12:40",name:"Wilhelm Bathe",ort:"Lippetal-Herzfeld, Am Kirchplatz 2",pg:4,auf:"Transfer mit Lifter, Grundpflege",tag:"Doppelbesetzung mit Elif Yilmaz",st:"open",fin:"geplant",km:"14,6 km"}
+ ],
+ doku:[
+  {id:"d1",t:"Heinrich Weber · Sturzrisiko-Assessment",s:"fällig seit 14.08. · Anröchte · PG 1",lvl:"urg",btn:"Assessment ausfüllen (6 Fragen)"},
+  {id:"d2",t:"Renate Rasche · Pflegebericht fehlt",s:"heute 09:52 · Rüthen · Vertretung",lvl:"warn",btn:"Bericht schreiben"},
+  {id:"d3",t:"Hildegard Stemmer · Vitalwerte fehlen",s:"heute 08:47 · Rüthen-Meiste",lvl:"warn",btn:"Werte nachtragen"},
+  {id:"d4",t:"Elfriede Koch · Wundfoto ohne Bewertung",s:"seit Mo, 17.08.",lvl:"warn",btn:"Beim Besuch 11:35 erledigen"}
+ ]
+};
+const CAPS={
+ anmeldung:"<b>Dienst beginnen.</b> Sandra meldet sich an, bevor sie ins Auto steigt — die Tour liegt bereits offline auf dem Gerät.",
+ heute:"<b>Heute.</b> Die drei Kennzahlen der Cockpit-Rolle, mobil übersetzt — und darunter das Einzige, was jetzt zählt: der nächste Stopp.",
+ tour:"<b>Meine Tour.</b> Sechs Stopps in Reihenfolge — und eine gezeichnete Karte, die auch im Funkloch zwischen Rüthen und Erwitte funktioniert.",
+ stopp:"<b>Stopp-Detail.</b> Der Arbeitsplatz vor Ort: Status setzen, Aufgaben abhaken, Medikamente und Wunddoku starten.",
+ meds:"<b>Medikamentengabe.</b> Der Kern des geteilten Zustands: Sandras Bestätigung ist sofort in der Kunden-App sichtbar.",
+ wunde:"<b>Wunddokumentation.</b> Foto, Messwerte und Verlauf — das Bild bleibt in der Pflegeakte, nicht im Telefon.",
+ abschluss:"<b>Besuch abschließen.</b> In unter einer Minute am Türrahmen, damit abends keine Dokumentation übrig bleibt.",
+ doku:"<b>Offene Dokumentation.</b> Aus der Kennzahl „4“ wird eine Liste, die man an der Ampel abarbeiten kann.",
+ nachrichten:"<b>Nachrichten.</b> Die Ansagen der Pflegedienstleitung — mit Quittierung, weil Frau Schulte wissen muss, wer sie gelesen hat.",
+ plan:"<b>Mein Dienstplan.</b> Nur die eigene Woche — Dienstplanung des Standorts bleibt im Cockpit.",
+ antrag:"<b>Abwesenheit / Vertretung.</b> Vier Schritte, inklusive selbst vorgeschlagener Vertretung.",
+ profil:"<b>Profil &amp; Grenzen.</b> Offline-Stand, Darstellung — und was diese App bewusst nicht kann."
+};
+const TABS=[{id:"heute",l:"Heute",i:I.home},{id:"tour",l:"Tour",i:I.route},{id:"doku",l:"Doku",i:I.doc},{id:"plan",l:"Plan",i:I.cal}];
+
+/* ---------- Hilfen ---------- */
+function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function toast(txt,ms){toastEl.innerHTML=I.check.replace("<svg",'<svg style="width:18px;height:18px"')+"<span>"+txt+"</span>";
+  toastEl.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>toastEl.classList.remove("on"),ms||4200);}
+function openSheet(html){sheet.innerHTML='<div class="grab"></div>'+html;sheetbg.classList.add("on");
+  const f=sheet.querySelector("button,input,textarea");if(f)f.focus();}
+function closeSheet(){sheetbg.classList.remove("on");}
+sheetbg.addEventListener("click",e=>{if(e.target===sheetbg)closeSheet();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet();});
+function stageName(i){return ["Geplant","Unterwegs","Gleich da","Angekommen","Abgeschlossen"][i];}
+
+/* ---------- Router ---------- */
+let cur="anmeldung";
+function go(v){
+  cur=v; vp.innerHTML=VIEWS[v](); vp.scrollTop=0; cap.innerHTML=CAPS[v]||"";
+  tabs.style.display=(v==="anmeldung")?"none":"flex";
+  [...tabs.children].forEach(b=>b.setAttribute("aria-selected", String(b.dataset.tab===tabRoot(v))));
+  document.querySelectorAll(".idx a").forEach(a=>a.setAttribute("aria-current",String(a.dataset.go===v)));
+  bind();
+}
+function tabRoot(v){
+  if(["tour","stopp","meds","wunde","abschluss"].includes(v))return "tour";
+  if(["doku","nachrichten"].includes(v))return "doku";
+  if(["plan","antrag"].includes(v))return "plan";
+  return "heute";
+}
+tabs.innerHTML=TABS.map(t=>'<button class="tab" data-tab="'+t.id+'" role="tab" aria-selected="false">'+t.i+'<span>'+t.l+'</span></button>').join("");
+tabs.addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.tab);});
+document.querySelectorAll(".idx a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();go(a.dataset.go);}));
+
+/* ---------- Kopfzeile in Screens ---------- */
+function head(eyebrow,title,sub){
+  return '<div style="padding-top:6px"><p class="eyebrow">'+eyebrow+'</p><h2 class="h-view">'+title+'</h2>'+
+    (sub?'<p class="sub">'+sub+'</p>':'')+'</div>';
+}
+function netChip(){
+  return S.offline
+   ? '<span class="pill p-warn">'+I.warn.replace("<svg",'<svg style="width:12px;height:12px"')+' Offline · 2 Einträge warten</span>'
+   : '<span class="pill p-ok">'+I.check.replace("<svg",'<svg style="width:12px;height:12px"')+' Online · 10:18 Uhr</span>';
+}
+
+/* ---------- Views ---------- */
+const VIEWS={};
+
+VIEWS.anmeldung=()=>`
+<div style="display:flex;flex-direction:column;min-height:100%;padding-top:16px">
+  <div style="text-align:center">
+    <svg width="60" height="60" viewBox="0 0 80 80" style="margin:0 auto" aria-hidden="true">
+      <circle cx="40" cy="40" r="35" fill="none" stroke="var(--lz-300)" stroke-width="1.2" opacity=".5"/>
+      <g fill="var(--lz)"><circle cx="40" cy="14" r="4.6"/><circle cx="64" cy="30" r="4.6"/><circle cx="55" cy="58" r="4.6"/><circle cx="25" cy="58" r="4.6"/><circle cx="16" cy="30" r="4.6"/><circle cx="40" cy="40" r="7.4"/></g>
+      <path d="M40 14 64 30 55 58 25 58 16 30Z" fill="none" stroke="var(--lz)" stroke-width="1.1" opacity=".55"/></svg>
+    <h1 style="font-size:25px;font-weight:700;margin-top:11px;letter-spacing:-.02em">LebensZeit Team</h1>
+    <p class="sub" style="margin-top:3px">Deine Tour. Dein Dienstplan. Offline dabei.</p>
+  </div>
+  <div class="card mt" style="display:flex;gap:12px;align-items:center">
+    <div class="avatar" style="background:var(--lz)">SK</div>
+    <div style="flex:1"><div class="row-t">Sandra Köhler</div><div class="row-s">Pflegefachkraft (examiniert) · Standort Erwitte</div></div>
+  </div>
+  <div class="card mt">
+    <p class="eyebrow">Ihre Schicht</p>
+    <div class="stack-s" style="margin-top:9px;font-size:14px">
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Tag</span><b>Mittwoch, 19. August 2026</b></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Dienst</span><b class="num">06:45 – 13:45</b></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Tour</span><b>Tour West · 6 Einsätze</b></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Fahrzeug</span><b class="num">SO-LZ 214</b></div>
+    </div>
+  </div>
+  <div class="card mt">
+    <p class="eyebrow">Dienst-PIN</p>
+    <div style="display:flex;gap:10px;margin:11px 0 9px" id="pin">
+      ${[0,1,2,3].map(i=>'<input inputmode="numeric" maxlength="1" aria-label="Ziffer '+(i+1)+'" style="width:100%;height:58px;text-align:center;font-size:23px;font-weight:700;font-family:var(--mono);border-radius:13px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink)">').join("")}
+    </div>
+    <p style="font-size:12px;color:var(--ink-3);margin:0">Nur für dieses Gerät. Keine Kundendaten auf dem Sperrbildschirm.</p>
+  </div>
+  <div style="margin-top:15px"><button class="btn" id="startBtn" disabled>Dienst beginnen</button></div>
+  <p style="font-size:12px;color:var(--ink-3);margin:14px 0 0;line-height:1.6">
+    Heute im Frühdienst: Elif Yilmaz (Tour Ost) · Katrin Lohmann (Fortbildung, Vertretung durch dich)</p>
+  <p style="font-size:11.5px;color:var(--ink-4);margin:9px 0 0">Letzter Abgleich gestern 21:04 Uhr · Tour ist offline gespeichert</p>
+</div>`;
+
+VIEWS.heute=()=>{
+ const done=S.stage>=4?4:3;
+ return `
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-top:6px">
+  <div><p class="eyebrow">Mittwoch, 19. August · Frühdienst</p><h2 class="h-view">Guten Morgen, Sandra</h2></div>
+  <button class="avatar" data-go="profil" style="background:var(--lz);margin-top:6px" aria-label="Profil">SM</button>
+</div>
+<div style="margin:2px 0 13px">${netChip()}</div>
+<div class="kpis">
+  <button class="kpi" data-go="tour"><b class="num">${done}/6</b><span>Einsätze heute</span></button>
+  <button class="kpi" data-go="doku"><b class="num" style="color:var(--warn)">${S.dokuOffen}</b><span>Offene Doku</span></button>
+  <button class="kpi" data-go="nachrichten">${S.msgQuittiert?"":'<i class="dot"></i>'}<b class="num" style="color:var(--info)">2</b><span>Nachrichten</span></button>
+</div>
+<div class="card mt">
+  <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-3);margin-bottom:7px">
+    <span><b style="color:var(--ink)">${done} von 6</b> Stopps erledigt</span><span class="num">43,6 / 92,0 km</span></div>
+  <div class="bar"><i style="width:${done/6*100}%"></i></div>
+</div>
+<div class="sechead"><h3>Nächster Stopp</h3><span>10:30 Uhr</span></div>
+<button class="row" data-go="stopp">
+  <span class="stopnum now">4</span>
+  <span class="row-b">
+    <span class="row-t">Irmgard Rüther</span>
+    <span class="row-s">Kallenhardter Str. 12, Erwitte</span>
+    <span style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+      <span class="pill p-info">PG 2</span><span class="pill p-urg">Penicillin-Allergie</span></span>
+    <span class="row-s" style="margin-top:8px">Augentropfen · Blutdruck · Medikamente kontrollieren</span>
+  </span>
+  <span class="row-x"><b class="num" style="font-size:15px">6,8 km</b><span style="font-size:12px;color:var(--ink-3)">11 Min.</span></span>
+</button>
+<div class="sechead"><h3>Von der Pflegedienstleitung</h3><span>06:52</span></div>
+<button class="banner" data-go="nachrichten" style="width:100%;text-align:left">
+  <span class="avatar" style="background:var(--info);width:36px;height:36px;font-size:12px">AS</span>
+  <span style="flex:1">
+    <b style="font-size:13.5px">Andrea Schulte · Pflegedienstleitung</b>
+    <p style="margin-top:3px">Frau Rasche kommt heute zusätzlich auf die Frühtour, Katrin ist auf Fortbildung. Schlüssel Nr. 12 bitte aus dem Tresor mitnehmen.</p>
+    <span class="pill ${S.msgQuittiert?"p-ok":"p-warn"}" style="margin-top:8px">${S.msgQuittiert?"Quittiert":"Quittierung erforderlich"}</span>
+  </span>
+</button>
+<p style="text-align:center;font-size:12.5px;color:var(--ink-4);margin:19px 0 0">Noch 3:12 Std. bis Dienstende</p>`;
+};
+
+VIEWS.tour=()=>`
+${head("Tour West · Mi, 19.08.2026","Meine Tour","6 Stopps · 92,0 km · Rückkehr 13:36 Uhr")}
+<div class="seg mt" id="tourSeg">
+  <button data-seg="liste" aria-pressed="true">Liste</button>
+  <button data-seg="karte" aria-pressed="false">Karte</button>
+</div>
+<div id="tourBody" class="mt">${tourListe()}</div>`;
+
+function tourListe(){
+ return '<div class="stack">'+S.stops.map(s=>{
+  const st=(s.n===4&&S.stage>=4)?"done":s.st;
+  const cls=st==="done"?"done":(st==="now"?"now":"");
+  const pill=st==="done"?'<span class="pill p-ok">Erledigt</span>'
+    :(st==="now"?'<span class="pill p-info">'+stageName(S.stage)+'</span>':'<span class="pill p-mut">Geplant</span>');
+  return '<button class="row" '+(s.n===4?'data-go="stopp"':'data-info="'+esc(s.name)+'"')+'>'+
+   '<span class="stopnum '+cls+'">'+(st==="done"?I.check.replace("<svg",'<svg style="width:14px;height:14px"'):s.n)+'</span>'+
+   '<span class="row-b"><span class="row-t">'+esc(s.name)+'</span>'+
+    '<span class="row-s">'+esc(s.ort)+'</span>'+
+    '<span style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px"><span class="pill p-info">PG '+s.pg+'</span>'+
+      '<span class="pill '+(s.tag.indexOf("Allergie")>=0?"p-urg":"p-mut")+'">'+esc(s.tag)+'</span></span>'+
+    '<span class="row-s" style="margin-top:7px">'+esc(s.auf)+'</span></span>'+
+   '<span class="row-x"><b class="num" style="font-size:15px">'+s.zeit+'</b>'+pill+
+     '<span style="font-size:11px;color:var(--ink-4)" class="num">'+s.km+'</span></span></button>';
+ }).join("")+'</div>'+
+ '<p style="font-size:12.5px;color:var(--ink-3);text-align:center;margin:15px 0 0">Rückfahrt Standort Erwitte · 21,5 km · geplant 13:36 Uhr</p>';
+}
+
+function tourKarte(){
+ const P={depot:[180,158],1:[185,232],2:[239,381],3:[260,333],4:[200,176],5:[78,192],6:[60,83]};
+ const gefahren=`M180,158 L185,232 L239,381 L260,333 L233,262`;
+ const offen=`M233,262 L200,176 L78,192 L60,83 L180,158`;
+ const dot=(k,label,cls)=>{const p=P[k];return `<circle cx="${p[0]}" cy="${p[1]}" r="13" class="${cls}"/>`;};
+ return `<div class="mapwrap">
+ <svg viewBox="0 0 320 440" role="img" aria-label="Schematische Tourkarte mit sechs Stopps im Kreis Soest">
+  <defs><style>
+   .fld{fill:var(--lz-300);opacity:.16}.wld{fill:var(--lz);opacity:.13}
+   .riv{stroke:var(--info);stroke-width:2.4;fill:none;opacity:.4;stroke-linecap:round}
+   .lbl{font-family:var(--sans);font-size:11px;fill:var(--ink-3)}
+   .lbl-b{font-family:var(--sans);font-size:11.5px;font-weight:700;fill:var(--ink-2)}
+   .seg-done{stroke:var(--lz);stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+   .seg-open{stroke:var(--lz-300);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 8;opacity:.85}
+   .nd-done{fill:var(--ok);stroke:var(--surface);stroke-width:3}
+   .nd-open{fill:var(--surface);stroke:var(--lz-300);stroke-width:3}
+   .nd-now{fill:var(--lz);stroke:var(--surface);stroke-width:3}
+   .nn{font-family:var(--mono);font-size:12px;font-weight:500;fill:#fff}
+   .nn-o{font-family:var(--mono);font-size:12px;font-weight:500;fill:var(--ink-3)}
+   .seglbl{font-family:var(--mono);font-size:9.5px;fill:var(--ink-4)}
+  </style></defs>
+  <rect width="320" height="440" fill="var(--surface)"/>
+  <ellipse class="fld" cx="70" cy="250" rx="72" ry="54"/><ellipse class="wld" cx="255" cy="255" rx="58" ry="70"/>
+  <ellipse class="fld" cx="150" cy="410" rx="86" ry="42"/><ellipse class="fld" cx="235" cy="120" rx="62" ry="44"/>
+  <path class="riv" d="M0,112 C60,100 110,126 165,116 C222,106 270,128 320,118"/>
+  <text class="lbl" x="8" y="106">Lippe</text>
+  <path class="seg-open" d="${offen}"/><path class="seg-done" d="${gefahren}"/>
+  <rect x="171" y="149" width="18" height="18" rx="4" fill="var(--lz-700)"/>
+  <text class="lbl-b" x="164" y="144" text-anchor="middle">Standort</text>
+  ${dot(1,"","nd-done")}${dot(2,"","nd-done")}${dot(3,"","nd-done")}
+  ${dot(4,"","nd-now")}${dot(5,"","nd-open")}${dot(6,"","nd-open")}
+  <circle cx="200" cy="176" r="20" fill="none" stroke="var(--lz)" stroke-width="2" opacity=".45">
+    <animate attributeName="r" values="14;22;14" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values=".5;0;.5" dur="2.4s" repeatCount="indefinite"/></circle>
+  <text class="nn" x="185" y="237" text-anchor="middle">1</text>
+  <text class="nn" x="239" y="386" text-anchor="middle">2</text>
+  <text class="nn" x="260" y="338" text-anchor="middle">3</text>
+  <text class="nn" x="200" y="181" text-anchor="middle">4</text>
+  <text class="nn-o" x="78" y="197" text-anchor="middle">5</text>
+  <text class="nn-o" x="60" y="88" text-anchor="middle">6</text>
+  <g transform="translate(233,262) rotate(-22)"><circle r="11" fill="var(--surface)" stroke="var(--lz)" stroke-width="2.5"/>
+    <g transform="translate(-7,-7) scale(.58)" stroke="var(--lz)" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <path d="M5 17h2m10 0h2M3 11l1.5-5.5A2 2 0 016.4 4h11.2a2 2 0 011.9 1.5L21 11M3 11h18v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4z"/></g></g>
+  <text class="lbl-b" x="185" y="256" text-anchor="middle">Anröchte</text>
+  <text class="lbl-b" x="239" y="405" text-anchor="middle">Rüthen-Meiste</text>
+  <text class="lbl-b" x="276" y="326" text-anchor="start">Rüthen</text>
+  <text class="lbl-b" x="214" y="172" text-anchor="start">Erwitte</text>
+  <text class="lbl-b" x="78" y="216" text-anchor="middle">Bad Sassendorf</text>
+  <text class="lbl-b" x="60" y="107" text-anchor="middle">Lippetal</text>
+  <text class="seglbl" x="196" y="300" text-anchor="middle">11,4 km</text>
+  <text class="seglbl" x="268" y="368" text-anchor="middle">6,1 km</text>
+  <text class="seglbl" x="253" y="225" text-anchor="start">17,9 km</text>
+  <text class="seglbl" x="136" y="188" text-anchor="middle">12,3 km</text>
+  <g transform="translate(292,34)"><path d="M0,-13 L5,7 L0,2 L-5,7 Z" fill="var(--ink-3)"/><text class="lbl" x="0" y="22" text-anchor="middle">N</text></g>
+  <text class="lbl" x="10" y="430">Schematisch — nicht maßstabsgetreu</text>
+ </svg>
+ <div class="legend">
+   <span><i style="background:var(--ok)"></i>erledigt (1–3)</span>
+   <span><i style="background:var(--lz)"></i>jetzt (4)</span>
+   <span><i style="background:var(--lz-300)"></i>offen (5–6)</span>
+   <span style="width:100%;color:var(--ink-4)">Ohne Kartendienst gezeichnet — funktioniert ohne Netz.</span>
+ </div></div>
+ <button class="row mt" data-go="stopp"><span class="stopnum now">4</span>
+  <span class="row-b"><span class="row-t">Irmgard Rüther</span><span class="row-s">10:30 Uhr · PG 2 · Erwitte</span></span>
+  <span class="row-x">${I.arrow.replace("<svg",'<svg style="width:19px;height:19px;color:var(--ink-4)"')}</span></button>`;
+}
+
+VIEWS.stopp=()=>{
+ const st=S.stage, offen=S.medsGiven.augen?0:1;
+ return `
+<div style="display:flex;gap:12px;align-items:center;padding-top:6px">
+  <div class="avatar" style="background:var(--lz-300);color:var(--lz-700);width:52px;height:52px;font-size:16px">MV</div>
+  <div style="flex:1"><h2 style="font-size:21px;font-weight:700;letter-spacing:-.02em">Irmgard Rüther</h2>
+   <p class="sub">79 Jahre · PG 2 · Kallenhardter Str. 12</p></div>
+</div>
+<div class="banner urg mt">${I.warn.replace("<svg",'<svg style="width:19px;height:19px;color:var(--urgent);flex:none"')}
+  <p><strong>Penicillin-Allergie</strong> — vor jeder Gabe prüfen.</p></div>
+<div class="card mt">
+  <div class="steps">
+    ${["Geplant","Unterwegs","Gleich da","Angekommen","Fertig"].map((l,i)=>
+      '<div class="step '+(i<st?"done":(i===st?"cur":""))+'"><i>'+(i<st?I.check:(i===st?'<b style="width:8px;height:8px;background:currentColor;border-radius:9px"></b>':""))+'</i><b>'+l+'</b></div>').join("")}
+  </div>
+  <hr class="hr">
+  ${st<3?'<div style="display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:17px" class="num">6,8 km</b><span style="color:var(--ink-3);font-size:13px"> · noch 11 Min.</span><div class="row-s">Ankunft geplant 10:30 Uhr</div></div>'+
+        '<button class="btn btn-s" id="advance">'+(st===1?"Gleich da":"Angekommen")+'</button></div>'
+      :(st===3?'<div style="display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:15px">Angekommen 10:31</b><div class="row-s">Besuch läuft seit 37 Minuten</div></div><button class="btn btn-s" data-go="abschluss">Abschließen</button></div>'
+      :'<div style="display:flex;gap:9px;align-items:center"><span class="pill p-ok">Abgeschlossen 11:08</span><span style="font-size:13px;color:var(--ink-3)">Dauer 37 Min.</span></div>')}
+</div>
+<div class="sechead"><h3>Aufgaben heute</h3><span>${Object.values(S.aufgaben).filter(Boolean).length}/4</span></div>
+<div class="card">
+  ${[["augen","Augentropfen geben","9:00-Gabe nachholen"],["rr","Blutdruck messen",""],["meds","Medikamente kontrollieren",""],["trink","Trinkmenge notieren","gestern nur 0,9 l"]]
+    .map(([k,t,s])=>'<button class="checkline '+(S.aufgaben[k]?"on":"")+'" data-task="'+k+'" style="width:100%;text-align:left;background:none">'+
+      '<span class="box">'+I.check+'</span><span style="flex:1"><span class="ct">'+t+'</span>'+(s?'<span class="cs">'+s+'</span>':'')+'</span></button>').join("")}
+</div>
+<div class="sechead"><h3>Vor Ort erledigen</h3></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+  <button class="kpi" data-go="meds" style="text-align:center">
+    ${I.pill.replace("<svg",'<svg style="width:22px;height:22px;color:'+(offen?"var(--warn)":"var(--ok)")+';margin:0 auto 6px;display:block"')}
+    <span style="text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink)">Medikamente</span>
+    <span style="margin-top:3px">${offen?"1 offen":"alle gegeben"}</span></button>
+  <button class="kpi" data-go="wunde" style="text-align:center">
+    ${I.cam.replace("<svg",'<svg style="width:22px;height:22px;color:var(--ink-3);margin:0 auto 6px;display:block"')}
+    <span style="text-transform:none;letter-spacing:0;font-size:13.5px;color:var(--ink)">Wunddoku</span>
+    <span style="margin-top:3px">nächster Stopp</span></button>
+</div>
+<button class="row mt" id="kurzakte"><span class="row-b"><span class="row-t">Kurzakte öffnen</span>
+  <span class="row-s">Allergien, Zugang, Bezugspersonen — schreibgeschützt</span></span>
+  <span class="row-x">${I.arrow.replace("<svg",'<svg style="width:19px;height:19px;color:var(--ink-4)"')}</span></button>
+<div class="banner mt">${I.clock.replace("<svg",'<svg style="width:19px;height:19px;color:var(--info);flex:none"')}
+  <p><strong>Gestern 18:30 · Abendbesuch</strong> — alles gut. Trinkmenge unter Ziel, bitte heute nachfragen.</p></div>`;
+};
+
+VIEWS.meds=()=>{
+ const g=S.medsGiven.augen;
+ return `
+${head("Irmgard Rüther","Medikamentenplan",(g?"0":"1")+" von 3 offen")}
+<div class="stack mt">
+  <div class="card" style="${g?'border-color:color-mix(in srgb,var(--ok) 40%,transparent)':'border-color:color-mix(in srgb,var(--warn) 45%,transparent)'}">
+    <div style="display:flex;gap:11px;align-items:flex-start">
+      <span class="pill ${g?"p-ok":"p-warn"}" style="margin-top:2px">${g?"Gegeben":"Offen"}</span>
+      <div style="flex:1"><div class="row-t">Augentropfen</div>
+        <div class="row-s num">geplant 9:00 Uhr</div>
+        <div style="font-size:12.5px;font-weight:700;color:${g?"var(--ok)":"var(--urgent)"};margin-top:5px">
+          ${g?"Von Sandra Köhler um 10:41 gegeben":"Gabe überfällig — 1 Std. 41 Min."}</div></div>
+    </div>
+    ${g?"":'<button class="btn mt" id="giveBtn" style="min-height:46px">Als gegeben bestätigen</button>'}
+  </div>
+  <div class="card">
+    <div style="display:flex;gap:11px;align-items:flex-start">
+      <span class="pill p-ok" style="margin-top:2px">Erledigt</span>
+      <div style="flex:1"><div class="row-t">Blutdrucktabletten</div><div class="row-s num">geplant 8:00 Uhr</div>
+      <div style="font-size:12.5px;color:var(--ok);font-weight:700;margin-top:5px">Von Irmgard Rüther selbst bestätigt · 08:05</div></div>
+    </div>
+  </div>
+  <div class="card" style="opacity:.72">
+    <div style="display:flex;gap:11px;align-items:flex-start">
+      <span class="pill p-mut" style="margin-top:2px">Später</span>
+      <div style="flex:1"><div class="row-t">Vitamin D</div><div class="row-s num">geplant 12:00 Uhr</div>
+      <div style="font-size:12.5px;color:var(--ink-3);margin-top:5px">Wird beim Mittagsbesuch gegeben</div></div>
+    </div>
+  </div>
+</div>
+<div class="banner mt">${I.user.replace("<svg",'<svg style="width:19px;height:19px;color:var(--info);flex:none"')}
+ <p><strong>Geteilter Zustand:</strong> Jede Bestätigung erscheint sofort in der Kunden-App — bei Marlene und bei ihrer Tochter Sabine.</p></div>
+<p style="font-size:12px;color:var(--ink-4);margin:15px 0 0;line-height:1.6">Doppelkontrolle nur bei Betäubungsmitteln erforderlich — hier nicht nötig.</p>`;
+};
+
+VIEWS.wunde=()=>`
+${head("Elfriede Koch · Bad Sassendorf","Wunddokumentation","Ulcus rechter Fußballen · Wagner-Grad 2 · Wechsel jeden 2. Tag")}
+<div class="sechead"><h3>Verlauf</h3><span>3 Aufnahmen</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+  ${["12.08.","17.08."].map((d,i)=>'<div class="card" style="padding:0;overflow:hidden">'+
+   '<div style="height:76px;background:linear-gradient(145deg,#c98b74,#a9634c);position:relative">'+
+   '<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(120,30,20,.65) 0%,transparent 52%)"></div></div>'+
+   '<div style="padding:7px 9px;font-size:11.5px;color:var(--ink-3)" class="num">'+d+'</div></div>').join("")}
+  <div class="card" style="padding:0;overflow:hidden;border-style:${S.wundeFoto?"solid":"dashed"};border-color:${S.wundeFoto?"var(--ok)":"var(--lz-300)"}">
+    ${S.wundeFoto
+      ?'<div style="height:76px;background:linear-gradient(145deg,#cf9781,#b06d54);position:relative"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(120,30,20,.55) 0%,transparent 48%)"></div></div><div style="padding:7px 9px;font-size:11.5px;color:var(--ok);font-weight:700" class="num">heute</div>'
+      :'<button id="shoot" style="width:100%;height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--accent)">'+I.cam.replace("<svg",'<svg style="width:23px;height:23px"')+'<span style="font-size:11.5px;font-weight:700">Foto aufnehmen</span></button>'}
+  </div>
+</div>
+${S.wundeFoto?'<div class="banner ok mt">'+I.check.replace("<svg",'<svg style="width:18px;height:18px;color:var(--ok);flex:none"')+'<p><strong>Wunde ist seit dem 12.08. um 0,7 cm kürzer geworden.</strong> Länge 3,1 cm statt 3,8 cm.</p></div>':''}
+<div class="sechead"><h3>Messwerte</h3><span>Vorwert in Klammern</span></div>
+<div class="card">
+  <div class="stack-s">
+   ${[["Länge","3,1 cm","3,4 cm",true],["Breite","2,4 cm","2,6 cm",true],["Tiefe","4 mm","5 mm",true]].map(([l,v,p])=>
+    '<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line-2)">'+
+    '<span style="font-size:14px;color:var(--ink-2)">'+l+'</span>'+
+    '<span><b class="num" style="font-size:16px">'+v+'</b> <span class="num" style="font-size:12px;color:var(--ink-4)">('+p+')</span> '+
+    '<span class="pill p-ok" style="margin-left:5px">kleiner</span></span></div>').join("")}
+   <div style="display:flex;justify-content:space-between;padding-top:8px">
+     <span style="font-size:14px;color:var(--ink-2)">Exsudat</span><span class="pill p-warn">mäßig</span></div>
+   <div style="display:flex;justify-content:space-between">
+     <span style="font-size:14px;color:var(--ink-2)">Schmerz (NRS)</span><b class="num">3 von 10</b></div>
+  </div>
+</div>
+<div class="sechead"><h3>Versorgung</h3></div>
+<div class="card"><div class="stack-s" style="font-size:13.5px;color:var(--ink-2)">
+  <div>Reinigung mit Ringerlösung</div><div>Schaumstoffverband Polyurethan 10 × 10 cm</div>
+  <div><b>Nächster Wechsel: Fr, 21.08.</b></div></div></div>
+<button class="btn mt" id="wundeSave" ${S.wundeFoto?"":"disabled"}>Dokumentation speichern</button>
+<div class="banner warn mt">${I.warn.replace("<svg",'<svg style="width:18px;height:18px;color:var(--warn);flex:none"')}
+ <p>Das Foto wird nur in der Pflegeakte gespeichert — <strong>nicht</strong> in der Fotomediathek des Telefons. Angehörige sehen kein Wundfoto.</p></div>`;
+
+VIEWS.abschluss=()=>{
+ const auto=S.medsGiven.augen;
+ return `
+${head("Stopp 4 · Irmgard Rüther","Besuch abschließen","Angekommen 10:31 · Dauer 37 Min. (geplant 40)")}
+<div class="sechead"><h3>Erbrachte Leistungen</h3></div>
+<div class="card">
+ ${[["Augentropfen gegeben",auto?"automatisch aus der Medikamentengabe · 10:41":"noch offen",auto],
+    ["Blutdruck gemessen","138/84 mmHg",true],["Medikamente kontrolliert","",true],["Trinkmenge notiert","0,4 l bisher",true]]
+   .map(([t,s,on])=>'<div class="checkline '+(on?"on":"")+'"><span class="box">'+I.check+'</span>'+
+   '<span style="flex:1"><span class="ct">'+t+'</span>'+(s?'<span class="cs">'+s+'</span>':'')+'</span></div>').join("")}
+</div>
+<div class="sechead"><h3>Vitalwerte</h3><span>Vorwert von gestern</span></div>
+<div class="card"><div class="stack-s">
+  ${[["Blutdruck","138 / 84 mmHg","gestern 135/82"],["Puls","76 /Min.","gestern 74"],["Trinkmenge","0,4 l","Ziel 1,5 l"]]
+   .map(([l,v,p])=>'<div style="display:flex;justify-content:space-between;align-items:baseline;padding:5px 0">'+
+   '<span style="font-size:14px;color:var(--ink-2)">'+l+'</span><span style="text-align:right"><b class="num" style="font-size:16px">'+v+'</b>'+
+   '<span class="num" style="display:block;font-size:11.5px;color:var(--ink-4)">'+p+'</span></span></div>').join("")}
+</div></div>
+<div class="sechead"><h3>Kurzbericht</h3></div>
+<label class="field"><span class="sr">Bericht</span>
+ <textarea id="bericht">Besuch planmäßig, Zustand stabil. Trinkmenge weiter unter Ziel — Tochter informiert.</textarea></label>
+<div class="chips" style="margin:-4px 0 12px">
+  <button class="chip" data-add="Klientin wirkt müder als sonst.">+ müder als sonst</button>
+  <button class="chip" data-add="Angehörige informiert.">+ Angehörige informiert</button>
+</div>
+<div class="sechead"><h3>Etwas melden?</h3></div>
+<div class="seg" id="melde">
+  <button data-m="0" aria-pressed="false">nichts</button>
+  <button data-m="1" aria-pressed="true">Beobachtung</button>
+  <button data-m="2" aria-pressed="false">dringend</button>
+</div>
+<div class="banner mt">${I.user.replace("<svg",'<svg style="width:18px;height:18px;color:var(--info);flex:none"')}
+ <p>Nach dem Abschließen sehen Marlene und ihre Tochter: <strong>„Der Besuch ist abgeschlossen. Alles erledigt.“</strong></p></div>
+<button class="btn mt" id="finish">Besuch abschließen</button>`;
+};
+
+VIEWS.doku=()=>`
+${head("Büro in der Tasche","Offene Dokumentation",S.dokuOffen+" Einträge · ca. "+(S.dokuOffen*2+1)+" Minuten Arbeit")}
+${S.dokuOffen===0?'<div class="banner ok mt">'+I.check.replace("<svg",'<svg style="width:19px;height:19px;color:var(--ok);flex:none"')+'<p><strong>Nichts mehr offen.</strong> Feierabend ohne Papierkram.</p></div>':''}
+<div class="stack mt">
+ ${S.doku.map(d=>'<div class="card" style="border-left:4px solid var(--'+(d.lvl==="urg"?"urgent":"warn")+')">'+
+  '<div style="display:flex;gap:9px;align-items:flex-start"><span class="pill '+(d.lvl==="urg"?"p-urg":"p-warn")+'">'+(d.lvl==="urg"?"Überfällig":"Offen")+'</span>'+
+  '<div style="flex:1"><div class="row-t">'+esc(d.t)+'</div><div class="row-s">'+esc(d.s)+'</div></div></div>'+
+  '<button class="btn btn-2 mt" data-done="'+d.id+'" style="min-height:44px;font-size:14px">'+esc(d.btn)+'</button></div>').join("")}
+</div>`;
+
+VIEWS.nachrichten=()=>`
+${head("Posteingang","Nachrichten","Von der Pflegedienstleitung")}
+<div class="stack mt">
+ <div class="card" style="border-left:4px solid var(--info)">
+  <div style="display:flex;gap:11px"><div class="avatar" style="background:var(--info);width:38px;height:38px;font-size:12px">AS</div>
+   <div style="flex:1"><div class="row-t">Andrea Schulte</div><div class="row-s">Pflegedienstleitung · heute 06:52</div></div>
+   ${S.msgQuittiert?'<span class="pill p-ok">Quittiert</span>':'<span class="pill p-warn">Neu</span>'}</div>
+  <p style="font-size:14px;line-height:1.55;margin:11px 0 0;color:var(--ink-2)">Guten Morgen zusammen: Frau Rasche in Rüthen kommt heute zusätzlich auf die Frühtour, Katrin ist auf Fortbildung. Schlüssel Nr. 12 bitte aus dem Tresor mitnehmen.</p>
+  ${S.msgQuittiert?'':'<button class="btn mt" id="quitt" style="min-height:44px">Gelesen und verstanden</button>'}
+ </div>
+ <div class="card">
+  <div style="display:flex;gap:11px"><div class="avatar" style="background:var(--info);width:38px;height:38px;font-size:12px">AS</div>
+   <div style="flex:1"><div class="row-t">Andrea Schulte</div><div class="row-s">heute 07:40</div></div></div>
+  <p style="font-size:14px;line-height:1.55;margin:11px 0 0;color:var(--ink-2)">Das neue Rezept für Frau Vossenkuhl liegt in der Apotheke Anröchte bereit. Sandra, du bist um 10:30 in der Nähe — magst du?</p>
+ </div>
+ <div class="card" style="opacity:.75">
+  <div style="display:flex;gap:11px"><div class="avatar" style="background:var(--lz-300);color:var(--lz-700);width:38px;height:38px;font-size:12px">EY</div>
+   <div style="flex:1"><div class="row-t">Elif Yilmaz</div><div class="row-s">Team · heute 09:20</div></div></div>
+  <p style="font-size:14px;line-height:1.55;margin:11px 0 0;color:var(--ink-2)">Bin ab 12:45 bei Herrn Bathe in Herzfeld, warte am Hoftor.</p>
+ </div>
+</div>`;
+
+VIEWS.plan=()=>`
+${head("KW 34 · 17.–23. August 2026","Mein Dienstplan","Zwei Wochen im Voraus freigegeben")}
+<div class="stack mt">
+${[["Mo","17.08.","Frühdienst 06:45–13:45","Tour West · 6 Einsätze","done"],
+   ["Di","18.08.","Frühdienst 06:45–13:45","Tour West · 7 Einsätze","done"],
+   ["Mi","19.08.","Frühdienst 06:45–13:45","Tour West · läuft · Stopp 4 von 6","today"],
+   ["Do","20.08.","Spätdienst 14:30–21:00","Tour Erwitte-Ost · 5 Einsätze","warn"],
+   ["Fr","21.08.","frei","","free"],
+   ["Sa","22.08.","Wochenenddienst 07:00–14:00","Tour Kompakt · 8 Einsätze","open"],
+   ["So","23.08.","frei","","free"]].map(([d,dt,t,s,k])=>
+ '<div class="card" style="'+(k==="today"?"border-color:var(--lz);background:var(--tint)":(k==="free"?"opacity:.6":""))+'">'+
+ '<div style="display:flex;gap:12px;align-items:center">'+
+  '<div style="text-align:center;min-width:42px"><b style="font-size:13px;display:block">'+d+'</b>'+
+   '<span class="num" style="font-size:11px;color:var(--ink-3)">'+dt+'</span></div>'+
+  '<div style="flex:1"><div class="row-t" style="font-size:14px">'+t+'</div>'+(s?'<div class="row-s">'+s+'</div>':'')+'</div>'+
+  (k==="today"?'<span class="pill p-brand">Heute</span>':(k==="done"?'<span class="pill p-ok">erledigt</span>':''))+
+ '</div>'+
+ (k==="warn"?'<div class="banner warn mt" style="padding:9px 11px">'+I.warn.replace("<svg",'<svg style="width:16px;height:16px;color:var(--warn);flex:none"')+'<p style="font-size:12.5px">Schichtwechsel: nur 17:00 Std. Ruhezeit nach dem Frühdienst.</p></div>':'')+
+ '</div>').join("")}
+</div>
+<div class="card mt"><div class="stack-s" style="font-size:13.5px">
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Geplant</span><b class="num">34,5 Std.</b></div>
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Vertrag</span><b class="num">30,0 Std.</b></div>
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Mehrstunden</span><b class="num" style="color:var(--warn)">+4,5 Std.</b></div>
+ <hr class="hr" style="margin:6px 0">
+ <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Urlaub</span><b class="num">12 von 30 Tagen</b></div>
+</div></div>
+<button class="btn mt" data-go="antrag">Abwesenheit oder Tausch beantragen</button>`;
+
+VIEWS.antrag=()=>{
+ const step=S.antragStep;
+ const arten=[["urlaub","Urlaub","Ganze Tage, mit Vertretung"],["krank","Krankmeldung","Zusätzlich telefonisch bis 06:00 Uhr"],
+              ["fort","Fortbildung","Mit Nachweis im Cockpit"],["tausch","Diensttausch","Einzelnen Dienst abgeben"]];
+ return `
+${head("Schritt "+step+" von 4","Abwesenheit / Vertretung","")}
+<div class="bar mt" style="height:5px"><i style="width:${step*25}%"></i></div>
+${step===1?`
+<div class="sechead"><h3>Was möchtest du beantragen?</h3></div>
+<div class="stack">${arten.map(([k,t,s])=>'<button class="opt" data-art="'+k+'" aria-pressed="'+(S.antragArt===k)+'"><span class="mark"></span>'+
+ '<span><span class="opt-t">'+t+'</span><span class="opt-s">'+s+'</span></span></button>').join("")}</div>
+${S.antragArt==="krank"?'<div class="banner warn mt">'+I.warn.replace("<svg",'<svg style="width:18px;height:18px;color:var(--warn);flex:none"')+'<p>Krankmeldung bitte <strong>zusätzlich telefonisch</strong> bis 06:00 Uhr — die App ersetzt den Anruf nicht.</p></div>':''}
+<button class="btn mt" data-step="2">Weiter</button>`
+:step===2?`
+<div class="sechead"><h3>Welcher Dienst?</h3></div>
+<button class="opt" aria-pressed="true"><span class="mark"></span>
+ <span><span class="opt-t">Sa, 22.08.2026</span><span class="opt-s">Wochenenddienst 07:00–14:00 · Tour Kompakt · 8 Einsätze</span></span></button>
+<p style="font-size:13px;color:var(--ink-3);margin:11px 0 0;text-align:center">anderen Tag wählen</p>
+<div class="btn-row mt"><button class="btn btn-2" data-step="1">Zurück</button><button class="btn" data-step="3">Weiter</button></div>`
+:step===3?`
+<div class="sechead"><h3>Wer könnte übernehmen?</h3></div>
+<div class="stack">
+ <button class="opt" aria-pressed="true"><span class="mark"></span>
+  <span><span class="opt-t">Elif Yilmaz</span><span class="opt-s">examiniert · Sa frei · kennt 4 der 8 Klient:innen</span></span></button>
+ <button class="opt" aria-pressed="false"><span class="mark"></span>
+  <span><span class="opt-t">Katrin Lohmann</span><span class="opt-s">examiniert · Sa bereits im Dienst</span></span></button>
+</div>
+<label class="field mt"><span>Begründung (freiwillig)</span>
+ <textarea>Goldene Hochzeit meiner Eltern in Bad Sassendorf. Elif hat schon zugesagt, wenn es freigegeben wird.</textarea></label>
+<div class="btn-row"><button class="btn btn-2" data-step="2">Zurück</button><button class="btn" data-step="4">Weiter</button></div>`
+:`
+<div class="card mt"><p class="eyebrow">Zusammenfassung</p>
+ <div class="stack-s" style="margin-top:9px;font-size:14px">
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Art</span><b>Diensttausch</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Dienst</span><b>Sa, 22.08.</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Vertretung</span><b>Elif Yilmaz</b></div>
+  <hr class="hr" style="margin:6px 0">
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Geht an</span><b>Andrea Schulte, PDL</b></div>
+ </div></div>
+<button class="btn mt" id="sendAntrag">Antrag absenden</button>
+<div class="sechead"><h3>Meine Anträge</h3></div>
+<div class="stack">
+ <div class="card"><div style="display:flex;justify-content:space-between;align-items:center">
+  <div><div class="row-t" style="font-size:14px">Fortbildung Wundexpertise</div><div class="row-s">03.–04.09. · beantragt 11.08.</div></div>
+  <span class="pill p-ok">Freigegeben</span></div></div>
+</div>`}`;
+};
+
+VIEWS.profil=()=>`
+<div style="display:flex;gap:12px;align-items:center;padding-top:6px">
+  <div class="avatar" style="background:var(--lz);width:52px;height:52px;font-size:16px">SK</div>
+  <div style="flex:1"><h2 style="font-size:21px;font-weight:700">Sandra Köhler</h2>
+  <p class="sub">Pflegefachkraft (examiniert) · Erwitte</p></div>
+</div>
+<div class="card mt"><p class="eyebrow">Heute</p>
+ <div class="stack-s" style="margin-top:9px;font-size:14px">
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Einsätze</span><b class="num">${S.stage>=4?4:3} von 6</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Gefahren</span><b class="num">43,6 km</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Im Dienst seit</span><b class="num">06:47 Uhr</b></div>
+ </div></div>
+<div class="card mt" style="${S.offline?'border-color:color-mix(in srgb,var(--warn) 45%,transparent)':''}">
+ <p class="eyebrow">Übertragung</p>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:9px">
+  <div><b style="font-size:15px">${S.offline?"3 Einträge warten":"Alles übertragen"}</b>
+   <div class="row-s">${S.offline?"1 Medikamentengabe · 1 Wundfoto · 1 Pflegebericht":"zuletzt 11:09 Uhr"}</div></div>
+  ${S.offline?'<button class="btn btn-s" id="sync">Jetzt versuchen</button>':'<span class="pill p-ok">Aktuell</span>'}
+ </div></div>
+<div class="sechead"><h3>Datenschutz</h3></div>
+<div class="card"><div class="stack-s" style="font-size:13.5px;color:var(--ink-2);line-height:1.5">
+ <div>Kein Standort im Hintergrund — die App kennt nur den Stopp, den du selbst gesetzt hast.</div>
+ <div>Fotos liegen verschlüsselt in der Pflegeakte, nicht im Telefon.</div>
+ <div>Der Bildschirm sperrt nach 2 Minuten.</div>
+</div></div>
+<div class="sechead"><h3>Was hier bewusst fehlt</h3><span>§6</span></div>
+<div class="card" style="background:var(--surface-2)">
+ <div class="stack-s" style="font-size:13.5px;color:var(--ink-3);line-height:1.5">
+  <div><b style="color:var(--ink-2)">Kundenportal:</b> Vertrag, Rechnungen, Mitgliedschaft</div>
+  <div><b style="color:var(--ink-2)">Cockpit:</b> Kennzahlen des Standorts, Dienstplanung, Personalunterlagen</div>
+ </div></div>
+<div class="btn-row mt"><button class="btn btn-2" data-go="heute">Zurück</button><button class="btn">Dienst beenden</button></div>`;
+
+/* ---------- Kurzakte-Blatt ---------- */
+function kurzakte(){openSheet(`
+ <h3 style="font-size:19px;font-weight:700">Kurzakte</h3>
+ <p class="sub" style="margin-bottom:13px">Irmgard Rüther · 79 Jahre · PG 2 seit 01.11.2024</p>
+ <div class="banner urg">${I.warn.replace("<svg",'<svg style="width:18px;height:18px;color:var(--urgent);flex:none"')}
+  <p><strong>Penicillin-Allergie</strong> · Sturzgefahr im Bad — Haltegriff links · hört links schlecht, von rechts ansprechen</p></div>
+ <div class="sechead"><h3>Zugang</h3></div>
+ <div class="card"><div class="stack-s" style="font-size:13.5px;color:var(--ink-2)">
+  <div>Schlüsselsafe neben der Haustür · Code im Tresor Erwitte</div><div>Klingel defekt — bitte klopfen</div><div>Kein Hund</div></div></div>
+ <div class="sechead"><h3>Zielkorridor</h3></div>
+ <div class="card"><div class="stack-s" style="font-size:13.5px">
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Blutdruck</span><b class="num">120/70 – 145/85</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Trinkmenge</span><b class="num">1,5 l/Tag (gestern 0,9 l)</b></div></div></div>
+ <p style="font-size:12px;color:var(--ink-4);margin:15px 0 0;line-height:1.6">Vertrag, Rechnungen und Mitgliedschaft: im Kundenportal — hier nicht einsehbar.</p>
+ <button class="btn mt" data-close>Schließen</button>`);}
+
+/* ---------- Bestätigungsblatt Medikament ---------- */
+function giveSheet(){openSheet(`
+ <h3 style="font-size:19px;font-weight:700">Augentropfen bestätigen</h3>
+ <p class="sub" style="margin-bottom:13px">Irmgard Rüther · geplant 9:00 Uhr</p>
+ <div class="card" style="text-align:center">
+  <p class="eyebrow">Zeitpunkt der Gabe</p>
+  <div class="num" style="font-size:40px;font-weight:700;letter-spacing:-.02em;margin:5px 0">10:41</div>
+  <p style="font-size:12.5px;color:var(--ink-3);margin:0">Jetzt · antippen zum Ändern</p></div>
+ <div class="sechead"><h3>Wie gegeben?</h3></div>
+ <div class="stack-s">
+  <button class="opt" aria-pressed="true"><span class="mark"></span><span class="opt-t">Wie verordnet</span></button>
+  <button class="opt" aria-pressed="false"><span class="mark"></span><span class="opt-t">Nicht gegeben, weil …</span></button>
+ </div>
+ <p style="font-size:12.5px;color:var(--ink-3);margin:13px 0 0">Gegeben von: <b style="color:var(--ink)">Sandra Köhler</b></p>
+ <div class="btn-row mt"><button class="btn btn-2" data-close>Abbrechen</button><button class="btn" id="confirmGive">Bestätigen</button></div>`);}
+
+/* ---------- Ereignisse ---------- */
+function bind(){
+  vp.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  vp.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>toast("Im Prototyp ist Stopp 4 vollständig hinterlegt.",2600));
+
+  const pin=$("#pin");
+  if(pin){const ins=[...pin.querySelectorAll("input")];
+    ins.forEach((el,i)=>el.oninput=()=>{el.value=el.value.replace(/\D/g,"");
+      if(el.value&&ins[i+1])ins[i+1].focus();
+      $("#startBtn").disabled=ins.some(x=>!x.value);});
+    ins[0].focus({preventScroll:true});
+  }
+  const sb=$("#startBtn");if(sb)sb.onclick=()=>{S.dienst=true;go("heute");toast("Dienst gestartet · 06:47 Uhr");};
+
+  const seg=$("#tourSeg");
+  if(seg)seg.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    seg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+    $("#tourBody").innerHTML=b.dataset.seg==="karte"?tourKarte():tourListe();bind();});
+
+  const adv=$("#advance");if(adv)adv.onclick=()=>{S.stage=Math.min(3,S.stage+1);go("stopp");
+    toast(S.stage===3?"Angekommen 10:31 — Marlene sieht das jetzt.":"Status: Gleich da");};
+
+  vp.querySelectorAll("[data-task]").forEach(b=>b.onclick=()=>{const k=b.dataset.task;S.aufgaben[k]=!S.aufgaben[k];go("stopp");});
+  const ka=$("#kurzakte");if(ka)ka.onclick=kurzakte;
+  const gb=$("#giveBtn");if(gb)gb.onclick=giveSheet;
+
+  const shoot=$("#shoot");if(shoot)shoot.onclick=()=>{S.wundeFoto=true;go("wunde");toast("Aufnahme gespeichert · nur in der Pflegeakte");};
+  const ws=$("#wundeSave");if(ws)ws.onclick=()=>{toast("Wunddokumentation gespeichert · Verlauf aktualisiert");go("tour");};
+
+  vp.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{const t=$("#bericht");t.value=(t.value+" "+b.dataset.add).trim();});
+  const md=$("#melde");if(md)md.querySelectorAll("button").forEach(b=>b.onclick=()=>
+    md.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b))));
+  const fin=$("#finish");if(fin)fin.onclick=()=>{S.stage=4;S.aufgaben={augen:true,rr:true,meds:true,trink:true};
+    go("tour");toast("Besuch abgeschlossen. Marlene und Sabine sehen: „Alles erledigt.“",5200);};
+
+  vp.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>{
+    S.doku=S.doku.filter(d=>d.id!==b.dataset.done);S.dokuOffen=S.doku.length;go("doku");
+    toast(S.dokuOffen?"Erledigt. Noch "+S.dokuOffen+" offene Einträge.":"Erledigt. Nichts mehr offen.");});
+
+  const q=$("#quitt");if(q)q.onclick=()=>{S.msgQuittiert=true;go("nachrichten");toast("Quittiert — Andrea Schulte sieht das.");};
+
+  vp.querySelectorAll("[data-art]").forEach(b=>b.onclick=()=>{S.antragArt=b.dataset.art;go("antrag");});
+  vp.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{S.antragStep=+b.dataset.step;go("antrag");});
+  const sa=$("#sendAntrag");if(sa)sa.onclick=()=>{S.antragStep=1;go("plan");toast("Antrag an Andrea Schulte gesendet · wartet auf Freigabe");};
+
+  const sy=$("#sync");if(sy)sy.onclick=()=>{S.offline=false;$("#offlineBtn").setAttribute("aria-pressed","false");go("profil");toast("3 Einträge übertragen.");};
+
+  sheet.querySelectorAll("[data-close]").forEach(b=>b.onclick=closeSheet);
+  const cg=$("#confirmGive");if(cg)cg.onclick=()=>{S.medsGiven.augen=true;S.aufgaben.augen=true;closeSheet();go("meds");
+    toast("Augentropfen um 10:41 gegeben. Marlene und ihre Tochter sehen das jetzt.",5600);};
+  sheet.querySelectorAll("[aria-pressed]").forEach(b=>b.onclick=()=>{
+    const grp=b.parentElement;grp.querySelectorAll("[aria-pressed]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));});
+}
+
+/* ---------- Werkzeuge ---------- */
+const tb=$("#themeBtn");
+(function(){const d=matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme",d?"dark":"light");tb.setAttribute("aria-pressed",String(d));})();
+tb.onclick=()=>{const dark=document.documentElement.getAttribute("data-theme")==="dark";
+  document.documentElement.setAttribute("data-theme",dark?"light":"dark");
+  tb.setAttribute("aria-pressed",String(!dark));};
+const ob=$("#offlineBtn");
+ob.onclick=()=>{S.offline=!S.offline;ob.setAttribute("aria-pressed",String(S.offline));
+  $("#sig").style.opacity=S.offline?".4":"1";go(cur);
+  toast(S.offline?"Funkloch — Einträge werden gespeichert und später übertragen.":"Wieder online.");};
+
+setInterval(()=>{const d=new Date();$("#clock").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");},30000);
+$("#clock").textContent="10:19";
+go("anmeldung");
+})();
+</script>
+<!-- Fiktiv-Leiste und Planspiel-Menue wie auf allen anderen Seiten.
+     Der Prototyp zeigt erfundene Personen mit Medikations- und
+     Wunddaten; ohne diesen Hinweis stand er als einzige Seite der
+     Auslieferung ohne Kennzeichnung da. -->
+<script src="/lz-notes.js" defer></script>
+</body>
+</html>

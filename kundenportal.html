@@ -309,8 +309,9 @@ footer.portal .fz-fiktiv{margin-left:auto;color:var(--text-3)}
           <option value="stemmer">Hildegard Stemmer · Pflegekundin · Rüthen</option>
           <option value="doerre">Markus Dörre · Angehöriger · Lippetal</option>
         </optgroup>
-        <optgroup label="Kunden-App">
-          <option value="app">Kunden-App · dieselben Inhalte auf dem Telefon</option>
+        <optgroup label="Apps · Prototypen">
+          <option value="app">Kunden-App „LebensZeit Zuhause" · Hildegard und Markus</option>
+          <option value="mapp">Mitarbeiter-App „LebensZeit Team" · Tour einer Pflegekraft</option>
         </optgroup>
       </select>
     </div>
@@ -433,7 +434,17 @@ var APP = {
      gibt es genau einen Weg in die App, und er fuehrt ueber das Portal. */
   app: { kennung: "demo@kunden-app.beispiel", ziel: "/kunden-app",
          hinweis: "\u00d6ffnet die Kunden-App \u2014 dieselben Inhalte, f\u00fcr das Telefon gebaut.",
-         knopf: "Zur Kunden-App" }
+         knopf: "Zur Kunden-App" },
+  /* Die Mitarbeiter-App gehoert fachlich nicht ins Kundenportal \u2014 eine
+     Pflegekraft meldet sich nicht ueber das Kundenkonto an. Sie liegt hier
+     trotzdem, weil diese Anmeldemaske im Planspiel der eine Einstieg in alle
+     Prototypen ist; dieselbe Ueberlegung wie bei der Kunden-App. Die Gruppe
+     heisst deshalb \u201eApps \u00b7 Prototypen" und nicht \u201eAnmelden als". Ein echter
+     Mitarbeiterzugang waere eine eigene Anmeldung. */
+  mapp: { kennung: "s.koehler@lebenszeit-intern.beispiel", ziel: "/mitarbeiter-app",
+          hinweis: "\u00d6ffnet die Mitarbeiter-App \u2014 die Tour einer Pflegekraft von der "
+                 + "Anmeldung bis zum Feierabend. Kein Kundenzugang.",
+          knopf: "Zur Mitarbeiter-App" }
 };
 var KONTEN = {
   stemmer: {

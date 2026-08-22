@@ -1,628 +1,992 @@
 <!DOCTYPE html>
-<html lang="de" data-scheme="light">
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#F6F8F3">
-<title>LebensZeit — Kunden-App</title>
+<title>LebensZeit Zuhause</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2227%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%222%22%20opacity%3D%220.3%22/%3E%3Cpolygon%20points%3D%2232%2C10%2052.9%2C25.2%2044.9%2C49.8%2019.1%2C49.8%2011.1%2C25.2%22%20fill%3D%22none%22%20stroke%3D%22%234A6741%22%20stroke-width%3D%221.4%22%20opacity%3D%220.55%22/%3E%3Cg%20fill%3D%22%234A6741%22%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2210%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2252.9%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2244.9%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2219.1%22%20cy%3D%2249.8%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2211.1%22%20cy%3D%2225.2%22%20r%3D%223.2%22/%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2233%22%20r%3D%225%22/%3E%3Cpath%20d%3D%22M32%2018%20Q37%2012%2032%207%20Q27%2012%2032%2018Z%22%20opacity%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
 <style>
-/* ==========================================================================
-   LebensZeit · Kunden-App · JO · 11.08.2026
-   Eigenstaendige Datei. app-demo.html bleibt unberuehrt.
-   Optik: Tokens, Geraetehuelle, Glas und Tableiste aus der bestehenden
-   Portierung uebernommen (Theme.swift-Werte) — SF Pro, kuehler Gruenverlauf,
-   Liquid Glass, Hell/Dunkel. Bewusst NICHT das Portal-Design (Jost auf Creme).
-   Inhalt: nach Funktionsbauplan Kunden-App — nur Senior:in und Angehoerige,
-   Personas Stemmer und Doerre, Bereiche aus dem Kundenportal.
-   „Services" nicht uebernommen: eine Sammelseite ist ein Web-Muster; in der App
-   sitzen die Wege in ihren Reitern, „Mehr" ist die iOS-Ueberlaufstelle.
-   ========================================================================== */
-*,*::before,*::after{box-sizing:border-box}
+/* ============ Tokens ============ */
 :root{
-  --lz:#4A6741; --lz-mint:#A8C9A0; --lz-salbei:#8AAC85; --lz-wald:#5A6E52;
-  --radius-card:18px;
-  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue","Segoe UI Variable","Segoe UI",Roboto,sans-serif;
-  --spring:cubic-bezier(0.22,1.15,0.36,1);
-  --ease:cubic-bezier(0.4,0.0,0.2,1);
+  --lz:#4A6741; --lz-600:#3D5936; --lz-700:#2F4529; --lz-300:#8AAC85; --lz-200:#A8C9A0;
+  --bg:#E9EDE5; --surface:#FFFFFF; --surface-2:#F5F8F2; --raised:#FFFFFF; --appbg:#F2F5EE;
+  --ink:#14241A; --ink-2:rgba(20,36,26,.74); --ink-3:rgba(20,36,26,.56); --ink-4:rgba(20,36,26,.40);
+  --line:rgba(20,36,26,.13); --line-2:rgba(20,36,26,.07);
+  --accent:#3D5936; --on-accent:#FFFFFF; --tint:rgba(74,103,65,.10);
+  --ok:#15803D; --warn:#B45309; --urgent:#DC2626; --info:#185FA5;
+  --ok-t:rgba(21,128,61,.12); --warn-t:rgba(180,83,9,.12); --urgent-t:rgba(220,38,38,.10); --info-t:rgba(24,95,165,.10);
+  --shadow:0 1px 2px rgba(20,36,26,.06),0 10px 26px -14px rgba(20,36,26,.22);
+  --shadow-lg:0 30px 80px -28px rgba(20,36,26,.5);
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
 }
-[data-scheme="light"]{
-  --lz-accent:#4A6741; --text:#14241A;
-  --text-secondary:rgba(20,36,26,.72); --text-tertiary:rgba(20,36,26,.55); --text-faint:rgba(20,36,26,.40);
-  --hairline:rgba(20,36,26,.10);
-  --status-urgent:#B3261E; --status-warn:#8C5E14; --status-ok:#15803D; --status-info:#185FA5;
-  --tint-card:rgba(74,103,65,.10); --tint-warn:rgba(140,94,20,.12);
-  --bg-1:#F6F8F3; --bg-2:#EAF0E6; --bg-3:#F2F6EF; --bg-4:#E6EEE3;
-  --glow-1:rgba(74,103,65,.10); --glow-2:rgba(138,172,133,.12);
-  --glass-bg:rgba(255,255,255,.52); --glass-border:rgba(255,255,255,.85); --glass-spec:rgba(255,255,255,.75);
-  --glass-shadow:0 1px 2px rgba(20,36,26,.045),0 10px 28px rgba(20,36,26,.075);
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B100C; --surface:#161F17; --surface-2:#1C271D; --raised:#202C21; --appbg:#0F160F;
+  --ink:#FFFFFF; --ink-2:rgba(255,255,255,.74); --ink-3:rgba(255,255,255,.56); --ink-4:rgba(255,255,255,.40);
+  --line:rgba(255,255,255,.14); --line-2:rgba(255,255,255,.07);
+  --accent:#A8C9A0; --on-accent:#10180F; --tint:rgba(74,103,65,.24);
+  --ok:#4ADE80; --warn:#FBBF24; --urgent:#F87171; --info:#6BA3E8;
+  --ok-t:rgba(74,222,128,.14); --warn-t:rgba(251,191,36,.14); --urgent-t:rgba(248,113,113,.13); --info-t:rgba(107,163,232,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 26px -14px rgba(0,0,0,.8);
+  --shadow-lg:0 30px 80px -24px rgba(0,0,0,.85);
+}}
+:root[data-theme="dark"]{
+  --bg:#0B100C; --surface:#161F17; --surface-2:#1C271D; --raised:#202C21; --appbg:#0F160F;
+  --ink:#FFFFFF; --ink-2:rgba(255,255,255,.74); --ink-3:rgba(255,255,255,.56); --ink-4:rgba(255,255,255,.40);
+  --line:rgba(255,255,255,.14); --line-2:rgba(255,255,255,.07);
+  --accent:#A8C9A0; --on-accent:#10180F; --tint:rgba(74,103,65,.24);
+  --ok:#4ADE80; --warn:#FBBF24; --urgent:#F87171; --info:#6BA3E8;
+  --ok-t:rgba(74,222,128,.14); --warn-t:rgba(251,191,36,.14); --urgent-t:rgba(248,113,113,.13); --info-t:rgba(107,163,232,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 26px -14px rgba(0,0,0,.8);
+  --shadow-lg:0 30px 80px -24px rgba(0,0,0,.85);
 }
-[data-scheme="dark"]{
-  --lz-accent:#A8C9A0; --text:#FFFFFF;
-  --text-secondary:rgba(255,255,255,.72); --text-tertiary:rgba(255,255,255,.55); --text-faint:rgba(255,255,255,.40);
-  --hairline:rgba(255,255,255,.12);
-  --status-urgent:#F09595; --status-warn:#E2B56A; --status-ok:#7FC389; --status-info:#9CC2CE;
-  --tint-card:rgba(74,103,65,.16); --tint-warn:rgba(226,181,106,.14);
-  --bg-1:#050D05; --bg-2:#0B1A0B; --bg-3:#122A12; --bg-4:#091809;
-  --glow-1:rgba(74,103,65,.18); --glow-2:rgba(138,172,133,.08);
-  --glass-bg:rgba(255,255,255,.075); --glass-border:rgba(255,255,255,.16); --glass-spec:rgba(255,255,255,.22);
-  --glass-shadow:0 1px 2px rgba(0,0,0,.30),0 12px 30px rgba(0,0,0,.38);
-}
-html,body{margin:0;padding:0;height:100%;font-family:var(--font);
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overscroll-behavior:none}
-body{background:#0d1410;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
-button{font:inherit;border:0;background:none;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
-a{color:inherit;text-decoration:none}
-/* [hidden] verliert sonst gegen display:flex aus den Klassen — der
-   Zurueck-Pfeil blieb dadurch auf den Reiter-Seiten sichtbar. */
-[hidden]{display:none!important}
-#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(900px 700px at 50% 0%,#1b2a1d 0%,transparent 70%),
-             linear-gradient(160deg,#0e1611 0%,#0a100c 50%,#10190f 100%)}
-#device{position:relative;width:393px;height:852px;flex:none;border-radius:56px;padding:12px;
-  background:linear-gradient(150deg,#6f7a70 0%,#2b322c 22%,#1a1f1b 50%,#39403a 78%,#767f76 100%);
-  box-shadow:0 0 0 1.5px rgba(255,255,255,.10),0 40px 90px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.45)}
-#screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:var(--bg-1);
-  isolation:isolate;--safe-top:59px;--safe-bottom:34px;display:flex;flex-direction:column}
-#island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:124px;height:35px;
-  border-radius:20px;background:#000;z-index:900;pointer-events:none}
-#statusbar{position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;
-  justify-content:space-between;padding:16px 30px 0;font-size:15px;font-weight:600;color:var(--text);
-  z-index:890;pointer-events:none;font-variant-numeric:tabular-nums}
-#statusbar .sb-right{display:flex;align-items:center;gap:6px}
-#homebar{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:140px;height:5px;
-  border-radius:3px;background:var(--text);opacity:.32;z-index:895;pointer-events:none}
-.lz-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:linear-gradient(165deg,var(--bg-1) 0%,var(--bg-2) 38%,var(--bg-3) 68%,var(--bg-4) 100%)}
-.lz-bg::after{content:'';position:absolute;inset:0;
-  background:radial-gradient(520px 380px at 12% 8%,var(--glow-1),transparent 70%),
-             radial-gradient(460px 340px at 92% 82%,var(--glow-2),transparent 72%)}
-body.bare #stage{background:var(--bg-1)}
-body.bare #device{width:100%;height:100%;border-radius:0;padding:0;background:none;box-shadow:none}
-body.bare #screen{border-radius:0;--safe-top:env(safe-area-inset-top,14px);--safe-bottom:env(safe-area-inset-bottom,14px)}
-body.bare #island,body.bare #statusbar,body.bare #homebar{display:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;font-size:16px;line-height:1.55}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-.glass{position:relative;border-radius:var(--radius-card);background:var(--glass-bg);
-  -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
-  box-shadow:inset 0 0 0 .5px var(--glass-border),inset 0 1px 0 0 var(--glass-spec),var(--glass-shadow);
-  isolation:isolate}
-.glass[data-tint]::before{content:'';position:absolute;inset:0;border-radius:inherit;
-  background:var(--tint-card);pointer-events:none;z-index:-1}
-.navbar{position:relative;z-index:5;flex:none;display:flex;align-items:center;gap:8px;
-  padding:calc(var(--safe-top) + 2px) 14px 6px;min-height:46px}
-.nav-title{position:absolute;left:50%;top:calc(var(--safe-top) + 12px);transform:translateX(-50%);
-  font-size:17px;font-weight:600;color:var(--text);white-space:nowrap}
-.navbar-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;
-  border-radius:50%;color:var(--lz-accent);transition:transform .18s var(--spring)}
-.navbar-btn:active{transform:scale(.9);background:var(--tint-card)}
-.scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;
-  position:relative;z-index:1;padding-bottom:120px}
-.scroll::-webkit-scrollbar{display:none}
-.pad{padding:0 20px}
-.tabbar{position:absolute;left:12px;right:12px;bottom:calc(var(--safe-bottom) - 22px);z-index:20;
-  display:flex;padding:6px 8px 4px;border-radius:26px;background:var(--glass-bg);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);
-  box-shadow:inset 0 0 0 .5px var(--glass-border),inset 0 1px 0 var(--glass-spec),var(--glass-shadow)}
-.tabbar button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:3px;padding:5px 2px 4px;border-radius:20px;color:var(--text-faint);
-  transition:color .2s var(--ease),transform .2s var(--spring)}
-.tabbar button.active{color:var(--lz-accent)}
-.tabbar button:active{transform:scale(.9)}
-.tab-label{font-size:10px;font-weight:500;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.screen-title{font-size:32px;font-weight:700;letter-spacing:-.5px;color:var(--text);margin:2px 0}
-.screen-sub{font-size:15px;color:var(--text-secondary);margin-bottom:18px}
-.section-header{font-size:13px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
-  color:var(--text-tertiary);margin:24px 0 10px}
-.card{padding:18px;border-radius:var(--radius-card);margin-bottom:12px}
-.card-title{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px}
-.card-sub{font-size:14px;color:var(--text-secondary);line-height:1.45}
-.besuch-eyebrow{font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--lz-accent)}
-.besuch-text{font-size:22px;font-weight:600;color:var(--text);margin:8px 0 2px;line-height:1.25}
-.besuch-eta{font-size:17px;color:var(--text);font-variant-numeric:tabular-nums}
-.pflege-row{display:flex;align-items:center;gap:12px;margin-top:16px}
-.avatar{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;
-  justify-content:center;background:var(--lz);color:#fff;font-size:15px;font-weight:600}
-[data-scheme="dark"] .avatar{background:var(--lz-wald)}
-.pflege-name{font-size:16px;font-weight:600;color:var(--text)}
-.pflege-sub{font-size:13px;color:var(--text-secondary)}
-.plan-row{display:flex;gap:14px;padding:14px 0;border-bottom:.5px solid var(--hairline)}
-.plan-row:last-child{border-bottom:0}
-.plan-rail{width:10px;flex:none;display:flex;flex-direction:column;align-items:center;padding-top:5px}
-.plan-dot{width:9px;height:9px;border-radius:50%;background:var(--text-faint);flex:none}
-.plan-dot.ok{background:var(--status-ok)} .plan-dot.now{background:var(--status-warn)}
-.plan-dot.offen{background:var(--status-info)}
-.plan-line{flex:1;width:1.5px;background:var(--hairline);margin-top:4px;min-height:12px}
-.plan-body{flex:1;min-width:0}
-.plan-tag{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-tertiary)}
-.plan-zeit{font-size:17px;color:var(--text);font-variant-numeric:tabular-nums;margin-top:1px}
-.plan-text{font-size:14px;color:var(--text-secondary);margin-top:1px}
-.plan-status{font-size:13px;font-weight:600;margin-top:5px;display:inline-flex;align-items:center;gap:5px}
-.st-ok{color:var(--status-ok)} .st-now{color:var(--status-warn)}
-.st-plan{color:var(--text-tertiary)} .st-offen{color:var(--status-info)}
-.brett-kat{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--lz-accent)}
-.brett-titel{font-size:18px;font-weight:600;color:var(--text);margin:6px 0 4px}
-.brett-text{font-size:14px;color:var(--text-secondary);line-height:1.45}
-.brett-meta{font-size:14px;color:var(--text);margin-top:10px;font-variant-numeric:tabular-nums}
-.brett-ort{font-size:13px;color:var(--text-tertiary)}
-.gepinnt{box-shadow:inset 0 0 0 .5px var(--glass-border),inset 3px 0 0 0 var(--status-warn),var(--glass-shadow)}
-.btn-bordered{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;
-  padding:12px 18px;border-radius:14px;color:var(--lz-accent);font-size:16px;font-weight:500;
-  box-shadow:inset 0 0 0 1.5px var(--lz-accent);text-align:center;transition:transform .18s var(--spring)}
-.btn-bordered:active{transform:scale(.97);background:var(--tint-card)}
-.btn-bordered.ernst{color:var(--status-urgent);box-shadow:inset 0 0 0 1.5px var(--status-urgent)}
-.btn-stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}
-.frage-titel{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
-.frage-text{font-size:14px;color:var(--text-secondary);line-height:1.45}
-.danke{display:flex;align-items:flex-start;gap:9px;font-size:15px;color:var(--status-ok);
-  font-weight:500;line-height:1.4;padding:4px 0}
-.warn{border-radius:14px;padding:14px 16px;background:var(--tint-warn);margin-top:12px}
-.warn-titel{font-size:14px;font-weight:600;color:var(--status-warn);margin-bottom:6px}
-.warn ul{margin:0;padding-left:18px} .warn li{font-size:14px;color:var(--text-secondary);line-height:1.5}
-.list-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:.5px solid var(--hairline)}
-.list-row:last-child{border-bottom:0}
-.list-title{font-size:16px;color:var(--text)}
-.list-meta{font-size:13px;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
-.list-right{margin-left:auto;text-align:right;flex:none}
-.betrag{font-size:17px;color:var(--text);font-variant-numeric:tabular-nums;font-weight:500}
-.chip{display:inline-flex;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;
-  letter-spacing:.4px;text-transform:uppercase;color:var(--text-secondary);box-shadow:inset 0 0 0 1px var(--hairline)}
-.wert-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;
-  border-bottom:.5px solid var(--hairline);font-variant-numeric:tabular-nums}
-.wert-row.summe{border-bottom:0;border-top:1.5px solid var(--lz-accent);margin-top:4px;padding-top:14px}
-.wert-label{font-size:15px;color:var(--text-secondary)}
-.wert-row.summe .wert-label,.wert-row.summe .wert-zahl{color:var(--text);font-weight:600;font-size:17px}
-.wert-zahl{font-size:15px;color:var(--text)}
-.balken{height:8px;border-radius:5px;background:var(--hairline);overflow:hidden;margin:14px 0 8px}
-.balken i{display:block;height:100%;background:var(--lz-accent)}
-.stufe{padding:18px;border-radius:var(--radius-card);margin-bottom:12px}
-.stufe.aktuell{box-shadow:inset 0 0 0 2px var(--lz-accent),var(--glass-shadow)}
-.stufe-kopf{display:flex;align-items:baseline;gap:10px}
-.stufe-name{font-size:20px;font-weight:700;color:var(--text)}
-.stufe-preis{margin-left:auto;font-size:19px;font-weight:600;color:var(--lz-accent);font-variant-numeric:tabular-nums}
-.stufe ul{list-style:none;padding:0;margin:12px 0 0}
-.stufe li{font-size:14px;color:var(--text-secondary);padding-left:22px;position:relative;margin-bottom:7px;line-height:1.4}
-.stufe li::before{content:'\2713';position:absolute;left:0;color:var(--lz-accent);font-weight:700}
-.jetzt{display:inline-flex;padding:4px 12px;border-radius:20px;background:var(--tint-card);
-  color:var(--lz-accent);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:14px}
-.kontakt-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:.5px solid var(--hairline)}
-.kontakt-row:last-child{border-bottom:0}
-.kontakt-name{font-size:16px;font-weight:500;color:var(--text)}
-.kontakt-rolle{font-size:13px;color:var(--text-tertiary)}
-.tel-btn{margin-left:auto;flex:none;display:flex;align-items:center;justify-content:center;
-  width:42px;height:42px;border-radius:50%;background:var(--tint-card);color:var(--lz-accent)}
-.zeit-row{display:flex;gap:14px;padding:11px 0;border-bottom:.5px solid var(--hairline);font-size:15px}
-.zeit-row:last-child{border-bottom:0}
-.zeit-row b{min-width:8.5em;font-weight:600;color:var(--text)}
-.zeit-row span{color:var(--text-secondary);font-variant-numeric:tabular-nums}
-.mehr-row{display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;
-  border-radius:var(--radius-card);margin-bottom:10px;text-align:left;transition:transform .18s var(--spring)}
-.mehr-row:active{transform:scale(.98)}
-.mehr-row svg{color:var(--lz-accent);flex:none}
-.mehr-row .t{font-size:16px;font-weight:500;color:var(--text)}
-.mehr-row .s{font-size:13px;color:var(--text-tertiary)}
-.mehr-row .pfeil{margin-left:auto;color:var(--text-faint);flex:none}
-#login{position:absolute;inset:0;z-index:800;display:flex;flex-direction:column;
-  padding:calc(var(--safe-top) + 16px) 26px calc(var(--safe-bottom) + 16px);overflow-y:auto;scrollbar-width:none}
-#login::-webkit-scrollbar{display:none}
-#login.weg{display:none}
-.login-brand{text-align:center;margin:auto 0 0}
-.login-brand h1{font-size:29px;font-weight:700;color:var(--text);margin:14px 0 4px;letter-spacing:-.4px}
-/* .login-claim und .login-rule sind mit ihren Elementen entfallen, ebenso
-   .login-foot weiter unten — siehe Kommentar im Anmeldeschirm. */
-.login-question{font-size:15px;font-weight:600;color:var(--text-tertiary);text-align:center;margin-bottom:16px}
-.role-card{width:100%;padding:18px;border-radius:var(--radius-card);margin-bottom:12px;text-align:left;
-  display:block;transition:transform .2s var(--spring)}
-.role-card:active{transform:scale(.97)}
-.role-label{font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--lz-accent);display:block}
-.role-name{font-size:19px;font-weight:600;color:var(--text);margin:5px 0 2px;display:block}
-.role-sub{font-size:13px;color:var(--text-tertiary);display:block}
-.fiktiv{margin:14px 0 auto;padding:11px 14px;border-radius:12px;background:var(--tint-warn);
-  font-size:12px;color:var(--status-warn);text-align:center;line-height:1.45;font-weight:500}
-.appearance{position:absolute;top:calc(var(--safe-top) + 6px);right:20px;z-index:810;width:38px;height:38px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--lz-accent)}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ============ Bühne ============ */
+.stage{min-height:100vh;display:grid;grid-template-columns:1fr;gap:0;
+  padding:22px clamp(14px,3vw,34px) 34px}
+@media(min-width:1080px){.stage{grid-template-columns:320px 1fr;gap:34px;align-items:start}}
+
+.rail{display:flex;flex-direction:column;gap:16px;position:relative}
+.rail>*{flex:none}
+@media(min-width:1080px){.rail{position:sticky;top:22px;max-height:calc(100vh - 44px);overflow:auto;padding-right:4px}}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{width:38px;height:38px;flex:none}
+.brand-name{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em}
+.brand-sub{font-size:12.5px;color:var(--ink-3);margin-top:1px}
+.rail-lede{font-family:var(--serif);font-size:15px;line-height:1.55;color:var(--ink-2);
+  border-left:2px solid var(--lz-300);padding-left:13px}
+.rail-lede b{color:var(--ink);font-weight:600}
+.idx{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.idx-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding:11px 14px;border-bottom:1px solid var(--line-2)}
+.idx-h span:first-child{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.idx-h span:last-child{font-size:11px;color:var(--ink-4);font-family:var(--mono)}
+.idx-grp{padding:9px 14px 4px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:700}
+.idx a{display:flex;gap:9px;align-items:baseline;padding:7px 14px;text-decoration:none;color:var(--ink-2);font-size:13.5px}
+.idx a:hover{background:var(--tint);color:var(--ink)}
+.idx a[aria-current="true"]{background:var(--tint);color:var(--ink);font-weight:700;box-shadow:inset 3px 0 0 var(--accent)}
+.idx a i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink-4);flex:none;min-width:38px}
+.note{font-size:12.5px;color:var(--ink-3);line-height:1.6}
+.note b{color:var(--ink-2)}
+
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tool{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:700;color:var(--ink-2);
+  transition:background .15s,border-color .15s}
+.tool:hover{background:var(--tint);border-color:var(--lz-300);color:var(--ink)}
+.tool[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:transparent}
+
+/* ============ Gerät ============ */
+.device{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+.phone{width:min(394px,100%);height:min(854px,calc(100vh - 120px));min-height:600px;position:relative;
+  background:var(--appbg);border-radius:46px;box-shadow:var(--shadow-lg),0 0 0 11px #1b211c,0 0 0 12.5px rgba(255,255,255,.14);
+  overflow:hidden;display:flex;flex-direction:column;isolation:isolate}
+@media(max-width:640px){.phone{width:100%;height:calc(100vh - 150px);border-radius:26px;box-shadow:var(--shadow)}}
+.sbar{height:46px;flex:none;display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px;font-size:13.5px;font-weight:700;position:relative;z-index:5}
+.sbar .notch{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:104px;height:26px;
+  background:#12170f;border-radius:16px}
+.sbar em{font-style:normal;font-family:var(--mono);font-size:13px}
+.sig{display:flex;gap:5px;align-items:center;color:var(--ink-2)}
+.viewport{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative}
+.viewport::-webkit-scrollbar{display:none}
+.tabbar{flex:none;display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line-2);background:color-mix(in srgb,var(--appbg) 86%,transparent);
+  backdrop-filter:blur(16px);position:relative;z-index:4}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;
+  border-radius:13px;color:var(--ink-4);font-size:10.5px;font-weight:700;min-height:56px;justify-content:center}
+.tab svg{width:21px;height:21px}
+.tab[aria-selected="true"]{color:var(--accent);background:var(--tint)}
+.home{height:5px;width:130px;background:var(--ink-4);border-radius:99px;margin:0 auto 7px;opacity:.5}
+
+/* ============ App-Bausteine ============ */
+.view{display:none;padding:4px 18px 28px;animation:in .26s ease both}
+.view.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.h-view{font-size:29px;font-weight:700;letter-spacing:-.02em;margin:3px 0 3px}
+.sub{font-size:15px;color:var(--ink-3)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:var(--shadow)}
+.stack{display:flex;flex-direction:column;gap:11px}
+.stack-s{display:flex;flex-direction:column;gap:7px}
+.mt{margin-top:17px}
+.hr{height:1px;background:var(--line-2);border:0;margin:12px 0}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:19px 0 9px}
+.sechead h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.sechead span{font-size:12px;color:var(--ink-4);font-family:var(--mono)}
+
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;
+  font-size:12.5px;font-weight:700;white-space:nowrap}
+.pill svg{width:12px;height:12px;flex:none}
+.p-ok{background:var(--ok-t);color:var(--ok)} .p-warn{background:var(--warn-t);color:var(--warn)}
+.p-urg{background:var(--urgent-t);color:var(--urgent)} .p-info{background:var(--info-t);color:var(--info)}
+.p-mut{background:var(--line-2);color:var(--ink-3)} .p-brand{background:var(--tint);color:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:58px;padding:0 18px;
+  border-radius:14px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:17px;width:100%;
+  transition:filter .15s,transform .1s}
+.btn:hover{filter:brightness(1.08)} .btn:active{transform:scale(.985)}
+.btn[disabled]{opacity:.42;pointer-events:none}
+.btn-2{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn-2:hover{background:var(--tint)}
+.btn-danger{background:var(--urgent);color:#fff}
+.btn-s{min-height:40px;font-size:13.5px;padding:0 14px;width:auto;border-radius:11px}
+.btn-row{display:flex;gap:9px}
+
+.num{font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:12px 10px;text-align:left;
+  box-shadow:var(--shadow);position:relative;transition:border-color .15s,transform .1s}
+.kpi:hover{border-color:var(--lz-300)} .kpi:active{transform:scale(.985)}
+.kpi b{display:block;font-size:27px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi span{display:block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-top:3px}
+.kpi .dot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:99px;background:var(--urgent)}
+
+.bar{height:7px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--lz);border-radius:99px}
+
+.row{display:flex;gap:13px;align-items:flex-start;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px;min-height:64px;box-shadow:var(--shadow);
+  transition:border-color .15s,transform .1s}
+button.row:hover{border-color:var(--lz-300)} button.row:active{transform:scale(.99)}
+.row-b{flex:1;min-width:0}
+.row-t{font-size:17px;font-weight:700;line-height:1.3}
+.row-s{font-size:14px;color:var(--ink-3);margin-top:2px}
+.row-x{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+
+.stopnum{width:30px;height:30px;flex:none;border-radius:99px;display:grid;place-items:center;
+  font-family:var(--mono);font-size:13px;font-weight:500;background:var(--line-2);color:var(--ink-3)}
+.stopnum.done{background:var(--ok-t);color:var(--ok)}
+.stopnum.now{background:var(--lz);color:#fff;box-shadow:0 0 0 0 rgba(74,103,65,.55);animation:ping 2.1s ease-out infinite}
+@keyframes ping{70%{box-shadow:0 0 0 11px rgba(74,103,65,0)}100%{box-shadow:0 0 0 0 rgba(74,103,65,0)}}
+
+.avatar{width:42px;height:42px;border-radius:99px;flex:none;display:grid;place-items:center;
+  color:#fff;font-weight:700;font-size:14px;letter-spacing:.02em}
+.banner{display:flex;gap:11px;padding:13px;border-radius:15px;background:var(--info-t);
+  border:1px solid color-mix(in srgb,var(--info) 26%,transparent)}
+.banner.warn{background:var(--warn-t);border-color:color-mix(in srgb,var(--warn) 26%,transparent)}
+.banner.ok{background:var(--ok-t);border-color:color-mix(in srgb,var(--ok) 26%,transparent)}
+.banner.urg{background:var(--urgent-t);border-color:color-mix(in srgb,var(--urgent) 30%,transparent)}
+.banner p{margin:0;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.banner strong{color:var(--ink)}
+
+.steps{display:flex;align-items:flex-start;gap:0;margin:4px 0}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;min-width:0}
+.step::before{content:"";position:absolute;top:12px;left:-50%;width:100%;height:2.5px;background:var(--line);z-index:0}
+.step:first-child::before{display:none}
+.step.done::before,.step.cur::before{background:var(--lz)}
+.step i{width:25px;height:25px;border-radius:99px;display:grid;place-items:center;background:var(--surface-2);
+  border:2px solid var(--line);z-index:1;font-style:normal}
+.step.done i{background:var(--lz);border-color:var(--lz);color:#fff}
+.step.cur i{background:var(--surface);border-color:var(--lz);color:var(--lz)}
+.step svg{width:12px;height:12px}
+.step b{font-size:10.5px;font-weight:700;color:var(--ink-4);text-align:center;line-height:1.25}
+.step.done b,.step.cur b{color:var(--ink-2)}
+.step.cur b{color:var(--accent)}
+
+.checkline{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.checkline:last-child{border-bottom:0}
+.box{width:25px;height:25px;border-radius:8px;border:2px solid var(--line);flex:none;display:grid;place-items:center;
+  background:var(--surface-2);transition:background .15s,border-color .15s}
+.box svg{width:14px;height:14px;opacity:0}
+.checkline.on .box{background:var(--ok);border-color:var(--ok)}
+.checkline.on .box svg{opacity:1;color:#fff}
+.checkline.on .ct{color:var(--ink-3);text-decoration:line-through}
+.ct{font-size:16.5px;font-weight:700;line-height:1.35}
+.cs{font-size:13.5px;color:var(--ink-3);margin-top:1px}
+
+.sheet-bg{position:absolute;inset:0;background:rgba(8,14,9,.5);backdrop-filter:blur(3px);z-index:20;
+  display:none;align-items:flex-end}
+.sheet-bg.on{display:flex;animation:fade .2s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet{background:var(--appbg);border-radius:24px 24px 0 0;width:100%;max-height:88%;overflow-y:auto;
+  padding:9px 17px calc(20px + env(safe-area-inset-bottom));animation:up .3s cubic-bezier(.2,.9,.3,1) both;
+  scrollbar-width:none;border-top:1px solid var(--line)}
+.sheet::-webkit-scrollbar{display:none}
+@keyframes up{from{transform:translateY(26px)}to{transform:none}}
+.grab{width:38px;height:4.5px;border-radius:99px;background:var(--ink-4);opacity:.45;margin:0 auto 13px}
+
+.seg{display:flex;background:var(--line-2);border-radius:12px;padding:3.5px;gap:3px}
+.seg button{flex:1;padding:8px 6px;border-radius:9px;font-size:13px;font-weight:700;color:var(--ink-3);min-height:38px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:7px 12px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;font-weight:700;
+  color:var(--ink-3);background:var(--surface);min-height:36px}
+.chip[aria-pressed="true"]{background:var(--tint);border-color:var(--lz-300);color:var(--accent)}
+
+.field{display:block;margin-bottom:12px}
+.field>span{display:block;font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%;min-height:48px;padding:12px 13px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
+.field textarea{min-height:88px;resize:vertical;line-height:1.5}
+.field input:focus,.field textarea:focus{border-color:var(--accent);outline:none}
+.opt{display:flex;gap:10px;align-items:center;padding:13px;border-radius:12px;border:1.5px solid var(--line);
+  background:var(--surface);width:100%;text-align:left;min-height:52px}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--tint)}
+.opt .mark{width:21px;height:21px;border-radius:99px;border:2px solid var(--line);flex:none;display:grid;place-items:center}
+.opt[aria-pressed="true"] .mark{border-color:var(--accent);background:var(--accent)}
+.opt[aria-pressed="true"] .mark::after{content:"";width:8px;height:8px;border-radius:99px;background:var(--on-accent)}
+.opt-t{font-size:14.5px;font-weight:700} .opt-s{font-size:12px;color:var(--ink-3);margin-top:1px}
+
+.toast{position:absolute;left:14px;right:14px;bottom:78px;z-index:30;padding:13px 15px;border-radius:14px;
+  background:var(--ok);color:#fff;font-size:13.5px;font-weight:700;box-shadow:var(--shadow-lg);
+  display:none;gap:10px;align-items:flex-start;line-height:1.45}
+.toast.on{display:flex;animation:up .3s cubic-bezier(.2,.9,.3,1) both}
+.toast svg{width:18px;height:18px;flex:none;margin-top:1px}
+
+.mapwrap{border-radius:17px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.mapwrap svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:11px;padding:11px 13px;border-top:1px solid var(--line-2);font-size:11.5px;color:var(--ink-3)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:99px;margin-right:5px;vertical-align:-1px}
+
+.caption{font-size:12.5px;color:var(--ink-3);text-align:center;max-width:56ch;line-height:1.6}
+.caption b{color:var(--ink-2)}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* --- Kunden-App --- */
+.ring{width:74px;height:74px;flex:none;position:relative;display:grid;place-items:center}
+.ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring b{font-size:15px;font-weight:700;line-height:1.1;text-align:center;font-variant-numeric:tabular-nums}
+.big{font-size:34px;font-weight:700;letter-spacing:-.025em;line-height:1.15}
+.answer{font-size:31px;font-weight:700;letter-spacing:-.025em;line-height:1.2;color:var(--ok)}
+.sign{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:99px;flex:none;font-weight:700;font-size:14px}
+.money{font-variant-numeric:tabular-nums;font-family:var(--mono);font-weight:500}
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-i{position:relative;padding:9px 0}
+.tl-i::before{content:"";position:absolute;left:-22px;top:15px;width:11px;height:11px;border-radius:99px;background:var(--surface);border:2.5px solid var(--line)}
+.tl-i.ok::before{background:var(--ok);border-color:var(--ok)}
+.tl-i.now::before{background:var(--surface);border-color:var(--lz);box-shadow:0 0 0 3px var(--tint)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th,.tbl td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line-2)}
+.tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3)}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.mini{display:flex;gap:3px;align-items:flex-end;height:46px}
+.mini i{flex:1;background:var(--lz-300);border-radius:3px 3px 0 0;min-height:3px}
+.mini i.full{background:var(--lz)}
+.persona{display:flex;gap:11px;align-items:center;padding:13px;border-radius:15px;border:1.5px solid var(--line);
+  background:var(--surface);width:100%;text-align:left;min-height:66px}
+.persona[aria-pressed="true"]{border-color:var(--accent);background:var(--tint)}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Ergaenzungen fuer die Einbettung in die Website · JO · 22.08.2026
+   Der Prototyp selbst ist unveraendert. Hier stehen nur die drei Dinge,
+   die er als eigenstaendige Seite im Verbund braucht.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* 1 · Platz fuer die Fiktiv-Leiste.
+   lz-notes.js setzt die Leiste als erstes Kind von <body>; sie steht im
+   Fluss (position:relative), nicht fixiert. Jede 100vh-Rechnung muss ihre
+   Hoehe deshalb abziehen, sonst ragt die Geraetehuelle unten heraus.
+   --tick-h wird von measureTick() auf <html> gesetzt; der Rueckfallwert
+   2.375rem ist derselbe wie an den 13 anderen Stellen im Bestand. */
+.stage{min-height:calc(100vh - var(--tick-h, 2.375rem))}
+.phone{height:min(854px,calc(100vh - 120px - var(--tick-h, 2.375rem)))}
+@media(max-width:640px){.phone{height:calc(100vh - 150px - var(--tick-h, 2.375rem))}}
+@media(min-width:1080px){.rail{max-height:calc(100vh - 44px - var(--tick-h, 2.375rem))}}
+
+/* 2 · Logo fuehrt auf die Startseite.
+   Marke, Groesse und Farbe bleiben unangetastet — es kommen nur Zeigerform
+   und ein Hover dazu, damit der Klick ueberhaupt auffindbar ist. */
+a.brand{text-decoration:none;color:inherit;border-radius:10px;
+  transition:opacity .15s}
+a.brand:hover .brand-name{color:var(--lz)}
+a.brand:hover .brand-mark{opacity:.82}
+
+/* 3 · Rueckweg ins Kundenportal.
+   Gleiche Pillenform wie die Werkzeuge daneben, aber als <a>, weil es eine
+   Navigation ist und kein Schalter. */
+a.tool{text-decoration:none}
+a.tool.zurueck{border-color:var(--lz-300);color:var(--ink);font-weight:700}
+a.tool.zurueck:hover{background:var(--accent);color:var(--on-accent);border-color:transparent}
+a.tool.zurueck svg{width:14px;height:14px;flex:none}
+
 </style>
 </head>
 <body>
-<div id="stage"><div id="device"><div id="screen">
-  <div class="lz-bg"></div>
-  <div id="island"></div>
-  <div id="statusbar"><span id="uhr">9:41</span><span class="sb-right">
-    <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor" aria-hidden="true"><rect x="0" y="7.5" width="3" height="3.5" rx=".6"/><rect x="4.5" y="5.5" width="3" height="5.5" rx=".6"/><rect x="9" y="3" width="3" height="8" rx=".6"/><rect x="13.5" y="0" width="3" height="11" rx=".6"/></svg>
-    <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x=".5" y=".5" width="21" height="11" rx="3.2" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M23 4v4a2.4 2.4 0 0 0 0-4z" fill="currentColor" fill-opacity=".4"/></svg>
-  </span></div>
-  <button class="appearance" id="modus" aria-label="Hell oder dunkel umschalten">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor" stroke="none"/></svg>
-  </button>
-  <div id="login">
-    <div class="login-brand">
-      <svg width="60" height="60" viewBox="0 0 200 200" style="color:var(--lz-accent)" aria-hidden="true">
-        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="7"/>
-        <circle cx="100" cy="28" r="13" fill="currentColor"/><circle cx="168.5" cy="77.8" r="13" fill="currentColor"/>
-        <circle cx="142.3" cy="158.3" r="13" fill="currentColor"/><circle cx="57.7" cy="158.3" r="13" fill="currentColor"/>
-        <circle cx="31.5" cy="77.8" r="13" fill="currentColor"/><circle cx="100" cy="100" r="15" fill="currentColor"/>
+<div class="stage">
+  <aside class="rail">
+    <a class="brand" href="/" aria-label="Zur Startseite von LebensZeit gGmbH" title="Zur Startseite">
+      <svg class="brand-mark" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="35" fill="none" stroke="var(--lz-300)" stroke-width="1.2" opacity=".5"/>
+        <circle cx="40" cy="40" r="25" fill="none" stroke="var(--lz-300)" stroke-width="1" opacity=".7"/>
+        <g fill="var(--lz)"><circle cx="40" cy="14" r="4.6"/><circle cx="64" cy="30" r="4.6"/><circle cx="55" cy="58" r="4.6"/><circle cx="25" cy="58" r="4.6"/><circle cx="16" cy="30" r="4.6"/><circle cx="40" cy="40" r="7.4"/></g>
+        <path d="M40 14 64 30 55 58 25 58 16 30Z" fill="none" stroke="var(--lz)" stroke-width="1.1" opacity=".55"/>
       </svg>
-      <h1>LebensZeit</h1>
-    </div>
-    <!-- Ausgeduennt 13.08.2026: der Anmeldeschirm trug Logo, Claim-Zeile,
-         Trennstrich, Frage, Fiktiv-Hinweis in zwei Zeilen UND die Wertezeile
-         „nah · vernetzt · nachhaltig" — sechs Textbloecke vor zwei Knoepfen, auf
-         einer Flaeche von 390px. Geblieben sind Logo, Wortmarke, die Frage und
-         der Fiktiv-Hinweis in einer Zeile. Claim und Wertezeile entfallen: unter
-         40px Logohoehe ist laut Designgrundlage ohnehin nur die Kurzform ohne
-         Claims zulaessig, und die Wertezeile sagte dasselbe ein zweites Mal.
-         Der Fiktiv-Hinweis bleibt — er ist Pflicht, nicht Schmuck. -->
-    <p class="login-question">Wer sind Sie?</p>
-    <div id="rollen"></div>
-    <p class="fiktiv">Fiktives Unternehmen &mdash; alle Personen und Daten sind erfunden.</p>
-  </div>
-  <div class="navbar" id="navbar" hidden>
-    <button class="navbar-btn" id="zurueck" hidden aria-label="Zur&uuml;ck">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <span class="nav-title" id="navtitel"></span>
-    <span style="flex:1"></span>
-    <button class="navbar-btn" id="abmelden" aria-label="Abmelden">
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 12H4M8 8l-4 4 4 4M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/></svg>
-    </button>
-  </div>
-  <div class="scroll" id="inhalt" hidden></div>
-  <div class="tabbar" id="tabbar" hidden></div>
-  <div id="homebar"></div>
-</div></div></div>
-<script>
-var IC = {
-  heute:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
-  woche:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M7 14h4M7 18h9"/>',
-  brett:'<rect x="3" y="4" width="18" height="15" rx="2.5"/><path d="M12 19v2M8 8.5h8M8 12.5h5"/>',
-  unterlagen:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
-  mehr:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
-  eigenanteil:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9.5 8h5M9.5 12h5"/>',
-  mitglied:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>',
-  kontakt:'<path d="M20 5H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4v4l4-4h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/>',
-  tel:'<path d="M6.6 3h3l1.5 4-2 1.4a12 12 0 0 0 5.5 5.5l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3z"/>',
-  pfeil:'<path d="M9 5l7 7-7 7"/>'
-};
-function svg(k,s){ s=s||24;
-  return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
-    'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'; }
+      <div>
+        <div class="brand-name">LebensZeit Zuhause</div>
+        <div class="brand-sub">Kunden-App · Prototyp V1</div>
+      </div>
+    </a>
+    <p class="rail-lede">Zwei Menschen, eine App: <b>Hildegard Stemmer</b> sieht, wer heute kommt — ihr Sohn <b>Markus Dörre</b> sieht sonntagabends, dass alles in Ordnung ist. Ohne anzurufen.</p>
 
-var KONTEN = {
-  stemmer: {
-    label:"Pflegekundin", name:"Hildegard Stemmer", initialen:"HS", anrede:"Guten Tag, Frau Stemmer",
-    ort:"R\u00fcthen-Meiste", pg:"Pflegegrad 2", cap:761, abgerufen:312, stufe:"Premium",
-    kraft:"Sandra K\u00f6hler", kraftKurz:"Sandra", kraftIni:"SK", kraftRolle:"Pflegefachkraft \u00b7 Tour R\u00fcthen",
-    satz:"Sandra ist auf dem Weg zu Ihnen.", eta:"Gegen 15:10 Uhr",
-    woche:[["Montag","08:30","Grundpflege","ok"],["Dienstag","08:30","Grundpflege","ok"],
-           ["Mittwoch","08:30","Grund- und Behandlungspflege","ok"],
-           ["Donnerstag","15:10","Behandlungspflege","now"],["Freitag","08:30","Grundpflege","plan"],
-           ["Samstag","10:00","Begleitung zum Einkauf \u00b7 Ehrenamt","plan"],
-           ["Sonntag","08:30","Grundpflege","plan"]],
-    verlauf:[["Heute, 9:12","Medikamente gegeben","ok"],["Heute, 8:45","Blutdruck 135/82 \u2014 im Rahmen","ok"],
-             ["Gestern, 18:30","Abendbesuch, alles in Ordnung","ok"],
-             ["Montag, 14:20","Hinweis: Trinkmenge unter dem Ziel","offen"]],
-    frage:"Am Samstag begleitet Sie jemand vom Ehrenamt zum Einkauf. Passt 10 Uhr?",
-    antworten:["Ja, 10 Uhr passt","Lieber sp\u00e4ter am Tag","Diese Woche nicht"],
-    dokumente:[["Pflegevertrag","Stand 03/2024"],["Leistungsnachweis Juli 2026","Stand 01.08.2026"],
-               ["Pflegegrad-Bescheid","Stand 11/2023"]],
-    rechnungen:[["Juli 2026","142,80 \u20ac",true],["Juni 2026","142,80 \u20ac",true],["Mai 2026","138,20 \u20ac",true]],
-    kontakte:[["Sandra K\u00f6hler","SK","Bezugspflegekraft \u00b7 Tour R\u00fcthen"],
-              ["Zentrale Erwitte","LZ","B\u00fcro und Abrechnung"],
-              ["Rufbereitschaft","RB","au\u00dferhalb der B\u00fcrozeiten"],
-              ["Praxis Dr. K\u00fchn","DK","Hausarzt"],["Apotheke R\u00fcthen","AP","Lieferdienst nach Meiste"]]
-  },
-  doerre: {
-    label:"Angeh\u00f6riger", name:"Markus D\u00f6rre", initialen:"MD", anrede:"Guten Tag, Herr D\u00f6rre",
-    ort:"f\u00fcr Frau D\u00f6rre \u00b7 Lippetal", pg:"Pflegegrad 2", cap:761, abgerufen:236, stufe:"Aktiv",
-    kraft:"Jana Brinkmann", kraftKurz:"Jana", kraftIni:"JB", kraftRolle:"Pflegefachkraft \u00b7 Tour Lippetal",
-    satz:"Jana war heute bei Ihrer Mutter.", eta:"Um 09:20 Uhr, alles in Ordnung",
-    woche:[["Montag","09:20","Grundpflege","ok"],["Mittwoch","09:20","Grundpflege","ok"],
-           ["Donnerstag","09:20","Grundpflege","ok"],["Freitag","14:00","Beratungsbesuch nach \u00a737.3","plan"],
-           ["Samstag","\u2014","Hauswirtschaft \u2014 noch nicht vergeben","offen"]],
-    verlauf:[["Heute, 9:20","Besuch abgeschlossen","ok"],["Gestern, 16:00","Rezept eingel\u00f6st","ok"],
-             ["Dienstag, 11:00","Hausarzttermin best\u00e4tigt","ok"]],
-    frage:"F\u00fcr Samstag ist die Hauswirtschaft noch nicht vergeben. Sollen wir sie einplanen?",
-    antworten:["Ja, bitte einplanen","Diesmal \u00fcbernehme ich das","Bitte rufen Sie mich an"],
-    dokumente:[["Vollmacht Angeh\u00f6rige","Stand 05/2025"],["Pflegevertrag","Stand 09/2023"],
-               ["Leistungsnachweis Juli 2026","Stand 01.08.2026"]],
-    rechnungen:[["Juli 2026","96,40 \u20ac",true],["Juni 2026","96,40 \u20ac",false]],
-    kontakte:[["Jana Brinkmann","JB","Bezugspflegekraft \u00b7 Tour Lippetal"],
-              ["Zentrale Erwitte","LZ","B\u00fcro und Abrechnung"],
-              ["Rufbereitschaft","RB","au\u00dferhalb der B\u00fcrozeiten"],
-              ["Praxis Dr. K\u00fchn","DK","Hausarzt der Mutter"],["Apotheke Lippetal","AP","Botendienst"]]
-  }
-};
-var BRETT = [
-  ["Veranstaltung","Tag der offenen T\u00fcr",
-   "Pflegeberatung, Hausf\u00fchrung, Kaffee und Kuchen. Lernen Sie das Team kennen, das Sie betreut.",
-   "Samstag, 12.09. \u00b7 14 bis 17 Uhr","Standort Erwitte","Platz reservieren",true,"beide"],
-  ["Kurs","Pflegekurs f\u00fcr Angeh\u00f6rige",
-   "Vier Abende: r\u00fcckenschonendes Heben, Medikamentengabe, Umgang mit Demenz. F\u00fcr Angeh\u00f6rige kostenfrei.",
-   "ab Dienstag, 05.09. \u00b7 18:30 Uhr","Begegnungsort Bad Sassendorf","Anmelden",false,"angehoerige"],
-  ["Kurs","Bewegungstreff im Sitzen",
-   "Sanfte Gymnastik \u2014 auch mit Rollator oder im Rollstuhl m\u00f6glich.",
-   "jeden Mittwoch \u00b7 10:30 Uhr","Begegnungsort R\u00fcthen","Vormerken",false,"klient"],
-  ["Angebot","Neu: Fahrdienst zu Arztterminen",
-   "Wir holen ab, begleiten in die Praxis und bringen zur\u00fcck \u2014 auch nach R\u00fcthen-Meiste und Lippetal.",
-   "ab sofort","alle f\u00fcnf Standorte","Mehr erfahren",false,"info"],
-  ["Nachbarschaft","Angeh\u00f6rigen-Caf\u00e9",
-   "Offener Treff f\u00fcr pflegende Angeh\u00f6rige. Ohne Anmeldung, ohne Programm.",
-   "jeden ersten Donnerstag \u00b7 16 Uhr","Begegnungsort Anr\u00f6chte","Vormerken",false,"angehoerige"]
-];
-var STUFEN = [
-  ["Basis",48,["Newsletter","Zugang zu den Begegnungsorten","kostenlose Erstberatung"]],
-  ["Aktiv",120,["alles aus Basis","priorisierte Beratung","Angeh\u00f6rigen-App","10 % auf Entlastungsleistungen","freie Kurse"]],
-  ["Premium",360,["alles aus Aktiv","garantierte Versorgungskapazit\u00e4t","fester Ansprechpartner","Hausnotruf inklusive","volle App"]]
-];
-var STATUS = { ok:["\u2713","erledigt","st-ok"], now:["\u2192","unterwegs","st-now"],
-               plan:["\u00b7","geplant","st-plan"], offen:["?","offen","st-offen"] };
-var konto=null, reiter="heute", unterseite=null;
-function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
-  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
-function eur(n){ return n.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" \u20ac"; }
-function heuteText(){
-  var w=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"], d=new Date();
-  return w[d.getDay()]+", "+d.toLocaleDateString("de-DE",{day:"2-digit",month:"long"});
-}
-function statusHTML(k){ var s=STATUS[k]||STATUS.plan;
-  return '<span class="plan-status '+s[2]+'"><span aria-hidden="true">'+s[0]+'</span>'+s[1]+'</span>'; }
-function zeigeSchritt(host, schritt){
-  if (!host) return;
-  if (schritt.tun) { schritt.tun(); return; }
-  var h='';
-  if (schritt.titel) h += '<p class="frage-titel">'+esc(schritt.titel)+'</p>';
-  if (schritt.text)  h += '<p class="danke"><span aria-hidden="true">\u2713</span><span>'+esc(schritt.text)+'</span></p>';
-  if (schritt.warnung) h += '<div class="warn"><p class="warn-titel">'+esc(schritt.warnung.titel)+'</p><ul>'+
-      schritt.warnung.punkte.map(function(p){ return '<li>'+esc(p)+'</li>'; }).join('')+'</ul></div>';
-  if (schritt.optionen){
-    h += '<div class="btn-stack">'+schritt.optionen.map(function(o,i){
-      return '<button class="btn-bordered'+(o.ernst?' ernst':'')+'" data-o="'+i+'">'+esc(o.label)+'</button>';
-    }).join('')+'</div>';
-    host.innerHTML = h;
-    host.addEventListener('click', function(e){
-      var b=e.target.closest('[data-o]'); if(!b) return;
-      zeigeSchritt(host, schritt.optionen[+b.dataset.o].dann);
-    }, {once:true});
-    return;
-  }
-  host.innerHTML = h;
-}
-function fuerWen(){ return konto==="stemmer"
-  ? ["F\u00fcr mich","F\u00fcr meine Angeh\u00f6rigen","F\u00fcr uns beide"]
-  : ["F\u00fcr meine Mutter","F\u00fcr mich","F\u00fcr uns beide"]; }
-</script>
+    <div class="tools">
+      <!-- Rueckweg. Der Prototyp ist nur ueber das Kundenportal erreichbar
+           (E-020), deshalb fuehrt der Weg dorthin zurueck und nicht in die
+           Seitengeschichte des Browsers. -->
+      <a class="tool zurueck" href="/kundenportal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Zum Kundenportal</a>
+      <button class="tool" id="pHild" aria-pressed="true">Hildegard</button>
+      <button class="tool" id="pMark" aria-pressed="false">Markus</button>
+      <button class="tool" id="themeBtn" aria-pressed="false">Darstellung</button>
+    </div>
+
+    <nav class="idx" aria-label="Screens">
+      <div class="idx-h"><span>Screens</span><span>Bauplan §</span></div>
+      <div class="idx-grp" data-only="h">Hildegard · Senior:in</div>
+      <a href="#" data-go="heute" data-only="h"><i>§3 aus</i>Heute</a>
+      <a href="#" data-go="besuch" data-only="h"><i>§2</i>Der Besuch heute</a>
+      <a href="#" data-go="meds" data-only="h"><i>§2</i>Medikamente</a>
+      <div class="idx-grp" data-only="m">Markus · Angehöriger</div>
+      <a href="#" data-go="heute" data-only="m"><i>§5</i>Sonntagabend</a>
+      <a href="#" data-go="verlauf" data-only="m"><i>§2</i>Verlauf</a>
+      <a href="#" data-go="termin" data-only="m"><i>§2</i>Termin anlegen</a>
+      <div class="idx-grp">Beide Perspektiven</div>
+      <a href="#" data-go="woche"><i>§3 neu</i>Meine Woche</a>
+      <a href="#" data-go="brett"><i>§3 neu</i>Nachbarschaft</a>
+      <a href="#" data-go="papiere"><i>§3 neu</i>Unterlagen</a>
+      <a href="#" data-go="rechnung"><i>§3 neu</i>Rechnung Juli</a>
+      <a href="#" data-go="eigenanteil"><i>§3 neu</i>Eigenanteil</a>
+      <a href="#" data-go="mitglied"><i>§3 neu</i>Mitgliedschaft</a>
+      <a href="#" data-go="kontakt"><i>§3 aus</i>Kontakt</a>
+    </nav>
+    <p class="note"><b>Personen (§4):</b> Umgestellt auf die Sprint-1-Personas <b>Hildegard Stemmer</b> und <b>Markus Dörre</b> — nicht mehr Vossenkuhl/Koch.</p>
+    <p class="note"><b>Farbe (§4):</b> Das markenfremde Blau <span class="num">#185FA5</span> der Bezugspflegekraft ist ersetzt durch Markengrün mit Mint-Ring.</p>
+    <p class="note"><b>Kein „Services“ (§3):</b> Die Wege sitzen dort, wo sie gebraucht werden — SEPA unter Rechnungen, Wechsel unter Mitgliedschaft.</p>
+  </aside>
+
+  <main class="device">
+    <div class="phone">
+      <div class="sbar"><div class="notch"></div><em id="clock">9:48</em>
+        <div class="sig"><svg width="16" height="12" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><rect x="0" y="12" width="4" height="6" rx="1"/><rect x="6" y="8" width="4" height="10" rx="1"/><rect x="12" y="4" width="4" height="14" rx="1"/><rect x="18" y="0" width="4" height="18" rx="1"/></svg>
+        <svg width="22" height="12" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1" y="1" width="20" height="12" rx="3.5"/><rect x="3" y="3" width="14" height="8" rx="2" fill="currentColor" stroke="none"/><path d="M23.5 5v4" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="viewport" id="vp"></div>
+      <div class="toast" id="toast"></div>
+      <nav class="tabbar" id="tabs" aria-label="Bereiche"></nav>
+      <div class="home"></div>
+      <div class="sheet-bg" id="sheetbg"><div class="sheet" id="sheet"></div></div>
+    </div>
+    <p class="caption" id="cap"></p>
+  </main>
+</div>
 <script>
-function vHeute(k){
-  return '<div class="pad">'+
-    '<p class="screen-title">'+esc(k.anrede)+'</p><p class="screen-sub">'+heuteText()+'</p>'+
-    '<div class="glass card" data-tint="card"><p class="besuch-eyebrow">Als N\u00e4chstes</p>'+
-      '<p class="besuch-text">'+esc(k.satz)+'</p><p class="besuch-eta">'+esc(k.eta)+'</p>'+
-      '<div class="pflege-row"><span class="avatar">'+esc(k.kraftIni)+'</span>'+
-      '<span><span class="pflege-name">'+esc(k.kraft)+'</span><br>'+
-      '<span class="pflege-sub">'+esc(k.kraftRolle)+'</span></span></div></div>'+
-    '<div class="glass card" id="fragefeld"><p class="frage-titel">Eine kurze Frage</p>'+
-      '<p class="frage-text">'+esc(k.frage)+'</p><div class="btn-stack">'+
-      k.antworten.map(function(a){ return '<button class="btn-bordered" data-quittung="1">'+esc(a)+'</button>'; }).join('')+
-      '</div></div>'+
-    '<p class="section-header">Was zuletzt geschah</p><div class="glass card">'+
-      k.verlauf.map(function(v,i,a){
-        return '<div class="plan-row"><div class="plan-rail"><span class="plan-dot '+v[2]+'"></span>'+
-          (i<a.length-1?'<span class="plan-line"></span>':'')+'</div><div class="plan-body">'+
-          '<p class="plan-zeit" style="font-size:15px">'+esc(v[0])+'</p>'+
-          '<p class="plan-text">'+esc(v[1])+'</p></div></div>'; }).join('')+'</div></div>';
+(function(){
+"use strict";
+const $=(s,r)=>(r||document).querySelector(s), vp=$("#vp"), tabs=$("#tabs"), cap=$("#cap"),
+      sheetbg=$("#sheetbg"), sheet=$("#sheet"), toastEl=$("#toast");
+const I={
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>',
+ cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+ board:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M12 18v3M8 9h8M8 13h5"/></svg>',
+ doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
+ phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 16.9v2.6a2 2 0 01-2.2 2 19.6 19.6 0 01-8.5-3 19.3 19.3 0 01-6-6 19.6 19.6 0 01-3-8.6A2 2 0 014.7 1.7h2.6a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.4 9.5a16 16 0 006 6l1.2-1.1a2 2 0 012.1-.5c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>',
+ video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2.5"/><path d="M15 10.5l6-3.5v10l-6-3.5z"/></svg>',
+ pill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.8 8.8l6.4 6.4"/></svg>',
+ clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',
+ warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10.3 3.9L2 18.2A2 2 0 003.7 21h16.6a2 2 0 001.7-2.8L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9.5v4M12 17.2h.01"/></svg>',
+ arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg>',
+ user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0115 0"/></svg>',
+ stetho:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2v6a5 5 0 0010 0V2"/><path d="M3 2h3M12 2h3M10 13v2a5 5 0 0010 0v-1"/><circle cx="20" cy="12" r="2"/></svg>'
+};
+const S={p:"h", augenGegeben:false, medEigen:{blut:true,augen:false,schlaf:false},
+  wocheModus:"vorschau", brettFilter:"mich", papiereReg:"dok", stufe:"Aktiv", abstufung:false, terminGesetzt:false};
+
+/* ---------- Personen ---------- */
+const HILD={n:"Hildegard Stemmer",i:"HS",c:"var(--lz-700)"}, MARK={n:"Markus Dörre",i:"MD",c:"var(--lz-300)"},
+      SAND={n:"Sandra Köhler",i:"SK",c:"var(--lz)"}, KATR={n:"Katrin Lohmann",i:"KL",c:"var(--lz-600)"};
+function av(p,size,ring){return '<span class="avatar" style="background:'+p.c+';width:'+size+'px;height:'+size+'px;font-size:'+Math.round(size*0.32)+'px'+
+ (ring?';box-shadow:0 0 0 3px var(--appbg),0 0 0 5.5px '+ring:'')+(p.c==="var(--lz-300)"?';color:var(--lz-700)':'')+'">'+p.i+'</span>';}
+
+const TABS=[{id:"heute",l:"Heute",i:I.home},{id:"woche",l:"Woche",i:I.cal},{id:"brett",l:"Brett",i:I.board},
+            {id:"papiere",l:"Papiere",i:I.doc},{id:"kontakt",l:"Kontakt",i:I.phone}];
+const CAPS={
+ heute_h:"<b>Heute · Hildegard.</b> Was überfällig ist, steht oben — darüber kommt nichts. Danach erst: wer wann kommt.",
+ heute_m:"<b>Der Pitch-Moment.</b> Sonntag, 20:15 Uhr. Markus schaut aufs Handy und weiß, wie es seiner Mutter geht — ohne anzurufen.",
+ besuch:"<b>Der Besuch heute.</b> Wie eine Sendungsverfolgung: Hildegard sieht, wo Sandra gerade ist.",
+ meds:"<b>Medikamente.</b> Entscheidend ist die Herkunft der Bestätigung: selbst bestätigt oder von der Pflegekraft gegeben.",
+ verlauf:"<b>Verlauf.</b> Der Feed aus dem Bestand — endlich nach Tagen gruppiert, mit Urheber je Eintrag.",
+ termin:"<b>Termin anlegen.</b> Markus trägt einen Arzttermin ein; er erscheint im Tagesplan seiner Mutter, sichtbar als von ihm eingetragen.",
+ woche:"<b>Meine Woche.</b> Jeder Zustand hat Zeichen, Wort und erst danach Farbe — nie Farbe allein.",
+ brett:"<b>Nachbarschaft.</b> Das Schwarze Brett mit Zielgruppen-Logik — der Filter ist sichtbar und umkehrbar, kein stiller Filter.",
+ papiere:"<b>Unterlagen.</b> Dokumente und Rechnungen getrennt — das Lastschriftmandat liegt bewusst abseits der Rechnungsliste.",
+ rechnung:"<b>Rechnung Juli.</b> Jede Zeile mit Erklärsatz statt Paragrafenkürzel — am Ende die größte Zahl: was abgebucht wurde.",
+ eigenanteil:"<b>Eigenanteil.</b> Drei Zahlen: Anspruch, abgerufen, verfügbar — und was verfällt, wenn nichts passiert.",
+ mitglied:"<b>Mitgliedschaft.</b> Stufenvergleich mit Zeichen und Wort. Wechseln kann nur Frau Stemmer selbst.",
+ kontakt:"<b>Kontakt.</b> Die Frage „Wen erreiche ich jetzt gerade?“ wird ganz oben beantwortet.",
+ notruf:"<b>Notruf.</b> Sichtbar ist, wer alarmiert wird — und der Weg zurück, wenn es ein Versehen war."
+};
+function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function toast(t,ms){toastEl.innerHTML=I.check.replace("<svg",'<svg style="width:18px;height:18px"')+"<span>"+t+"</span>";
+  toastEl.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>toastEl.classList.remove("on"),ms||4200);}
+function openSheet(h){sheet.innerHTML='<div class="grab"></div>'+h;sheetbg.classList.add("on");}
+function closeSheet(){sheetbg.classList.remove("on");}
+sheetbg.addEventListener("click",e=>{if(e.target===sheetbg)closeSheet();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSheet();});
+function head(e,t,s){return '<div style="padding-top:6px"><p class="eyebrow">'+e+'</p><h2 class="h-view">'+t+'</h2>'+(s?'<p class="sub">'+s+'</p>':'')+'</div>';}
+function sign(kind){const m={ok:["✓","var(--ok)","var(--ok-t)"],plan:["→","var(--accent)","var(--tint)"],
+  offen:["!","var(--warn)","var(--warn-t)"],versch:["↻","var(--info)","var(--info-t)"],aus:["×","var(--urgent)","var(--urgent-t)"]}[kind];
+  return '<span class="sign" style="color:'+m[1]+';background:'+m[2]+'">'+m[0]+'</span>';}
+
+let cur="heute";
+function go(v){cur=v;vp.innerHTML=(VIEWS[v]||VIEWS.heute)();vp.scrollTop=0;
+  cap.innerHTML=CAPS[v==="heute"?("heute_"+S.p):v]||"";
+  [...tabs.children].forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===root(v))));
+  document.querySelectorAll(".idx a").forEach(a=>a.setAttribute("aria-current",String(a.dataset.go===v)));
+  bind();}
+function root(v){if(["besuch","meds","verlauf","termin","notruf"].includes(v))return "heute";
+  if(["rechnung","mandat","eigenanteil","mitglied"].includes(v))return "papiere";return v;}
+tabs.innerHTML=TABS.map(t=>'<button class="tab" data-tab="'+t.id+'" role="tab" aria-selected="false">'+t.i+'<span>'+t.l+'</span></button>').join("");
+tabs.addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.tab);});
+document.querySelectorAll(".idx a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();
+  const only=a.dataset.only;if(only&&only!==S.p)setP(only==="h"?"h":"m",true);go(a.dataset.go);}));
+
+function setP(p,quiet){S.p=p;$("#pHild").setAttribute("aria-pressed",String(p==="h"));$("#pMark").setAttribute("aria-pressed",String(p==="m"));
+  $("#clock").textContent=p==="h"?"9:48":"20:15";
+  document.querySelectorAll("[data-only]").forEach(el=>el.style.display=(el.dataset.only===p)?"":"none");
+  S.wocheModus=p==="h"?"vorschau":"rueckblick";S.brettFilter="mich";
+  if(!quiet)go(cur);}
+
+const VIEWS={};
+
+/* ================= HEUTE ================= */
+VIEWS.heute=()=>S.p==="h"?heuteH():heuteM();
+
+function heuteH(){
+ const offen=!S.augenGegeben&&!S.medEigen.augen;
+ return `
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-top:6px">
+  <div><p class="eyebrow">Sonntag, 23. August</p><h2 class="big">Guten Morgen,<br>Frau Stemmer</h2></div>
+  <button class="pill p-brand" data-go="mitglied" style="margin-top:8px;padding:7px 12px">Mitglied · ${S.stufe} ›</button>
+</div>
+${offen?`<div class="card mt" style="border-color:color-mix(in srgb,var(--warn) 50%,transparent);background:var(--warn-t)">
+  <div style="display:flex;gap:12px;align-items:center">
+    ${sign("offen")}
+    <div style="flex:1"><b style="font-size:18px">Offen · Augentropfen</b>
+      <div class="row-s">9:00 Uhr · seit 48 Minuten offen</div></div>
+  </div>
+  <button class="btn mt" data-take="augen" style="min-height:52px">Jetzt genommen</button>
+</div>`:`<div class="banner ok mt">${I.check.replace("<svg",'<svg style="width:20px;height:20px;color:var(--ok);flex:none"')}
+  <p><strong>Alle Medikamente für heute Vormittag erledigt.</strong></p></div>`}
+
+<div class="sechead"><h3>Als Nächstes</h3><span>in 42 Min.</span></div>
+<button class="row" data-go="besuch">
+  <span class="ring">
+    <svg viewBox="0 0 74 74"><circle cx="37" cy="37" r="32" fill="none" stroke="var(--line)" stroke-width="6"/>
+    <circle cx="37" cy="37" r="32" fill="none" stroke="var(--lz)" stroke-width="6" stroke-linecap="round"
+      stroke-dasharray="201" stroke-dashoffset="74"/></svg>
+    <b>in 42<br><span style="font-size:11px;font-weight:400;color:var(--ink-3)">Min.</span></b></span>
+  <span class="row-b"><span class="row-t">10:30 Uhr · Pflegebesuch</span>
+    <span class="row-s">Sandra Köhler ist auf dem Weg</span>
+    <span style="display:flex;gap:6px;margin-top:8px"><span class="pill p-info">Unterwegs</span></span></span>
+  <span class="row-x">${av(SAND,42,"var(--lz-200)")}</span>
+</button>
+
+<div class="sechead"><h3>Schnell erreichbar</h3></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+  ${[["Anrufen",I.phone,"kontakt"],["Videoanruf",I.video,"kontakt"],["Medikamente",I.pill,"meds"],["Tagesplan",I.clock,"woche"]]
+   .map(([l,ic,g])=>'<button class="kpi" data-go="'+g+'" style="text-align:center;min-height:104px">'+
+   ic.replace("<svg",'<svg style="width:27px;height:27px;color:var(--accent);margin:2px auto 8px;display:block"')+
+   '<span style="text-transform:none;letter-spacing:0;font-size:16px;color:var(--ink);font-weight:700">'+l+'</span></button>').join("")}
+</div>
+
+<button class="card mt" data-go="eigenanteil" style="width:100%;text-align:left">
+  <p class="eyebrow">Ihr Entlastungsbetrag</p>
+  <div style="display:flex;align-items:baseline;gap:8px;margin-top:5px">
+    <b class="money" style="font-size:27px">687,50 €</b><span style="font-size:14px;color:var(--ink-3)">von 1.500 € verfügbar</span></div>
+  <div class="bar mt" style="height:9px"><i style="width:54%"></i></div>
+  <p class="row-s" style="margin-top:9px">Im August sind 100,50 € noch offen.</p>
+</button>
+
+<div class="banner mt">${av(MARK,34)}
+ <p><strong>Markus schlägt vor:</strong> Gedächtnistraining, donnerstags 15:00 Uhr in Anröchte.
+ <button data-go="brett" style="color:var(--accent);font-weight:700;text-decoration:underline">Ansehen</button></p></div>
+
+<div class="sechead"><h3>Notfall</h3></div>
+<div class="card" style="background:var(--urgent-t);border-color:color-mix(in srgb,var(--urgent) 30%,transparent)">
+  <p style="font-size:15px;color:var(--ink-2);margin:0 0 12px">Roten Knopf drücken — wir sind sofort dran.</p>
+  <button class="btn btn-danger" id="notruf" style="min-height:64px;font-size:19px">Notruf</button>
+</div>`;
 }
-function vWoche(k){
-  return '<div class="pad"><p class="screen-title">Meine Woche</p>'+
-    '<p class="screen-sub">Ein Eintrag je Termin \u2014 Status als Wort.</p><div class="glass card">'+
-    k.woche.map(function(z,i,a){
-      return '<div class="plan-row"><div class="plan-rail"><span class="plan-dot '+z[3]+'"></span>'+
-        (i<a.length-1?'<span class="plan-line"></span>':'')+'</div><div class="plan-body">'+
-        '<p class="plan-tag">'+esc(z[0])+'</p><p class="plan-zeit">'+esc(z[1])+'</p>'+
-        '<p class="plan-text">'+esc(z[2])+'</p>'+statusHTML(z[3])+'</div></div>'; }).join('')+'</div>'+
-    '<div class="glass card" id="terminfeld"><p class="frage-titel">Termin anfragen</p>'+
-      '<p class="frage-text">Sie brauchen einen zus\u00e4tzlichen Besuch oder wollen einen verschieben? '+
-      'Wir melden uns am selben Werktag.</p><div class="btn-stack">'+
-      '<button class="btn-bordered" data-quittung="1">Zus\u00e4tzlichen Besuch anfragen</button>'+
-      '<button class="btn-bordered" data-quittung="1">Einen Termin verschieben</button>'+
-      '<button class="btn-bordered" data-quittung="1">Besuch f\u00fcr eine Woche aussetzen</button>'+
-      '</div></div></div>';
+
+function heuteM(){return `
+<div style="padding-top:6px"><p class="eyebrow">Sonntag, 23. August · 20:15 Uhr</p>
+<p class="sub" style="margin-top:2px">Guten Abend, Markus</p></div>
+<div style="margin:22px 0 6px"><p class="answer">Ihrer Mutter<br>geht es gut.</p>
+<p class="row-s" style="margin-top:9px">Stand: heute 20:04 Uhr</p></div>
+<div class="card mt">
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+  ${[["Besuche","2 von 2"],["Medikamente","3 von 3"],["Essen &amp; Trinken","wie sonst"],["Stimmung","gut"]]
+   .map(([l,v])=>'<div style="display:flex;gap:9px;align-items:center">'+sign("ok")+
+   '<div><div style="font-size:13px;color:var(--ink-3)">'+l+'</div><b style="font-size:15px">'+v+'</b></div></div>').join("")}
+ </div>
+</div>
+<div class="card mt" style="border-left:4px solid var(--lz)">
+ <div style="display:flex;gap:11px;align-items:center">${av(KATR,40)}
+  <div style="flex:1"><b style="font-size:15px">Katrin Lohmann</b>
+   <div class="row-s">Abendbesuch · 18:30–19:05 Uhr</div></div></div>
+ <p style="font-size:16.5px;line-height:1.55;margin:12px 0 0;color:var(--ink)">
+  „Frau Stemmer hat gut gegessen und war heute sehr gesprächig. Blutdruck 132/78.“</p>
+</div>
+<div class="banner ok mt">${I.check.replace("<svg",'<svg style="width:20px;height:20px;color:var(--ok);flex:none"')}
+ <p><strong>20:04 Uhr — Ihre Mutter hat die Schlaftropfen selbst bestätigt.</strong>
+ Sie war wach und hat es selbst getan.</p></div>
+
+<div class="sechead"><h3>Der Tag</h3><span>4 Einträge</span></div>
+<div class="card"><div class="tl">
+ ${[["8:05","Blutdrucktabletten — selbst bestätigt","ok"],["10:41","Augentropfen — von Sandra Köhler gegeben","ok"],
+    ["11:12","Pflegebesuch abgeschlossen","ok"],["20:04","Schlaftropfen — selbst bestätigt","ok"]]
+  .map(([t,x,k])=>'<div class="tl-i '+k+'"><b class="num" style="font-size:13px;color:var(--ink-3)">'+t+' Uhr</b>'+
+  '<div style="font-size:15px;margin-top:1px">'+x+'</div></div>').join("")}
+</div></div>
+
+<div class="card mt" style="background:var(--surface-2)">
+ <p style="font-size:16px;line-height:1.55;margin:0;color:var(--ink-2)">
+  <strong style="color:var(--ink)">Sie müssen heute nichts tun.</strong> Wenn etwas ist, melden wir uns — auch nachts.</p>
+ <p class="row-s" style="margin-top:7px">Rufbereitschaft: Katrin Lohmann · 02943 9755-0</p></div>
+
+<div class="sechead"><h3>Diese Woche</h3></div>
+<div class="stack-s">
+ ${[["Mo 24.08.","10:30 Pflegebesuch"],["Do 27.08.","15:00 Gedächtnistraining, Anröchte"],["Fr 28.08.","14:00 Pflegeplan-Besprechung — bitte beide"]]
+  .map(([d,t])=>'<div class="card" style="padding:12px 14px;display:flex;gap:12px"><b class="num" style="font-size:13px;color:var(--ink-3);min-width:66px">'+d+'</b><span style="font-size:15px">'+t+'</span></div>').join("")}
+</div>
+<div class="btn-row mt"><button class="btn btn-2" data-go="termin">Termin eintragen</button>
+ <button class="btn btn-2" id="anrufen">Trotzdem anrufen</button></div>
+<p style="text-align:center;font-size:13px;color:var(--ink-4);margin:15px 0 0">Zuletzt aktualisiert vor 3 Minuten</p>`;}
+
+/* ================= BESUCH / MEDS ================= */
+VIEWS.besuch=()=>`
+${head("Sonntag, 23. August","Der Besuch heute","")}
+<div class="card mt" style="text-align:center">
+ <div style="display:flex;justify-content:center;margin-bottom:12px">${av(SAND,88,"var(--info)")}</div>
+ <b style="font-size:20px">Sandra Köhler</b>
+ <p class="sub" style="margin-top:2px">Ihre Bezugspflegekraft</p>
+ <p style="font-size:19px;line-height:1.45;margin:15px 0 0">Sandra ist auf dem Weg zu Ihnen —<br><b>noch etwa 14 Minuten.</b></p>
+</div>
+<div class="sechead"><h3>Wo Sandra gerade ist</h3></div>
+<div class="card"><div class="tl">
+ ${[["Geplant","7:05 Uhr","ok"],["Unterwegs","10:05 Uhr","now"],["Gleich da","","plan"],["Angekommen","erwartet 10:30 Uhr","plan"]]
+  .map(([t,z,k])=>'<div class="tl-i '+(k==="ok"?"ok":(k==="now"?"now":""))+'">'+
+  '<div style="display:flex;align-items:center;gap:9px">'+sign(k==="plan"?"plan":"ok")+
+  '<div><b style="font-size:16px">'+t+'</b>'+(z?'<div class="row-s num">'+z+'</div>':'')+'</div></div></div>').join("")}
+</div></div>
+<div class="sechead"><h3>Was Sandra heute macht</h3></div>
+<div class="card"><div class="stack-s" style="font-size:16px">
+ <div style="display:flex;gap:10px;align-items:center">${sign("plan")}Augentropfen geben</div>
+ <div style="display:flex;gap:10px;align-items:center">${sign("plan")}Blutdruck messen</div>
+ <div style="display:flex;gap:10px;align-items:center">${sign("plan")}Medikamente kontrollieren</div>
+</div></div>
+<p class="sub" style="text-align:center;margin-top:15px">Dauer üblicherweise 40 Minuten</p>`;
+
+VIEWS.meds=()=>{
+ const a=S.augenGegeben||S.medEigen.augen;
+ return `${head("Ihr Plan","Medikamente",(a?"0":"1")+" von 3 offen")}
+<div class="stack mt">
+ <div class="card"><div style="display:flex;gap:12px;align-items:center">${sign("ok")}
+  <div style="flex:1"><b style="font-size:17px">Blutdrucktabletten</b><div class="row-s num">8:00 Uhr</div></div></div>
+  <div style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:14px;color:var(--ok);font-weight:700">
+   ${I.user.replace("<svg",'<svg style="width:16px;height:16px"')} Von Ihnen um 8:05 bestätigt</div></div>
+ <div class="card" style="${a?'':'border-color:color-mix(in srgb,var(--warn) 50%,transparent)'}">
+  <div style="display:flex;gap:12px;align-items:center">${sign(a?"ok":"offen")}
+   <div style="flex:1"><b style="font-size:17px">Augentropfen</b><div class="row-s num">9:00 Uhr</div></div></div>
+  ${a?'<div style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:14px;color:var(--ok);font-weight:700">'+
+      (S.augenGegeben?I.stetho.replace("<svg",'<svg style="width:16px;height:16px"')+' Von Sandra Köhler um 10:41 gegeben'
+                     :I.user.replace("<svg",'<svg style="width:16px;height:16px"')+' Von Ihnen bestätigt')+'</div>'
+    :'<button class="btn mt" data-take="augen" style="min-height:52px">Genommen</button>'}</div>
+ <div class="card" style="opacity:.75"><div style="display:flex;gap:12px;align-items:center">${sign("plan")}
+  <div style="flex:1"><b style="font-size:17px">Schlaftropfen</b><div class="row-s num">20:00 Uhr</div></div></div>
+  <div class="row-s" style="margin-top:8px">Heute Abend fällig</div></div>
+</div>
+<p class="sub" style="margin-top:17px">Änderungen am Plan macht nur Ihre Ärztin oder Ihr Arzt. Hier bestätigen Sie nur die Einnahme.</p>
+<button class="row mt" data-go="papiere"><span class="row-b"><span class="row-t">Medikationsplan als PDF</span>
+ <span class="row-s">liegt in Ihren Unterlagen</span></span>
+ <span class="row-x">${I.arrow.replace("<svg",'<svg style="width:20px;height:20px;color:var(--ink-4)"')}</span></button>`;
+};
+
+VIEWS.verlauf=()=>`
+${head("Alles, was gemeldet wurde","Verlauf","")}
+<div class="chips mt">${["Alles","Medikamente","Besuche","Meldungen"].map((c,i)=>
+ '<button class="chip" aria-pressed="'+(i===0)+'">'+c+'</button>').join("")}</div>
+${[["Heute",[["20:04","Schlaftropfen bestätigt","Hildegard Stemmer","ok"],["19:05","Abendbesuch abgeschlossen","Katrin Lohmann","ok"],
+             ["11:12","Pflegebesuch abgeschlossen","Sandra Köhler","ok"],["10:41","Augentropfen gegeben","Sandra Köhler","ok"],
+             ["8:05","Blutdrucktabletten bestätigt","Hildegard Stemmer","ok"]]],
+  ["Gestern",[["18:20","Abendbesuch abgeschlossen","Katrin Lohmann","ok"],["14:00","Trinkmenge unter Ziel","Sandra Köhler","offen"]]],
+  ["Freitag, 21.08.",[["9:30","Hausarztbesuch abgeschlossen","Praxis Dr. Kühn","versch"]]]]
+ .map(([tag,items])=>'<div class="sechead"><h3>'+tag+'</h3></div><div class="card">'+
+  items.map(([z,t,w,k])=>'<div style="display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line-2)">'+
+   sign(k)+'<div style="flex:1"><b class="num" style="font-size:13px;color:var(--ink-3)">'+z+' Uhr</b>'+
+   '<div style="font-size:15.5px;margin-top:1px">'+t+'</div>'+
+   '<div class="row-s" style="font-size:13px">'+w+'</div></div></div>').join("")+'</div>').join("")}`;
+
+VIEWS.termin=()=>`
+${head("Für Hildegard Stemmer","Termin anlegen","")}
+<label class="field mt"><span>Was</span><input value="Hausarztbesuch"></label>
+<label class="field"><span>Wer</span><input value="Praxis Dr. Kühn"></label>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:11px">
+ <label class="field"><span>Wann</span><input value="Di, 25.08."></label>
+ <label class="field"><span>Uhrzeit</span><input value="9:30"></label></div>
+<div class="sechead"><h3>Art</h3></div>
+<div class="chips">${["Besuch","Arzttermin","Apotheke","Beratung"].map((c,i)=>
+ '<button class="chip" aria-pressed="'+(i===1)+'">'+c+'</button>').join("")}</div>
+<div class="banner mt">${I.user.replace("<svg",'<svg style="width:19px;height:19px;color:var(--info);flex:none"')}
+ <p>Der Termin erscheint im Tagesplan Ihrer Mutter mit dem Vermerk <strong>„von Ihrem Sohn eingetragen“</strong>.</p></div>
+<div class="card mt"><div style="display:flex;justify-content:space-between;align-items:center">
+ <div><b style="font-size:15px">Fahrdienst dazubuchen</b><div class="row-s">24,50 € über den Entlastungsbetrag</div></div>
+ <span class="pill p-mut">optional</span></div></div>
+<button class="btn mt" id="saveTermin">Termin eintragen</button>`;
+
+/* ================= WOCHE ================= */
+VIEWS.woche=()=>{
+ const r=S.wocheModus==="rueckblick";
+ const rueck=[["Mo 17.08.","Pflegebesuch 10:30","Erledigt","ok"],["Di 18.08.","Hausarzt 9:30 · Markus begleitet","Erledigt","ok"],
+   ["Di 18.08.","Pflegebesuch 10:30 → 14:00","Verschoben","versch"],["Mi 19.08.","Pflegebesuch 10:30","Erledigt","ok"],
+   ["Do 20.08.","Pflegebesuch 10:30","Erledigt","ok"],["Fr 21.08.","Pflegebesuch 10:30","Erledigt","ok"],
+   ["Sa 22.08.","Abendbesuch 18:30","Erledigt","ok"],["So 23.08.","Pflegebesuch 10:30","Erledigt","ok"]];
+ const vor=[["Mo 24.08.","Pflegebesuch 10:30","Geplant","plan"],["Di 25.08.","Hausarzt 9:30 · von Markus eingetragen","Geplant","plan"],
+   ["Mi 26.08.","Pflegebesuch 10:30 · Rezept 11:00","Geplant","plan"],["Do 27.08.","Gedächtnistraining 15:00","Geplant","plan"],
+   ["Fr 28.08.","Pflegeplan-Besprechung 14:00","Geplant","plan"],["Sa 29.08.","Abendbesuch 18:30","Geplant","plan"],
+   ["So 30.08.","Pflegebesuch 10:30","Geplant","plan"]];
+ const list=r?rueck:vor;
+ return `${head(S.p==="h"?"Ihre Woche":"Die Woche Ihrer Mutter",S.p==="h"?"Meine Woche":"Hildegards Woche","")}
+<div class="seg mt" id="wSeg">
+ <button data-w="rueckblick" aria-pressed="${r}">Rückblick</button>
+ <button data-w="vorschau" aria-pressed="${!r}">Vorschau</button></div>
+${r?`<div class="card mt"><div style="display:flex;gap:16px;flex-wrap:wrap;font-size:15px">
+ <div><b class="num" style="font-size:22px">7</b> <span style="color:var(--ink-3)">Besuche</span></div>
+ <div><b class="num" style="font-size:22px;color:var(--ok)">6</b> <span style="color:var(--ink-3)">wie geplant</span></div>
+ <div><b class="num" style="font-size:22px;color:var(--info)">1</b> <span style="color:var(--ink-3)">verschoben</span></div></div>
+ <p class="row-s" style="margin-top:9px">20 von 21 Medikamentengaben bestätigt.</p></div>`:''}
+<div class="stack mt">
+${list.map(([d,t,w,k])=>'<div class="card" style="display:flex;gap:12px;align-items:center;padding:14px'+
+ (d.indexOf("23.08.")>=0?';border-left:4px solid var(--lz)':'')+'">'+sign(k)+
+ '<div style="flex:1"><b style="font-size:13px;color:var(--ink-3)" class="num">'+d+'</b>'+
+ '<div style="font-size:15.5px;margin-top:1px">'+t+'</div></div>'+
+ '<span class="pill '+(k==="ok"?"p-ok":(k==="versch"?"p-info":"p-brand"))+'">'+w+'</span></div>').join("")}
+</div>
+<p class="sub" style="margin-top:15px">Jeder Zustand hat ein Zeichen, ein Wort und erst danach eine Farbe.</p>`;
+};
+
+/* ================= BRETT ================= */
+const BRETT=[
+ {k:"Veranstaltung",t:"Tag der offenen Tür",w:"Sa, 12.09.2026 · 14–17 Uhr",o:"Standort Erwitte, Kallenhardter Str. 3",
+  x:"Pflegeberatung, Hausführung, Kaffee und Kuchen.",z:"alle",pin:true,p:"kostenfrei"},
+ {k:"Kurs",t:"Gedächtnistraining in der Gruppe",w:"Donnerstags 15:00–16:15",o:"Begegnungsstätte Anröchte",
+  x:"Über Ihren Entlastungsbetrag abrechenbar.",z:"h",p:"15,00 € je Termin"},
+ {k:"Angebot",t:"Fahrdienst zu Arztterminen",w:"nach Absprache",o:"auch Rüthen-Meiste und Lippetal",
+  x:"Wir holen ab, begleiten in die Praxis und bringen zurück.",z:"alle",p:"24,50 € je Fahrt"},
+ {k:"Kurs",t:"Pflegekurs für Angehörige",w:"ab Di, 15.09.2026 · 18:30",o:"Bad Sassendorf",
+  x:"Vier Abende: rückenschonendes Heben, Medikamentengabe, Umgang mit Demenz.",z:"m",p:"kostenfrei"},
+ {k:"Veranstaltung",t:"Angehörigen-Stammtisch",w:"jeden 1. Dienstag · 19:00",o:"Café Krämer, Anröchte",
+  x:"Ohne Anmeldung.",z:"m",p:"kostenfrei"},
+ {k:"Angebot",t:"Notrufuhr mit Sturzerkennung",w:"jederzeit",o:"im ganzen Kreis Soest",
+  x:"Erkennt Stürze automatisch und meldet sich bei unserer Rufbereitschaft.",z:"alle",p:"ab 24,90 € / Monat"}
+];
+VIEWS.brett=()=>{
+ const mine=BRETT.filter(b=>b.z==="alle"||b.z===S.p);
+ const list=S.brettFilter==="mich"?mine:BRETT;
+ return `${head("Schwarzes Brett","Nachbarschaft","LebensZeit im Kreis Soest")}
+<div class="seg mt" id="bSeg">
+ <button data-b="mich" aria-pressed="${S.brettFilter==="mich"}">Für mich (${mine.length})</button>
+ <button data-b="alle" aria-pressed="${S.brettFilter==="alle"}">Alles (${BRETT.length})</button></div>
+<div class="banner mt">${I.warn.replace("<svg",'<svg style="width:19px;height:19px;color:var(--info);flex:none"')}
+ <p><strong>Urlaubsvertretung im September</strong> — Sandra Köhler ist vom 07.–18.09. im Urlaub. Katrin Lohmann übernimmt; wir stellen sie vorher persönlich vor.</p></div>
+<div class="stack mt">
+${list.map((b,i)=>'<button class="row" data-brett="'+i+'" style="flex-direction:column;align-items:stretch;gap:8px">'+
+ '<span style="display:flex;gap:7px;align-items:center"><span class="pill '+(b.k==="Kurs"?"p-info":(b.k==="Angebot"?"p-brand":"p-ok"))+'">'+b.k+'</span>'+
+ (b.pin?'<span class="pill p-mut">angepinnt</span>':'')+
+ (b.z!=="alle"?'<span class="pill p-mut">'+(b.z==="h"?"für Senior:innen":"für Angehörige")+'</span>':'')+'</span>'+
+ '<span class="row-t">'+esc(b.t)+'</span>'+
+ '<span class="row-s">'+esc(b.w)+' · '+esc(b.o)+'</span>'+
+ '<span style="display:flex;justify-content:space-between;align-items:center;margin-top:2px">'+
+  '<span class="money" style="font-size:14px;color:var(--accent)">'+esc(b.p)+'</span>'+
+  I.arrow.replace("<svg",'<svg style="width:19px;height:19px;color:var(--ink-4)"')+'</span></button>').join("")}
+</div>`;
+};
+
+/* ================= PAPIERE ================= */
+VIEWS.papiere=()=>{
+ const dok=S.papiereReg==="dok";
+ const docs=[["Pflegevertrag","PDF · 12 Seiten · 18.03.2024","nur"],["Pflegegrad-Bescheid (PG 2)","PDF · 4 Seiten · 02.02.2024","frei"],
+   ["Medikationsplan","PDF · 2 Seiten · 12.08.2026","frei"],["Vorsorgevollmacht","PDF · 3 Seiten · 20.03.2024","frei"],
+   ["Einwilligung Datenschutz","PDF · 2 Seiten · 18.03.2024","nur"],["Hausnotruf-Vereinbarung","PDF · 5 Seiten · 04.06.2025","nur"]];
+ const sichtbar=S.p==="m"?docs.filter(d=>d[2]==="frei"):docs;
+ return `${head("Alles Schriftliche","Unterlagen","")}
+<div class="seg mt" id="pSeg">
+ <button data-r="dok" aria-pressed="${dok}">Dokumente</button>
+ <button data-r="rech" aria-pressed="${!dok}">Rechnungen</button></div>
+${dok?`<div class="stack mt">
+ ${sichtbar.map(([t,m,f])=>'<div class="row"><span class="row-b"><span class="row-t">'+t+'</span>'+
+  '<span class="row-s num">'+m+'</span>'+
+  '<span class="pill '+(f==="frei"?"p-ok":"p-mut")+'" style="margin-top:8px">'+(f==="frei"?"Für Markus freigegeben":"Nur für Sie")+'</span></span></div>').join("")}
+ ${S.p==="m"?'<div class="card" style="background:var(--surface-2)"><p style="margin:0;font-size:14.5px;color:var(--ink-3)">Drei weitere Dokumente hat Ihre Mutter nicht freigegeben.</p></div>':''}
+</div>`
+:(S.p==="m"?`<div class="card mt" style="background:var(--surface-2)">
+  <p style="margin:0;font-size:16px;color:var(--ink-2)">Rechnungen sieht nur Frau Stemmer.</p></div>`
+:`<div class="stack mt">
+ <div class="card"><div style="display:flex;justify-content:space-between;align-items:center">
+  <div><b style="font-size:16px">August 2026</b><div class="row-s">wird am 05.09. erstellt</div></div>
+  <span class="pill p-mut">Ausstehend</span></div></div>
+ <button class="row" data-go="rechnung"><span class="row-b"><span class="row-t">Juli 2026</span>
+  <span class="row-s num">Nr. 2026-07-1184</span></span>
+  <span class="row-x"><b class="money" style="font-size:17px">38,90 €</b><span class="pill p-ok">Bezahlt</span></span></button>
+ <div class="card"><div style="display:flex;justify-content:space-between;align-items:center">
+  <div><b style="font-size:16px">Juni 2026</b><div class="row-s num">Nr. 2026-06-1102</div></div>
+  <div style="text-align:right"><b class="money" style="font-size:17px">41,20 €</b><div><span class="pill p-ok">Bezahlt</span></div></div></div></div>
+</div>
+<div class="sechead"><h3>Zahlungsweg</h3></div>
+<button class="row" data-go="mandat"><span class="row-b"><span class="row-t">SEPA-Lastschrift</span>
+ <span class="row-s num">IBAN DE21 4145 ···· 3021 · Einzug zum 15.</span></span>
+ <span class="row-x">${I.arrow.replace("<svg",'<svg style="width:20px;height:20px;color:var(--ink-4)"')}</span></button>`)}`;
+};
+
+VIEWS.rechnung=()=>`
+${head("Nr. 2026-07-1184","Rechnung Juli 2026","Bezahlt am 15.08.2026")}
+<div class="card mt"><table class="tbl">
+ <tr><td>Pflegesachleistung (§ 36)<div class="row-s">direkt mit der AOK NordWest abgerechnet — Sie zahlen das nicht.</div></td><td class="n">796,00 €</td></tr>
+ <tr><td>Leistungen über dem Sachleistungsbetrag</td><td class="n">118,40 €</td></tr>
+ <tr><td>Entlastungsbetrag angerechnet (§ 45b)</td><td class="n" style="color:var(--ok)">−98,50 €</td></tr>
+ <tr><td><b>Ihr Eigenanteil Pflege</b></td><td class="n"><b>19,90 €</b></td></tr>
+ <tr><td>Mitgliedschaft Aktiv (Juli)</td><td class="n">19,00 €</td></tr>
+</table>
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:15px;margin-top:5px;border-top:2px solid var(--line)">
+ <b style="font-size:16px">Von Ihrem Konto eingezogen</b><b class="money" style="font-size:28px">38,90 €</b></div>
+<p class="row-s" style="margin-top:9px">Eingezogen am 15.08.2026 von IBAN DE21 4145 ···· 3021.</p></div>
+<button class="card mt" data-go="eigenanteil" style="width:100%;text-align:left;background:var(--tint);border-color:var(--lz-300)">
+ <p style="margin:0;font-size:15px">98,50 € Ihres Entlastungsbetrags sind im Juli geflossen. Insgesamt sind <b>687,50 €</b> verfügbar.</p></button>`;
+
+VIEWS.mandat=()=>`
+${head("Zahlungsweg","Lastschriftmandat","")}
+<div class="card mt"><div class="stack-s" style="font-size:15px">
+ ${[["Kontoinhaberin","Hildegard Stemmer"],["IBAN","DE21 4145 ···· 3021"],["Bank","Sparkasse SoestWerl"],
+    ["Mandatsreferenz","LZ-2024-0318-STEM"],["Erteilt am","18.03.2024"]].map(([l,v])=>
+  '<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--ink-3)">'+l+'</span><b class="num">'+v+'</b></div>').join("")}
+</div></div>
+<div class="banner mt">${I.clock.replace("<svg",'<svg style="width:19px;height:19px;color:var(--info);flex:none"')}
+ <p>Einzug jeweils zum 15. des Folgemonats · <strong>nächster Einzug 15.09.2026</strong></p></div>
+<div class="card mt" style="background:var(--surface-2)"><p style="margin:0;font-size:15px;color:var(--ink-2)">
+ Sie können einer Lastschrift innerhalb von acht Wochen widersprechen. Die Bedingungen stehen im Pflegevertrag.</p></div>
+<button class="btn btn-2 mt">Bankverbindung ändern</button>`;
+
+VIEWS.eigenanteil=()=>`
+${head("§ 45b","Eigenanteil &amp; Entlastungsbetrag","")}
+<div class="card mt"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center">
+ ${[["1.500,00 €","Anspruch 2026","var(--ink)"],["812,50 €","abgerufen","var(--ink-3)"],["687,50 €","verfügbar","var(--accent)"]]
+  .map(([v,l,c])=>'<div><b class="money" style="font-size:17px;color:'+c+';display:block">'+v+'</b>'+
+  '<span style="font-size:12.5px;color:var(--ink-3)">'+l+'</span></div>').join("")}
+</div>
+<div class="bar mt" style="height:10px"><i style="width:54%"></i></div>
+<p class="row-s" style="margin-top:10px">125,00 € im Monat. Zweckgebunden — wird nicht ausgezahlt.</p></div>
+<div class="card mt" style="background:var(--warn-t);border-color:color-mix(in srgb,var(--warn) 40%,transparent)">
+ <div style="display:flex;gap:11px">${I.warn.replace("<svg",'<svg style="width:20px;height:20px;color:var(--warn);flex:none"')}
+ <p style="margin:0;font-size:15.5px;line-height:1.5">Was Sie bis zum <b>30.06.2027</b> nicht abrufen, verfällt. Das sind derzeit <b>687,50 €</b>.</p></div></div>
+<div class="sechead"><h3>Monat für Monat</h3><span>2026</span></div>
+<div class="card">
+ <div class="mini">${[125,125,125,88,125,62,49,62].map(v=>'<i class="'+(v>=125?"full":"")+'" style="height:'+(v/125*100)+'%"></i>').join("")}${[0,0,0,0].map(()=>'<i style="height:3px;opacity:.35"></i>').join("")}</div>
+ <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-4);margin-top:6px" class="num"><span>Jan</span><span>Dez</span></div>
+ <p class="row-s" style="margin-top:10px">Seit Juni liegen Sie unter 125 € im Monat. Bisher sind 187,50 € ungenutzt geblieben.</p></div>
+<div class="sechead"><h3>Zuletzt abgerufen</h3></div>
+<div class="card"><table class="tbl">
+ <tr><td>06.08. · Fahrdienst zum Hausarzt</td><td class="n">24,50 €</td></tr>
+ <tr><td>31.07. · Gedächtnistraining, 4 Termine</td><td class="n">60,00 €</td></tr>
+ <tr><td>18.07. · Hauswirtschaftliche Hilfe</td><td class="n">38,00 €</td></tr>
+</table></div>
+<div class="card mt" style="background:var(--tint);border-color:var(--lz-300)">
+ <b style="font-size:16px">Womit Sie den August noch nutzen können</b>
+ <p class="row-s" style="margin-top:5px">100,50 € sind offen — Gedächtnistraining (15,00 €) · Fahrdienst (24,50 €) · Hauswirtschaftliche Hilfe.</p></div>
+<button class="btn mt" id="beratung">Beratung anfragen — kostenfrei, etwa 20 Minuten</button>`;
+
+VIEWS.mitglied=()=>{
+ const stufen=[["Basis","0,00 €","im Pflegevertrag enthalten",["Pflegebesuche nach Plan","Medikamentenplan","Rufbereitschaft rund um die Uhr"],[]],
+  ["Aktiv","19,00 €","Ihre Stufe",["Alles aus Basis","Kurse und Veranstaltungen kostenfrei","Zwei Fahrten im Monat inklusive","Rückruf innerhalb von 4 Stunden"],[]],
+  ["Familie","34,00 €","für mehrere Angehörige",["Alles aus Aktiv","Bis zu 3 Angehörigen-Zugänge","Wochenbericht per E-Mail","Pflegekurs für Angehörige kostenfrei"],[]]];
+ return `${head("Ihre Stufe seit 01.05.2025","Mitgliedschaft","")}
+${S.abstufung?'<div class="banner warn mt">'+I.warn.replace("<svg",'<svg style="width:19px;height:19px;color:var(--warn);flex:none"')+
+ '<p><strong>Abstufung auf Basis zum 30.09.2026 beauftragt.</strong> <button id="undo" style="color:var(--accent);font-weight:700;text-decoration:underline">Rückgängig machen</button></p></div>':''}
+<div class="stack mt">
+${stufen.map(([n,p,s,inc])=>{const ist=n===S.stufe;
+ return '<div class="card" style="'+(ist?'border-color:var(--lz);background:var(--tint)':'')+'">'+
+ '<div style="display:flex;justify-content:space-between;align-items:baseline"><div>'+
+ '<b style="font-size:19px">'+n+'</b>'+(ist?' <span class="pill p-brand">Ihre Stufe</span>':'')+
+ '<div class="row-s">'+s+'</div></div><b class="money" style="font-size:17px">'+p+'</b></div>'+
+ '<div class="stack-s" style="margin-top:11px">'+inc.map(x=>
+  '<div style="display:flex;gap:9px;align-items:center;font-size:14.5px">'+sign("ok")+'<span>'+x+'</span></div>').join("")+'</div>'+
+ (!ist&&n==="Familie"?'<button class="btn mt" data-up="1" style="min-height:50px">Auf Familie wechseln</button>':'')+
+ '</div>';}).join("")}
+</div>
+${S.p==="m"?'<div class="card mt" style="background:var(--surface-2)"><p style="margin:0;font-size:15px;color:var(--ink-2)">Wechseln kann nur Frau Stemmer.</p>'+
+ '<button class="btn btn-2 mt" style="min-height:48px">Wechsel vorschlagen</button></div>'
+ :(S.abstufung?'':'<p style="text-align:center;margin-top:17px"><button id="down" style="color:var(--ink-3);text-decoration:underline;font-size:14.5px">Auf Basis wechseln</button></p>')}
+<p class="sub" style="margin-top:15px">Wie viele Angehörige einen Zugang bekommen, regelt die Stufe. Was sie sehen dürfen, regeln Sie — in den Unterlagen.</p>`;
+};
+
+/* ================= KONTAKT ================= */
+VIEWS.kontakt=()=>{
+ const abend=S.p==="m";
+ return `${head("Wen erreiche ich jetzt?","Kontakt","")}
+<div class="card mt" style="background:${abend?"var(--warn-t)":"var(--ok-t)"};border-color:color-mix(in srgb,var(--${abend?"warn":"ok"}) 35%,transparent)">
+ <p style="margin:0;font-size:16px;line-height:1.5"><strong>Sonntag, ${abend?"20:15":"9:48"} Uhr</strong> — Büro geschlossen.
+ ${abend?"Die Rufbereitschaft ist erreichbar.":"Die Rufbereitschaft ist erreichbar."}</p></div>
+<div class="stack mt">
+ <div class="card" style="border-color:var(--lz)">
+  <div style="display:flex;gap:12px;align-items:center">${av(KATR,46)}
+   <div style="flex:1"><b style="font-size:17px">Rufbereitschaft</b>
+    <div class="row-s">Rund um die Uhr, auch sonntags</div>
+    <div class="row-s num" style="margin-top:2px">02943 9755-0</div></div>
+   <span class="pill p-ok">Erreichbar</span></div>
+  <p class="row-s" style="margin-top:9px">Jetzt im Dienst: Katrin Lohmann</p>
+  <button class="btn mt" style="min-height:52px">Anrufen</button></div>
+ <div class="card"><div style="display:flex;gap:12px;align-items:flex-start">
+  <div style="flex:1"><b style="font-size:17px">Büro Erwitte</b>
+   <div class="row-s num">02943 9755-20</div>
+   <div class="row-s">Kallenhardter Str. 3, 59597 Erwitte</div>
+   <div class="row-s" style="margin-top:6px">Mo–Do 8:00–16:30 · Fr 8:00–13:00 · Sa/So geschlossen</div></div>
+  <span class="pill p-mut">Geschlossen</span></div></div>
+ <div class="card"><div style="display:flex;gap:12px;align-items:center">${av(SAND,46,"var(--lz-200)")}
+  <div style="flex:1"><b style="font-size:17px">Sandra Köhler</b>
+   <div class="row-s">Bezugspflegekraft · Mo–Fr 7:00–15:00</div>
+   <div class="row-s" style="margin-top:2px">Heute nicht im Dienst — Vertretung: Katrin Lohmann</div></div></div></div>
+ <div class="card"><div style="display:flex;gap:12px;align-items:center">${av(S.p==="h"?MARK:HILD,46)}
+  <div style="flex:1"><b style="font-size:17px">${S.p==="h"?"Markus Dörre":"Hildegard Stemmer"}</b>
+   <div class="row-s">${S.p==="h"?"Ihr Sohn · Lippetal":"Ihre Mutter · Rüthen-Meiste"}</div></div></div>
+  <div class="btn-row mt"><button class="btn btn-2" style="min-height:50px">Anrufen</button>
+   <button class="btn btn-2" style="min-height:50px">Videoanruf</button></div></div>
+ <div class="card" style="opacity:.8"><div style="display:flex;justify-content:space-between;align-items:center">
+  <div><b style="font-size:16px">Praxis Dr. Kühn</b><div class="row-s">Erwitte · Mo/Di/Do 8–12, 15–18</div></div>
+  <span class="pill p-mut">Heute zu</span></div></div>
+ <div class="card" style="opacity:.8"><div style="display:flex;justify-content:space-between;align-items:center">
+  <div><b style="font-size:16px">Apotheke Anröchte</b><div class="row-s">Notdienst: Rats-Apotheke Rüthen</div></div>
+  <span class="pill p-mut">Heute zu</span></div></div>
+</div>
+${S.p==="h"?'<div class="sechead"><h3>Notfall</h3></div><button class="btn btn-danger" id="notruf" style="min-height:64px;font-size:19px">Notruf</button>':''}`;
+};
+
+VIEWS.notruf=()=>`
+<div style="min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 10px">
+ <div style="width:104px;height:104px;border-radius:99px;background:var(--urgent-t);display:grid;place-items:center;
+   border:3px solid var(--urgent)">${I.warn.replace("<svg",'<svg style="width:46px;height:46px;color:var(--urgent)"')}</div>
+ <h2 style="font-size:29px;font-weight:700;color:var(--urgent);margin-top:20px">Notfall ausgelöst</h2>
+ <p style="font-size:17px;color:var(--ink-2);margin-top:7px">Hilfe wird alarmiert.</p>
+ <div class="card mt" style="width:100%;text-align:left">
+  <div class="stack-s" style="font-size:15px">
+   <div style="display:flex;gap:9px;align-items:center">${sign("ok")}<span>Rufbereitschaft LebensZeit · Katrin Lohmann</span></div>
+   <div style="display:flex;gap:9px;align-items:center">${sign("ok")}<span>Markus Dörre wird benachrichtigt</span></div>
+  </div></div>
+ <p class="row-s num" style="margin-top:14px">Ausgelöst vor 8 Sekunden</p>
+ <button class="btn btn-2 mt" id="fehl" style="width:100%">Fehlalarm</button>
+</div>`;
+
+/* ================= Ereignisse ================= */
+function bind(){
+ vp.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+ vp.querySelectorAll("[data-take]").forEach(b=>b.onclick=()=>{S.medEigen.augen=true;go(cur);
+   toast("Augentropfen bestätigt. Markus sieht das heute Abend.",5000);});
+ const ws=$("#wSeg");if(ws)ws.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.wocheModus=b.dataset.w;go("woche");});
+ const bs=$("#bSeg");if(bs)bs.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.brettFilter=b.dataset.b;go("brett");});
+ const ps=$("#pSeg");if(ps)ps.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.papiereReg=b.dataset.r;go("papiere");});
+ vp.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{const g=c.parentElement;
+   g.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",String(x===c)));});
+ vp.querySelectorAll("[data-brett]").forEach(b=>b.onclick=()=>brettDetail(BRETT[+b.dataset.brett]));
+ const n=$("#notruf");if(n)n.onclick=()=>go("notruf");
+ const f=$("#fehl");if(f)f.onclick=()=>{go(S.p==="h"?"heute":"kontakt");toast("Notruf abgebrochen.");};
+ const be=$("#beratung");if(be)be.onclick=beratung;
+ const up=vp.querySelector("[data-up]");if(up)up.onclick=aufstufen;
+ const dn=$("#down");if(dn)dn.onclick=abstufen;
+ const un=$("#undo");if(un)un.onclick=()=>{S.abstufung=false;go("mitglied");toast("Abstufung zurückgenommen. Aktiv läuft weiter.");};
+ const st=$("#saveTermin");if(st)st.onclick=()=>{S.terminGesetzt=true;go("heute");
+   toast("Termin eingetragen — erscheint im Tagesplan Ihrer Mutter.",5000);};
+ const an=$("#anrufen");if(an)an.onclick=()=>go("kontakt");
+ sheet.querySelectorAll("[data-close]").forEach(b=>b.onclick=closeSheet);
 }
-function vBrett(){
-  return '<div class="pad"><p class="screen-title">Nachbarschaft</p>'+
-    '<p class="screen-sub">Was in Ihrer N\u00e4he stattfindet.</p>'+
-    BRETT.map(function(b,i){
-      return '<div class="glass card'+(b[6]?' gepinnt':'')+'"><p class="brett-kat">'+esc(b[0])+'</p>'+
-        '<p class="brett-titel">'+esc(b[1])+'</p><p class="brett-text">'+esc(b[2])+'</p>'+
-        '<p class="brett-meta">'+esc(b[3])+'</p><p class="brett-ort">'+esc(b[4])+'</p>'+
-        '<div class="brett-feld" data-feld="'+i+'"><div class="btn-stack">'+
-        '<button class="btn-bordered" data-brett="'+i+'">'+esc(b[5])+'</button></div></div></div>';
-    }).join('')+'</div>';
-}
-function brettSchritt(k,i){
-  var b=BRETT[i], ziel=b[7], istKlient=(konto==="stemmer");
-  if (ziel==="info") return { text:"Wir schicken Ihnen die Unterlagen zum Fahrdienst per E-Mail." };
-  if (ziel==="beide") return { titel:"F\u00fcr wen soll die Anmeldung gelten?",
-    optionen: fuerWen().map(function(w){
-      return { label:w, dann:{ text:w+" vorgemerkt. Die Anmeldebest\u00e4tigung kommt per E-Mail." } }; }) };
-  var wen = (ziel==="klient") ? (istKlient?"F\u00fcr Sie":"F\u00fcr Ihre Mutter")
-                              : (istKlient?"F\u00fcr Ihre Angeh\u00f6rigen":"F\u00fcr Sie");
-  return { text: wen+" vorgemerkt \u2014 dieses Angebot richtet sich nur an "+
-    (ziel==="klient"?"Pflegekundinnen und Pflegekunden":"Angeh\u00f6rige")+
-    ". Die Anmeldebest\u00e4tigung kommt per E-Mail." };
-}
-function vUnterlagen(k){
-  return '<div class="pad"><p class="screen-title">Unterlagen</p>'+
-    '<p class="screen-sub">Dokumente und Rechnungen.</p>'+
-    '<p class="section-header">Dokumente</p><div class="glass card">'+
-      k.dokumente.map(function(d){
-        return '<div class="list-row"><span><span class="list-title">'+esc(d[0])+'</span><br>'+
-          '<span class="list-meta">'+esc(d[1])+'</span></span>'+
-          '<span class="list-right"><span class="chip">PDF</span></span></div>'; }).join('')+'</div>'+
-    '<p class="section-header">Rechnungen</p><div class="glass card">'+
-      k.rechnungen.map(function(r){
-        return '<div class="list-row"><span><span class="list-title">'+esc(r[0])+'</span><br>'+
-          '<span class="list-meta">Eigenanteil</span></span><span class="list-right">'+
-          '<span class="betrag">'+esc(r[1])+'</span><br>'+statusHTML(r[2]?"ok":"offen")+'</span></div>';
-      }).join('')+'</div>'+
-    '<div class="glass card" id="sepafeld"><p class="frage-titel">Lastschriftmandat</p>'+
-      '<p class="frage-text">Rechnungen automatisch einziehen lassen. Jederzeit widerrufbar, '+
-      'jede Abbuchung acht Wochen r\u00fcckbuchbar.</p><div class="btn-stack">'+
-      '<button class="btn-bordered" data-sepa="1">Mandat erteilen</button></div></div></div>';
-}
-function vEigenanteil(k){
-  var offen=k.cap-k.abgerufen, quote=Math.round(k.abgerufen/k.cap*100);
-  return '<div class="pad"><p class="screen-title">Eigenanteil</p>'+
-    '<p class="screen-sub">Was die Pflegekasse tr\u00e4gt \u2014 und was bleibt.</p>'+
-    '<div class="glass card" data-tint="card"><p class="card-title">Ihr Monat</p>'+
-      '<p class="card-sub">'+esc(k.pg)+' \u00b7 Sachleistungsbetrag '+eur(k.cap)+'</p>'+
-      '<div class="balken"><i style="width:'+quote+'%"></i></div>'+
-      '<p class="list-meta">'+quote+' % abgerufen</p><div style="margin-top:14px">'+
-      '<div class="wert-row"><span class="wert-label">Anspruch der Pflegekasse</span><span class="wert-zahl">'+eur(k.cap)+'</span></div>'+
-      '<div class="wert-row"><span class="wert-label">davon abgerufen</span><span class="wert-zahl">'+eur(k.abgerufen)+'</span></div>'+
-      '<div class="wert-row summe"><span class="wert-label">verf\u00e4llt am Monatsende</span><span class="wert-zahl">'+eur(offen)+'</span></div>'+
-      '</div></div>'+
-    '<div class="glass card" id="beratungfeld"><p class="frage-titel">Unklar, was davon bei Ihnen bleibt?</p>'+
-      '<p class="frage-text">Wir gehen die Abrechnung mit Ihnen durch \u2014 Zeile f\u00fcr Zeile. F\u00fcr Mitglieder kostenfrei.</p>'+
-      '<div class="btn-stack"><button class="btn-bordered" data-beratung="1">Beratung vereinbaren</button></div></div>'+
-    '<p class="section-header">Au\u00dferhalb der Kasse</p><div class="glass card">'+
-      '<div class="wert-row"><span class="wert-label">Hilfskraft \u00b7 Hauswirtschaft</span><span class="wert-zahl">38,00 \u20ac / Std.</span></div>'+
-      '<div class="wert-row" style="border-bottom:0"><span class="wert-label">Fachkraft \u00b7 Behandlungspflege</span><span class="wert-zahl">52,00 \u20ac / Std.</span></div>'+
-      (k.stufe==="Basis" ? '' : '<p class="card-sub" style="margin-top:12px">Als '+esc(k.stufe)+
-        '-Mitglied erhalten Sie 10 % auf Entlastungsleistungen nach \u00a745b.</p>')+
-    '</div></div>';
-}
-function stufeIdx(n){ for(var i=0;i<STUFEN.length;i++) if(STUFEN[i][0]===n) return i; return 0; }
-function wechseln(ziel){ KONTEN[konto].stufe=ziel; zeichne();
-  zeigeSchritt(document.getElementById("stufenfeld"),
-    { text:"Ihre Mitgliedschaft l\u00e4uft ab dem kommenden Monat als "+ziel+"." }); }
-function stufenSchritt(k,ziel){
-  var jetzt=stufeIdx(k.stufe), neu=stufeIdx(ziel);
-  if (neu>jetzt){ wechseln(ziel); return null; }
-  var behalten={}; STUFEN[neu][2].forEach(function(l){ behalten[l]=true; });
-  var verlust=[];
-  for (var i=neu+1;i<=jetzt;i++)
-    STUFEN[i][2].forEach(function(l){ if(!behalten[l] && l.indexOf("alles aus")!==0) verlust.push(l); });
-  return { titel:"Von "+k.stufe+" zu "+ziel,
-    warnung:{ titel:"Diese Leistungen entfallen", punkte:verlust },
-    optionen:[ { label:"Ja, auf "+ziel+" herabstufen", ernst:true, dann:{ tun:function(){ wechseln(ziel); } } },
-               { label:"Doch nicht \u2014 "+k.stufe+" behalten", dann:{ text:"Es bleibt bei "+k.stufe+"." } } ] };
-}
-function vMitglied(k){
-  return '<div class="pad"><p class="screen-title">Mitgliedschaft</p>'+
-    '<p class="screen-sub">Ein Wechsel ist jederzeit m\u00f6glich.</p>'+
-    STUFEN.map(function(s){
-      var aktuell=(s[0]===k.stufe), hoeher=(stufeIdx(s[0])>stufeIdx(k.stufe));
-      return '<div class="glass stufe'+(aktuell?' aktuell':'')+'"><div class="stufe-kopf">'+
-        '<span class="stufe-name">'+esc(s[0])+'</span><span class="stufe-preis">'+eur(s[1])+'</span></div>'+
-        '<p class="list-meta">im Jahr</p><ul>'+s[2].map(function(l){ return '<li>'+esc(l)+'</li>'; }).join('')+'</ul>'+
-        (aktuell ? '<span class="jetzt">Ihre Stufe</span>'
-          : '<div class="btn-stack"><button class="btn-bordered'+(hoeher?'':' ernst')+'" data-stufe="'+esc(s[0])+'">'+
-            (hoeher?'Auf '+esc(s[0])+' wechseln':'Auf '+esc(s[0])+' herabstufen')+'</button></div>')+
-        '</div>';
-    }).join('')+
-    '<div class="glass card" id="stufenfeld"><p class="frage-titel">Was der Wechsel bedeutet</p>'+
-      '<p class="frage-text">Eine Aufstufung gilt sofort. Eine Herabstufung zeigt erst, welche Leistungen '+
-      'entfallen, und wird nach einer zweiten Best\u00e4tigung wirksam. Die Versorgung l\u00e4uft \u00fcber den '+
-      'Pflegevertrag und ist nicht ber\u00fchrt.</p></div></div>';
-}
-function vKontakt(k){
-  return '<div class="pad"><p class="screen-title">Kontakt</p>'+
-    '<p class="screen-sub">Rufen Sie an \u2014 ein Mensch geht ran.</p><div class="glass card">'+
-    k.kontakte.map(function(c){
-      return '<div class="kontakt-row"><span class="avatar">'+esc(c[1])+'</span>'+
-        '<span><span class="kontakt-name">'+esc(c[0])+'</span><br>'+
-        '<span class="kontakt-rolle">'+esc(c[2])+'</span></span>'+
-        '<a class="tel-btn" href="tel:+4929430000000" aria-label="'+esc(c[0])+' anrufen">'+svg("tel",20)+'</a></div>';
-    }).join('')+'</div>'+
-    '<p class="section-header">Wann Sie uns erreichen</p><div class="glass card">'+
-      '<div class="zeit-row"><b>Pflege</b><span>t\u00e4glich 6:00\u201322:00 Uhr</span></div>'+
-      '<div class="zeit-row"><b>B\u00fcro</b><span>Mo\u2013Fr 8:00\u201317:00 Uhr</span></div>'+
-      '<div class="zeit-row"><b>Rufbereitschaft</b><span>au\u00dferhalb der B\u00fcrozeiten</span></div>'+
-      '<p class="card-sub" style="margin-top:12px">Einen Nachtdienst gibt es nicht \u2014 die Rufbereitschaft '+
-      'ist der Weg au\u00dferhalb der Zeiten.</p></div></div>';
-}
-var MEHR = [["eigenanteil","Eigenanteil","Was die Kasse tr\u00e4gt, was bleibt"],
-            ["mitglied","Mitgliedschaft","Stufen vergleichen und wechseln"],
-            ["kontakt","Kontakt","Ansprechpartner und Zeiten"]];
-function vMehr(){
-  return '<div class="pad"><p class="screen-title">Mehr</p><p class="screen-sub">Weitere Bereiche.</p>'+
-    MEHR.map(function(m){
-      return '<button class="glass mehr-row" data-mehr="'+m[0]+'">'+svg(m[0],26)+
-        '<span><span class="t">'+esc(m[1])+'</span><br><span class="s">'+esc(m[2])+'</span></span>'+
-        '<span class="pfeil">'+svg("pfeil",20)+'</span></button>'; }).join('')+'</div>';
-}
-var REITER = [["heute","Heute"],["woche","Woche"],["brett","Nachbarn"],["unterlagen","Unterlagen"],["mehr","Mehr"]];
-var VIEWS = { heute:vHeute, woche:vWoche, brett:vBrett, unterlagen:vUnterlagen,
-              mehr:vMehr, eigenanteil:vEigenanteil, mitglied:vMitglied, kontakt:vKontakt };
-var TITEL = { heute:"Heute", woche:"Meine Woche", brett:"Nachbarschaft", unterlagen:"Unterlagen",
-              mehr:"Mehr", eigenanteil:"Eigenanteil", mitglied:"Mitgliedschaft", kontakt:"Kontakt" };
-function zeichne(){
-  var k=KONTEN[konto], ans=unterseite||reiter;
-  document.getElementById("inhalt").innerHTML = VIEWS[ans](k);
-  document.getElementById("navtitel").textContent = TITEL[ans];
-  document.getElementById("zurueck").hidden = !unterseite;
-  document.querySelectorAll("#tabbar button").forEach(function(b){
-    b.classList.toggle("active", b.dataset.r===reiter); });
-  document.getElementById("inhalt").scrollTop = 0;
-}
-function geh(r){ reiter=r; unterseite=null; zeichne(); }
-document.getElementById("inhalt").addEventListener("click", function(e){
-  var k=KONTEN[konto];
-  var m=e.target.closest("[data-mehr]");
-  if (m){ unterseite=m.dataset.mehr; zeichne(); return; }
-  var st=e.target.closest("[data-stufe]");
-  if (st){ var s=stufenSchritt(k,st.dataset.stufe);
-    if (s) zeigeSchritt(document.getElementById("stufenfeld"), s); return; }
-  var br=e.target.closest("[data-brett]");
-  if (br){ zeigeSchritt(document.querySelector('.brett-feld[data-feld="'+br.dataset.brett+'"]'),
-    brettSchritt(k, +br.dataset.brett)); return; }
-  if (e.target.closest("[data-sepa]")){
-    zeigeSchritt(document.getElementById("sepafeld"),
-      { titel:"Lastschriftmandat", text:"Mandat erteilt. Die n\u00e4chste Rechnung wird eingezogen." }); return; }
-  if (e.target.closest("[data-beratung]")){
-    zeigeSchritt(document.getElementById("beratungfeld"), { titel:"Wie m\u00f6chten Sie die Beratung f\u00fchren?",
-      optionen:[ { label:"Jetzt anrufen", dann:{ tun:function(){ location.href="tel:+4929430000000"; } } },
-                 { label:"Um R\u00fcckruf bitten", dann:{ text:"Notiert. Wir rufen am n\u00e4chsten Werktag zur\u00fcck." } },
-                 { label:"Beim n\u00e4chsten Hausbesuch", dann:{ text:"Notiert. "+k.kraftKurz+" bringt die Abrechnung mit." } } ] });
-    return; }
-  var q=e.target.closest("[data-quittung]");
-  if (q){ zeigeSchritt(q.closest(".card"), { text:"Danke \u2014 wir haben es notiert und melden uns." }); }
-});
-document.getElementById("zurueck").addEventListener("click", function(){ unterseite=null; zeichne(); });
-document.getElementById("rollen").innerHTML = Object.keys(KONTEN).map(function(id){
-  var k=KONTEN[id];
-  return '<button class="glass role-card" data-rolle="'+id+'">'+
-    '<span class="role-label">'+esc(k.label)+'</span>'+
-    '<span class="role-name">'+esc(k.name)+'</span>'+
-    '<span class="role-sub">'+esc(k.ort)+' \u00b7 '+esc(k.pg)+'</span></button>';
-}).join('');
-document.getElementById("rollen").addEventListener("click", function(e){
-  var b=e.target.closest("[data-rolle]"); if(!b) return;
-  konto=b.dataset.rolle; reiter="heute"; unterseite=null;
-  document.getElementById("login").classList.add("weg");
-  ["navbar","inhalt","tabbar"].forEach(function(id){ document.getElementById(id).hidden=false; });
-  zeichne();
-});
-document.getElementById("abmelden").addEventListener("click", function(){
-  document.getElementById("login").classList.remove("weg");
-  ["navbar","inhalt","tabbar"].forEach(function(id){ document.getElementById(id).hidden=true; });
-});
-document.getElementById("tabbar").innerHTML = REITER.map(function(r){
-  return '<button data-r="'+r[0]+'">'+svg(r[0],24)+'<span class="tab-label">'+esc(r[1])+'</span></button>';
-}).join('');
-document.getElementById("tabbar").addEventListener("click", function(e){
-  var b=e.target.closest("[data-r]"); if(!b) return; geh(b.dataset.r);
-});
-document.getElementById("modus").addEventListener("click", function(){
-  var neu = document.documentElement.dataset.scheme==="dark" ? "light" : "dark";
-  document.documentElement.dataset.scheme = neu;
-  document.querySelector('meta[name=theme-color]').content = neu==="dark" ? "#050D05" : "#F6F8F3";
-});
-function uhr(){ document.getElementById("uhr").textContent =
-  new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}); }
-uhr(); setInterval(uhr,20000);
-function huelle(){ document.body.classList.toggle("bare", innerWidth<900 || innerHeight<900); }
-huelle(); addEventListener("resize", huelle);
+function brettDetail(b){openSheet(`
+ <span class="pill ${b.k==="Kurs"?"p-info":(b.k==="Angebot"?"p-brand":"p-ok")}">${b.k}</span>
+ <h3 style="font-size:22px;font-weight:700;margin-top:9px">${esc(b.t)}</h3>
+ <p style="font-size:16px;color:var(--ink-2);margin-top:7px;line-height:1.55">${esc(b.x)}</p>
+ <div class="card mt"><div class="stack-s" style="font-size:15px">
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Wann</span><b>${esc(b.w)}</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Wo</span><b>${esc(b.o)}</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Kosten</span><b class="money">${esc(b.p)}</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Für</span><b>${b.z==="alle"?"alle":(b.z==="h"?"Senior:innen":"Angehörige")}</b></div>
+ </div></div>
+ ${b.p.indexOf("€")>=0?'<div class="card mt" style="background:var(--tint);border-color:var(--lz-300)"><p style="margin:0;font-size:15px">Über Ihren Entlastungsbetrag abrechenbar — Sie haben <b>687,50 €</b> verfügbar.</p></div>':''}
+ <button class="btn mt" data-close>Anmelden</button>
+ <button class="btn btn-2 mt" data-close>Schließen</button>`);
+ sheet.querySelectorAll("[data-close]").forEach(b2=>b2.onclick=()=>{closeSheet();});}
+function beratung(){openSheet(`
+ <h3 style="font-size:21px;font-weight:700">Beratung anfragen</h3>
+ <p style="font-size:16px;color:var(--ink-2);margin-top:6px;line-height:1.55">Wir gehen mit Ihnen durch, wofür Sie die <b>687,50 €</b> noch nutzen können.</p>
+ <div class="sechead"><h3>Wunschzeit</h3></div>
+ <div class="stack-s">${[["Mo, 24.08.","10–12 Uhr",true],["Mi, 26.08.","14–16 Uhr",false],["Fr, 28.08.","10–12 Uhr",false]]
+  .map(([d,z,s])=>'<button class="opt" aria-pressed="'+s+'"><span class="mark"></span><span><span class="opt-t">'+d+'</span><span class="opt-s">'+z+'</span></span></button>').join("")}</div>
+ <div class="sechead"><h3>Wie</h3></div>
+ <div class="seg"><button aria-pressed="true">Anruf</button><button aria-pressed="false">Hausbesuch</button></div>
+ <p class="row-s" style="margin-top:8px">Hausbesuch kostenfrei im Umkreis von 20 km.</p>
+ <button class="btn mt" data-close>Anfrage senden</button>`);
+ sheet.querySelectorAll("[aria-pressed]").forEach(b=>b.onclick=()=>{const g=b.parentElement;
+  g.querySelectorAll("[aria-pressed]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));});
+ sheet.querySelector("[data-close]").onclick=()=>{closeSheet();toast("Anfrage gesendet — wir rufen Montag zwischen 10 und 12 Uhr an.",5000);};}
+function aufstufen(){openSheet(`
+ <h3 style="font-size:21px;font-weight:700">Von Aktiv auf Familie</h3>
+ <div class="sechead"><h3>Was dazukommt</h3></div>
+ <div class="card"><div class="stack-s" style="font-size:15px">
+  ${["Bis zu 3 Angehörigen-Zugänge","Wochenbericht per E-Mail","Pflegekurs für Angehörige kostenfrei","Notfallkontaktkette"]
+   .map(x=>'<div style="display:flex;gap:9px;align-items:center">'+sign("ok")+'<span>'+x+'</span></div>').join("")}</div></div>
+ <div class="sechead"><h3>Was sich am Preis ändert</h3></div>
+ <div class="card"><div class="stack-s" style="font-size:15px">
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Neu</span><b class="money">34,00 € / Monat</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">August anteilig</span><b class="money">3,87 €</b></div>
+  <div style="display:flex;justify-content:space-between"><span style="color:var(--ink-3)">Ab wann</span><b>Mo, 24.08.2026</b></div>
+ </div></div>
+ <p class="sub" style="margin-top:12px">14 Tage Widerrufsrecht. Der Wechsel berührt Ihren Pflegevertrag nicht.</p>
+ <button class="btn mt" id="doUp">Auf Familie wechseln</button>
+ <button class="btn btn-2 mt" data-close>Abbrechen</button>`);
+ $("#doUp").onclick=()=>{S.stufe="Familie";closeSheet();go("mitglied");toast("Stufe Familie ab 24.08. — Markus bekommt seinen Zugang.",5000);};
+ sheet.querySelector("[data-close]").onclick=closeSheet;}
+function abstufen(){openSheet(`
+ <h3 style="font-size:21px;font-weight:700">Von Aktiv auf Basis</h3>
+ <div class="card mt" style="background:var(--warn-t);border-color:color-mix(in srgb,var(--warn) 40%,transparent)">
+  <b style="font-size:16px">Was ab dem 30.09.2026 wegfällt</b>
+  <div class="stack-s" style="margin-top:10px;font-size:15px">
+  ${["Kurse und Veranstaltungen kosten wieder","Zwei Freifahrten im Monat entfallen","Rückruf ohne Zeitzusage","Eigenanteil-Beratung wird berechnet"]
+   .map(x=>'<div style="display:flex;gap:9px;align-items:center"><span class="sign" style="color:var(--warn);background:var(--warn-t)">−</span><span>'+x+'</span></div>').join("")}</div></div>
+ <div class="sechead"><h3>Was bleibt</h3></div>
+ <div class="card"><div class="stack-s" style="font-size:15px">
+  ${["Pflegebesuche nach Plan","Medikamentenplan","Rufbereitschaft rund um die Uhr","Unterlagen und Rechnungen","Schwarzes Brett"]
+   .map(x=>'<div style="display:flex;gap:9px;align-items:center">'+sign("ok")+'<span>'+x+'</span></div>').join("")}</div></div>
+ <p class="sub" style="margin-top:12px">Zum 30.09.2026 — es gilt eine Frist von 14 Tagen zum Monatsende. Bis dahin läuft Aktiv weiter.</p>
+ <button class="btn mt" id="doDown">Abstufung beauftragen</button>
+ <button class="btn btn-2 mt" data-close>Erst mit jemandem sprechen</button>`);
+ $("#doDown").onclick=()=>{S.abstufung=true;closeSheet();go("mitglied");toast("Abstufung zum 30.09. beauftragt — bis dahin umkehrbar.",5000);};
+ sheet.querySelector("[data-close]").onclick=closeSheet;}
+
+/* ---------- Werkzeuge ---------- */
+$("#pHild").onclick=()=>{setP("h");};
+$("#pMark").onclick=()=>{setP("m");};
+const tb=$("#themeBtn");
+(function(){const m=matchMedia("(prefers-color-scheme: dark)").matches;
+ document.documentElement.setAttribute("data-theme",m?"dark":"light");tb.setAttribute("aria-pressed",String(m));})();
+tb.onclick=()=>{const d=document.documentElement.getAttribute("data-theme")==="dark";
+ document.documentElement.setAttribute("data-theme",d?"light":"dark");tb.setAttribute("aria-pressed",String(!d));};
+setP("h",true);go("heute");
+})();
 </script>
+<!-- Fiktiv-Leiste und Planspiel-Menue wie auf allen anderen Seiten.
+     Der Prototyp zeigt erfundene Personen mit Medikations- und
+     Wunddaten; ohne diesen Hinweis stand er als einzige Seite der
+     Auslieferung ohne Kennzeichnung da. -->
+<script src="/lz-notes.js" defer></script>
 </body>
 </html>

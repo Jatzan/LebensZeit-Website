@@ -669,7 +669,42 @@
 
     { id: "n-personas-set-praesentation", page: "praesentation", selector: "main", status: "offen",
       title: "Personas-Set in der Präsentation: Set 1 gegen Set 2 entscheiden",
-      text: "Die Folien 13 bis 15 tragen unverändert Set 1 aus dem Investorpitch: Elisabeth Brinkmann (78, PG 2, Rüthen) und Sabine Koch (52, Erwitte). Maßgeblich ist inzwischen Set 2 — Hildegard Stemmer und Markus Dörre aus dem Personas-Handout, verwendet im Kundenportal, im Cockpit und in Baustein 3. Umbenannt wurde in der Präsentation bewusst nichts, weil Folie 15 (Iterationsdokumentation V1 bis V3) genau die Entstehung von Brinkmann und Koch belegt und der Pflichtnachweis für Baustein 3 daran hängt. Auf der Folie als offener Punkt gekennzeichnet. Entscheidung: Set 1 als historischen Sprint-1-Stand kennzeichnen oder die drei Folien auf Set 2 umstellen und den Pflichtnachweis neu formulieren." }
+      text: "Die Folien 13 bis 15 tragen unverändert Set 1 aus dem Investorpitch: Elisabeth Brinkmann (78, PG 2, Rüthen) und Sabine Koch (52, Erwitte). Maßgeblich ist inzwischen Set 2 — Hildegard Stemmer und Markus Dörre aus dem Personas-Handout, verwendet im Kundenportal, im Cockpit und in Baustein 3. Umbenannt wurde in der Präsentation bewusst nichts, weil Folie 15 (Iterationsdokumentation V1 bis V3) genau die Entstehung von Brinkmann und Koch belegt und der Pflichtnachweis für Baustein 3 daran hängt. Auf der Folie als offener Punkt gekennzeichnet. Entscheidung: Set 1 als historischen Sprint-1-Stand kennzeichnen oder die drei Folien auf Set 2 umstellen und den Pflichtnachweis neu formulieren." },
+
+    { id: "n-done-vorschau-file-protokoll", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Vorschaudateien luden /lz-tokens.css und /lz-notes.js nicht unter file://",
+      text: "BEHOBEN 19.08.2026. vorschau_karriere_konzept.html band beides wurzelrelativ ein (/lz-tokens.css, /lz-notes.js) — das funktioniert nur, wenn die Seite ueber einen Webserver ausgeliefert wird. Josh oeffnet Vorschaudateien aber per Doppelklick, also unter file://; dort loesen wurzelrelative Pfade nicht auf, und die Seite blieb ungestaltet (kein Umgebungs-Grün, keine Serifenschrift, kein Fiktiv-Balken). Beide Dateien jetzt vollstaendig inline eingebettet (Tokens als <style>, Notizen-Skript als <script>) statt verlinkt. Unter file:// nachgemessen: Flaeche Weiss (env-intern), Ueberschriftfarbe #2C3D27, Logo-Mint rgb(168,201,160), Fiktiv-Balken erzeugt — alles identisch zum servergebundenen Aufruf. Regel fuer alle kuenftigen vorschau_*.html: immer inline bauen, nie auf /lz-tokens.css oder /lz-notes.js verlinken. Ausgelieferte Seiten im Repo bleiben beim externen Link, dort liefert der Webserver korrekt aus." },
+
+    { id: "n-done-apps-eingebaut", page: "allgemein", selector: "main", status: "auszubauen", done: true,
+      title: "Kunden-App ersetzt, Mitarbeiter-App neu — beide als eigene Seiten",
+      text: "BEHOBEN 22.08.2026. kunden-app.html traegt jetzt den neuen Prototypen \"LebensZeit Zuhause\", neu dazu kommt mitarbeiter-app.html \"LebensZeit Team\". Die alte Fassung (Portal-Optik, Jost auf Creme-warm) ist als kunden-app_ALT-portal-optik_2026-08-22.html ausserhalb des Repos gesichert. Beide Dateien kamen als reine Fragmente: ohne <!DOCTYPE>, ohne <html lang>, ohne <head>/<body> und ohne Viewport-Meta. Gerade das Viewport-Meta fehlte bei zwei Prototypen, die ein Telefon nachbilden — ohne es rendert ein Telefon mit rund 980px Layoutbreite und die Geraetehuelle sitzt falsch. Ergaenzt: Dokumentgeruest, lang=de, Viewport, robots noindex, Favicon-Paar wie index.html (der zuerst gesetzte Verweis auf /favicon.svg war falsch, diese Datei gibt es nicht — nur favicon.ico plus data-URI). Die eigene Gestaltung der Prototypen (Atkinson Hyperlegible, Literata, IBM Plex Mono, eigener Hell/Dunkel-Satz) ist bewusst unangetastet, dieselbe Ueberlegung wie bei app-demo.html: zwei Tokensysteme im selben Dokument ueberschreiben sich. Nachgemessen: 13 bzw. 12 Screens durchgeklickt, keine JS-Fehler, keine Ueberbreite bei 390px." },
+
+    { id: "n-done-apps-rueckweg-logo", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Rueckweg ins Kundenportal und verlinktes Logo in beiden Apps",
+      text: "BEHOBEN 22.08.2026. Beide Prototypen waren Einbahnstrassen: wer ueber die Anmeldung im Kundenportal hineinsprang, kam nur mit der Zurueck-Taste des Browsers heraus. Jetzt fuehrt eine Pille \"Zum Kundenportal\" in der Werkzeugzeile zurueck — bewusst auf /kundenportal und nicht auf history.back(), weil der Prototyp laut E-020 ausschliesslich von dort aus erreichbar ist und ein direkter Aufruf sonst ins Leere zurueckspringt. Das Markenzeichen im Rail ist jetzt ein <a> auf die Startseite, mit aria-label und Hover; Marke, Groesse und Farbe unveraendert. Die Marke der Prototypen ist dieselbe Emblemfamilie wie das Projektlogo (Kreis, fuenf Punkte auf den Pentagon-Ecken, Mittelpunkt), deshalb wurde sie nicht ausgetauscht." },
+
+    { id: "n-done-tick-ohne-tokens", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Fiktiv-Leiste war ohne lz-tokens.css unformatiert",
+      text: "BEHOBEN 22.08.2026. Allgemeiner Fehler, nicht auf die neuen Seiten begrenzt. Die Regeln fuer .lz-tick und .lz-tick-track standen ausschliesslich in lz-tokens.css, nicht in injectBarCSS() von lz-notes.js — obwohl der Kommentar dort ausdruecklich sagt, die Regeln stuenden hier, weil neun Seiten die Tokens nicht einbinden. Solange jede Seite die Tokens bindet, faellt es nicht auf. Die beiden App-Prototypen binden sie bewusst nicht, und dort brach der achtfach wiederholte Balkentext um: ohne white-space:nowrap und ohne --fs-label wurde --tick-h am Desktop 101px und bei 390px Breite 275px statt der ueblichen 38px. Jede Flaeche, die --tick-h liest, waere entsprechend weit nach unten gerutscht. injectBarCSS() ergaenzt die Regeln jetzt als Rueckfall, und zwar nur wenn --fs-label leer ist — das Token gibt es nur in lz-tokens.css. Nachgemessen: beide neuen Seiten 38px mit Rueckfall, kundenportal und notizen unveraendert 40 bzw. 39px ohne Rueckfall. Die 45 bestehenden Seiten sind nicht betroffen." },
+
+    { id: "n-done-apps-namensraum", page: "allgemein", selector: "main", status: "offen", done: true,
+      title: "Vier Namenskonflikte in den neuen Prototypen bereinigt",
+      text: "BEHOBEN 22.08.2026. Die gelieferten Dateien fuehrten Personen, die dem Kanon widersprechen. Erstens Sandra Meier als Bezugspflegekraft (10x bzw. 5x): das Kundenportal nennt fuer dieselbe Klientin Sandra Koehler, die Tourdaten des Cockpits kennen Koehler, und n-app-namensraum hatte Meier schon als Fremdname des alten Prototyps markiert — Portal und die App dahinter haetten dieselbe Person auf benachbarten Bildschirmen verschieden benannt. Umgestellt auf Sandra Koehler, Initialen SM auf SK. Zweitens Elisabeth Brinkmann als Tourstopp: das ist Persona-Set 1 und steht ausdruecklich auf der Nicht-verwenden-Liste des Kanons (E-021). Ersetzt durch Renate Rasche, Am Stadtwall 38 — eine echte Klientin des Cockpit-Bestands in Ruethen mit demselben Pflegegrad 2. Drittens Marlene Vossenkuhl (9x): Namensraum des alten app-demo, ersetzt durch Irmgard Ruether, Hellweg 15 in Erwitte, ebenfalls Pflegegrad 2 aus dem Bestand. Viertens Hildegards Adresse: die App nannte \"Zum Kirschbaum 3\", Cockpit und Portal nennen \"Am Moehnesee 10\" — angeglichen, der Ortsteil Ruethen-Meiste aus dem Personas-Handout bleibt. Nicht angefasst: Heinrich Weber, Wilhelm Bathe und Elfriede Koch stehen nicht im 180er-Bestand, verstossen aber gegen keine Festlegung." },
+
+    { id: "n-apps-iterationsstufen-offen", page: "sprints", selector: ".bboard tbody tr:nth-child(4)", status: "offen",
+      title: "Beide neuen Apps bezeichnen sich als V1",
+      text: "GEFUNDEN 22.08.2026. \"LebensZeit Zuhause\" und \"LebensZeit Team\" tragen im Rail beide \"Prototyp V1\", obwohl LebensZeit OS (/app) der frueher entstandene Stand ist. Damit gibt es drei lauffaehige Staende und zwei davon behaupten dieselbe Stufe. Baustein 4 verlangt drei dokumentierte Iterationsstufen; die Zuordnung ist der Pflichtnachweis und keine Formsache. Nicht selbst entschieden, weil die Reihenfolge eine inhaltliche Festlegung ist — moeglich waere V1 = LebensZeit OS, V2 = Zuhause, V3 = Team, oder eine Trennung nach Zielgruppe statt nach Zeit. Die Zeile im Baustein-Board benennt den offenen Punkt jetzt ausdruecklich, statt weiter nur auf /app zu verweisen." },
+
+    { id: "n-mitarbeiterapp-hinter-kundenlogin", page: "kundenportal", selector: "main", status: "auszubauen",
+      title: "Mitarbeiter-App liegt hinter der Kundenanmeldung",
+      text: "GEFUNDEN 22.08.2026. Eine Pflegekraft meldet sich fachlich nicht ueber ein Kundenkonto an. Der Zugang liegt trotzdem dort, weil diese Maske im Planspiel der eine Einstieg in alle Prototypen ist — dieselbe Ueberlegung wie bei der Kunden-App (E-020). Abgemildert: die Auswahlgruppe heisst jetzt \"Apps · Prototypen\" statt \"Kunden-App\", die Kennung lautet s.koehler@lebenszeit-intern.beispiel, und der Hinweis sagt ausdruecklich \"Kein Kundenzugang\". Sauber waere eine eigene Mitarbeiteranmeldung, etwa neben der Cockpit-Anmeldung, die schon eine interne Rollenwahl hat. Vor dem Pitch entscheiden, ob das gebaut wird oder ob der Umweg als Planspiel-Vereinfachung stehenbleibt." },
+
+    { id: "n-apps-eigenes-tokensystem", page: "allgemein", selector: "main", status: "auszubauen",
+      title: "Die beiden Prototypen fuehren ein zweites Gestaltungssystem",
+      text: "GEFUNDEN 22.08.2026. Beide Dateien bringen eigene Tokens und eine eigene Schriftfamilie mit: Atkinson Hyperlegible als Grundschrift, Literata fuer Serifen, IBM Plex Mono, dazu ein eigener Hell/Dunkel-Satz. Das Websystem verwendet Jost und Cormorant Garamond, und die Wortmarke gehoert laut CD in Georgia oder Times New Roman — hier steht sie in Literata. Unangetastet gelassen, weil derselbe Fall bei app-demo.html schon entschieden wurde: zwei Tokensysteme im selben Dokument ueberschreiben sich, sechs Namen sind doppelt belegt. Anders als app-demo liegen diese beiden aber nicht im Rahmen einer Hostseite, sondern sind selbst Seiten der Auslieferung — die Abweichung ist damit direkt sichtbar. Entscheidung noetig: als bewusste Plattformabweichung festhalten (wie bei app-demo) oder die Rail-Chrome auf das Websystem umstellen und nur den Telefoninhalt eigenstaendig lassen." },
+    { id: "n-sachleistung-2024er-werte", page: "allgemein", selector: "main", status: "offen",
+      title: "Sachleistungsbeträge stehen auf dem Stand von 2024",
+      text: "GEFUNDEN 20.08.2026 beim Confluence-Abgleich. Nachtrag 22.08.: der Fehler sitzt in cockpit.html als Tabelle DB.caps = {2:761, 3:1432, 4:1778, 5:2200} — alle vier Stufen sind der Stand 2024. Kanon nennt 796 / 1.497 / 1.859 / 2.299. Cockpit, Kundenportal und Kunden-App rechnen mit 761 EUR Sachleistungsanspruch fuer Pflegegrad 2. Das ist der Betrag von 2024. Seit dem 01.01.2025 sind es 796 EUR, und dabei bleibt es 2026 — gegen zwei unabhaengige Quellen geprueft. Dieselbe Fehlerklasse steckt im PG-3-Wert 1.432 EUR, ebenfalls 2024; der geltende Betrag ist noch zu belegen. Wichtig zur Abgrenzung: das ist NICHT die Pflegegrad-Verwechslung von Hildegard Stemmer (n-persona-alter, behoben 13.08.) — der Pflegegrad stimmt jetzt, nur die dahinterliegende Betragstabelle ist veraltet. Die Zahl ist deshalb heikel, weil daraus der Eigenanteil folgt und der laut Designgrundlage der emotional wichtigste Wert der Zielgruppe ist: ein zu niedriger Anspruch erzeugt einen zu hohen Eigenanteil. Vor der Korrektur klaeren, welches Jahr das Planspiel abbildet — bei durchgehend 2026 muessen alle Betragsstufen mit, nicht nur PG 2. Im Kanon als offener Zahlenanker eingetragen." }
   ];
 
   /* ---------- 2. Status-Metadaten ---------- */
@@ -819,6 +854,49 @@
       ".fiktiv-menu a{display:block;color:var(--cream, #F5F0E8);background:rgba(168,201,160,.10);border:1px solid rgba(168,201,160,.22);border-radius:30px;padding:12px 18px;font-size:0.94rem;letter-spacing:.3px;text-decoration:none;transition:background .12s,transform .12s;}" +
       ".fiktiv-menu a:hover{background:var(--green, #4A6741);border-color:var(--green, #4A6741);transform:translateX(2px);color:#fff;}" +
       "@keyframes lzMenuIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}";
+
+    /* ---- Rueckfall fuer .lz-tick, falls lz-tokens.css nicht gebunden ist ----
+       Die Regeln fuer .lz-tick und .lz-tick-track standen bisher AUSSCHLIESSLICH
+       in lz-tokens.css. Solange jede Seite die Tokens einbindet, faellt das nicht
+       auf. Eine Seite, die nur lz-notes.js laedt, bekam dagegen eine unformatierte
+       Leiste: ohne white-space:nowrap bricht der achtfach wiederholte Text um,
+       ohne --fs-label erbt er die Seitenschrift. Nachgemessen auf den beiden
+       App-Prototypen: --tick-h wurde 101px am Desktop und 275px auf 390px Breite
+       statt der ueblichen 38px, und jede Flaeche, die --tick-h liest, rutschte
+       entsprechend weit nach unten.
+       Erkennung ueber --fs-label: das Token gibt es nur in lz-tokens.css. Ist es
+       leer, fehlen die Tokens und der Rueckfall wird ergaenzt. Auf den Seiten mit
+       Tokens wird nichts eingefuegt — die 45 bestehenden Seiten sind unberuehrt,
+       ihre Leiste kommt weiterhin aus lz-tokens.css. */
+    var hatTokens = "";
+    try {
+      hatTokens = getComputedStyle(document.documentElement)
+                    .getPropertyValue("--fs-label").trim();
+    } catch (e) { hatTokens = ""; }
+
+    if (!hatTokens) {
+      css += "" +
+        "body>.fiktiv-bar .lz-tick{position:relative;overflow:hidden;" +
+          "background:#8C3A2A;color:#F5F0E8;border-bottom:1px solid rgba(245,240,232,.28);}" +
+        "body>.fiktiv-bar .lz-tick-track{display:flex;gap:3.5rem;white-space:nowrap;" +
+          "padding:.55rem 0;width:max-content;font-size:0.8rem;letter-spacing:.16em;" +
+          "text-transform:uppercase;font-weight:600;will-change:transform;" +
+          "animation:lz-tick var(--tick-dur, 260s) linear infinite;}" +
+        "body>.fiktiv-bar .lz-tick:hover .lz-tick-track," +
+        "body>.fiktiv-bar .lz-tick:focus-within .lz-tick-track," +
+        "body>.fiktiv-bar .lz-tick.is-paused .lz-tick-track{animation-play-state:paused;}" +
+        "body>.fiktiv-bar .lz-tick a{color:#E2D9C8;text-decoration:underline;text-underline-offset:3px;}" +
+        "body>.fiktiv-bar .lz-tick-pause{position:absolute;right:.6rem;top:50%;" +
+          "transform:translateY(-50%);background:#8C3A2A;border:1px solid rgba(245,240,232,.5);" +
+          "color:#F5F0E8;font-size:0.8rem;letter-spacing:.1em;text-transform:uppercase;" +
+          "padding:.2rem .75rem;border-radius:999px;min-height:2.25rem;line-height:1;" +
+          "box-shadow:-10px 0 10px 4px #8C3A2A;}" +
+        "@keyframes lz-tick{from{transform:translate3d(0,0,0);}" +
+          "to{transform:translate3d(calc(-1 * var(--tick-shift, 50%)),0,0);}}" +
+        "@media (prefers-reduced-motion:reduce){" +
+          "body>.fiktiv-bar .lz-tick-track{animation:none;transform:none;}}";
+    }
+
     var el = document.createElement("style"); el.id = "lz-bar-css"; el.textContent = css;
     document.head.appendChild(el);
   }
