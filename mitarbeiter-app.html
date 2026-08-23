@@ -290,6 +290,70 @@ a.tool.zurueck{border-color:var(--lz-300);color:var(--ink);font-weight:700}
 a.tool.zurueck:hover{background:var(--accent);color:var(--on-accent);border-color:transparent}
 a.tool.zurueck svg{width:14px;height:14px;flex:none}
 
+/* 4 · Buehne: das Geraet soll als Geraet lesbar sein ─────────────────
+   Vorher sass die Huelle direkt auf der Seitenflaeche, und ihre Hoehe kam
+   aus min(854px, 100vh - 120px). Damit schrumpfte nicht die Darstellung,
+   sondern das Geraet selbst: die Flexspalte im Inneren rechnete mit der
+   verkleinerten Hoehe, die Reiterleiste rutschte hoch, und wie gross das
+   Telefon eigentlich ist, war nicht mehr erkennbar.
+   Jetzt steht die Huelle fest auf 393x852 und wird als Ganzes skaliert.
+   Das Innere rechnet immer mit den echten Geraetemassen, nur die Anzeige
+   wird kleiner — und der Faktor steht daneben. */
+.buehne{position:relative;display:flex;flex-direction:column;align-items:center;gap:13px;
+  width:100%;padding:18px clamp(12px,2.2vw,26px) 24px;border-radius:30px;
+  background:color-mix(in srgb, var(--lz) 9%, var(--surface-2));
+  border:1px solid color-mix(in srgb, var(--lz) 20%, transparent);
+  box-shadow:inset 0 0 70px -34px rgba(20,36,26,.45);
+  height:min(968px, calc(100vh - 132px - var(--tick-h, 2.375rem)));
+  min-height:520px;overflow:hidden}
+
+.buehne-kopf{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
+  flex:none;font-size:11.5px;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line);font-variant-numeric:tabular-nums;
+  white-space:nowrap}
+.chip b{color:var(--ink);font-weight:700}
+/* Der Fiktiv-Hinweis steht bewusst HIER und nicht nur in der Leiste oben:
+   im Vollbild rendert der Browser ausschliesslich die Buehne, die Leiste ist
+   dann weg. Ohne diesen Chip waere der Prototyp im Vollbild ungekennzeichnet. */
+.chip.fiktiv{background:var(--urgent-t);border-color:color-mix(in srgb,var(--urgent) 34%,transparent);
+  color:var(--urgent);font-weight:700}
+
+/* Platzhalter in der Groesse der SKALIERTEN Huelle. transform veraendert den
+   Textfluss nicht — ohne diesen Kasten wuerde die Buehne immer fuer 852px
+   Hoehe Platz halten, auch wenn nur 600px zu sehen sind. */
+.phone-fit{position:relative;flex:none;
+  width:calc(393px * var(--scale, 1));height:calc(852px * var(--scale, 1))}
+.phone-fit>.phone{position:absolute;top:0;left:0;width:393px;height:852px;
+  min-height:0;max-width:none;transform:scale(var(--scale, 1));transform-origin:top left}
+
+/* 5 · Vollbild ───────────────────────────────────────────────────────
+   Zwei Wege, weil die Fullscreen-API auf einzelnen Elementen nicht ueberall
+   verfuegbar ist (iOS Safari). Erst der echte Vollbildmodus, sonst eine
+   fixierte Flaeche als Rueckfall. Beide landen in derselben Skalenrechnung. */
+.buehne:fullscreen,
+body.app-vollbild .buehne{border-radius:0;border:0;padding:14px;
+  height:100vh;height:100dvh;width:100vw;max-height:none}
+body.app-vollbild .buehne{position:fixed;inset:0;z-index:9000}
+body.app-vollbild{overflow:hidden}
+.buehne:fullscreen{background:color-mix(in srgb, var(--lz) 12%, var(--surface-2))}
+
+.fsx{display:none;align-items:center;gap:7px;padding:4px 11px;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--lz) 40%,transparent);background:var(--surface);
+  font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap}
+.fsx:hover{background:var(--accent);color:var(--on-accent);border-color:transparent}
+.fsx kbd{font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:4px;
+  background:var(--tint);border:1px solid var(--line)}
+.buehne:fullscreen .fsx,
+body.app-vollbild .fsx{display:inline-flex}
+
+@media (prefers-reduced-motion:reduce){.phone-fit>.phone{transition:none}}
+@media (max-width:700px){
+  .buehne{height:auto;min-height:0;padding:14px 10px 18px;border-radius:22px}
+}
+
+
+
 </style>
 </head>
 <body>
@@ -304,7 +368,7 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
       </svg>
       <div>
         <div class="brand-name">LebensZeit Team</div>
-        <div class="brand-sub">Mitarbeiter-App · Prototyp V1</div>
+        <div class="brand-sub">Mitarbeiter-App · Prototyp V3</div>
       </div>
     </a>
     <p class="rail-lede">Die Tour einer Pflegekraft von der Anmeldung bis zum Feierabend — mit <b>gezeichneter Tourkarte ohne Kartendienst</b>, Medikamentengabe, Wunddoku, Dienstplan und Vertretungsantrag.</p>
@@ -313,6 +377,7 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
            (E-020), deshalb fuehrt der Weg dorthin zurueck und nicht in die
            Seitengeschichte des Browsers. -->
       <a class="tool zurueck" href="/kundenportal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Zum Kundenportal</a>
+      <button class="tool" id="fsBtn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;flex:none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M16 21h3a2 2 0 002-2v-3M8 21H5a2 2 0 01-2-2v-3"/></svg><span class="fs-t">Vollbild</span></button>
       <button class="tool" id="themeBtn" aria-pressed="false">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 010 18" fill="currentColor" stroke="none"/></svg>
         Darstellung
@@ -346,7 +411,15 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
   </aside>
 
   <main class="device">
-    <div class="phone">
+    <div class="buehne" id="buehne">
+      <div class="buehne-kopf">
+        <span class="chip fiktiv">Fiktives Schulungsprojekt</span>
+        <span class="chip"><b>393 × 852</b> pt · iPhone-Format</span>
+        <span class="chip">Anzeige <b id="skalaWert">100 %</b></span>
+        <button class="fsx" id="fsExit" type="button" hidden>Vollbild verlassen <kbd>Esc</kbd></button>
+      </div>
+      <div class="phone-fit" id="phoneFit">
+        <div class="phone">
       <div class="sbar"><div class="notch"></div><em id="clock">10:19</em>
         <div class="sig" id="sig"><svg width="16" height="12" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><rect x="0" y="12" width="4" height="6" rx="1"/><rect x="6" y="8" width="4" height="10" rx="1"/><rect x="12" y="4" width="4" height="14" rx="1"/><rect x="18" y="0" width="4" height="18" rx="1" opacity=".35"/></svg>
         <svg width="22" height="12" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1" y="1" width="20" height="12" rx="3.5"/><rect x="3" y="3" width="14" height="8" rx="2" fill="currentColor" stroke="none"/><path d="M23.5 5v4" stroke-linecap="round"/></svg></div>
@@ -356,6 +429,8 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
       <nav class="tabbar" id="tabs" aria-label="Bereiche"></nav>
       <div class="home"></div>
       <div class="sheet-bg" id="sheetbg"><div class="sheet" id="sheet"></div></div>
+        </div>
+      </div>
     </div>
     <p class="caption" id="cap"><b>Dienst beginnen.</b> Sandra meldet sich an, bevor sie ins Auto steigt — die Tour liegt bereits offline auf dem Gerät.</p>
   </main>
@@ -390,18 +465,18 @@ const S={
  aufgaben:{augen:false,rr:false,meds:false,trink:false},
  medsGiven:{augen:false}, wundeFoto:false, dokuOffen:4, msgQuittiert:false, antragStep:1, antragArt:"tausch",
  stops:[
-  {n:1,zeit:"07:15",name:"Heinrich Weber",ort:"Anröchte, Am Wieskamp 6",pg:1,auf:"Grundpflege, Kompressionsstrümpfe",tag:"Sturzrisiko",st:"done",fin:"abgeschlossen 07:42",km:"8,2 km"},
+  {n:1,zeit:"07:15",name:"Friedrich Aldegarmann",ort:"Anröchte, Am Haarstrang 13",pg:2,auf:"Grundpflege, Kompressionsstrümpfe",tag:"Sturzrisiko",st:"done",fin:"abgeschlossen 07:42",km:"8,2 km"},
   {n:2,zeit:"08:05",name:"Hildegard Stemmer",ort:"Rüthen-Meiste, Am Möhnesee 10",pg:2,auf:"Medikamentenplan prüfen, Frühstück reichen",tag:"kogn. Verschlechterung",st:"done",fin:"abgeschlossen 08:47",km:"11,4 km"},
   {n:3,zeit:"09:15",name:"Renate Rasche",ort:"Rüthen, Am Stadtwall 38",pg:2,auf:"Haushalt, Begleitung Hausarzt",tag:"Vertretung für Katrin Lohmann",st:"done",fin:"abgeschlossen 09:52",km:"6,1 km"},
   {n:4,zeit:"10:30",name:"Irmgard Rüther",ort:"Erwitte, Hellweg 15",pg:2,auf:"Augentropfen, Blutdruck, Medikamente",tag:"Penicillin-Allergie",st:"now",fin:"noch 6,8 km · 11 Min.",km:"17,9 km"},
-  {n:5,zeit:"11:35",name:"Elfriede Koch",ort:"Bad Sassendorf, Am Kurpark 9",pg:3,auf:"Insulin, Medikamente stellen, Verbandwechsel",tag:"Wunddoku fällig",st:"open",fin:"geplant",km:"12,3 km"},
-  {n:6,zeit:"12:40",name:"Wilhelm Bathe",ort:"Lippetal-Herzfeld, Am Kirchplatz 2",pg:4,auf:"Transfer mit Lifter, Grundpflege",tag:"Doppelbesetzung mit Elif Yilmaz",st:"open",fin:"geplant",km:"14,6 km"}
+  {n:5,zeit:"11:35",name:"Frieda Schäfermeyer",ort:"Bad Sassendorf, Kurparkallee 60",pg:3,auf:"Insulin, Medikamente stellen, Verbandwechsel",tag:"Wunddoku fällig",st:"open",fin:"geplant",km:"12,3 km"},
+  {n:6,zeit:"12:40",name:"Margarete Rüther",ort:"Lippetal, Auenstraße 11",pg:4,auf:"Transfer mit Lifter, Grundpflege",tag:"Doppelbesetzung mit Elif Yilmaz",st:"open",fin:"geplant",km:"14,6 km"}
  ],
  doku:[
-  {id:"d1",t:"Heinrich Weber · Sturzrisiko-Assessment",s:"fällig seit 14.08. · Anröchte · PG 1",lvl:"urg",btn:"Assessment ausfüllen (6 Fragen)"},
+  {id:"d1",t:"Friedrich Aldegarmann · Sturzrisiko-Assessment",s:"fällig seit 14.08. · Anröchte · PG 1",lvl:"urg",btn:"Assessment ausfüllen (6 Fragen)"},
   {id:"d2",t:"Renate Rasche · Pflegebericht fehlt",s:"heute 09:52 · Rüthen · Vertretung",lvl:"warn",btn:"Bericht schreiben"},
   {id:"d3",t:"Hildegard Stemmer · Vitalwerte fehlen",s:"heute 08:47 · Rüthen-Meiste",lvl:"warn",btn:"Werte nachtragen"},
-  {id:"d4",t:"Elfriede Koch · Wundfoto ohne Bewertung",s:"seit Mo, 17.08.",lvl:"warn",btn:"Beim Besuch 11:35 erledigen"}
+  {id:"d4",t:"Frieda Schäfermeyer · Wundfoto ohne Bewertung",s:"seit Mo, 17.08.",lvl:"warn",btn:"Beim Besuch 11:35 erledigen"}
  ]
 };
 const CAPS={
@@ -717,7 +792,7 @@ ${head("Irmgard Rüther","Medikamentenplan",(g?"0":"1")+" von 3 offen")}
 };
 
 VIEWS.wunde=()=>`
-${head("Elfriede Koch · Bad Sassendorf","Wunddokumentation","Ulcus rechter Fußballen · Wagner-Grad 2 · Wechsel jeden 2. Tag")}
+${head("Frieda Schäfermeyer · Bad Sassendorf","Wunddokumentation","Ulcus rechter Fußballen · Wagner-Grad 2 · Wechsel jeden 2. Tag")}
 <div class="sechead"><h3>Verlauf</h3><span>3 Aufnahmen</span></div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
   ${["12.08.","17.08."].map((d,i)=>'<div class="card" style="padding:0;overflow:hidden">'+
@@ -1032,6 +1107,111 @@ ob.onclick=()=>{S.offline=!S.offline;ob.setAttribute("aria-pressed",String(S.off
 setInterval(()=>{const d=new Date();$("#clock").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");},30000);
 $("#clock").textContent="10:19";
 go("anmeldung");
+})();
+</script>
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   Buehne und Vollbild · JO · 22.08.2026
+   Eigenstaendig gehalten: der Prototyp oben laeuft in seiner eigenen IIFE
+   und wird hier nicht angefasst. Diese Funktion kennt nur die Huelle.
+   ══════════════════════════════════════════════════════════════════════ */
+(function () {
+  "use strict";
+  var GB = 393, GH = 852;          /* echte Geraetemasse in Punkten */
+  var MAX_NORMAL = 1;              /* nie ueber 1:1 — sonst luegt die Massangabe */
+  var MAX_VOLLBILD = 2.4;
+
+  var buehne = document.getElementById("buehne"),
+      kopf   = buehne && buehne.querySelector(".buehne-kopf"),
+      wert   = document.getElementById("skalaWert"),
+      btn    = document.getElementById("fsBtn"),
+      btnT   = btn && btn.querySelector(".fs-t"),
+      exit   = document.getElementById("fsExit");
+  if (!buehne) return;
+
+  function imVollbild() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement) ||
+           document.body.classList.contains("app-vollbild");
+  }
+
+  function passeAn() {
+    var cs = getComputedStyle(buehne),
+        pl = parseFloat(cs.paddingLeft)  || 0, pr = parseFloat(cs.paddingRight)  || 0,
+        pt = parseFloat(cs.paddingTop)   || 0, pb = parseFloat(cs.paddingBottom) || 0,
+        lueckeUndKopf = kopf ? kopf.getBoundingClientRect().height + (parseFloat(cs.rowGap) || 13) : 0,
+        b = buehne.clientWidth  - pl - pr,
+        h = buehne.clientHeight - pt - pb - lueckeUndKopf,
+        max = imVollbild() ? MAX_VOLLBILD : MAX_NORMAL,
+        /* Unter 700px waechst die Buehne mit und die Seite scrollt; die Hoehe
+           ist dort keine Schranke. Sonst blieben auf einem 390px-Geraet 58 %
+           uebrig, obwohl die Breite 93 % zugelassen haette. */
+        schmal = window.innerWidth < 700 && !imVollbild(),
+        s = schmal ? Math.min(b / GB, max) : Math.min(b / GB, h / GH, max);
+
+    if (!isFinite(s) || s <= 0) s = 1;
+    s = Math.round(s * 1000) / 1000;
+    buehne.style.setProperty("--scale", s);
+    if (wert) wert.textContent = Math.round(s * 100) + " %";
+  }
+
+  var wartet = false;
+  function spaeter() {
+    if (wartet) return;
+    wartet = true;
+    requestAnimationFrame(function () { wartet = false; passeAn(); });
+  }
+
+  function nachher() {
+    var v = imVollbild();
+    if (btn)  btn.setAttribute("aria-pressed", String(v));
+    if (btnT) btnT.textContent = v ? "Vollbild beenden" : "Vollbild";
+    if (exit) exit.hidden = !v;
+    passeAn();
+  }
+
+  function ersatzAn()  { document.body.classList.add("app-vollbild");    nachher(); }
+  function ersatzAus() { document.body.classList.remove("app-vollbild"); nachher(); }
+
+  function an() {
+    var f = buehne.requestFullscreen || buehne.webkitRequestFullscreen;
+    if (!f) { ersatzAn(); return; }
+    var p;
+    try { p = f.call(buehne); } catch (e) { ersatzAn(); return; }
+    /* requestFullscreen liefert nicht ueberall ein Promise, und in manchen
+       Umgebungen wird es weder erfuellt noch abgelehnt (nachgewiesen in
+       headless Chromium). Ohne Zeitschranke wirkt der Knopf dort tot.
+       Nach 350 ms wird deshalb geprueft, ob der Vollbildmodus tatsaechlich
+       greift — sonst uebernimmt der Rueckfall. */
+    if (p && p.catch) p.catch(ersatzAn);
+    setTimeout(function () { if (!imVollbild()) ersatzAn(); }, 350);
+  }
+  function aus() {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else ersatzAus();
+  }
+
+  if (btn)  btn.addEventListener("click", function () { imVollbild() ? aus() : an(); });
+  if (exit) exit.addEventListener("click", aus);
+
+  /* Escape beendet den echten Vollbildmodus von selbst — den Rueckfall nicht. */
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.body.classList.contains("app-vollbild")) ersatzAus();
+  });
+
+  document.addEventListener("fullscreenchange", nachher);
+  document.addEventListener("webkitfullscreenchange", nachher);
+  window.addEventListener("resize", spaeter);
+  window.addEventListener("orientationchange", spaeter);
+
+  /* Die Leiste von lz-notes.js entsteht erst nach dem Laden und veraendert
+     --tick-h; ohne Nachmessung bliebe die Buehne einmal zu hoch gerechnet. */
+  if (window.ResizeObserver) new ResizeObserver(spaeter).observe(document.body);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(passeAn);
+  window.addEventListener("load", spaeter);
+  setTimeout(passeAn, 60);
+  setTimeout(passeAn, 400);
+  passeAn();
 })();
 </script>
 <!-- Fiktiv-Leiste und Planspiel-Menue wie auf allen anderen Seiten.

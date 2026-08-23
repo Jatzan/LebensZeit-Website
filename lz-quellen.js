@@ -74,7 +74,7 @@
     { page: "cockpit", sel: '#main[data-mod="kli"] > .panel', idx: 0, wert: "Sachleistungs-Caps je Pflegegrad", kat: "amt", ud: "kennzahlen",
       dok: BD, seite: "6", absch: "D.1 Klientenstruktur nach Pflegegrad", stand: "Sprint 1", guete: "B",
       extern: "SGB XI \u00a736 \u00b7 GKV-Spitzenverband, Leistungsbetr\u00e4ge",
-      hinweis: "PG 2: 761 \u20ac \u00b7 PG 3: 1.432 \u20ac \u00b7 PG 4: 1.778 \u20ac \u00b7 PG 5: 2.200 \u20ac je Monat, \u00d8 Cap 1.281 \u20ac. Gelten laut Markt- und Wettbewerbsanalyse ab Januar 2024; n\u00e4chste Anpassung ist f\u00fcr 2028 vorgesehen (PUEG), die Werte sind im Simulationsjahr 2026 also g\u00fcltig." },
+      hinweis: "PG 2: 796 \u20ac \u00b7 PG 3: 1.497 \u20ac \u00b7 PG 4: 1.859 \u20ac \u00b7 PG 5: 2.299 \u20ac je Monat, \u00d8 Cap 1.335 \u20ac. Rechtsstand seit 01.01.2025, unver\u00e4ndert 2026 (BMG). Fr\u00fcher genannt ab Januar 2024; n\u00e4chste Anpassung ist f\u00fcr 2028 vorgesehen (PUEG), die Werte sind im Simulationsjahr 2026 also g\u00fcltig." },
 
     { page: "cockpit", sel: '#main[data-mod="pers"] > .panel', idx: 1, wert: "56 Personaldatens\u00e4tze", kat: "synth", ud: "team", todo: "cockpit",
       dok: "\u2014 erzeugt f\u00fcr die Simulation", seite: "\u2014", absch: "\u2014", stand: "07.08.2026", guete: "D",
@@ -431,7 +431,7 @@
     { page: "preise", sel: "h1", idx: 0, wert: "Preis- und Eigenanteilsangaben", kat: "basis", ud: "kennzahlen",
       dok: BD, seite: "4", absch: "A.4 Selbstzahler-Stundensatz", stand: "Sprint 1", guete: "A",
       extern: "Sachleistungsbetr\u00e4ge SGB XI \u00a736 / Entlastungsbetrag \u00a745b (Gesetz)",
-      hinweis: "Belegt: 38 \u20ac/Std. Hilfskraft, 52 \u20ac/Std. examinierte Fachkraft; Sachleistungs-Caps je Pflegegrad auf S. 6, Abschnitt D.1 (761 / 1.432 / 1.778 / 2.200 \u20ac). Offen: Eigenanteil-Rechner und die 62 %\u219270 %-Br\u00fccke (Baustein 2).",
+      hinweis: "Belegt: 38 \u20ac/Std. Hilfskraft, 52 \u20ac/Std. examinierte Fachkraft; Sachleistungs-Caps je Pflegegrad auf S. 6, Abschnitt D.1 (796 / 1.497 / 1.859 / 2.299 \u20ac). Offen: Eigenanteil-Rechner und die 62 %\u219270 %-Br\u00fccke (Baustein 2).",
       todo: "preise" },
 
     { page: "prompt-tagebuch", sel: ".sx-log", idx: 0, wert: "Session-Log Sprint 1 (24 Eintraege)", kat: "basis", ud: "ueberblick",
@@ -448,7 +448,7 @@
       hinweis: "Belegt: Grund- und Behandlungspflege als Kernumsatz, Hauswirtschaft und Entlastungsleistungen nach \u00a745b, Beratungsbesuche \u00a737.3. Die Paragrafen selbst sind Gesetzestext." },
     { page: "preise", sel: ".tbl-scroll", idx: 1, wert: "Selbstzahler-Saetze", kat: "basis", ud: "kennzahlen",
       dok: BD, seite: "4", absch: "A.4 Selbstzahler-Stundensatz", stand: "Sprint 1", guete: "A",
-      hinweis: "Belegt: 38 \u20ac/Std. Hilfskraft, 52 \u20ac/Std. examinierte Fachkraft. Sachleistungs-Caps je Pflegegrad auf S. 6, D.1 (761 / 1.432 / 1.778 / 2.200 \u20ac)." },
+      hinweis: "Belegt: 38 \u20ac/Std. Hilfskraft, 52 \u20ac/Std. examinierte Fachkraft. Sachleistungs-Caps je Pflegegrad auf S. 6, D.1 (796 / 1.497 / 1.859 / 2.299 \u20ac)." },
 
     /* --- Planspiel: Sprint-Uebersicht --- */
     { page: "sprints", sel: ".bst", idx: 0, wert: "Baustein 1 \u00b7 Markt- & Wettbewerbsanalyse", kat: "basis", ud: "ueberblick",
