@@ -324,16 +324,20 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
    Jetzt steht die Huelle fest auf 393x852 und wird als Ganzes skaliert.
    Das Innere rechnet immer mit den echten Geraetemassen, nur die Anzeige
    wird kleiner — und der Faktor steht daneben. */
-.buehne{position:relative;display:flex;flex-direction:column;align-items:center;gap:13px;
-  width:100%;padding:18px clamp(12px,2.2vw,26px) 24px;border-radius:30px;
+.buehne{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;
+  width:100%;padding:11px clamp(12px,2.2vw,26px) 14px;border-radius:30px;
   background:color-mix(in srgb, var(--lz) 9%, var(--surface-2));
   border:1px solid color-mix(in srgb, var(--lz) 20%, transparent);
   box-shadow:inset 0 0 70px -34px rgba(20,36,26,.45);
-  height:min(968px, calc(100vh - 132px - var(--tick-h, 2.375rem)));
+  height:min(1010px, calc(100vh - 112px - var(--tick-h, 2.375rem)));
   min-height:520px;overflow:hidden}
 
-.buehne-kopf{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
-  flex:none;font-size:11.5px;color:var(--ink-3)}
+/* Bedienung ueber dem Telefon, Angaben darunter. Getrennt, weil es zwei
+   verschiedene Dinge sind: oben greift man ein, unten liest man ab. */
+.buehne-leiste,.buehne-fuss{display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  justify-content:center;flex:none;font-size:11.5px;color:var(--ink-3)}
+.buehne-leiste{gap:7px}
+.buehne-leiste .tool{font-size:12px;padding:7px 12px}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
   background:var(--surface);border:1px solid var(--line);font-variant-numeric:tabular-nums;
   white-space:nowrap}
@@ -371,6 +375,10 @@ body.app-vollbild{overflow:hidden}
   background:var(--tint);border:1px solid var(--line)}
 .buehne:fullscreen .fsx,
 body.app-vollbild .fsx{display:inline-flex}
+/* Im Vollbild bleiben Bedienleiste und Angaben erreichbar — der
+   Anzeigefaktor ist dort besonders interessant, weil er ueber 100 % geht. */
+.buehne:fullscreen .buehne-leiste,
+body.app-vollbild .buehne-leiste{padding-top:2px}
 
 @media (prefers-reduced-motion:reduce){.phone-fit>.phone{transition:none}}
 @media (max-width:700px){
@@ -403,10 +411,6 @@ body.app-vollbild .fsx{display:inline-flex}
            (E-020), deshalb fuehrt der Weg dorthin zurueck und nicht in die
            Seitengeschichte des Browsers. -->
       <a class="tool zurueck" href="/kundenportal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Zum Kundenportal</a>
-      <button class="tool" id="fsBtn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;flex:none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M16 21h3a2 2 0 002-2v-3M8 21H5a2 2 0 01-2-2v-3"/></svg><span class="fs-t">Vollbild</span></button>
-      <button class="tool" id="pHild" aria-pressed="true">Hildegard</button>
-      <button class="tool" id="pMark" aria-pressed="false">Markus</button>
-      <button class="tool" id="themeBtn" aria-pressed="false">Darstellung</button>
     </div>
 
     <nav class="idx" aria-label="Screens">
@@ -435,10 +439,11 @@ body.app-vollbild .fsx{display:inline-flex}
 
   <main class="device">
     <div class="buehne" id="buehne">
-      <div class="buehne-kopf">
-        <span class="chip fiktiv">Fiktives Schulungsprojekt</span>
-        <span class="chip"><b>393 × 852</b> pt · iPhone-Format</span>
-        <span class="chip">Anzeige <b id="skalaWert">100 %</b></span>
+      <div class="buehne-leiste">
+        <button class="tool" id="fsBtn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;flex:none"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M16 21h3a2 2 0 002-2v-3M8 21H5a2 2 0 01-2-2v-3"/></svg><span class="fs-t">Vollbild</span></button>
+        <button class="tool" id="pHild" aria-pressed="true">Hildegard</button>
+        <button class="tool" id="pMark" aria-pressed="false">Markus</button>
+        <button class="tool" id="themeBtn" aria-pressed="false">Darstellung</button>
         <button class="fsx" id="fsExit" type="button" hidden>Vollbild verlassen <kbd>Esc</kbd></button>
       </div>
       <div class="phone-fit" id="phoneFit">
@@ -453,6 +458,10 @@ body.app-vollbild .fsx{display:inline-flex}
       <div class="home"></div>
       <div class="sheet-bg" id="sheetbg"><div class="sheet" id="sheet"></div></div>
         </div>
+      </div>
+      <div class="buehne-fuss">
+        <span class="chip"><b>393 × 852</b> pt · iPhone-Format</span>
+        <span class="chip">Anzeige <b id="skalaWert">100 %</b></span>
       </div>
     </div>
     <p class="caption" id="cap"></p>
@@ -1071,7 +1080,8 @@ setP("h",true);go("heute");
   var MAX_VOLLBILD = 2.4;
 
   var buehne = document.getElementById("buehne"),
-      kopf   = buehne && buehne.querySelector(".buehne-kopf"),
+      leiste = buehne && buehne.querySelector(".buehne-leiste"),
+      fuss   = buehne && buehne.querySelector(".buehne-fuss"),
       wert   = document.getElementById("skalaWert"),
       btn    = document.getElementById("fsBtn"),
       btnT   = btn && btn.querySelector(".fs-t"),
@@ -1087,9 +1097,14 @@ setP("h",true);go("heute");
     var cs = getComputedStyle(buehne),
         pl = parseFloat(cs.paddingLeft)  || 0, pr = parseFloat(cs.paddingRight)  || 0,
         pt = parseFloat(cs.paddingTop)   || 0, pb = parseFloat(cs.paddingBottom) || 0,
-        lueckeUndKopf = kopf ? kopf.getBoundingClientRect().height + (parseFloat(cs.rowGap) || 13) : 0,
+        luecke = parseFloat(cs.rowGap) || 9,
+        /* Beide Zeilen zaehlen: die Bedienleiste oben und die Angaben unten.
+           Vorher wurde nur der Kopf abgezogen — mit einer Fusszeile waere das
+           Telefon um deren Hoehe zu gross gerechnet und unten angeschnitten. */
+        aussen = (leiste ? leiste.getBoundingClientRect().height + luecke : 0)
+               + (fuss   ? fuss.getBoundingClientRect().height   + luecke : 0),
         b = buehne.clientWidth  - pl - pr,
-        h = buehne.clientHeight - pt - pb - lueckeUndKopf,
+        h = buehne.clientHeight - pt - pb - aussen,
         max = imVollbild() ? MAX_VOLLBILD : MAX_NORMAL,
         /* Unter 700px waechst die Buehne mit und die Seite scrollt; die Hoehe
            ist dort keine Schranke. Sonst blieben auf einem 390px-Geraet 58 %
