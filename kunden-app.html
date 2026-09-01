@@ -351,6 +351,13 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
 /* Platzhalter in der Groesse der SKALIERTEN Huelle. transform veraendert den
    Textfluss nicht — ohne diesen Kasten wuerde die Buehne immer fuer 852px
    Hoehe Platz halten, auch wenn nur 600px zu sehen sind. */
+/* Nur dieser Kasten geht in den Vollbildmodus. Bedienleiste und Angaben
+   liegen ausserhalb und werden dort deshalb nicht mitgerendert — im Vollbild
+   ist die App allein zu sehen. Gleichzeitig ist er die Messflaeche fuer die
+   Skala: er nimmt die Resthoehe, damit die beiden Zeilen nicht mehr einzeln
+   abgezogen werden muessen. */
+.phone-buehne{position:relative;flex:1 1 auto;min-height:0;width:100%;
+  display:grid;place-items:center}
 .phone-fit{position:relative;flex:none;
   width:calc(393px * var(--scale, 1));height:calc(852px * var(--scale, 1))}
 .phone-fit>.phone{position:absolute;top:0;left:0;width:393px;height:852px;
@@ -360,12 +367,11 @@ a.tool.zurueck svg{width:14px;height:14px;flex:none}
    Zwei Wege, weil die Fullscreen-API auf einzelnen Elementen nicht ueberall
    verfuegbar ist (iOS Safari). Erst der echte Vollbildmodus, sonst eine
    fixierte Flaeche als Rueckfall. Beide landen in derselben Skalenrechnung. */
-.buehne:fullscreen,
-body.app-vollbild .buehne{border-radius:0;border:0;padding:14px;
-  height:100vh;height:100dvh;width:100vw;max-height:none}
-body.app-vollbild .buehne{position:fixed;inset:0;z-index:9000}
+.phone-buehne:fullscreen,
+body.app-vollbild .phone-buehne{padding:10px;height:100vh;height:100dvh;width:100vw;
+  background:color-mix(in srgb, var(--lz) 12%, var(--surface-2))}
+body.app-vollbild .phone-buehne{position:fixed;inset:0;z-index:9000}
 body.app-vollbild{overflow:hidden}
-.buehne:fullscreen{background:color-mix(in srgb, var(--lz) 12%, var(--surface-2))}
 
 .fsx{display:none;align-items:center;gap:7px;padding:4px 11px;border-radius:999px;
   border:1px solid color-mix(in srgb,var(--lz) 40%,transparent);background:var(--surface);
@@ -373,12 +379,14 @@ body.app-vollbild{overflow:hidden}
 .fsx:hover{background:var(--accent);color:var(--on-accent);border-color:transparent}
 .fsx kbd{font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:4px;
   background:var(--tint);border:1px solid var(--line)}
-.buehne:fullscreen .fsx,
-body.app-vollbild .fsx{display:inline-flex}
-/* Im Vollbild bleiben Bedienleiste und Angaben erreichbar — der
-   Anzeigefaktor ist dort besonders interessant, weil er ueber 100 % geht. */
-.buehne:fullscreen .buehne-leiste,
-body.app-vollbild .buehne-leiste{padding-top:2px}
+/* Einziges Bedienelement im Vollbild. Ohne es waere der Rueckfallmodus eine
+   Falle, weil dort kein Browser-Escape greift. Bewusst schwach gesetzt und
+   erst beim Ueberfahren voll sichtbar, damit es die App nicht ueberlagert. */
+.phone-buehne:fullscreen .fsx,
+body.app-vollbild .fsx{display:inline-flex;position:absolute;top:12px;right:14px;
+  z-index:10;opacity:.55}
+.phone-buehne:fullscreen .fsx:hover,
+body.app-vollbild .fsx:hover{opacity:1}
 
 @media (prefers-reduced-motion:reduce){.phone-fit>.phone{transition:none}}
 @media (max-width:700px){
@@ -444,9 +452,9 @@ body.app-vollbild .buehne-leiste{padding-top:2px}
         <button class="tool" id="pHild" aria-pressed="true">Hildegard</button>
         <button class="tool" id="pMark" aria-pressed="false">Markus</button>
         <button class="tool" id="themeBtn" aria-pressed="false">Darstellung</button>
-        <button class="fsx" id="fsExit" type="button" hidden>Vollbild verlassen <kbd>Esc</kbd></button>
       </div>
-      <div class="phone-fit" id="phoneFit">
+      <div class="phone-buehne" id="phoneBuehne">
+        <div class="phone-fit" id="phoneFit">
         <div class="phone">
       <div class="sbar"><div class="notch"></div><em id="clock">9:48</em>
         <div class="sig"><svg width="16" height="12" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><rect x="0" y="12" width="4" height="6" rx="1"/><rect x="6" y="8" width="4" height="10" rx="1"/><rect x="12" y="4" width="4" height="14" rx="1"/><rect x="18" y="0" width="4" height="18" rx="1"/></svg>
@@ -457,7 +465,9 @@ body.app-vollbild .buehne-leiste{padding-top:2px}
       <nav class="tabbar" id="tabs" aria-label="Bereiche"></nav>
       <div class="home"></div>
       <div class="sheet-bg" id="sheetbg"><div class="sheet" id="sheet"></div></div>
+          </div>
         </div>
+        <button class="fsx" id="fsExit" type="button" hidden>Vollbild verlassen <kbd>Esc</kbd></button>
       </div>
       <div class="buehne-fuss">
         <span class="chip"><b>393 × 852</b> pt · iPhone-Format</span>
@@ -608,8 +618,7 @@ ${offen?`<div class="card mt" style="border-color:color-mix(in srgb,var(--warn) 
 }
 
 function heuteM(){return `
-<div style="padding-top:6px"><p class="eyebrow">Sonntag, 23. August · 20:15 Uhr</p>
-<p class="sub" style="margin-top:2px">Guten Abend, Markus</p></div>
+${head("Sonntag, 23. August · 20:15 Uhr","Guten Abend, Markus","")}
 <div style="margin:22px 0 6px"><p class="answer">Ihrer Mutter<br>geht es gut.</p>
 <p class="row-s" style="margin-top:9px">Stand: heute 20:04 Uhr</p></div>
 <div class="card mt">
@@ -1080,8 +1089,7 @@ setP("h",true);go("heute");
   var MAX_VOLLBILD = 2.4;
 
   var buehne = document.getElementById("buehne"),
-      leiste = buehne && buehne.querySelector(".buehne-leiste"),
-      fuss   = buehne && buehne.querySelector(".buehne-fuss"),
+      feld   = document.getElementById("phoneBuehne"),
       wert   = document.getElementById("skalaWert"),
       btn    = document.getElementById("fsBtn"),
       btnT   = btn && btn.querySelector(".fs-t"),
@@ -1094,17 +1102,14 @@ setP("h",true);go("heute");
   }
 
   function passeAn() {
-    var cs = getComputedStyle(buehne),
+    /* Gemessen wird das Feld, in dem das Telefon steht — nicht die ganze
+       Buehne. Damit fallen Bedienleiste und Angaben von selbst heraus, statt
+       einzeln abgezogen zu werden, und im Vollbild ist das Feld der Schirm. */
+    var cs = getComputedStyle(feld),
         pl = parseFloat(cs.paddingLeft)  || 0, pr = parseFloat(cs.paddingRight)  || 0,
         pt = parseFloat(cs.paddingTop)   || 0, pb = parseFloat(cs.paddingBottom) || 0,
-        luecke = parseFloat(cs.rowGap) || 9,
-        /* Beide Zeilen zaehlen: die Bedienleiste oben und die Angaben unten.
-           Vorher wurde nur der Kopf abgezogen — mit einer Fusszeile waere das
-           Telefon um deren Hoehe zu gross gerechnet und unten angeschnitten. */
-        aussen = (leiste ? leiste.getBoundingClientRect().height + luecke : 0)
-               + (fuss   ? fuss.getBoundingClientRect().height   + luecke : 0),
-        b = buehne.clientWidth  - pl - pr,
-        h = buehne.clientHeight - pt - pb - aussen,
+        b = feld.clientWidth  - pl - pr,
+        h = feld.clientHeight - pt - pb,
         max = imVollbild() ? MAX_VOLLBILD : MAX_NORMAL,
         /* Unter 700px waechst die Buehne mit und die Seite scrollt; die Hoehe
            ist dort keine Schranke. Sonst blieben auf einem 390px-Geraet 58 %
@@ -1115,6 +1120,7 @@ setP("h",true);go("heute");
     if (!isFinite(s) || s <= 0) s = 1;
     s = Math.round(s * 1000) / 1000;
     buehne.style.setProperty("--scale", s);
+    feld.style.setProperty("--scale", s);
     if (wert) wert.textContent = Math.round(s * 100) + " %";
   }
 
@@ -1137,10 +1143,10 @@ setP("h",true);go("heute");
   function ersatzAus() { document.body.classList.remove("app-vollbild"); nachher(); }
 
   function an() {
-    var f = buehne.requestFullscreen || buehne.webkitRequestFullscreen;
+    var f = feld.requestFullscreen || feld.webkitRequestFullscreen;
     if (!f) { ersatzAn(); return; }
     var p;
-    try { p = f.call(buehne); } catch (e) { ersatzAn(); return; }
+    try { p = f.call(feld); } catch (e) { ersatzAn(); return; }
     /* requestFullscreen liefert nicht ueberall ein Promise, und in manchen
        Umgebungen wird es weder erfuellt noch abgelehnt (nachgewiesen in
        headless Chromium). Ohne Zeitschranke wirkt der Knopf dort tot.
